@@ -1,15 +1,22 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { buildBookmarkIndex } from "../shared/bookmarks.js";
 import { mergeTags } from "../shared/tags.js";
+import { applyLinkCheckResult } from "../shared/link-health.js";
 import {
+  getBookmarkIndex,
   getLinkHealth,
   getManualTags,
   getSettings,
   STORAGE_KEYS,
-  saveBookmarkIndex
+  saveBookmarkIndex,
+  saveLinkHealth
 } from "../shared/storage.js";
 
 const api = getBrowserApi();
+const LINK_HEALTH_ALARM = "bookmark-home-link-health";
+const BATCH_SIZE = 5;
+const TIMEOUT_MS = 8000;
+
 let rebuildInProgress = false;
 let rebuildRequested = false;
 
@@ -60,6 +67,67 @@ function requestRebuild(reason) {
   });
 }
 
+async function checkUrl(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const response = await fetch(url, {
+      method: "HEAD",
+      cache: "no-store",
+      signal: controller.signal
+    });
+    return {
+      ok: response.ok || (response.status >= 300 && response.status < 400),
+      status: response.status,
+      checkedAt: Date.now()
+    };
+  } catch {
+    return {
+      ok: false,
+      status: "network-error",
+      checkedAt: Date.now()
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function pickHealthBatch(bookmarks, linkHealth) {
+  return [...bookmarks]
+    .sort((a, b) => {
+      const aChecked = linkHealth[a.id]?.lastCheckedAt || 0;
+      const bChecked = linkHealth[b.id]?.lastCheckedAt || 0;
+      return aChecked - bChecked;
+    })
+    .slice(0, BATCH_SIZE);
+}
+
+async function runLinkHealthCheck() {
+  const settings = await getSettings(api);
+  if (!settings.linkHealthEnabled) return;
+
+  const [bookmarks, linkHealth] = await Promise.all([getBookmarkIndex(api), getLinkHealth(api)]);
+  const batch = pickHealthBatch(bookmarks, linkHealth);
+
+  for (const bookmark of batch) {
+    const result = await checkUrl(bookmark.url);
+    linkHealth[bookmark.id] = applyLinkCheckResult(linkHealth[bookmark.id], result);
+  }
+
+  await saveLinkHealth(api, linkHealth);
+  requestRebuild("link-health");
+}
+
+async function syncLinkHealthAlarm() {
+  const settings = await getSettings(api);
+  if (!api.alarms) return;
+  if (settings.linkHealthEnabled) {
+    await api.alarms.create(LINK_HEALTH_ALARM, { periodInMinutes: 24 * 60 });
+  } else {
+    await api.alarms.clear(LINK_HEALTH_ALARM);
+  }
+}
+
 function listenToBookmarkChanges() {
   const scheduleRebuild = () => requestRebuild("bookmarks");
 
@@ -73,10 +141,21 @@ function listenToSettingsChanges() {
   api.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local" && changes[STORAGE_KEYS.settings]) {
       requestRebuild("settings");
+      syncLinkHealthAlarm().catch((error) => console.error("Link health alarm sync failed", error));
     }
   });
 }
 
 listenToBookmarkChanges();
 listenToSettingsChanges();
+
+if (api.alarms) {
+  api.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === LINK_HEALTH_ALARM) {
+      runLinkHealthCheck().catch((error) => console.error("Link health check failed", error));
+    }
+  });
+}
+
 requestRebuild("initial");
+syncLinkHealthAlarm().catch((error) => console.error("Link health alarm setup failed", error));
