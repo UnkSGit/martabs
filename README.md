@@ -40,3 +40,13 @@ npm run build:firefox
 1. Run `npm run build:firefox`.
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Load temporary add-on from `dist/firefox/manifest.json`.
+
+## Verification Checklist
+
+- `npm test`
+- `npm run build`
+- Chrome unpacked extension from `dist/chrome`
+- Firefox temporary add-on from `dist/firefox/manifest.json`
+
+The New Tab page must remain usable even if optional link checks are disabled or lack host permissions.
+
