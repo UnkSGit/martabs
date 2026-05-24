@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configurar Bookmark Home</title>
+    <link rel="stylesheet" href="./setup.css">
+  </head>
+  <body>
+    <main class="setup-shell">
+      <section class="setup-panel">
+        <h1>Elegir carpetas</h1>
+        <p>Selecciona las carpetas de marcadores que quieres ver en la nueva pestana.</p>
+        <div id="folder-list" class="folder-list" aria-live="polite"></div>
+        <fieldset>
+          <legend>Funciones</legend>
+          <label><input id="automatic-tags" type="checkbox" checked> Etiquetas automaticas</label>
+          <label><input id="manual-tags" type="checkbox" checked> Etiquetas manuales</label>
+          <label><input id="link-health" type="checkbox"> Revisar enlaces caidos en segundo plano</label>
+        </fieldset>
+        <div class="actions">
+          <button id="save" type="button">Guardar configuracion</button>
+          <p id="status" role="status"></p>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./setup.js"></script>
+  </body>
+</html>

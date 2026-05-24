@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Home",
+  "version": "0.1.0",
+  "description": "A fast local New Tab dashboard for your selected bookmark folders.",
+  "permissions": ["bookmarks", "storage"],
+  "optional_permissions": ["alarms"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "chrome_url_overrides": {
+    "newtab": "newtab/newtab.html"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "options_page": "setup/setup.html",
+  "action": {
+    "default_title": "Bookmark Home"
+  }
+}
