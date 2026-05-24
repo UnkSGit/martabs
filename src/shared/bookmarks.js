@@ -33,10 +33,11 @@ function walkFolders(nodes, path = [], output = []) {
   return output;
 }
 
-function walkBookmarks(nodes, selectedFolderIds, path = [], insideSelected = false, output = []) {
+function walkBookmarks(nodes, selectedFolderIds, path = [], parentFolderId = null, output = []) {
   for (const node of nodes) {
     const nextPath = node.title && isFolder(node) ? [...path, node.title] : path;
-    const selected = insideSelected || selectedFolderIds.includes(node.id);
+    const isNodeFolder = isFolder(node);
+    const selected = !isNodeFolder && selectedFolderIds.includes(parentFolderId);
 
     if (isBookmark(node) && selected) {
       const bookmark = {
@@ -57,7 +58,7 @@ function walkBookmarks(nodes, selectedFolderIds, path = [], insideSelected = fal
     }
 
     if (node.children) {
-      walkBookmarks(node.children, selectedFolderIds, nextPath, selected, output);
+      walkBookmarks(node.children, selectedFolderIds, nextPath, isNodeFolder ? node.id : parentFolderId, output);
     }
   }
   return output;

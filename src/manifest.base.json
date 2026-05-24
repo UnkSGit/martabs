@@ -3,7 +3,7 @@
   "name": "Bookmark Home",
   "version": "0.1.0",
   "description": "A fast local New Tab dashboard for your selected bookmark folders.",
-  "permissions": ["bookmarks", "storage"],
+  "permissions": ["bookmarks", "storage", "favicon"],
   "optional_permissions": ["alarms"],
   "optional_host_permissions": ["http://*/*", "https://*/*"],
   "chrome_url_overrides": {

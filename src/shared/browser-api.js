@@ -29,6 +29,7 @@ export function getBrowserApi(globalScope = globalThis) {
       onRemoved: api.bookmarks.onRemoved
     },
     runtime: {
+      id: api.runtime?.id || "",
       openOptionsPage: api.runtime.openOptionsPage
         ? wrap(api.runtime.openOptionsPage, api.runtime)
         : async () => {}

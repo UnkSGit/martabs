@@ -44,7 +44,41 @@ async function rebuildIndex() {
   });
 
   await saveBookmarkIndex(api, index);
+
+  const unchecked = index.filter((bookmark) => bookmark.linkHealth === null);
+  if (unchecked.length > 0) {
+    setTimeout(() => {
+      runInitialHealthCheck(unchecked).catch((error) =>
+        console.error("Failed to run initial health checks", error)
+      );
+    }, 100);
+  }
+
   return index;
+}
+
+async function runInitialHealthCheck(unchecked) {
+  const limit = 10;
+  const list = [...unchecked];
+  const freshHealth = await getLinkHealth(api);
+  
+  async function worker() {
+    while (list.length > 0) {
+      const bookmark = list.shift();
+      if (!bookmark) continue;
+      try {
+        const result = await checkUrl(bookmark.url);
+        freshHealth[bookmark.id] = applyLinkCheckResult(freshHealth[bookmark.id], result);
+      } catch (error) {
+        console.error(`Initial health check failed for ${bookmark.url}`, error);
+      }
+    }
+  }
+
+  const workers = Array.from({ length: Math.min(limit, list.length) }, () => worker());
+  await Promise.all(workers);
+  await saveLinkHealth(api, freshHealth);
+  requestRebuild("initial-health-check-complete");
 }
 
 function requestRebuild(reason) {

@@ -12,6 +12,7 @@ test("newtab page loads required HTML structures and selectors", async () => {
   assert.match(html, /id="search"/);
   assert.match(html, /id="review-links"/);
   assert.match(html, /id="content"/);
+  assert.match(html, /id="preview-card" class="preview-card"/);
   assert.match(html, /<script type="module" src="\.\/newtab\.js"><\/script>/);
 });
 
@@ -25,6 +26,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.group\s*{/);
   assert.match(css, /\.bookmark\s*{/);
   assert.match(css, /prefers-color-scheme: dark/);
+  assert.match(css, /\.preview-card\s*{/);
+  assert.match(css, /\.health-dot-indicator\s*{/);
 });
 
 test("newtab controller imports correct shared modules", async () => {
@@ -32,9 +35,11 @@ test("newtab controller imports correct shared modules", async () => {
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
-  assert.match(js, /import { getBookmarkIndex, getSettings } from "\.\.\/shared\/storage\.js";/);
+  assert.match(js, /import { getBookmarkIndex, getSettings, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
   assert.match(js, /import { shouldShowLinkWarning } from "\.\.\/shared\/link-health\.js";/);
   assert.match(js, /searchInput\.addEventListener\("input",/);
   assert.match(js, /api\.runtime\.openOptionsPage\(\)/);
+  assert.match(js, /api\.storage\.onChanged\.addListener/);
+  assert.match(js, /showPreviewCard/);
 });
