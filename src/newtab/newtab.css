@@ -448,6 +448,18 @@ button svg {
   transform: translateX(2px);
 }
 
+.bookmark.is-manual-sortable {
+  cursor: grab;
+}
+
+.bookmark.is-manual-sortable:active {
+  cursor: grabbing;
+}
+
+.bookmark.is-dragging {
+  opacity: 0.55;
+}
+
 .favicon-container {
   position: relative;
   display: flex;

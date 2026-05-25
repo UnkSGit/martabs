@@ -9,6 +9,9 @@ const DEFAULT_SETTINGS = {
   setupComplete: false,
   defaultFolderMode: "list",
   folderModes: {},
+  defaultFolderSort: "browser",
+  folderSorts: {},
+  folderBookmarkOrders: {},
   customFavicons: {},
   brokenCustomFavicons: {}
 };

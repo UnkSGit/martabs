@@ -24,6 +24,8 @@ En este proyecto puede aparecer `MaxListenersExceededWarning` durante los comand
 - **Tags:** generacion automatica y mezcla con tags manuales.
 - **Setup:** estructura HTML/CSS, guardado de carpetas, opciones visuales y configuracion.
 - **Nueva pestana:** estructura de UI, layout masonry, acciones de marcador, modal de edicion, estados de enlace, previews locales, modos visuales y regresiones de CSS importantes.
+- **Ordenamiento:** funcion pura `sortBookmarks`, orden por titulo/fecha/dominio/salud, prioridad de fijados y aplicacion desde el tablero.
+- **Orden manual:** modo `Manual`, `folderBookmarkOrders` y drag & drop condicionado por carpeta.
 - **Privacidad/permisos:** evita servicios externos de previews/iconos, revisa que la salud de enlaces no corra en service worker y protege el flujo de capturas locales.
 - **Salud de enlaces:** acumulacion y limpieza de fallos.
 
@@ -41,6 +43,9 @@ Despues de cambios visuales o de interaccion, abrir la extension o una pagina lo
 - Revision de enlaces activada y desactivada.
 - Modo claro/oscuro/sistema.
 - Configuracion de carpetas y orden.
+- Orden global y orden por carpeta desde Configuracion.
+- Confirmar que no aparece boton `Orden` en las carpetas reales y que la busqueda mantiene ranking propio.
+- Si una carpeta esta en `Manual`, arrastrar un marcador dentro de esa carpeta y verificar que el orden se conserva tras recargar.
 
 ## Cuando agregar tests nuevos
 
@@ -51,7 +56,7 @@ Agregar o actualizar tests si el cambio:
 - cambia el render de `newtab`;
 - cambia configuracion en `setup`;
 - agrega botones, estados visuales o clases CSS que sostienen comportamiento;
-- modifica busqueda, tags, revision de enlaces, previews, pinning, modos visuales o edicion.
+- modifica busqueda, tags, revision de enlaces, previews, pinning, modos visuales, ordenamiento o edicion.
 
 ## Testeo general para cambios grandes
 

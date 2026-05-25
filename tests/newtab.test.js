@@ -31,6 +31,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.group\.is-view-focus\s*{/);
   assert.match(css, /@keyframes\s+view-focus-pulse/);
   assert.match(css, /\.bookmark\s*{/);
+  assert.match(css, /\.bookmark\.is-manual-sortable\s*{/);
+  assert.match(css, /\.bookmark\.is-dragging\s*{/);
   assert.match(css, /\.bookmark-edit-btn[,\s]/);
   assert.match(css, /\.bookmark-edit-btn::before\s*{/);
   assert.match(css, /\.edit-modal\s*{/);
@@ -60,6 +62,7 @@ test("newtab controller imports correct shared modules", async () => {
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
+  assert.match(js, /import { sortBookmarks } from "\.\.\/shared\/bookmark-sort\.js";/);
   assert.match(js, /getCapturedPreviews/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
   assert.match(js, /import { applyLinkCheckResult } from "\.\.\/shared\/link-health\.js";/);
@@ -72,6 +75,19 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /masonry-max/);
   assert.match(js, /pendingViewFocusFolderId/);
   assert.match(js, /function focusPendingViewFolder/);
+  assert.match(js, /function getFolderSort/);
+  assert.match(js, /const pinnedItems = pinnedBookmarks\s*\.map/);
+  assert.match(js, /const isPinnedFolder = folder === "📌 Fijados"/);
+  assert.match(js, /const folderSort = isPinnedFolder \? "browser" : getFolderSort\(folderId\)/);
+  assert.match(js, /currentSettings\?\.folderBookmarkOrders/);
+  assert.match(js, /sortBookmarks\(items, folderSort, pinnedBookmarks, manualOrder\)/);
+  assert.match(js, /folderSort === "manual"/);
+  assert.match(js, /draggable = true/);
+  assert.match(js, /dataTransfer/);
+  assert.match(js, /folderBookmarkOrders/);
+  assert.match(js, /\[folderId\]: "manual"/);
+  assert.doesNotMatch(js, /Cambiar orden/);
+  assert.doesNotMatch(js, /sortBtn/);
   assert.match(js, /scrollIntoView\(\{\s*behavior:\s*"smooth"/);
   assert.match(js, /classList\.add\("is-view-focus"\)/);
   assert.match(js, /data-folder-id/);

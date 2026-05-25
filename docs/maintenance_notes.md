@@ -157,3 +157,69 @@ Si se cambian modos visuales, masonry o encabezados de carpetas, conservar `data
 - clase `.is-view-focus`;
 - atributo `data-folder-id`;
 - animacion CSS `view-focus-pulse`.
+
+## 2026-05-25 - Ordenamiento por carpeta (Paso 7A)
+
+### Detalles de la implementacion
+
+El ordenamiento por carpeta es visual y local. No llama a `chrome.bookmarks.move` ni cambia el orden real de los marcadores del navegador.
+
+Archivos principales:
+
+- `src/shared/bookmark-sort.js`: funcion pura `sortBookmarks`.
+- `src/shared/storage.js`: defaults `defaultFolderSort` y `folderSorts`.
+- `src/setup/setup.html`: selector global de orden.
+- `src/setup/setup.js`: selectores de orden por carpeta y persistencia.
+- `src/newtab/newtab.js`: aplica el orden antes de renderizar cada carpeta. No muestra boton `Orden` en el tablero.
+
+### Reglas importantes
+
+- `sortBookmarks` no debe mutar el array recibido.
+- El modo `browser` conserva el orden de entrada.
+- Si una carpeta no tiene valor en `folderSorts`, usa `defaultFolderSort`.
+- El valor `default` solo existe en la UI de Configuracion; no se guarda como override por carpeta.
+- Los marcadores fijados quedan primero dentro de cada carpeta real y dentro de ese grupo se aplica el orden elegido.
+- La carpeta virtual de fijados es especial: respeta el orden de `pinnedBookmarks`.
+- El tablero no debe agregar boton `Orden`; el control vive solo en Configuracion para mantener livianos los encabezados.
+- La busqueda no debe aplicar `folderSorts`; mantiene su ranking de relevancia.
+
+### Modos actuales
+
+- `browser`: orden original del navegador.
+- `title-asc`: titulo A-Z, comparacion base en espanol.
+- `date-newest`: fecha de agregado, nuevos primero; fechas faltantes al final.
+- `domain-asc`: dominio A-Z; dominios faltantes al final.
+- `health-broken-first`: enlaces con fallos primero cuando hay datos de salud.
+
+### Tests de regresion
+
+- `tests/bookmark-sort.test.js` cubre estabilidad, no mutacion, fechas, dominios, salud y fijados.
+- `tests/setup.test.js` cubre selector global y persistencia de `folderSorts`.
+- `tests/newtab.test.js` cubre importacion de `sortBookmarks`, aplicacion del orden, ausencia del boton `Orden` y tratamiento especial de fijados.
+
+## 2026-05-25 - Orden manual por carpeta (Paso 7B)
+
+### Detalles de la implementacion
+
+El orden manual se habilita como un criterio mas de orden: `manual`.
+
+Archivos principales:
+
+- `src/shared/bookmark-sort.js`: `sortBookmarks` acepta `manualOrderIds`.
+- `src/shared/storage.js`: settings incluye `folderBookmarkOrders`.
+- `src/setup/setup.html` y `src/setup/setup.js`: agregan la opcion `Manual`.
+- `src/newtab/newtab.js`: habilita drag & drop solo cuando `folderSort === "manual"`.
+
+### Reglas importantes
+
+- El drag & drop de marcadores es local a martabs y no llama a `chrome.bookmarks.move`.
+- No habilitar drag & drop si la carpeta usa otro criterio de orden.
+- El drop guarda `folderBookmarkOrders[folderId]` y mantiene `folderSorts[folderId] = "manual"`.
+- La carpeta virtual `Fijados` no participa del drag & drop.
+- Los marcadores fijados siguen arriba dentro de carpetas reales; luego se aplica el orden manual dentro de cada grupo.
+
+### Tests de regresion
+
+- `tests/bookmark-sort.test.js` cubre orden manual y prioridad de fijados.
+- `tests/setup.test.js` cubre la opcion `Manual`.
+- `tests/newtab.test.js` cubre drag & drop condicionado por `manual`, uso de `folderBookmarkOrders` y ausencia del boton `Orden`.

@@ -12,6 +12,7 @@ const showPinnedFolder = document.querySelector("#show-pinned-folder");
 const linkHealth = document.querySelector("#link-health");
 const previewCapture = document.querySelector("#preview-capture");
 const defaultModeSelect = document.querySelector("#default-mode-select");
+const defaultSortSelect = document.querySelector("#default-sort-select");
 const themeSelect = document.querySelector("#theme-select");
 const linkHealthPermissions = {
   origins: ["http://*/*", "https://*/*"]
@@ -30,7 +31,19 @@ function applyTheme(theme) {
   }
 }
 
-function renderFolders(folders, selectedFolderIds, folderModes = {}) {
+function getSortOptions() {
+  return `
+    <option value="default">Predeterminado</option>
+    <option value="browser">Orden original</option>
+    <option value="manual">Manual</option>
+    <option value="title-asc">Titulo A-Z</option>
+    <option value="date-newest">Mas nuevos primero</option>
+    <option value="domain-asc">Dominio A-Z</option>
+    <option value="health-broken-first">Fallidos primero</option>
+  `;
+}
+
+function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts = {}) {
   folderList.innerHTML = "";
 
   const orderedFolders = [];
@@ -85,10 +98,6 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}) {
     
     const controlsWrap = document.createElement("div");
     controlsWrap.className = "folder-controls";
-    controlsWrap.style.marginLeft = "auto";
-    controlsWrap.style.display = "flex";
-    controlsWrap.style.gap = "8px";
-    controlsWrap.style.alignItems = "center";
 
     const modeSelect = document.createElement("select");
     modeSelect.className = "folder-mode-select";
@@ -106,7 +115,14 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}) {
     // Stop drag when interacting with select
     modeSelect.addEventListener("mousedown", (e) => e.stopPropagation());
 
-    controlsWrap.append(modeSelect);
+    const sortSelect = document.createElement("select");
+    sortSelect.className = "folder-sort-select";
+    sortSelect.dataset.folderId = folder.id;
+    sortSelect.innerHTML = getSortOptions();
+    sortSelect.value = folderSorts[folder.id] || "default";
+    sortSelect.addEventListener("mousedown", (e) => e.stopPropagation());
+
+    controlsWrap.append(modeSelect, sortSelect);
     
     label.append(checkbox, document.createTextNode(folder.path), controlsWrap);
     folderList.append(label);
@@ -174,11 +190,17 @@ async function init() {
   previewCapture.checked = currentSettings.previewCaptureEnabled;
   themeSelect.value = currentSettings.theme || "system";
   defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
+  defaultSortSelect.value = currentSettings.defaultFolderSort || "browser";
 
   applyTheme(themeSelect.value);
 
   const folders = getFolderOptions(tree);
-  renderFolders(folders, currentSettings.selectedFolderIds, currentSettings.folderModes || {});
+  renderFolders(
+    folders,
+    currentSettings.selectedFolderIds,
+    currentSettings.folderModes || {},
+    currentSettings.folderSorts || {}
+  );
 }
 
 themeSelect.addEventListener("change", () => {
@@ -219,10 +241,17 @@ saveButton.addEventListener("click", async () => {
     }
 
     const folderModes = {};
+    const folderSorts = {};
     
     folderList.querySelectorAll(".folder-mode-select").forEach(select => {
       if (select.value !== "default") {
         folderModes[select.dataset.folderId] = select.value;
+      }
+    });
+
+    folderList.querySelectorAll(".folder-sort-select").forEach(select => {
+      if (select.value !== "default") {
+        folderSorts[select.dataset.folderId] = select.value;
       }
     });
 
@@ -235,7 +264,9 @@ saveButton.addEventListener("click", async () => {
       previewCaptureEnabled: previewCaptureEnabled,
       theme: themeSelect.value,
       defaultFolderMode: defaultModeSelect.value,
+      defaultFolderSort: defaultSortSelect.value,
       folderModes,
+      folderSorts,
       setupComplete: true
     });
 

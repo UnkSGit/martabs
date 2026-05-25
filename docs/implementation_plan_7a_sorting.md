@@ -2,7 +2,17 @@
 
 Este documento propone la primera parte util del punto 7 del roadmap: permitir ordenar marcadores dentro de cada carpeta sin modificar el orden real de bookmarks del navegador.
 
-Estado: propuesta para revision de Codex y Gemini/Antigravity antes de implementar.
+Estado: implementado por Codex el 2026-05-25.
+
+Resumen de implementacion:
+
+- Se agrego `src/shared/bookmark-sort.js` con `sortBookmarks`.
+- Se agregaron `defaultFolderSort` y `folderSorts` en settings.
+- Configuracion permite elegir orden global y orden por carpeta.
+- El tablero aplica el orden por carpeta, pero el control queda solo en Configuracion para no sobrecargar el encabezado.
+- La carpeta virtual `Fijados` conserva el orden manual de `pinnedBookmarks`.
+- La busqueda no se ve afectada por `folderSorts`.
+- Quedaron tests en `tests/bookmark-sort.test.js`, `tests/setup.test.js` y `tests/newtab.test.js`.
 
 ## Objetivo
 
@@ -17,7 +27,6 @@ Primera version recomendada:
 - Orden por defecto global.
 - Orden por carpeta.
 - Selector en Configuracion junto al modo visual de cada carpeta.
-- Boton o menu compacto en el encabezado de cada carpeta para cambiar el orden al vuelo.
 - Persistencia en `storage.local`.
 - Los fijados siguen apareciendo primero si corresponde.
 
@@ -26,11 +35,11 @@ Fuera de alcance por ahora:
 - Drag & drop de marcadores dentro de carpetas.
 - Mover marcadores entre carpetas.
 - Cambiar el orden real del gestor de marcadores del navegador.
-- Orden manual arbitrario por marcador.
+- Mover marcadores reales del navegador segun el orden manual local.
 
 ## Modos de orden propuestos
 
-Valores internos sugeridos:
+Valores internos evaluados:
 
 - `default`: usa el orden global.
 - `browser`: orden original del navegador.
@@ -41,9 +50,10 @@ Valores internos sugeridos:
 - `domain-asc`: dominio A-Z.
 - `health-broken-first`: enlaces con fallos primero.
 
-Primera implementacion minima podria incluir:
+Primera implementacion incluida:
 
 - `browser`
+- `manual`
 - `title-asc`
 - `date-newest`
 - `domain-asc`
@@ -66,6 +76,9 @@ Formato:
   folderSorts: {
     "folder-id-1": "title-asc",
     "folder-id-2": "date-newest"
+  },
+  folderBookmarkOrders: {
+    "folder-id-3": ["bookmark-id-2", "bookmark-id-1"]
   }
 }
 ```
@@ -75,6 +88,7 @@ Regla:
 - Si una carpeta no tiene entrada en `folderSorts`, usa `defaultFolderSort`.
 - Si una carpeta tiene `"default"`, se trata igual que ausencia de entrada.
 - La carpeta virtual `Fijados` puede usar un orden propio interno fijo o el orden global. Se recomienda mantenerla con el orden de `pinnedBookmarks` en storage para no sorprender al usuario.
+- `folderBookmarkOrders` solo se usa cuando el orden efectivo de la carpeta es `manual`.
 
 ## Prioridad de orden con fijados
 
@@ -113,24 +127,13 @@ La fila de cada carpeta podria tener:
 
 ### Nueva pestana
 
-En el header de cada carpeta:
+Decision final:
 
-- Mantener boton `Vista`.
-- Agregar boton `Orden` o un menu compacto.
+- No mostrar control de orden en el encabezado de las carpetas.
+- El orden se aplica visualmente segun lo configurado en Configuracion.
+- Mantener el header liviano con acciones de uso mas frecuente, como `Revisar`, fallos y `Vista`.
 
-Primera opcion simple:
-
-- Boton que rota entre ordenes principales.
-- Tooltip/title con el orden actual.
-
-Opcion mas clara:
-
-- Menu desplegable pequeño.
-
-Recomendacion:
-
-- Usar selector/menu en Configuracion para control completo.
-- En la Nueva pestana usar boton compacto para rotar entre ordenes comunes, igual que `Vista`, si no sobrecarga el header.
+Motivo: en carpetas con revision de enlaces, fallos y cambio de vista, un boton adicional `Orden` vuelve el encabezado demasiado cargado para una accion poco frecuente.
 
 ## Funcion de orden
 
@@ -232,7 +235,7 @@ Probar:
 - Una carpeta con fallos primero.
 - Fijados dentro de una carpeta ordenada.
 - Cambio de orden desde Configuracion.
-- Cambio de orden desde Nueva pestana, si se implementa.
+- Confirmar que la Nueva pestana aplica el orden elegido sin mostrar boton `Orden`.
 - Busqueda despues de configurar ordenes.
 - Modo claro/oscuro y diferentes modos visuales.
 
@@ -251,6 +254,16 @@ Implementar como `Paso 7A` con una funcion pura de ordenamiento y persistencia s
 2. `folderSorts`
 3. `sortBookmarks`
 4. UI en Configuracion
-5. Opcional: control compacto en Nueva pestana
+5. No agregar control compacto en Nueva pestana; el orden queda solo en Configuracion
 
 Dejar drag & drop de marcadores para un `Paso 7B`, cuando el ordenamiento declarativo ya este probado.
+
+## Anexo: Paso 7B implementado
+
+El orden manual ya esta disponible como criterio `manual`.
+
+- Se configura desde Configuracion, igual que los demas criterios de orden.
+- Solo las carpetas en modo `manual` habilitan arrastrar marcadores dentro del tablero.
+- Al soltar un marcador, se actualiza `folderBookmarkOrders[folderId]`.
+- El flujo no llama a `chrome.bookmarks.move`; solo cambia la vista local de martabs.
+- La carpeta virtual `Fijados` queda fuera del drag & drop.

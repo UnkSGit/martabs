@@ -20,6 +20,8 @@
 - [x] Edicion de marcadores desde la UI: titulo, URL, etiquetas manuales, eliminar y guardar.
 - [x] Nota obligatoria de mantenimiento para el bug corregido de `Guardar` en edicion.
 - [x] Modos visuales por carpeta con foco suave al cambiar vista desde el tablero.
+- [x] Ordenamiento de marcadores por carpeta sin modificar el orden real del navegador.
+- [x] Orden manual por carpeta con drag & drop local cuando la carpeta esta en modo `Manual`.
 - [x] Guia de verificacion general en `docs/testing.md`.
 
 ## Comportamiento importante
@@ -31,8 +33,18 @@
 - Al desactivar la revision de enlaces, martabs intenta retirar los permisos opcionales.
 - Las capturas locales se intentan solo si la opcion esta activada y solo para marcadores abiertos desde martabs; no se monitorea la navegacion general.
 - El flujo de capturas locales tiene test de regresion para evitar que vuelva a depender de una espera viva del service worker o de navegacion global.
+- El ordenamiento por carpeta es solo visual: no mueve marcadores reales en Chrome/Firefox.
+- Los marcadores fijados siguen arriba dentro de su carpeta; la carpeta virtual de fijados respeta el orden manual de `pinnedBookmarks`.
+- El drag & drop de marcadores solo se activa si la carpeta usa orden `Manual`.
 
 ## Registro reciente
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se implementaron el Paso 7A y 7B del roadmap: orden global por defecto, orden por carpeta desde Configuracion y orden manual local con drag & drop solo cuando la carpeta esta en `Manual`. El tablero aplica el orden, pero no muestra boton `Orden` para mantener livianos los encabezados. La busqueda conserva su ranking propio.
+Archivos tocados: `src/shared/bookmark-sort.js`, `src/shared/storage.js`, `src/setup/setup.html`, `src/setup/setup.js`, `src/setup/setup.css`, `src/newtab/newtab.js`, `src/newtab/newtab.css`, `tests/bookmark-sort.test.js`, `tests/setup.test.js`, `tests/newtab.test.js`, `docs/implementation_plan_7a_sorting.md`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/testing.md`, `docs/task.md`, `docs/roadmap.md`
+Verificacion: `npm test`, `npm run build` y revision estatica de UI. La inspeccion visual con navegador interno quedo bloqueada por politica de URL local del entorno.
+Pendientes: probar visualmente el drag & drop en Chrome cargando `dist/chrome` como extension desempaquetada.
 
 Fecha: 2026-05-25
 Herramienta: Codex

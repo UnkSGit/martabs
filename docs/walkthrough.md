@@ -2,41 +2,42 @@
 
 Este documento explica las funcionalidades principales desde la perspectiva del usuario final.
 
-## Interfaz Principal (Dashboard Masonry)
+## Interfaz principal
 
-- **Layout Fluido (Masonry)**: Las carpetas se acomodan automáticamente utilizando todo el ancho disponible, apilándose verticalmente para evitar espacios en blanco (similar a un tablero estilo Pinterest o start.me). El contenedor se centra inteligentemente según la cantidad de carpetas que tengas activas.
-- **Favoritos Fijados**: Si fijaste algún marcador, este aparecerá siempre **primero** dentro de su carpeta original. Además, si tenés habilitada la opción, aparecerá una carpeta virtual al principio de toda la página llamada "📌 Fijados" para un acceso más directo. Podés ocultar esta carpeta superior tocando el ícono del ojo ("Ocultar") junto a su título.
-- **Carpetas Monitoreadas**: A continuación, se muestran las carpetas de marcadores que elegiste en la Configuración.
-- **Búsqueda Instantánea**: La barra superior permite buscar en tiempo real por título, URL, dominio, etiqueta (tag) o carpeta. Usa la tecla `Escape` para borrar la búsqueda rápidamente. Al presionar `Enter` se abrirá el primer resultado.
-- **Vista Rápida (Hover)**: Al dejar el cursor sobre un marcador, aparece una tarjeta flotante con más información:
-  - Título completo
-  - URL (Dominio)
-  - Etiquetas (automáticas y manuales)
-  - Carpeta de origen
-  - Captura local del sitio (si está disponible y configurado)
-- **Acciones Rápidas (Pin y Edición)**: Al pasar el cursor sobre un marcador, aparecen botones flotantes a la derecha:
-  - **Fijar (Pin)**: Te permite anclar el marcador para que aparezca siempre en la sección superior de "Fijados".
-  - **Editar (Lápiz)**: Se abre una ventana modal que permite cambiar el título, la URL, editar etiquetas personalizadas o eliminar el marcador por completo.
+- **Layout fluido tipo masonry**: Las carpetas se acomodan automaticamente usando el ancho disponible y evitando huecos grandes.
+- **Carpetas monitoreadas**: Se muestran solo las carpetas elegidas en Configuracion.
+- **Busqueda instantanea**: La barra superior busca por titulo, URL, dominio, etiqueta o carpeta. `Escape` limpia la busqueda y `Enter` abre el primer resultado.
+- **Favoritos fijados**: Los marcadores fijados aparecen primero dentro de su carpeta original. Si esta habilitado, tambien aparece una carpeta virtual superior de fijados. Esa carpeta virtual respeta el orden manual guardado en `pinnedBookmarks`.
+- **Orden por carpeta**: Cada carpeta puede usar un orden visual propio: original del navegador, manual, titulo A-Z, mas nuevos primero, dominio A-Z o fallidos primero. Esto no modifica el orden real de los marcadores en Chrome/Firefox.
+- **Vista rapida**: Al pasar el cursor sobre un marcador, aparece una tarjeta flotante con titulo, URL, etiquetas, carpeta, estado de enlace y captura local si existe.
+- **Acciones rapidas**: Al pasar el cursor sobre un marcador se muestran acciones para fijar/desfijar y editar.
 
-## Configuración y Setup
+## Configuracion
 
-Accesible desde el botón "Configurar" en la esquina superior derecha.
+Accesible desde el boton `Configurar`.
 
-- **Selección de Carpetas**: Permite marcar qué carpetas del navegador serán indexadas. Solo los marcadores dentro de las carpetas seleccionadas (o sus subcarpetas) aparecerán en martabs.
-- **Reordenar carpetas**: Podés arrastrar y soltar (Drag & Drop) las carpetas en la lista para cambiar su orden. Ese mismo orden se reflejará en el tablero principal.
-- **Modos Visuales de Carpetas**: En la sección *Apariencia* podés definir el modo visual global. Además, al lado de cada carpeta, tenés un menú individual para elegir un modo diferente (Lista, Compacta, Grilla de iconos, Grilla grande, Quicklinks). Y en la pestaña principal, podés rotar la vista de cualquier carpeta al vuelo usando el botón "Vista". Si el tablero reacomoda esa carpeta por el layout masonry, martabs la vuelve a enfocar suavemente y la resalta por un momento.
-- **Íconos Personalizados**: Si no te gusta el ícono por defecto de un sitio o se ve pixelado, al darle a "Editar" podés pegar una URL con un ícono personalizado. martabs automáticamente usará ese ícono de alta resolución y cuenta con un sistema de respaldo (fallback) por si la URL del ícono deja de funcionar.
-- **Etiquetas**: Activa o desactiva las etiquetas generadas automáticamente (según nombre de carpetas) o manuales.
-- **Carpeta Fijados**: Activa o desactiva la visibilidad de la carpeta virtual "📌 Fijados" en el tope del dashboard.
-- **Revisión de Enlaces**: Opcionalmente, permite a martabs detectar URLs caídas para que las borres (requiere permisos de acceso a red).
+- **Seleccion de carpetas**: Permite elegir que carpetas del navegador seran indexadas.
+- **Orden de carpetas**: Las carpetas pueden reordenarse con drag & drop en Configuracion. Ese orden se refleja en el tablero.
+- **Modos visuales**: Hay un modo global por defecto y un modo por carpeta: lista, compacta, iconos, iconos grandes o quicklinks. En el tablero, el boton `Vista` rota el modo de una carpeta.
+- **Orden de marcadores**: Hay un orden global por defecto y un orden por carpeta. El control se configura desde Configuracion para mantener limpio el tablero. Si una carpeta esta en `Manual`, sus marcadores se pueden reordenar arrastrandolos dentro de esa misma carpeta.
+- **Iconos personalizados**: Desde `Editar`, el usuario puede pegar una URL de icono custom. Si falla, martabs muestra el favicon por defecto y marca el error.
+- **Etiquetas**: Se pueden activar o desactivar etiquetas automaticas y manuales.
+- **Carpeta fijados**: Permite mostrar u ocultar la carpeta virtual superior de fijados.
+- **Revision de enlaces**: Permite revisar enlaces caidos por carpeta. Requiere permisos opcionales de acceso a red.
+- **Capturas locales**: Si esta activado, martabs intenta guardar una captura liviana de marcadores abiertos desde martabs.
 
-## Revisión de Enlaces Caídos
+## Revision de enlaces caidos
 
-Si está habilitada en la Configuración:
+Si esta habilitada:
 
-1. Aparece un botón **"Revisar"** en el encabezado de cada carpeta en la interfaz principal.
-2. Al presionarlo, la extensión realiza peticiones (fetch) locales a cada marcador de esa carpeta para ver si responden (HTTP 2xx, 3xx).
-3. Aparece una barra de progreso. Si se detectan enlaces con error (4xx, 5xx, o inaccesibles), se sumará un contador al lado del botón Revisar.
-4. Al terminar (o durante el proceso), si hubo fallos, puedes hacer clic en el botón de fallos (ej: **"3 fallo(s)"**) para entrar a una vista detallada.
-5. **Vista de Revisión**: Muestra solo los enlaces rotos con su código de error (ej: 404). Desde aquí puedes usar el botón **"Eliminar todos"** para limpiar la carpeta de una vez, o volver a la vista normal usando **"Volver"**.
-6. **Tarjetas de Vista Previa**: Los enlaces caídos se mostrarán con un borde naranja, y la tarjeta de vista previa al pasar el ratón te indicará su último estado de salud.
+1. Aparece un boton `Revisar` en el encabezado de cada carpeta real.
+2. Al presionarlo, martabs revisa los enlaces de esa carpeta desde la nueva pestana.
+3. Si hay fallos, aparece un contador de fallos en esa carpeta.
+4. El contador abre una vista con los enlaces fallidos, acciones de eliminacion y boton `Volver`.
+5. Los estados de enlace solo se muestran cuando la opcion esta activada.
+
+## Busqueda y orden
+
+El orden por carpeta solo afecta el tablero normal.
+
+Cuando el usuario busca, martabs conserva el ranking de busqueda para priorizar relevancia. Esto evita que un orden A-Z, por fecha o por dominio esconda el resultado mas probable.

@@ -39,3 +39,44 @@ Los modos visuales por carpeta ya estan implementados sobre el tablero masonry.
 **Regla tecnica:**
 - Toda carpeta renderizada como `.group` debe conservar `data-folder-id` si se espera que el foco suave funcione.
 - Si se cambia el motor masonry o el render de carpetas, actualizar `tests/newtab.test.js` y `docs/maintenance_notes.md`.
+
+## Estado confirmado: Ordenamiento por carpeta
+
+El Paso 7A del roadmap ya esta implementado como ordenamiento visual por carpeta.
+
+**Comportamiento actual:**
+- `defaultFolderSort` define el orden global por defecto.
+- `folderSorts` guarda overrides por carpeta.
+- Configuracion muestra un selector global y un selector por carpeta.
+- El tablero aplica el orden elegido, pero no muestra un boton `Orden` para no sobrecargar el encabezado de las carpetas.
+- El orden visual no modifica los bookmarks reales del navegador.
+- Los resultados de busqueda conservan su ranking propio.
+
+**Criterios actuales:**
+- `browser`
+- `manual`
+- `title-asc`
+- `date-newest`
+- `domain-asc`
+- `health-broken-first`
+
+**Regla tecnica:**
+- La logica vive en `src/shared/bookmark-sort.js`.
+- Si se agrega un criterio nuevo, actualizar `SORT_MODES`, los selectores de `setup`, los tests y la documentacion.
+- La carpeta virtual `Fijados` no debe tomar el orden global; respeta `pinnedBookmarks`.
+
+## Estado confirmado: Orden manual por carpeta
+
+El Paso 7B ya permite ordenar manualmente marcadores dentro de una carpeta sin moverlos en Chrome/Firefox.
+
+**Comportamiento actual:**
+- Configuracion incluye el criterio `Manual`.
+- Solo las carpetas configuradas en `Manual` habilitan drag & drop de marcadores en el tablero.
+- El orden manual se guarda en `folderBookmarkOrders` dentro de settings.
+- Al soltar un marcador, martabs persiste el nuevo orden visual y re-renderiza la carpeta.
+- Los marcadores fijados siguen teniendo prioridad visual dentro de la carpeta.
+- La carpeta virtual `Fijados` no permite drag & drop de marcadores.
+
+**Regla tecnica:**
+- El orden manual es una capa local de martabs. No usar `chrome.bookmarks.move` para este flujo.
+- Si se cambia el drag & drop, mantener la condicion `folderSort === "manual"` para no mezclar orden manual con orden A-Z, fecha, dominio o salud.

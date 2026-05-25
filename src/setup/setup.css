@@ -165,6 +165,17 @@ fieldset label:hover {
   color: var(--primary);
 }
 
+.folder-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.folder-controls select {
+  max-width: 150px;
+}
+
 button {
   display: inline-flex;
   align-items: center;

@@ -12,6 +12,8 @@ test("setup page loads setup assets and required controls", async () => {
   assert.match(html, /<input id="manual-tags" type="checkbox" checked>/);
   assert.match(html, /<input id="link-health" type="checkbox">/);
   assert.match(html, /<input id="preview-capture" type="checkbox">/);
+  assert.match(html, /id="default-sort-select"/);
+  assert.match(html, /value="manual">Manual/);
   assert.match(html, /<button id="save" type="button">Guardar configuracion<\/button>/);
   assert.match(html, /<script type="module" src="\.\/setup\.js"><\/script>/);
 });
@@ -26,6 +28,7 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /\.folder-list\s*{/);
   assert.match(css, /max-height: 320px;/);
   assert.match(css, /\.theme-label\s*{/);
+  assert.match(css, /\.folder-controls\s*{/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
 });
 
@@ -43,6 +46,10 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /api\.permissions\?\.remove/);
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);
   assert.match(js, /previewCaptureEnabled: previewCaptureEnabled/);
+  assert.match(js, /defaultFolderSort:\s*defaultSortSelect\.value/);
+  assert.match(js, /folderSorts/);
+  assert.match(js, /\.folder-sort-select/);
+  assert.match(js, /value="manual"/);
   assert.match(js, /setupComplete: true/);
   assert.match(js, /No se pudo guardar la configuracion:/);
   assert.match(js, /No se pudo activar la revision de enlaces/);

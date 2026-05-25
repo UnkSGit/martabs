@@ -158,5 +158,9 @@ Funciones posibles:
 
 Primera version recomendable:
 
-- Agregar selector de orden por carpeta.
-- Despues implementar drag & drop solo dentro de la misma carpeta.
+- Agregar selector de orden por carpeta. **Hecho en Paso 7A**: orden global y orden por carpeta desde Configuracion.
+- Despues implementar drag & drop solo dentro de la misma carpeta. **Hecho en Paso 7B**: solo para carpetas con orden `Manual`.
+
+Siguiente paso posible:
+
+- Paso 7C: evaluar si conviene permitir aplicar el orden manual al gestor real de marcadores, siempre con confirmacion explicita del usuario.

@@ -1,5 +1,6 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { searchBookmarks } from "../shared/search.js";
+import { sortBookmarks } from "../shared/bookmark-sort.js";
 import {
   getBookmarkIndex,
   getCapturedPreviews,
@@ -436,6 +437,71 @@ function focusPendingViewFolder() {
   });
 }
 
+function getFolderSort(folderId) {
+  return currentSettings?.folderSorts?.[folderId] || currentSettings?.defaultFolderSort || "browser";
+}
+
+function getFolderManualOrder(folderId) {
+  return currentSettings?.folderBookmarkOrders?.[folderId] || [];
+}
+
+function moveBookmarkId(order, draggedId, targetId, placeAfterTarget) {
+  const nextOrder = order.filter((id) => id !== draggedId);
+  const targetIndex = nextOrder.indexOf(targetId);
+  if (targetIndex === -1) {
+    nextOrder.push(draggedId);
+    return nextOrder;
+  }
+
+  nextOrder.splice(targetIndex + (placeAfterTarget ? 1 : 0), 0, draggedId);
+  return nextOrder;
+}
+
+function enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBookmarks) {
+  bookmarkElement.draggable = true;
+  bookmarkElement.dataset.bookmarkId = bookmark.id;
+  bookmarkElement.classList.add("is-manual-sortable");
+
+  bookmarkElement.addEventListener("dragstart", (event) => {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", bookmark.id);
+    bookmarkElement.classList.add("is-dragging");
+  });
+
+  bookmarkElement.addEventListener("dragend", () => {
+    bookmarkElement.classList.remove("is-dragging");
+  });
+
+  bookmarkElement.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  });
+
+  bookmarkElement.addEventListener("drop", async (event) => {
+    event.preventDefault();
+    const draggedId = event.dataTransfer.getData("text/plain");
+    if (!draggedId || draggedId === bookmark.id) return;
+
+    const rect = bookmarkElement.getBoundingClientRect();
+    const placeAfterTarget = event.clientY > rect.top + rect.height / 2;
+    const visibleOrder = folderBookmarks.map((item) => item.id);
+    const nextOrder = moveBookmarkId(visibleOrder, draggedId, bookmark.id, placeAfterTarget);
+
+    currentSettings.folderBookmarkOrders = {
+      ...(currentSettings.folderBookmarkOrders || {}),
+      [folderId]: nextOrder
+    };
+    currentSettings.folderSorts = {
+      ...(currentSettings.folderSorts || {}),
+      [folderId]: "manual"
+    };
+
+    scheduleViewFocus(folderId);
+    await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+    render();
+  });
+}
+
 function renderDashboard(items) {
   content.classList.remove("results", "review-results");
   content.innerHTML = "";
@@ -455,7 +521,10 @@ function renderDashboard(items) {
     });
   }
   
-  const pinnedItems = items.filter(b => pinnedBookmarks.includes(b.id));
+  const bookmarksById = new Map(items.map((bookmark) => [bookmark.id, bookmark]));
+  const pinnedItems = pinnedBookmarks
+    .map((id) => bookmarksById.get(id))
+    .filter(Boolean);
   
   if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
     folders.unshift(["📌 Fijados", pinnedItems]);
@@ -476,20 +545,20 @@ function renderDashboard(items) {
   content.append(masonryWrapper);
 
   for (const [folder, items] of folders) {
-    // Sort so pinned bookmarks appear first within the folder
-    const folderBookmarks = [...items].sort((a, b) => {
-      const aPinned = pinnedBookmarks.includes(a.id);
-      const bPinned = pinnedBookmarks.includes(b.id);
-      if (aPinned === bPinned) return 0;
-      return aPinned ? -1 : 1;
-    });
+    const isPinnedFolder = folder === "📌 Fijados";
+    const folderId = isPinnedFolder ? "pinned" : items[0]?.parentId;
+    const folderSort = isPinnedFolder ? "browser" : getFolderSort(folderId);
+    const manualOrder = getFolderManualOrder(folderId);
+    const folderBookmarks = isPinnedFolder
+      ? sortBookmarks(items, "browser")
+      : sortBookmarks(items, folderSort, pinnedBookmarks, manualOrder);
 
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
 
     const headerButtons = [];
 
-    if (folder === "📌 Fijados") {
+    if (isPinnedFolder) {
       const toggleBtn = el("button", { class: "review-button", type: "button", title: "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuracion)" });
       toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: middle; margin-right: 4px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>Ocultar`;
       toggleBtn.addEventListener("click", async () => {
@@ -501,7 +570,7 @@ function renderDashboard(items) {
       headerButtons.push(toggleBtn);
     }
 
-    if (currentSettings?.linkHealthEnabled && folder !== "📌 Fijados") {
+    if (currentSettings?.linkHealthEnabled && !isPinnedFolder) {
       const progressEl = el("span", { class: "review-progress" });
       const reviewButton = el("button", { class: "review-button", type: "button", text: "Revisar" });
       reviewButton.addEventListener("click", () => {
@@ -514,7 +583,6 @@ function renderDashboard(items) {
       ? folderBookmarks.filter((bookmark) => bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0)
       : [];
 
-    const folderId = folder === "📌 Fijados" ? "pinned" : folderBookmarks[0]?.parentId;
     const mode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
 
     if (folderBrokenBookmarks.length > 0) {
@@ -554,11 +622,18 @@ function renderDashboard(items) {
 
     const modeClass = mode !== "list" ? ` mode-${mode}` : "";
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
+    const bookmarkNodes = folderBookmarks.map((bookmark) => {
+      const bookmarkElement = renderBookmark(bookmark);
+      if (!isPinnedFolder && folderSort === "manual") {
+        enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBookmarks);
+      }
+      return bookmarkElement;
+    });
     
     masonryWrapper.append(
       el("article", { class: "group", "data-folder-id": folderId }, [
         el("div", { class: "group-header" }, headerChildren),
-        el("div", { class: bookmarkListClass }, folderBookmarks.map((bookmark) => renderBookmark(bookmark)))
+        el("div", { class: bookmarkListClass }, bookmarkNodes)
       ])
     );
   }
