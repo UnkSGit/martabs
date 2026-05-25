@@ -235,17 +235,30 @@ function showPreviewCard(bookmark, anchorElement) {
 
   previewCard.append(thumbnailContainer, detailsContainer);
 
+  previewCard.hidden = false;
+  
   const rect = anchorElement.getBoundingClientRect();
   const cardWidth = 280;
+  const cardHeight = previewCard.offsetHeight;
+
   let left = rect.left + rect.width + 12;
   if (left + cardWidth > window.innerWidth) {
     left = rect.left - cardWidth - 12;
   }
   if (left < 0) left = 12;
 
+  let top = rect.top + window.scrollY - 10;
+  // If card overflows bottom of viewport, adjust it upwards
+  if (rect.top - 10 + cardHeight > window.innerHeight) {
+    top = window.scrollY + window.innerHeight - cardHeight - 12;
+  }
+  // Ensure it doesn't go above the top of the document
+  if (top < window.scrollY + 12) {
+    top = window.scrollY + 12;
+  }
+
   previewCard.style.left = `${left}px`;
-  previewCard.style.top = `${rect.top + window.scrollY - 10}px`;
-  previewCard.hidden = false;
+  previewCard.style.top = `${top}px`;
   requestAnimationFrame(() => previewCard.classList.add("visible"));
 }
 
@@ -285,7 +298,7 @@ function renderDashboard(items) {
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
 
-    const headerChildren = [el("h2", { text: folder })];
+    const headerButtons = [];
 
     if (currentSettings?.linkHealthEnabled) {
       const progressEl = el("span", { class: "review-progress" });
@@ -293,7 +306,7 @@ function renderDashboard(items) {
       reviewButton.addEventListener("click", () => {
         reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
       });
-      headerChildren.push(progressEl, reviewButton);
+      headerButtons.push(progressEl, reviewButton);
     }
 
     const folderBrokenBookmarks = currentSettings?.linkHealthEnabled
@@ -306,7 +319,12 @@ function renderDashboard(items) {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
       });
-      headerChildren.push(viewButton);
+      headerButtons.push(viewButton);
+    }
+
+    const headerChildren = [el("h2", { text: folder })];
+    if (headerButtons.length > 0) {
+      headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
     }
 
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}`;

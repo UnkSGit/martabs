@@ -321,6 +321,14 @@ button svg {
   gap: 12px;
 }
 
+/* Groups Revisar button + progress + fallo badge so they stay adjacent */
+.group-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
 .group-header h2 {
   margin: 0;
   font-size: 14px;
