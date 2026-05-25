@@ -24,7 +24,8 @@ Accesible desde el botón "Configurar" en la esquina superior derecha.
 
 - **Selección de Carpetas**: Permite marcar qué carpetas del navegador serán indexadas. Solo los marcadores dentro de las carpetas seleccionadas (o sus subcarpetas) aparecerán en martabs.
 - **Reordenar carpetas**: Podés arrastrar y soltar (Drag & Drop) las carpetas en la lista para cambiar su orden. Ese mismo orden se reflejará en el tablero principal.
-- **Modos Visuales de Carpetas**: En la sección *Apariencia* podés definir el modo visual global. Además, al lado de cada carpeta, tenés un menú individual para elegir un modo diferente (Lista, Compacta, Grilla, Quicklinks) o forzar que esa carpeta inicie Colapsada.
+- **Modos Visuales de Carpetas**: En la sección *Apariencia* podés definir el modo visual global. Además, al lado de cada carpeta, tenés un menú individual para elegir un modo diferente (Lista, Compacta, Grilla de iconos, Grilla grande, Quicklinks). Y en la pestaña principal, podés rotar la vista de cualquier carpeta al vuelo usando el botón "Vista".
+- **Íconos Personalizados**: Si no te gusta el ícono por defecto de un sitio o se ve pixelado, al darle a "Editar" podés pegar una URL con un ícono personalizado. martabs automáticamente usará ese ícono de alta resolución y cuenta con un sistema de respaldo (fallback) por si la URL del ícono deja de funcionar.
 - **Etiquetas**: Activa o desactiva las etiquetas generadas automáticamente (según nombre de carpetas) o manuales.
 - **Carpeta Fijados**: Activa o desactiva la visibilidad de la carpeta virtual "📌 Fijados" en el tope del dashboard.
 - **Revisión de Enlaces**: Opcionalmente, permite a martabs detectar URLs caídas para que las borres (requiere permisos de acceso a red).

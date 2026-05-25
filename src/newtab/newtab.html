@@ -58,6 +58,12 @@
           <input type="text" id="edit-tags" placeholder="ej: trabajo, docs, js" autocomplete="off">
         </label>
         
+        <label class="edit-field">
+          <span>Icono personalizado (URL de la imagen)</span>
+          <input type="url" id="edit-favicon" placeholder="https://ejemplo.com/icono.png" autocomplete="off">
+          <span id="edit-favicon-error" class="edit-error" style="color: var(--warning-text); font-size: 11px; margin-top: 4px; display: none;">La imagen actual no se pudo cargar.</span>
+        </label>
+        
         <div class="edit-actions">
           <button type="button" id="edit-delete" class="danger-button">Eliminar</button>
           <div class="edit-actions-right">

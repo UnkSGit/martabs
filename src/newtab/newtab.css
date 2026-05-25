@@ -343,7 +343,10 @@ button svg {
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.2px;
-  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 /* Review / check button in folder header */
@@ -561,45 +564,77 @@ button svg {
 
 /* Mode: Icons */
 .mode-icons {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .mode-icons .bookmark {
   padding: 8px;
   justify-content: center;
+  align-items: center;
   min-height: 0;
 }
-.mode-icons .bookmark-title,
-.mode-icons .domain,
-.mode-icons .tags {
+.mode-icons .bookmark-details,
+.mode-icons .bookmark-actions {
   display: none !important;
 }
-.mode-icons .favicon {
-  width: 20px;
-  height: 20px;
+.mode-icons .favicon-container,
+.mode-icons .favicon-img,
+.mode-icons .favicon-fallback {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+/* Mode: Icons Large */
+.mode-icons-large {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mode-icons-large .bookmark {
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+.mode-icons-large .bookmark-details,
+.mode-icons-large .bookmark-actions {
+  display: none !important;
+}
+.mode-icons-large .favicon-container,
+.mode-icons-large .favicon-img,
+.mode-icons-large .favicon-fallback {
+  width: 48px;
+  height: 48px;
   margin: 0;
 }
 
 /* Mode: Quicklinks */
 .mode-quicklinks {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .mode-quicklinks .bookmark {
   flex-direction: column;
-  padding: 12px 8px;
+  padding: 10px 4px;
   text-align: center;
   justify-content: flex-start;
+  align-items: center;
   gap: 8px;
+  min-width: 0;
+  width: 68px;
 }
-.mode-quicklinks .favicon {
+.mode-quicklinks .favicon-container,
+.mode-quicklinks .favicon-img,
+.mode-quicklinks .favicon-fallback {
   width: 32px;
   height: 32px;
   margin: 0;
+  flex-shrink: 0;
 }
-.mode-quicklinks .bookmark-title {
+.mode-quicklinks .title {
   font-size: 11px;
   line-height: 1.2;
   text-align: center;
@@ -608,43 +643,19 @@ button svg {
   -webkit-box-orient: vertical;
   white-space: normal;
   overflow: hidden;
+  word-break: break-word;
+  width: 100%;
 }
 .mode-quicklinks .domain,
-.mode-quicklinks .tags {
+.mode-quicklinks .tags,
+.mode-quicklinks .bookmark-actions {
   display: none !important;
-}
-
-/* Collapsed State */
-.is-collapsed .bookmark-list {
-  display: none !important;
-}
-.is-collapsed.group {
-  max-height: none;
-  padding-bottom: 16px;
 }
 
 .group-header-controls {
   display: flex;
   gap: 8px;
   align-items: center;
-}
-.group-collapse-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  padding: 4px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-.group-collapse-btn:hover {
-  background: var(--surface-border);
-}
-.is-collapsed .group-collapse-btn {
-  transform: rotate(-90deg);
 }
 
 /* Search results view override */

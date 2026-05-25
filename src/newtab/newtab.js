@@ -29,6 +29,8 @@ const editTags = document.querySelector("#edit-tags");
 const editDelete = document.querySelector("#edit-delete");
 const editCancel = document.querySelector("#edit-cancel");
 const editSave = document.querySelector("#edit-save");
+const editFavicon = document.querySelector("#edit-favicon");
+const editFaviconError = document.querySelector("#edit-favicon-error");
 
 let bookmarks = [];
 let currentSettings = null;
@@ -141,7 +143,13 @@ function renderTags(bookmark) {
 }
 
 function renderFavicon(bookmark) {
-  const faviconUrl = getFaviconUrl(bookmark.url);
+  const customFavicon = currentSettings?.customFavicons?.[bookmark.id];
+  const isBroken = currentSettings?.brokenCustomFavicons?.[bookmark.id];
+  let faviconUrl = (customFavicon && !isBroken) ? customFavicon : getFaviconUrl(bookmark.url);
+  if (!customFavicon && faviconUrl) {
+    faviconUrl = faviconUrl.replace("&size=32", "&size=64");
+  }
+
   const contentNode = faviconUrl
     ? el("img", { class: "favicon-img", src: faviconUrl, alt: "" })
     : el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) });
@@ -149,7 +157,31 @@ function renderFavicon(bookmark) {
 
   if (contentNode.tagName === "IMG") {
     contentNode.onerror = () => {
-      contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
+      // If a custom favicon failed, mark it as broken, save it, and try fallback
+      if (customFavicon) {
+        currentSettings.brokenCustomFavicons = currentSettings.brokenCustomFavicons || {};
+        if (!currentSettings.brokenCustomFavicons[bookmark.id]) {
+          currentSettings.brokenCustomFavicons[bookmark.id] = true;
+          setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
+        }
+        
+        contentNode.onerror = () => {
+          contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
+        };
+        const fallbackUrl = getFaviconUrl(bookmark.url);
+        contentNode.src = fallbackUrl ? fallbackUrl.replace("&size=32", "&size=64") : "";
+        if (!fallbackUrl) contentNode.onerror();
+      } else {
+        contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
+      }
+    };
+    
+    // Clear broken flag if it successfully loads
+    contentNode.onload = () => {
+      if (customFavicon && currentSettings?.brokenCustomFavicons?.[bookmark.id]) {
+        delete currentSettings.brokenCustomFavicons[bookmark.id];
+        setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
+      }
     };
   }
 
@@ -446,7 +478,6 @@ function renderDashboard(items) {
 
     const folderId = folder === "📌 Fijados" ? "pinned" : folderBookmarks[0]?.parentId;
     const mode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
-    const isCollapsed = !!currentSettings?.collapsedFolders?.[folderId];
 
     if (folderBrokenBookmarks.length > 0) {
       const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: `${folderBrokenBookmarks.length} fallo(s)` });
@@ -457,57 +488,36 @@ function renderDashboard(items) {
       headerButtons.push(viewButton);
     }
 
-    const modeSelect = el("select", { class: "group-mode-select", "data-folder-id": folderId });
-    modeSelect.style.fontSize = "11px";
-    modeSelect.style.padding = "2px 4px";
-    modeSelect.innerHTML = `
-      <option value="default">Por defecto</option>
-      <option value="list">Lista completa</option>
-      <option value="compact">Lista compacta</option>
-      <option value="icons">Grilla de iconos</option>
-      <option value="quicklinks">Quicklinks</option>
-    `;
-    modeSelect.value = currentSettings?.folderModes?.[folderId] || "default";
-    modeSelect.addEventListener("change", async (e) => {
+    const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
+    const modeBtn = el("button", { class: "review-button", type: "button", title: "Cambiar vista" });
+    modeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`;
+    modeBtn.style.padding = "0 6px"; // Make it square-ish
+    
+    modeBtn.addEventListener("click", async () => {
+      const currentMode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
+      const currentIndex = MODES.indexOf(currentMode);
+      const nextMode = MODES[(currentIndex + 1) % MODES.length];
+      
       const newModes = { ...(currentSettings.folderModes || {}) };
-      if (e.target.value === "default") {
-        delete newModes[folderId];
-      } else {
-        newModes[folderId] = e.target.value;
-      }
+      newModes[folderId] = nextMode;
       currentSettings.folderModes = newModes;
+      
       await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
       render();
     });
+    
+    headerButtons.push(modeBtn);
 
-    const collapseBtn = el("button", { class: "group-collapse-btn", type: "button", title: "Colapsar/Expandir" });
-    collapseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-    collapseBtn.addEventListener("click", async () => {
-      const newCollapsed = { ...(currentSettings.collapsedFolders || {}) };
-      if (newCollapsed[folderId]) {
-        delete newCollapsed[folderId];
-      } else {
-        newCollapsed[folderId] = true;
-      }
-      currentSettings.collapsedFolders = newCollapsed;
-      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
-      render();
-    });
-
-    const headerControls = el("div", { class: "group-header-controls" }, [modeSelect, collapseBtn]);
+    const headerChildren = [el("h2", { text: folder })];
     if (headerButtons.length > 0) {
-      headerControls.prepend(...headerButtons);
+      headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
     }
-
-    const headerChildren = [el("h2", { text: folder }), headerControls];
 
     const modeClass = mode !== "list" ? ` mode-${mode}` : "";
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
     
-    const groupClass = `group${isCollapsed ? " is-collapsed" : ""}`;
-    
     masonryWrapper.append(
-      el("article", { class: groupClass }, [
+      el("article", { class: "group" }, [
         el("div", { class: "group-header" }, headerChildren),
         el("div", { class: bookmarkListClass }, folderBookmarks.map((bookmark) => renderBookmark(bookmark)))
       ])
@@ -644,6 +654,7 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
+
 settingsButton.addEventListener("click", () => {
   if (api.runtime?.openOptionsPage) {
     api.runtime.openOptionsPage();
@@ -656,6 +667,12 @@ function showEditModal(bookmark) {
   editTitle.value = bookmark.title;
   editUrl.value = bookmark.url;
   editTags.value = (bookmark.manualTags || []).join(", ");
+  editFavicon.value = currentSettings?.customFavicons?.[bookmark.id] || "";
+  if (currentSettings?.brokenCustomFavicons?.[bookmark.id]) {
+    editFaviconError.style.display = "block";
+  } else {
+    editFaviconError.style.display = "none";
+  }
   editSave.disabled = false;
   
   const cleanup = () => {
@@ -694,6 +711,29 @@ function showEditModal(bookmark) {
       const manualTagsDict = await getStoredValue(api, STORAGE_KEYS.manualTags, {});
       manualTagsDict[bookmark.id] = newTags;
       await setStoredValue(api, STORAGE_KEYS.manualTags, manualTagsDict);
+
+      const newFavicon = editFavicon.value.trim();
+      const customFavicons = { ...(currentSettings.customFavicons || {}) };
+      let changedFavicon = false;
+      if (newFavicon) {
+        if (customFavicons[bookmark.id] !== newFavicon) {
+          customFavicons[bookmark.id] = newFavicon;
+          changedFavicon = true;
+        }
+      } else {
+        if (customFavicons[bookmark.id]) {
+          delete customFavicons[bookmark.id];
+          changedFavicon = true;
+        }
+      }
+      
+      if (changedFavicon) {
+        currentSettings.customFavicons = customFavicons;
+        if (currentSettings.brokenCustomFavicons) {
+          delete currentSettings.brokenCustomFavicons[bookmark.id];
+        }
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+      }
 
       bookmark.title = newTitle;
       bookmark.url = newUrl;

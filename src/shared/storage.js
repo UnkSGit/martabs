@@ -9,7 +9,7 @@ const DEFAULT_SETTINGS = {
   setupComplete: false,
   defaultFolderMode: "list",
   folderModes: {},
-  collapsedFolders: {}
+  customFavicons: {}
 };
 
 export const STORAGE_KEYS = {
