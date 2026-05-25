@@ -33,6 +33,7 @@ const editSave = document.querySelector("#edit-save");
 let bookmarks = [];
 let currentSettings = null;
 let capturedPreviews = {};
+let pinnedBookmarks = [];
 let hoverTimeout = null;
 let hideTimeout = null;
 
@@ -236,7 +237,27 @@ function renderBookmark(bookmark, rich = false) {
     showEditModal(bookmark);
   });
   
-  bookmarkElement.append(editBtn);
+  const isPinned = pinnedBookmarks.includes(bookmark.id);
+  const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? "Desfijar marcador" : "Fijar marcador", type: "button" });
+  
+  pinBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${isPinned ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+    <line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.2V6a3 3 0 0 0-6 0v5.2a2 2 0 0 1-1.11 1.35l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+  </svg>`;
+  
+  pinBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (isPinned) {
+      pinnedBookmarks = pinnedBookmarks.filter(id => id !== bookmark.id);
+    } else {
+      pinnedBookmarks.push(bookmark.id);
+    }
+    await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, pinnedBookmarks);
+    render();
+  });
+  
+  const actionsContainer = el("div", { class: "bookmark-actions" }, [pinBtn, editBtn]);
+  bookmarkElement.append(actionsContainer);
 
   bookmarkElement.addEventListener("click", (event) => {
     if (
@@ -349,8 +370,16 @@ function renderDashboard(items) {
   content.classList.remove("results", "layout-single", "layout-columns", "layout-grid");
   content.innerHTML = "";
 
-  const folders = groupByFolder(items);
-  const count = folders.size;
+  const foldersMap = groupByFolder(items);
+  
+  const pinnedItems = items.filter(b => pinnedBookmarks.includes(b.id));
+  const folders = Array.from(foldersMap.entries());
+  
+  if (pinnedItems.length > 0) {
+    folders.unshift(["📌 Fijados", pinnedItems]);
+  }
+  
+  const count = folders.length;
 
   if (count === 1) {
     content.classList.add("layout-single");
@@ -511,9 +540,10 @@ async function init() {
     content.append(el("p", { class: "empty", text: "Abre Configurar y elige una o mas carpetas." }));
     return;
   }
-  [bookmarks, capturedPreviews] = await Promise.all([
+  [bookmarks, capturedPreviews, pinnedBookmarks] = await Promise.all([
     getBookmarkIndex(api),
-    getCapturedPreviews(api)
+    getCapturedPreviews(api),
+    getStoredValue(api, STORAGE_KEYS.pinnedBookmarks, [])
   ]);
   render();
   searchInput.focus();
@@ -623,6 +653,10 @@ if (api.storage && api.storage.onChanged) {
       }
       if (changes[STORAGE_KEYS.capturedPreviews]) {
         capturedPreviews = changes[STORAGE_KEYS.capturedPreviews].newValue || {};
+        render();
+      }
+      if (changes[STORAGE_KEYS.pinnedBookmarks]) {
+        pinnedBookmarks = changes[STORAGE_KEYS.pinnedBookmarks].newValue || [];
         render();
       }
     }

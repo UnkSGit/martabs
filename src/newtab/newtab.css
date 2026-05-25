@@ -410,7 +410,7 @@ button svg {
   gap: 10px;
   align-items: center;
   padding: 6px 8px;
-  padding-right: 44px;
+  padding-right: 76px;
   border-radius: var(--radius-sm);
   color: inherit;
   text-decoration: none;
@@ -900,12 +900,25 @@ button svg {
   box-shadow: 0 0 6px #f59e0b;
 }
 
-/* Edit Button */
-.bookmark-edit-btn {
+/* Bookmark Actions Container */
+.bookmark-actions {
   position: absolute;
   right: 8px;
   top: 50%;
-  transform: translateY(-50%) !important;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.bookmark:hover .bookmark-actions {
+  opacity: 1;
+}
+
+/* Edit and Pin Buttons inside Actions */
+.bookmark-edit-btn, .bookmark-pin-btn {
   width: 28px;
   height: 28px;
   min-width: 28px;
@@ -917,11 +930,21 @@ button svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
   transition: var(--transition);
   cursor: pointer;
-  z-index: 2;
   box-shadow: var(--shadow-sm);
+}
+
+.bookmark-pin-btn.is-pinned {
+  color: #ffffff;
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.bookmark-edit-btn:hover, .bookmark-pin-btn:hover {
+  color: #ffffff;
+  border-color: var(--primary);
+  background: var(--primary);
 }
 
 .bookmark-edit-btn::before {
@@ -931,16 +954,6 @@ button svg {
   font-weight: 700;
 }
 
-.bookmark:hover .bookmark-edit-btn {
-  opacity: 1;
-}
-
-.bookmark-edit-btn:hover {
-  color: #ffffff;
-  border-color: var(--primary);
-  background: var(--primary);
-  transform: translateY(-50%) !important;
-}
 
 /* Edit Modal */
 .edit-modal {

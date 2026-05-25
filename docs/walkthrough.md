@@ -4,7 +4,8 @@ Este documento explica las funcionalidades principales desde la perspectiva del 
 
 ## Interfaz Principal (Dashboard)
 
-- **Carpetas Monitoreadas**: La página de inicio muestra las carpetas de marcadores que elegiste en la Configuración.
+- **Favoritos Fijados**: Si fijaste algún marcador, aparecerá una carpeta virtual al principio de la página llamada "📌 Fijados", dándote acceso inmediato a tus enlaces más importantes.
+- **Carpetas Monitoreadas**: A continuación, se muestran las carpetas de marcadores que elegiste en la Configuración.
 - **Búsqueda Instantánea**: La barra superior permite buscar en tiempo real por título, URL, dominio, etiqueta (tag) o carpeta. Usa la tecla `Escape` para borrar la búsqueda rápidamente. Al presionar `Enter` se abrirá el primer resultado.
 - **Vista Rápida (Hover)**: Al dejar el cursor sobre un marcador, aparece una tarjeta flotante con más información:
   - Título completo
@@ -12,7 +13,9 @@ Este documento explica las funcionalidades principales desde la perspectiva del 
   - Etiquetas (automáticas y manuales)
   - Carpeta de origen
   - Captura local del sitio (si está disponible y configurado)
-- **Edición Rápida**: Al pasar el cursor sobre un marcador, aparece un pequeño botón de edición a la derecha. Al hacer clic, se abre una ventana modal que permite cambiar el título, la URL, editar etiquetas personalizadas o eliminar el marcador por completo.
+- **Acciones Rápidas (Pin y Edición)**: Al pasar el cursor sobre un marcador, aparecen botones flotantes a la derecha:
+  - **Fijar (Pin)**: Te permite anclar el marcador para que aparezca siempre en la sección superior de "Fijados".
+  - **Editar (Lápiz)**: Se abre una ventana modal que permite cambiar el título, la URL, editar etiquetas personalizadas o eliminar el marcador por completo.
 
 ## Configuración y Setup
 

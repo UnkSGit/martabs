@@ -14,7 +14,8 @@ export const STORAGE_KEYS = {
   manualTags: "manualTags",
   linkHealth: "linkHealth",
   capturedPreviews: "capturedPreviews",
-  pendingPreviewCaptures: "pendingPreviewCaptures"
+  pendingPreviewCaptures: "pendingPreviewCaptures",
+  pinnedBookmarks: "pinnedBookmarks"
 };
 
 export async function getSettings(api) {
