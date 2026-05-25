@@ -11,7 +11,6 @@ const manualTags = document.querySelector("#manual-tags");
 const linkHealth = document.querySelector("#link-health");
 const themeSelect = document.querySelector("#theme-select");
 const linkHealthPermissions = {
-  permissions: ["alarms"],
   origins: ["http://*/*", "https://*/*"]
 };
 

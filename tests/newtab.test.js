@@ -36,6 +36,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /overflow-y:\s*auto\s*!important/);
   assert.match(css, /\.results-toolbar\s*{/);
   assert.match(css, /\.link-action-button\s*{/);
+  assert.match(css, /\.review-button\s*{/);
+  assert.match(css, /\.review-progress\s*{/);
   assert.doesNotMatch(css, /\.review-links/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
 });
@@ -45,8 +47,9 @@ test("newtab controller imports correct shared modules", async () => {
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
-  assert.match(js, /import { getBookmarkIndex, getSettings, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
+  assert.match(js, /import { getBookmarkIndex, getSettings, getLinkHealth, saveLinkHealth, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
+  assert.match(js, /import { applyLinkCheckResult } from "\.\.\/shared\/link-health\.js";/);
   assert.match(js, /searchInput\.addEventListener\("input",/);
   assert.match(js, /api\.runtime\.openOptionsPage\(\)/);
   assert.match(js, /api\.storage\.onChanged\.addListener/);
@@ -54,9 +57,13 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /layout-single/);
   assert.match(js, /layout-columns/);
   assert.match(js, /layout-grid/);
-  assert.match(js, /renderBrokenLinks\(folderBrokenBookmarks, folder\)/);
+  assert.match(js, /async function checkUrl/);
+  assert.match(js, /async function reviewFolderHealth/);
   assert.match(js, /text:\s*"Volver"/);
   assert.match(js, /class:\s*"link-action-button"/);
+  assert.match(js, /No comprobado/);
+  assert.match(js, /if \(!bookmark\.linkHealth\?\.lastCheckedAt\)/);
+  assert.match(js, /const healthDetails = !health/);
   assert.doesNotMatch(js, /function renderReviewLinks/);
   assert.doesNotMatch(js, /runManualLinkCheck/);
   assert.doesNotMatch(js, /CHECK_LINK_HEALTH_NOW/);

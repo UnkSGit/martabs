@@ -330,25 +330,53 @@ button svg {
   word-break: break-all;
 }
 
-/* Dynamic broken-link review button in header */
+/* Review / check button in folder header */
 .review-button {
   height: 24px !important;
   padding: 0 8px !important;
-  background: var(--warning-bg) !important;
-  color: var(--warning-text) !important;
-  border: 1.5px solid var(--warning-border) !important;
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+  border: 1.5px solid var(--primary) !important;
   font-size: 11px !important;
   border-radius: var(--radius-sm) !important;
   display: inline-flex;
   align-items: center;
   gap: 4px;
   box-shadow: none !important;
+  transition: all 0.18s ease;
 }
 
-.review-button:hover {
+.review-button:hover:not(:disabled) {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+.review-button:disabled {
+  opacity: 0.55;
+  cursor: default;
+  transform: none !important;
+}
+
+/* Danger variant - shows broken link count */
+.review-button--danger {
+  background: var(--warning-bg) !important;
+  color: var(--warning-text) !important;
+  border-color: var(--warning-border) !important;
+}
+
+.review-button--danger:hover:not(:disabled) {
   background: #fecaca !important;
   border-color: #f87171 !important;
   color: #991b1b !important;
+}
+
+/* Progress counter shown next to the Revisar button */
+.review-progress {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 28px;
+  text-align: right;
 }
 
 .danger-button {
@@ -811,6 +839,11 @@ button svg {
 .health-dot.ok {
   background: #22c55e;
   box-shadow: 0 0 6px #22c55e;
+}
+
+.health-dot.unchecked {
+  background: #94a3b8;
+  box-shadow: 0 0 6px rgba(148, 163, 184, 0.45);
 }
 
 .health-dot.broken {

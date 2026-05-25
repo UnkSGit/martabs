@@ -37,7 +37,6 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /api\.bookmarks\.getTree\(\)/);
   assert.match(js, /selectedFolderIds\.length === 0/);
   assert.match(js, /api\.permissions\?\.request/);
-  assert.match(js, /permissions:\s*\["alarms"\]/);
   assert.match(js, /origins:\s*\["http:\/\/\*\/\*", "https:\/\/\*\/\*"\]/);
   assert.match(js, /api\.permissions\?\.remove/);
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);

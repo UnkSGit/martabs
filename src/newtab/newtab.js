@@ -1,7 +1,8 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { searchBookmarks } from "../shared/search.js";
-import { getBookmarkIndex, getSettings, STORAGE_KEYS } from "../shared/storage.js";
+import { getBookmarkIndex, getSettings, getLinkHealth, saveLinkHealth, STORAGE_KEYS } from "../shared/storage.js";
 import { el, formatDate } from "../shared/render.js";
+import { applyLinkCheckResult } from "../shared/link-health.js";
 
 const api = getBrowserApi();
 const statusLine = document.querySelector("#status-line");
@@ -15,6 +16,10 @@ let currentSettings = null;
 let hoverTimeout = null;
 let hideTimeout = null;
 
+const TIMEOUT_MS = 8000;
+
+// --- Theme ---
+
 function applyTheme(theme) {
   const root = document.documentElement;
   root.classList.remove("theme-light", "theme-dark");
@@ -24,6 +29,63 @@ function applyTheme(theme) {
     root.classList.add("theme-dark");
   }
 }
+
+// --- Link health check (runs in the new tab page) ---
+
+async function checkUrl(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    let response = await fetch(url, {
+      method: "HEAD",
+      cache: "no-store",
+      signal: controller.signal
+    });
+    if (response.status === 405 || response.status === 403) {
+      response = await fetch(url, {
+        method: "GET",
+        cache: "no-store",
+        signal: controller.signal
+      });
+    }
+    return {
+      ok: response.ok || (response.status >= 300 && response.status < 400),
+      status: response.status,
+      checkedAt: Date.now()
+    };
+  } catch {
+    return { ok: false, status: "network-error", checkedAt: Date.now() };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function reviewFolderHealth(folderBookmarks, reviewButton, progressEl) {
+  reviewButton.disabled = true;
+  reviewButton.textContent = "Revisando...";
+  const total = folderBookmarks.length;
+
+  const linkHealth = await getLinkHealth(api);
+
+  for (let i = 0; i < folderBookmarks.length; i++) {
+    const bookmark = folderBookmarks[i];
+    progressEl.textContent = `${i + 1}/${total}`;
+
+    const result = await checkUrl(bookmark.url);
+    linkHealth[bookmark.id] = applyLinkCheckResult(linkHealth[bookmark.id], result);
+
+    // Update in-memory bookmark so render() reflects latest state
+    const idx = bookmarks.findIndex((b) => b.id === bookmark.id);
+    if (idx !== -1) {
+      bookmarks[idx] = { ...bookmarks[idx], linkHealth: linkHealth[bookmark.id] };
+    }
+  }
+
+  await saveLinkHealth(api, linkHealth);
+  render();
+}
+
+// --- Favicon ---
 
 function faviconLabel(bookmark) {
   return (bookmark.domain || bookmark.title || "?").slice(0, 1).toUpperCase();
@@ -35,6 +97,8 @@ function getFaviconUrl(url) {
   }
   return "";
 }
+
+// --- Rendering helpers ---
 
 function renderTags(bookmark) {
   const children = [];
@@ -68,11 +132,36 @@ function renderFavicon(bookmark) {
     };
   }
 
-  if (bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0) {
+  if (currentSettings?.linkHealthEnabled && bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0) {
     faviconContainer.append(el("div", { class: "health-dot-indicator" }));
   }
 
   return faviconContainer;
+}
+
+function getBookmarkHealth(bookmark) {
+  if (!currentSettings?.linkHealthEnabled) {
+    return null;
+  }
+
+  if (!bookmark.linkHealth?.lastCheckedAt) {
+    return {
+      state: "unchecked",
+      text: "No comprobado"
+    };
+  }
+
+  if (bookmark.linkHealth.consecutiveFailures > 0) {
+    return {
+      state: "broken",
+      text: `Inaccesible (Codigo: ${bookmark.linkHealth.lastStatus || "Error"})`
+    };
+  }
+
+  return {
+    state: "ok",
+    text: "Enlace accesible"
+  };
 }
 
 function renderBookmark(bookmark, rich = false) {
@@ -82,7 +171,10 @@ function renderBookmark(bookmark, rich = false) {
     rich && formatDate(bookmark.dateAdded)
   ].filter(Boolean).join(" - ");
 
-  const isBroken = bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0;
+  const isBroken =
+    currentSettings?.linkHealthEnabled &&
+    bookmark.linkHealth &&
+    bookmark.linkHealth.consecutiveFailures > 0;
   const bookmarkElement = el(
     "a",
     {
@@ -124,15 +216,13 @@ function showPreviewCard(bookmark, anchorElement) {
     el("span", { class: "preview-local-label", text: "Vista rapida local" })
   ]);
 
-  const isBroken = bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0;
-  const statusText = isBroken
-    ? `Inaccesible (Codigo: ${bookmark.linkHealth.lastStatus || "Error"})`
-    : "Enlace accesible";
-
-  const healthDetails = el("div", { class: "preview-health" }, [
-    el("div", { class: `health-dot ${isBroken ? "broken" : "ok"}` }),
-    el("span", { class: "health-status-text", text: statusText })
-  ]);
+  const health = getBookmarkHealth(bookmark);
+  const healthDetails = !health
+    ? null
+    : el("div", { class: "preview-health" }, [
+        el("div", { class: `health-dot ${health.state}` }),
+        el("span", { class: "health-status-text", text: health.text })
+      ]);
 
   const detailsContainer = el("div", { class: "preview-details" }, [
     el("div", { class: "preview-title", text: bookmark.title }),
@@ -164,6 +254,8 @@ function hidePreviewCard() {
   previewCard.hidden = true;
 }
 
+// --- Layout ---
+
 function groupByFolder(items) {
   return Map.groupBy
     ? Map.groupBy(items, (bookmark) => bookmark.folderPath || "Sin carpeta")
@@ -192,18 +284,29 @@ function renderDashboard(items) {
   for (const [folder, folderBookmarks] of folders) {
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
+
+    const headerChildren = [el("h2", { text: folder })];
+
+    if (currentSettings?.linkHealthEnabled) {
+      const progressEl = el("span", { class: "review-progress" });
+      const reviewButton = el("button", { class: "review-button", type: "button", text: "Revisar" });
+      reviewButton.addEventListener("click", () => {
+        reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
+      });
+      headerChildren.push(progressEl, reviewButton);
+    }
+
     const folderBrokenBookmarks = currentSettings?.linkHealthEnabled
       ? folderBookmarks.filter((bookmark) => bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0)
       : [];
 
-    const headerChildren = [el("h2", { text: folder })];
     if (folderBrokenBookmarks.length > 0) {
-      const reviewButton = el("button", { class: "review-button", type: "button", text: "Revisar" });
-      reviewButton.addEventListener("click", (event) => {
+      const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: `${folderBrokenBookmarks.length} fallo(s)` });
+      viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
       });
-      headerChildren.push(reviewButton);
+      headerChildren.push(viewButton);
     }
 
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}`;
@@ -230,6 +333,10 @@ function renderResults(items) {
 }
 
 function getFailedBookmarks(items) {
+  if (!currentSettings?.linkHealthEnabled) {
+    return [];
+  }
+
   return items.filter((bookmark) => bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0);
 }
 
