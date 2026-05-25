@@ -3,6 +3,7 @@ const DEFAULT_SETTINGS = {
   automaticTagsEnabled: true,
   manualTagsEnabled: true,
   linkHealthEnabled: false,
+  theme: "system",
   setupComplete: false
 };
 

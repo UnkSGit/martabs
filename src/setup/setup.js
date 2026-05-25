@@ -9,10 +9,21 @@ const status = document.querySelector("#status");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const linkHealth = document.querySelector("#link-health");
+const themeSelect = document.querySelector("#theme-select");
 const linkHealthPermissions = {
   permissions: ["alarms"],
   origins: ["http://*/*", "https://*/*"]
 };
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  root.classList.remove("theme-light", "theme-dark");
+  if (theme === "light") {
+    root.classList.add("theme-light");
+  } else if (theme === "dark") {
+    root.classList.add("theme-dark");
+  }
+}
 
 function renderFolders(folders, selectedFolderIds) {
   folderList.innerHTML = "";
@@ -43,8 +54,20 @@ async function requestLinkHealthPermission() {
   }
 }
 
+async function removeLinkHealthPermission() {
+  if (!api.permissions?.remove) {
+    return false;
+  }
+
+  try {
+    return await api.permissions.remove(linkHealthPermissions);
+  } catch {
+    return false;
+  }
+}
+
 function getSuccessMessage(linkHealthRequested, linkHealthEnabled) {
-  const message = "Configuracion guardada. Abre una nueva pestana para usar Bookmark Home.";
+  const message = "Configuracion guardada. Abre una nueva pestana para usar martabs.";
   if (linkHealthRequested && !linkHealthEnabled) {
     return `${message} No se pudo activar la revision de enlaces porque falta el permiso necesario.`;
   }
@@ -53,11 +76,17 @@ function getSuccessMessage(linkHealthRequested, linkHealthEnabled) {
 
 async function init() {
   const [tree, settings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
+  applyTheme(settings.theme || "system");
   renderFolders(getFolderOptions(tree), settings.selectedFolderIds);
   automaticTags.checked = settings.automaticTagsEnabled;
   manualTags.checked = settings.manualTagsEnabled;
   linkHealth.checked = settings.linkHealthEnabled;
+  themeSelect.value = settings.theme || "system";
 }
+
+themeSelect.addEventListener("change", () => {
+  applyTheme(themeSelect.value);
+});
 
 saveButton.addEventListener("click", async () => {
   try {
@@ -72,6 +101,10 @@ saveButton.addEventListener("click", async () => {
       ? await requestLinkHealthPermission()
       : false;
 
+    if (!linkHealthRequested) {
+      await removeLinkHealthPermission();
+    }
+
     if (!linkHealthEnabled) {
       linkHealth.checked = false;
     }
@@ -81,9 +114,11 @@ saveButton.addEventListener("click", async () => {
       automaticTagsEnabled: automaticTags.checked,
       manualTagsEnabled: manualTags.checked,
       linkHealthEnabled: linkHealthEnabled,
+      theme: themeSelect.value,
       setupComplete: true
     });
 
+    applyTheme(themeSelect.value);
     status.textContent = getSuccessMessage(linkHealthRequested, linkHealthEnabled);
   } catch (error) {
     status.textContent = `No se pudo guardar la configuracion: ${error.message}`;

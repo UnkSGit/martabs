@@ -24,6 +24,8 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /width: min\(760px, 100%\);/);
   assert.match(css, /\.folder-list\s*{/);
   assert.match(css, /max-height: 320px;/);
+  assert.match(css, /\.theme-label\s*{/);
+  assert.doesNotMatch(css, /fonts\.googleapis/);
 });
 
 test("setup script saves selected folders and setup completion", async () => {
@@ -37,6 +39,7 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /api\.permissions\?\.request/);
   assert.match(js, /permissions:\s*\["alarms"\]/);
   assert.match(js, /origins:\s*\["http:\/\/\*\/\*", "https:\/\/\*\/\*"\]/);
+  assert.match(js, /api\.permissions\?\.remove/);
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);
   assert.match(js, /setupComplete: true/);
   assert.match(js, /No se pudo guardar la configuracion:/);

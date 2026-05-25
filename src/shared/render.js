@@ -6,7 +6,9 @@ export function el(tag, attributes = {}, children = []) {
     else node.setAttribute(key, value);
   }
   for (const child of children) {
-    node.append(child);
+    if (child !== null && child !== undefined && child !== false) {
+      node.append(child);
+    }
   }
   return node;
 }

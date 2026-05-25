@@ -10,10 +10,12 @@ test("newtab page loads required HTML structures and selectors", async () => {
   assert.match(html, /id="status-line"/);
   assert.match(html, /id="settings"/);
   assert.match(html, /id="search"/);
-  assert.match(html, /id="review-links"/);
   assert.match(html, /id="content"/);
   assert.match(html, /id="preview-card" class="preview-card"/);
+  assert.match(html, /class="logo-wrap"/);
   assert.match(html, /<script type="module" src="\.\/newtab\.js"><\/script>/);
+  assert.doesNotMatch(html, /id="review-links"/);
+  assert.doesNotMatch(html, /Ã|Â/);
 });
 
 test("newtab stylesheet contains modern layout definitions", async () => {
@@ -28,6 +30,14 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /prefers-color-scheme: dark/);
   assert.match(css, /\.preview-card\s*{/);
   assert.match(css, /\.health-dot-indicator\s*{/);
+  assert.match(css, /\.logo-wrap\s*{/);
+  assert.match(css, /grid-auto-rows:\s*max-content/);
+  assert.match(css, /align-content:\s*start/);
+  assert.match(css, /overflow-y:\s*auto\s*!important/);
+  assert.match(css, /\.results-toolbar\s*{/);
+  assert.match(css, /\.link-action-button\s*{/);
+  assert.doesNotMatch(css, /\.review-links/);
+  assert.doesNotMatch(css, /fonts\.googleapis/);
 });
 
 test("newtab controller imports correct shared modules", async () => {
@@ -37,9 +47,20 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
   assert.match(js, /import { getBookmarkIndex, getSettings, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
-  assert.match(js, /import { shouldShowLinkWarning } from "\.\.\/shared\/link-health\.js";/);
   assert.match(js, /searchInput\.addEventListener\("input",/);
   assert.match(js, /api\.runtime\.openOptionsPage\(\)/);
   assert.match(js, /api\.storage\.onChanged\.addListener/);
   assert.match(js, /showPreviewCard/);
+  assert.match(js, /layout-single/);
+  assert.match(js, /layout-columns/);
+  assert.match(js, /layout-grid/);
+  assert.match(js, /renderBrokenLinks\(folderBrokenBookmarks, folder\)/);
+  assert.match(js, /text:\s*"Volver"/);
+  assert.match(js, /class:\s*"link-action-button"/);
+  assert.doesNotMatch(js, /function renderReviewLinks/);
+  assert.doesNotMatch(js, /runManualLinkCheck/);
+  assert.doesNotMatch(js, /CHECK_LINK_HEALTH_NOW/);
+  assert.doesNotMatch(js, /image\.thum\.io/);
+  assert.doesNotMatch(js, /icons\.duckduckgo/);
+  assert.doesNotMatch(js, /Ã|Â/);
 });

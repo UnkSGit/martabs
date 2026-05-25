@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Configurar Bookmark Home</title>
+    <title>Configurar martabs</title>
     <link rel="stylesheet" href="./setup.css">
   </head>
   <body>
@@ -17,6 +17,17 @@
           <label><input id="automatic-tags" type="checkbox" checked> Etiquetas automaticas</label>
           <label><input id="manual-tags" type="checkbox" checked> Etiquetas manuales</label>
           <label><input id="link-health" type="checkbox"> Revisar enlaces caidos en segundo plano</label>
+        </fieldset>
+        <fieldset>
+          <legend>Apariencia</legend>
+          <label class="theme-label">
+            <span>Tema de color</span>
+            <select id="theme-select">
+              <option value="system">Sistema (Automatico)</option>
+              <option value="light">Claro</option>
+              <option value="dark">Oscuro</option>
+            </select>
+          </label>
         </fieldset>
         <div class="actions">
           <button id="save" type="button">Guardar configuracion</button>

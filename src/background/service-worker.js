@@ -45,40 +45,7 @@ async function rebuildIndex() {
 
   await saveBookmarkIndex(api, index);
 
-  const unchecked = index.filter((bookmark) => bookmark.linkHealth === null);
-  if (unchecked.length > 0) {
-    setTimeout(() => {
-      runInitialHealthCheck(unchecked).catch((error) =>
-        console.error("Failed to run initial health checks", error)
-      );
-    }, 100);
-  }
-
   return index;
-}
-
-async function runInitialHealthCheck(unchecked) {
-  const limit = 10;
-  const list = [...unchecked];
-  const freshHealth = await getLinkHealth(api);
-  
-  async function worker() {
-    while (list.length > 0) {
-      const bookmark = list.shift();
-      if (!bookmark) continue;
-      try {
-        const result = await checkUrl(bookmark.url);
-        freshHealth[bookmark.id] = applyLinkCheckResult(freshHealth[bookmark.id], result);
-      } catch (error) {
-        console.error(`Initial health check failed for ${bookmark.url}`, error);
-      }
-    }
-  }
-
-  const workers = Array.from({ length: Math.min(limit, list.length) }, () => worker());
-  await Promise.all(workers);
-  await saveLinkHealth(api, freshHealth);
-  requestRebuild("initial-health-check-complete");
 }
 
 function requestRebuild(reason) {
@@ -105,11 +72,18 @@ async function checkUrl(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: "HEAD",
       cache: "no-store",
       signal: controller.signal
     });
+    if (response.status === 405 || response.status === 403) {
+      response = await fetch(url, {
+        method: "GET",
+        cache: "no-store",
+        signal: controller.signal
+      });
+    }
     return {
       ok: response.ok || (response.status >= 300 && response.status < 400),
       status: response.status,
@@ -126,22 +100,33 @@ async function checkUrl(url) {
   }
 }
 
-function pickHealthBatch(bookmarks, linkHealth) {
-  return [...bookmarks]
-    .sort((a, b) => {
-      const aChecked = linkHealth[a.id]?.lastCheckedAt || 0;
-      const bChecked = linkHealth[b.id]?.lastCheckedAt || 0;
-      return aChecked - bChecked;
-    })
-    .slice(0, BATCH_SIZE);
+function pickHealthBatch(bookmarks, linkHealth, checkAll = false) {
+  const sortedBookmarks = [...bookmarks].sort((a, b) => {
+    const aChecked = linkHealth[a.id]?.lastCheckedAt || 0;
+    const bChecked = linkHealth[b.id]?.lastCheckedAt || 0;
+    return aChecked - bChecked;
+  });
+
+  return checkAll ? sortedBookmarks : sortedBookmarks.slice(0, BATCH_SIZE);
 }
 
-async function runLinkHealthCheck() {
+function selectedFoldersChanged(previousSettings = {}, nextSettings = {}) {
+  const previous = previousSettings.selectedFolderIds || [];
+  const next = nextSettings.selectedFolderIds || [];
+  if (previous.length !== next.length) return true;
+
+  const previousSet = new Set(previous);
+  return next.some((folderId) => !previousSet.has(folderId));
+}
+
+async function runLinkHealthCheck({ checkAll = false } = {}) {
   const settings = await getSettings(api);
-  if (!settings.linkHealthEnabled) return;
+  if (!settings.linkHealthEnabled) {
+    return { checked: 0, skipped: true };
+  }
 
   const [bookmarks, linkHealth] = await Promise.all([getBookmarkIndex(api), getLinkHealth(api)]);
-  const batch = pickHealthBatch(bookmarks, linkHealth);
+  const batch = pickHealthBatch(bookmarks, linkHealth, checkAll);
 
   for (const bookmark of batch) {
     const result = await checkUrl(bookmark.url);
@@ -150,6 +135,7 @@ async function runLinkHealthCheck() {
 
   await saveLinkHealth(api, linkHealth);
   requestRebuild("link-health");
+  return { checked: batch.length, skipped: false, full: checkAll };
 }
 
 async function syncLinkHealthAlarm() {
@@ -174,10 +160,26 @@ function listenToBookmarkChanges() {
 function listenToSettingsChanges() {
   api.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local" && changes[STORAGE_KEYS.settings]) {
-      requestRebuild("settings");
-      syncLinkHealthAlarm().catch((error) => console.error("Link health alarm sync failed", error));
+      const previousSettings = changes[STORAGE_KEYS.settings].oldValue || {};
+      const nextSettings = changes[STORAGE_KEYS.settings].newValue || {};
+      handleSettingsChange(previousSettings, nextSettings).catch((error) =>
+        console.error("Settings change handling failed", error)
+      );
     }
   });
+}
+
+async function handleSettingsChange(previousSettings, nextSettings) {
+  await syncLinkHealthAlarm();
+  await rebuildIndex();
+
+  const shouldCheckSelectedFolders =
+    nextSettings.linkHealthEnabled &&
+    (!previousSettings.linkHealthEnabled || selectedFoldersChanged(previousSettings, nextSettings));
+
+  if (shouldCheckSelectedFolders) {
+    await runLinkHealthCheck({ checkAll: true });
+  }
 }
 
 listenToBookmarkChanges();

@@ -23,6 +23,7 @@ export function getBrowserApi(globalScope = globalThis) {
   return {
     bookmarks: {
       getTree: wrap(api.bookmarks.getTree, api.bookmarks),
+      remove: api.bookmarks.remove ? wrap(api.bookmarks.remove, api.bookmarks) : async () => {},
       onCreated: api.bookmarks.onCreated,
       onChanged: api.bookmarks.onChanged,
       onMoved: api.bookmarks.onMoved,
@@ -30,6 +31,10 @@ export function getBrowserApi(globalScope = globalThis) {
     },
     runtime: {
       id: api.runtime?.id || "",
+      sendMessage: api.runtime.sendMessage
+        ? wrap(api.runtime.sendMessage, api.runtime)
+        : async () => null,
+      onMessage: api.runtime.onMessage,
       openOptionsPage: api.runtime.openOptionsPage
         ? wrap(api.runtime.openOptionsPage, api.runtime)
         : async () => {}
@@ -52,7 +57,10 @@ export function getBrowserApi(globalScope = globalThis) {
     permissions: api.permissions
       ? {
           contains: wrap(api.permissions.contains, api.permissions),
-          request: wrap(api.permissions.request, api.permissions)
+          request: wrap(api.permissions.request, api.permissions),
+          remove: api.permissions.remove
+            ? wrap(api.permissions.remove, api.permissions)
+            : async () => false
         }
       : null
   };
