@@ -38,6 +38,8 @@ let capturedPreviews = {};
 let pinnedBookmarks = [];
 let hoverTimeout = null;
 let hideTimeout = null;
+let pendingViewFocusFolderId = null;
+let pendingViewFocusTimer = null;
 
 const TIMEOUT_MS = 8000;
 
@@ -121,6 +123,11 @@ function getFaviconUrl(url) {
   return "";
 }
 
+function getDefaultFaviconUrl(url) {
+  const faviconUrl = getFaviconUrl(url);
+  return faviconUrl ? faviconUrl.replace("&size=32", "&size=64") : "";
+}
+
 // --- Rendering helpers ---
 
 function renderTags(bookmark) {
@@ -145,10 +152,8 @@ function renderTags(bookmark) {
 function renderFavicon(bookmark) {
   const customFavicon = currentSettings?.customFavicons?.[bookmark.id];
   const isBroken = currentSettings?.brokenCustomFavicons?.[bookmark.id];
-  let faviconUrl = (customFavicon && !isBroken) ? customFavicon : getFaviconUrl(bookmark.url);
-  if (!customFavicon && faviconUrl) {
-    faviconUrl = faviconUrl.replace("&size=32", "&size=64");
-  }
+  const usingCustomFavicon = Boolean(customFavicon && !isBroken);
+  const faviconUrl = usingCustomFavicon ? customFavicon : getDefaultFaviconUrl(bookmark.url);
 
   const contentNode = faviconUrl
     ? el("img", { class: "favicon-img", src: faviconUrl, alt: "" })
@@ -156,33 +161,39 @@ function renderFavicon(bookmark) {
   const faviconContainer = el("div", { class: "favicon-container" }, [contentNode]);
 
   if (contentNode.tagName === "IMG") {
+    contentNode.dataset.faviconSource = usingCustomFavicon ? "custom" : "default";
     contentNode.onerror = () => {
-      // If a custom favicon failed, mark it as broken, save it, and try fallback
-      if (customFavicon) {
+      if (usingCustomFavicon) {
         currentSettings.brokenCustomFavicons = currentSettings.brokenCustomFavicons || {};
         if (!currentSettings.brokenCustomFavicons[bookmark.id]) {
           currentSettings.brokenCustomFavicons[bookmark.id] = true;
           setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
         }
-        
+
+        contentNode.dataset.faviconSource = "default";
+        contentNode.onload = null;
         contentNode.onerror = () => {
           contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
         };
-        const fallbackUrl = getFaviconUrl(bookmark.url);
-        contentNode.src = fallbackUrl ? fallbackUrl.replace("&size=32", "&size=64") : "";
+        const fallbackUrl = getDefaultFaviconUrl(bookmark.url);
+        contentNode.src = fallbackUrl;
         if (!fallbackUrl) contentNode.onerror();
       } else {
         contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
       }
     };
-    
-    // Clear broken flag if it successfully loads
-    contentNode.onload = () => {
-      if (customFavicon && currentSettings?.brokenCustomFavicons?.[bookmark.id]) {
-        delete currentSettings.brokenCustomFavicons[bookmark.id];
-        setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
-      }
-    };
+
+    if (usingCustomFavicon) {
+      contentNode.onload = () => {
+        if (
+          contentNode.dataset.faviconSource === "custom" &&
+          currentSettings?.brokenCustomFavicons?.[bookmark.id]
+        ) {
+          delete currentSettings.brokenCustomFavicons[bookmark.id];
+          setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
+        }
+      };
+    }
   }
 
   if (currentSettings?.linkHealthEnabled && bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0) {
@@ -398,6 +409,33 @@ function groupByFolder(items) {
       }, new Map());
 }
 
+function scheduleViewFocus(folderId) {
+  pendingViewFocusFolderId = String(folderId);
+  clearTimeout(pendingViewFocusTimer);
+  pendingViewFocusTimer = setTimeout(() => {
+    if (pendingViewFocusFolderId === String(folderId)) {
+      pendingViewFocusFolderId = null;
+    }
+  }, 1200);
+}
+
+function focusPendingViewFolder() {
+  if (!pendingViewFocusFolderId) return;
+  const folderId = pendingViewFocusFolderId;
+
+  requestAnimationFrame(() => {
+    const group = Array.from(content.querySelectorAll(".group"))
+      .find((node) => node.getAttribute("data-folder-id") === folderId);
+    if (!group) return;
+
+    group.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    group.classList.add("is-view-focus");
+    setTimeout(() => {
+      group.classList.remove("is-view-focus");
+    }, 900);
+  });
+}
+
 function renderDashboard(items) {
   content.classList.remove("results", "review-results");
   content.innerHTML = "";
@@ -501,6 +539,7 @@ function renderDashboard(items) {
       const newModes = { ...(currentSettings.folderModes || {}) };
       newModes[folderId] = nextMode;
       currentSettings.folderModes = newModes;
+      scheduleViewFocus(folderId);
       
       await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
       render();
@@ -517,12 +556,14 @@ function renderDashboard(items) {
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
     
     masonryWrapper.append(
-      el("article", { class: "group" }, [
+      el("article", { class: "group", "data-folder-id": folderId }, [
         el("div", { class: "group-header" }, headerChildren),
         el("div", { class: bookmarkListClass }, folderBookmarks.map((bookmark) => renderBookmark(bookmark)))
       ])
     );
   }
+
+  focusPendingViewFolder();
 }
 
 function renderResults(items) {
@@ -714,14 +755,15 @@ function showEditModal(bookmark) {
 
       const newFavicon = editFavicon.value.trim();
       const customFavicons = { ...(currentSettings.customFavicons || {}) };
+      const faviconWasBroken = Boolean(currentSettings.brokenCustomFavicons?.[bookmark.id]);
       let changedFavicon = false;
       if (newFavicon) {
-        if (customFavicons[bookmark.id] !== newFavicon) {
+        if (customFavicons[bookmark.id] !== newFavicon || faviconWasBroken) {
           customFavicons[bookmark.id] = newFavicon;
           changedFavicon = true;
         }
       } else {
-        if (customFavicons[bookmark.id]) {
+        if (customFavicons[bookmark.id] || faviconWasBroken) {
           delete customFavicons[bookmark.id];
           changedFavicon = true;
         }

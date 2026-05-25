@@ -319,6 +319,10 @@ button svg {
   box-shadow: var(--shadow-md);
 }
 
+.group.is-view-focus {
+  animation: view-focus-pulse 900ms ease-out;
+}
+
 .group-header {
   display: flex;
   justify-content: space-between;
@@ -396,6 +400,17 @@ button svg {
   color: var(--text-muted);
   min-width: 28px;
   text-align: right;
+}
+
+@keyframes view-focus-pulse {
+  0% {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light), var(--shadow-md);
+  }
+  100% {
+    border-color: var(--surface-border);
+    box-shadow: var(--shadow-sm);
+  }
 }
 
 .danger-button {

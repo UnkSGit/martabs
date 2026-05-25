@@ -9,7 +9,8 @@ const DEFAULT_SETTINGS = {
   setupComplete: false,
   defaultFolderMode: "list",
   folderModes: {},
-  customFavicons: {}
+  customFavicons: {},
+  brokenCustomFavicons: {}
 };
 
 export const STORAGE_KEYS = {

@@ -28,6 +28,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.search-wrap\s*{/);
   assert.match(css, /\.content\s*{/);
   assert.match(css, /\.group\s*{/);
+  assert.match(css, /\.group\.is-view-focus\s*{/);
+  assert.match(css, /@keyframes\s+view-focus-pulse/);
   assert.match(css, /\.bookmark\s*{/);
   assert.match(css, /\.bookmark-edit-btn[,\s]/);
   assert.match(css, /\.bookmark-edit-btn::before\s*{/);
@@ -68,6 +70,11 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /layout-masonry/);
   assert.match(js, /masonry-1/);
   assert.match(js, /masonry-max/);
+  assert.match(js, /pendingViewFocusFolderId/);
+  assert.match(js, /function focusPendingViewFolder/);
+  assert.match(js, /scrollIntoView\(\{\s*behavior:\s*"smooth"/);
+  assert.match(js, /classList\.add\("is-view-focus"\)/);
+  assert.match(js, /data-folder-id/);
   assert.match(js, /async function checkUrl/);
   assert.match(js, /async function reviewFolderHealth/);
   assert.match(js, /text:\s*"Volver"/);
@@ -84,6 +91,11 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /api\.bookmarks\.update\(bookmark\.id/);
   assert.match(js, /editSave\.disabled = true/);
   assert.match(js, /editSave\.disabled = false/);
+  assert.match(js, /usingCustomFavicon/);
+  assert.match(js, /dataset\.faviconSource/);
+  assert.match(js, /contentNode\.onload = null/);
+  assert.match(js, /brokenCustomFavicons/);
+  assert.match(js, /const faviconWasBroken/);
   assert.match(js, /No se pudo guardar/);
   assert.doesNotMatch(js, /function renderReviewLinks/);
   assert.doesNotMatch(js, /runManualLinkCheck/);

@@ -107,3 +107,53 @@ Se reemplazaron los antiguos modos `layout-single`, `layout-columns` y `layout-g
 3. **Manejo CSS Modular**: `newtab.js` inyecta clases modificadoras (ej. `.mode-compact`, `.mode-icons`) en `.bookmark-list`. Los resultados de búsqueda fuerzan un contenedor `.results` que no usa estas clases y respeta una vista legible de lista por defecto.
 4. **CSS Grid vs Flexbox en Masonry**: Se intentó usar `display: grid` para `.mode-icons`, pero esto disparó un bug conocido en Chrome al anidarse dentro de CSS Multi-column (`column-width`), causando que las filas colapsaran a `height: 0` y los íconos se solaparan. Se optó por `display: flex; flex-wrap: wrap;` logrando la misma grilla estable sin bugs.
 5. **Favicons Custom y Fallback (`size=64`)**: Se añadió soporte para íconos custom (`currentSettings.customFavicons`). Si una imagen custom no se puede cargar, el handler `onerror` registra la falla en `currentSettings.brokenCustomFavicons` y muestra el icono por defecto. Esto detiene bucles infinitos en re-renderizados vinculados al evento `chrome.storage.onChanged`.
+
+## 2026-05-25 - Correccion de loop en iconos custom
+
+### Problema detectado
+
+Cuando un icono custom fallaba, martabs lo marcaba en `brokenCustomFavicons` y cambiaba el `<img>` al favicon por defecto. El problema era que el mismo `onload` seguia activo; cuando cargaba el fallback, borraba la marca de error como si hubiera cargado correctamente el icono custom. Eso disparaba `storage.onChanged`, re-renderizaba, volvia a intentar el custom roto y entraba en loop.
+
+### Regla para futuros cambios
+
+El fallback nunca debe limpiar `brokenCustomFavicons`. Solo una carga exitosa del icono custom puede hacerlo.
+
+### Correccion aplicada
+
+- `renderFavicon` calcula `usingCustomFavicon` antes de crear la imagen.
+- El `<img>` guarda su origen en `dataset.faviconSource`.
+- Antes de cambiar el `src` al favicon por defecto, se cambia `dataset.faviconSource` a `default` y se desactiva `contentNode.onload`.
+- Al guardar desde el modal, si el mismo icono estaba marcado como roto, se limpia la marca para permitir un reintento controlado.
+- `DEFAULT_SETTINGS` ahora incluye `brokenCustomFavicons: {}`.
+- `tests/newtab.test.js` cubre estas reglas para evitar que vuelva el loop.
+
+## 2026-05-25 - Foco suave al cambiar vista de carpeta
+
+### Problema detectado
+
+Con el layout masonry basado en CSS columns, cambiar el modo visual de una carpeta puede alterar su altura. Cuando eso pasa, el navegador reacomoda automaticamente las columnas y la carpeta puede aparecer en otra posicion. Es comportamiento normal del masonry, pero visualmente puede sentirse como que la carpeta "salto" o se perdio.
+
+### Decision aplicada
+
+No se intenta bloquear el reacomodo del masonry. En su lugar, despues de cambiar la vista:
+
+- `newtab.js` guarda temporalmente el `folderId` en `pendingViewFocusFolderId`.
+- Tras re-renderizar, busca la carpeta con `data-folder-id`.
+- Aplica `scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })`.
+- Agrega la clase temporal `.is-view-focus`.
+- CSS ejecuta `view-focus-pulse` durante 900 ms para orientar visualmente al usuario.
+
+### Regla para futuros cambios
+
+Si se cambian modos visuales, masonry o encabezados de carpetas, conservar `data-folder-id` en `.group`. El foco suave depende de ese atributo para ubicar la carpeta despues del render.
+
+### Tests de regresion
+
+`tests/newtab.test.js` verifica la presencia de:
+
+- `pendingViewFocusFolderId`;
+- `focusPendingViewFolder`;
+- `scrollIntoView` con `behavior: "smooth"`;
+- clase `.is-view-focus`;
+- atributo `data-folder-id`;
+- animacion CSS `view-focus-pulse`.

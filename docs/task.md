@@ -19,6 +19,8 @@
 - [x] Pruebas automaticas de busqueda, tags, bookmarks, setup, privacidad y salud de enlaces.
 - [x] Edicion de marcadores desde la UI: titulo, URL, etiquetas manuales, eliminar y guardar.
 - [x] Nota obligatoria de mantenimiento para el bug corregido de `Guardar` en edicion.
+- [x] Modos visuales por carpeta con foco suave al cambiar vista desde el tablero.
+- [x] Guia de verificacion general en `docs/testing.md`.
 
 ## Comportamiento importante
 
@@ -31,6 +33,13 @@
 - El flujo de capturas locales tiene test de regresion para evitar que vuelva a depender de una espera viva del service worker o de navegacion global.
 
 ## Registro reciente
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se documento el foco suave al cambiar modo visual de una carpeta y se agrego una guia de verificacion general para cambios grandes.
+Archivos tocados: `docs/testing.md`, `docs/collaboration.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/task.md`
+Verificacion: cambio documental; la funcionalidad ya fue verificada con `npm test`, `npm run build` e inspeccion visual local.
+Pendientes: considerar tests E2E reales si el proyecto crece y los flujos visuales se vuelven mas criticos.
 
 Fecha: 2026-05-25
 Herramienta: Codex
@@ -51,5 +60,6 @@ Pendientes: cuando se implemente edicion de marcadores, agregar `No capturar ima
 - Validacion manual en Firefox antes de publicar.
 - Preparar capturas definitivas para Chrome Web Store si se decide publicarla.
 - Definir texto final de privacidad para la ficha de publicacion.
+- Evaluar tests E2E con navegador si aparecen mas flujos visuales sensibles.
 - Ver `docs/roadmap.md` para la lista priorizada de proximas mejoras.
 - Ver `docs/collaboration.md` para la forma de trabajar entre Codex y Gemini/Antigravity.

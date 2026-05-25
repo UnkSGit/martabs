@@ -8,8 +8,9 @@ El proyecto se desarrolla con mas de una herramienta. Para evitar perdida de con
 2. Leer `docs/task.md`.
 3. Leer `docs/implementation_plan.md`.
 4. Leer `docs/maintenance_notes.md` si el cambio toca UI, permisos, APIs del navegador, storage o flujos ya corregidos.
-5. Leer `docs/roadmap.md` si el cambio es de producto o funcionalidad nueva.
-6. Revisar `git status --short`.
+5. Leer `docs/testing.md` antes de cerrar cambios medianos o grandes.
+6. Leer `docs/roadmap.md` si el cambio es de producto o funcionalidad nueva.
+7. Revisar `git status --short`.
 
 ## Durante el trabajo
 
@@ -19,6 +20,7 @@ El proyecto se desarrolla con mas de una herramienta. Para evitar perdida de con
 - Si se cambia arquitectura o flujo interno, actualizar `docs/implementation_plan.md`.
 - Si se cambia el uso visible para el usuario, actualizar `README.md` o `docs/walkthrough.md`.
 - Si se corrige un bug que puede repetirse, agregar una nota corta en `docs/maintenance_notes.md`.
+- Si se agrega o corrige un flujo importante, agregar o actualizar tests segun `docs/testing.md`.
 
 ## Al terminar
 
@@ -46,6 +48,7 @@ Pendientes:
 
 - La documentacion debe describir el estado actual, no aspiraciones mezcladas con comportamiento real.
 - `docs/maintenance_notes.md` es lectura obligatoria antes de modificar zonas sensibles ya corregidas.
+- `docs/testing.md` define la verificacion minima para cambios grandes.
 - Las ideas futuras viven en `docs/roadmap.md`.
 - Los documentos historicos o maquetas que ya no aportan se pueden quitar.
 - Los permisos nuevos de extension deben quedar justificados en documentacion antes de publicarse.
