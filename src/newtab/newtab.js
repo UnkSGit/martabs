@@ -351,13 +351,31 @@ function renderBrokenLinks(items, folderName = "") {
     render();
   });
 
+  const deleteAllButton = items.length > 0
+    ? el("button", { class: "danger-button", type: "button", text: `Eliminar todos (${items.length})` })
+    : null;
+
+  if (deleteAllButton) {
+    deleteAllButton.addEventListener("click", async () => {
+      const confirmed = window.confirm(
+        `Eliminar los ${items.length} marcadores con fallos de "${folderName || "todas las carpetas"}"? Esta accion no se puede deshacer.`
+      );
+      if (!confirmed) return;
+      for (const bookmark of items) {
+        await api.bookmarks.remove(bookmark.id);
+        bookmarks = bookmarks.filter((item) => item.id !== bookmark.id);
+      }
+      renderBrokenLinks([], folderName);
+    });
+  }
+
   content.append(
     el("div", { class: "results-toolbar" }, [
       el("div", {}, [
         el("strong", { text: folderName ? `Fallos en ${folderName}` : "Enlaces con fallos" }),
         el("p", { text: `${items.length} marcador(es) para revisar.` })
       ]),
-      backButton
+      el("div", { class: "results-toolbar-actions" }, [deleteAllButton, backButton].filter(Boolean))
     ])
   );
 
