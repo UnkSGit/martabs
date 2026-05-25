@@ -12,6 +12,8 @@ test("newtab page loads required HTML structures and selectors", async () => {
   assert.match(html, /id="search"/);
   assert.match(html, /id="content"/);
   assert.match(html, /id="preview-card" class="preview-card"/);
+  assert.match(html, /<dialog id="edit-modal" class="edit-modal">/);
+  assert.match(html, /id="edit-form" class="edit-form"/);
   assert.match(html, /class="logo-wrap"/);
   assert.match(html, /<script type="module" src="\.\/newtab\.js"><\/script>/);
   assert.doesNotMatch(html, /id="review-links"/);
@@ -27,6 +29,14 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.content\s*{/);
   assert.match(css, /\.group\s*{/);
   assert.match(css, /\.bookmark\s*{/);
+  assert.match(css, /\.bookmark-edit-btn\s*{/);
+  assert.match(css, /\.bookmark-edit-btn::before\s*{/);
+  assert.match(css, /\.edit-modal\s*{/);
+  assert.match(css, /padding-right:\s*44px/);
+  assert.match(css, /padding:\s*34px/);
+  assert.match(css, /\.edit-actions\s+\.link-action-button/);
+  assert.match(css, /\.edit-actions\s+\.danger-button/);
+  assert.match(css, /\.primary-button\s*{/);
   assert.match(css, /prefers-color-scheme: dark/);
   assert.match(css, /\.preview-card\s*{/);
   assert.match(css, /\.health-dot-indicator\s*{/);
@@ -38,6 +48,7 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.link-action-button\s*{/);
   assert.match(css, /\.review-button\s*{/);
   assert.match(css, /\.review-progress\s*{/);
+  assert.match(css, /\.preview-capture-img\s*{/);
   assert.doesNotMatch(css, /\.review-links/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
 });
@@ -47,7 +58,7 @@ test("newtab controller imports correct shared modules", async () => {
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
-  assert.match(js, /import { getBookmarkIndex, getSettings, getLinkHealth, saveLinkHealth, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
+  assert.match(js, /getCapturedPreviews/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
   assert.match(js, /import { applyLinkCheckResult } from "\.\.\/shared\/link-health\.js";/);
   assert.match(js, /searchInput\.addEventListener\("input",/);
@@ -64,6 +75,16 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /No comprobado/);
   assert.match(js, /if \(!bookmark\.linkHealth\?\.lastCheckedAt\)/);
   assert.match(js, /const healthDetails = !health/);
+  assert.match(js, /capturedPreviews\[bookmark\.id\]/);
+  assert.match(js, /function openBookmarkFromMartabs/);
+  assert.match(js, /CAPTURE_OPENED_BOOKMARK/);
+  assert.match(js, /api\.runtime\.sendMessage/);
+  assert.match(js, /function showEditModal/);
+  assert.match(js, /bookmark\.manualTags/);
+  assert.match(js, /api\.bookmarks\.update\(bookmark\.id/);
+  assert.match(js, /editSave\.disabled = true/);
+  assert.match(js, /editSave\.disabled = false/);
+  assert.match(js, /No se pudo guardar/);
   assert.doesNotMatch(js, /function renderReviewLinks/);
   assert.doesNotMatch(js, /runManualLinkCheck/);
   assert.doesNotMatch(js, /CHECK_LINK_HEALTH_NOW/);

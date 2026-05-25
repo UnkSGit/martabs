@@ -1,61 +1,34 @@
-# Walkthrough - martabs
+# Funcionalidades - martabs
 
-Este recorrido explica como se usa martabs y que sucede internamente en cada paso.
+Este documento explica las funcionalidades principales desde la perspectiva del usuario final.
 
-## Primer uso
+## Interfaz Principal (Dashboard)
 
-1. El usuario abre la extension o una Nueva pestana.
-2. Si todavia no hay configuracion, martabs pide elegir carpetas.
-3. En `Configurar`, el usuario selecciona carpetas y preferencias.
-4. Al guardar, se crea el indice local de marcadores.
-5. La Nueva pestana muestra las carpetas como paneles visuales.
+- **Carpetas Monitoreadas**: La página de inicio muestra las carpetas de marcadores que elegiste en la Configuración.
+- **Búsqueda Instantánea**: La barra superior permite buscar en tiempo real por título, URL, dominio, etiqueta (tag) o carpeta. Usa la tecla `Escape` para borrar la búsqueda rápidamente. Al presionar `Enter` se abrirá el primer resultado.
+- **Vista Rápida (Hover)**: Al dejar el cursor sobre un marcador, aparece una tarjeta flotante con más información:
+  - Título completo
+  - URL (Dominio)
+  - Etiquetas (automáticas y manuales)
+  - Carpeta de origen
+  - Captura local del sitio (si está disponible y configurado)
+- **Edición Rápida**: Al pasar el cursor sobre un marcador, aparece un pequeño botón de edición a la derecha. Al hacer clic, se abre una ventana modal que permite cambiar el título, la URL, editar etiquetas personalizadas o eliminar el marcador por completo.
 
-## Uso diario
+## Configuración y Setup
 
-- La busqueda filtra al escribir.
-- `Esc` limpia la busqueda.
-- `Enter` abre el primer resultado encontrado.
-- Los marcadores se actualizan cuando Chrome o Firefox informan cambios.
-- La vista rapida aparece al pasar el mouse sobre un marcador.
+Accesible desde el botón "Configurar" en la esquina superior derecha.
 
-## Layout
+- **Selección de Carpetas**: Permite marcar qué carpetas del navegador serán indexadas. Solo los marcadores dentro de las carpetas seleccionadas (o sus subcarpetas) aparecerán en martabs.
+- **Apariencia**: Permite forzar el modo oscuro, modo claro, o seguir la preferencia del sistema operativo.
+- **Revisión de Enlaces**: Habilita o deshabilita la función para buscar enlaces caídos.
 
-- Una carpeta: panel amplio con grilla si hay muchos marcadores.
-- Dos a cuatro carpetas: columnas lado a lado con scroll independiente.
-- Mas de cuatro carpetas: grilla de paneles con scroll general.
+## Revisión de Enlaces Caídos
 
-## Revision de enlaces
+Si está habilitada en la Configuración:
 
-La revision de enlaces es opcional y manual.
-
-1. El usuario activa `Revision de enlaces` en configuracion.
-2. El navegador pide permisos opcionales para URLs `http` y `https`.
-3. Cada carpeta muestra un boton `Revisar`.
-4. Al hacer click, martabs revisa los enlaces de esa carpeta y muestra progreso.
-5. Si hay fallos, aparece un boton compacto con la cantidad de fallos en esa carpeta.
-6. La vista de fallos permite volver, eliminar un enlace puntual o eliminar todos los fallos de esa carpeta.
-
-Si la opcion esta desactivada, no se muestran estados de salud de enlaces y no aparece el boton `Revisar`.
-
-## Privacidad
-
-- El indice vive en `storage.local`.
-- La preview es local: no hay capturas remotas.
-- No se usan fuentes externas.
-- La revision de enlaces solo se ejecuta cuando el usuario la pide.
-
-## Validacion rapida
-
-```powershell
-npm test
-npm run build
-```
-
-Pruebas manuales sugeridas:
-
-- elegir carpetas y guardar;
-- abrir Nueva pestana;
-- buscar por texto, dominio y carpeta;
-- cambiar tema;
-- activar revision de enlaces, revisar una carpeta y abrir la vista de fallos;
-- desactivar revision de enlaces y confirmar que desaparecen los estados de salud.
+1. Aparece un botón **"Revisar"** en el encabezado de cada carpeta en la interfaz principal.
+2. Al presionarlo, la extensión realiza peticiones (fetch) locales a cada marcador de esa carpeta para ver si responden (HTTP 2xx, 3xx).
+3. Aparece una barra de progreso. Si se detectan enlaces con error (4xx, 5xx, o inaccesibles), se sumará un contador al lado del botón Revisar.
+4. Al terminar (o durante el proceso), si hubo fallos, puedes hacer clic en el botón de fallos (ej: **"3 fallo(s)"**) para entrar a una vista detallada.
+5. **Vista de Revisión**: Muestra solo los enlaces rotos con su código de error (ej: 404). Desde aquí puedes usar el botón **"Eliminar todos"** para limpiar la carpeta de una vez, o volver a la vista normal usando **"Volver"**.
+6. **Tarjetas de Vista Previa**: Los enlaces caídos se mostrarán con un borde naranja, y la tarjeta de vista previa al pasar el ratón te indicará su último estado de salud.

@@ -3,6 +3,7 @@ const DEFAULT_SETTINGS = {
   automaticTagsEnabled: true,
   manualTagsEnabled: true,
   linkHealthEnabled: false,
+  previewCaptureEnabled: false,
   theme: "system",
   setupComplete: false
 };
@@ -11,7 +12,9 @@ export const STORAGE_KEYS = {
   settings: "settings",
   bookmarkIndex: "bookmarkIndex",
   manualTags: "manualTags",
-  linkHealth: "linkHealth"
+  linkHealth: "linkHealth",
+  capturedPreviews: "capturedPreviews",
+  pendingPreviewCaptures: "pendingPreviewCaptures"
 };
 
 export async function getSettings(api) {
@@ -43,6 +46,22 @@ export async function getLinkHealth(api) {
 
 export async function saveLinkHealth(api, linkHealth) {
   await setStoredValue(api, STORAGE_KEYS.linkHealth, linkHealth);
+}
+
+export async function getCapturedPreviews(api) {
+  return getStoredValue(api, STORAGE_KEYS.capturedPreviews, {});
+}
+
+export async function saveCapturedPreviews(api, capturedPreviews) {
+  await setStoredValue(api, STORAGE_KEYS.capturedPreviews, capturedPreviews);
+}
+
+export async function getPendingPreviewCaptures(api) {
+  return getStoredValue(api, STORAGE_KEYS.pendingPreviewCaptures, {});
+}
+
+export async function savePendingPreviewCaptures(api, pendingPreviewCaptures) {
+  await setStoredValue(api, STORAGE_KEYS.pendingPreviewCaptures, pendingPreviewCaptures);
 }
 
 export async function getStoredValue(api, key, fallback) {

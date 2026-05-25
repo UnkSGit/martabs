@@ -4,41 +4,22 @@ Este documento agrupa ideas para las proximas versiones. No representa trabajo e
 
 ## Prioridad sugerida
 
-1. Preview visual por metadata con cache local.
-2. Edicion de nombre, URL y tags desde la UI.
-3. Favoritos fijados.
-4. Modos de visualizacion por carpeta.
-5. Orden manual y drag & drop.
+1. Favoritos fijados.
+2. Modos de visualizacion por carpeta.
+3. Multilenguaje.
+4. Orden manual y drag & drop.
 
-## 1. Preview visual por metadata con cache local
+(Nota: El Paso 1 "Preview visual por metadata" fue descartado por ser pesado y requerir muchas peticiones de red; el Paso 2 "Captura al visitar" y el Paso 3 "Edicion desde la UI" ya fueron completados).
 
-Objetivo: mejorar la vista previa sin depender de servicios pagos ni servidores externos.
 
-Primera version propuesta:
-
-- Mantener el fallback actual cuando no haya datos.
-- Intentar obtener metadata del sitio: `og:image`, `twitter:image`, titulo y descripcion.
-- Guardar el resultado en cache local por marcador.
-- Permitir refrescar la preview manualmente.
-- Evitar cargar previews durante el arranque de la Nueva pestana.
-
-Ventajas:
-
-- Sigue siendo liviano.
-- No requiere infraestructura propia.
-- Mejora mucho los marcadores de sitios que ya publican imagen social.
-
-Limitaciones:
-
-- No todos los sitios exponen metadata util.
-- Algunos sitios bloquean lecturas por CORS o seguridad.
-- La imagen no siempre representa exactamente la pagina guardada.
 
 ## 2. Captura al visitar un sitio
 
 Idea: si el usuario abre un marcador, martabs podria guardar una captura reducida para usarla como preview futura.
 
-Esto parece viable, pero requiere un diseno cuidadoso:
+Estado: implementado y validado manualmente para marcadores abiertos desde martabs.
+
+Esto requiere un diseno cuidadoso:
 
 - La API disponible captura la parte visible de la pestana activa, no una captura completa y silenciosa de cualquier pagina.
 - Para hacerlo de forma confiable harian falta permisos sensibles como `activeTab` o permisos de host amplios.
@@ -54,6 +35,30 @@ Version recomendable:
 - Esperar a que la pagina cargue y capturar la pestana visible si el navegador lo permite.
 - Reducir la imagen antes de guardarla.
 - Usar esa captura en la vista previa y en modos visuales futuros.
+
+Version actual:
+
+- La opcion existe como `Capturar previews locales al abrir marcadores`.
+- Pide permiso opcional desde Configurar.
+- Arma una captura pendiente antes de navegar.
+- Resuelve la captura cuando la pestana informa carga completa.
+- Guarda la imagen en cache local y la usa en la tarjeta de preview.
+- Hay test de regresion para proteger este flujo.
+
+Prueba experimental agregada:
+
+- Con una pagina abierta, hacer click en el icono de martabs en la barra del navegador.
+- Si la URL coincide con un marcador monitoreado, martabs intenta capturar la pestana visible.
+- La captura se guarda localmente y aparece en la tarjeta de preview del marcador.
+- El icono muestra `OK` si pudo guardar la captura o `NO` si no hubo coincidencia o fallo el permiso.
+
+Evolucion aprobada:
+
+- Cuando el usuario abre un marcador desde martabs, la extension intenta capturar automaticamente esa pagina despues de cargar. Esto ya esta implementado.
+- La captura automatica requiere activar `Capturar previews locales` en configuracion y aceptar el permiso opcional del navegador.
+- No debe capturar navegacion general del usuario ni paginas abiertas fuera de martabs.
+- Cuando se implemente la edicion de marcadores, agregar una opcion por marcador: `No capturar imagen de este marcador`.
+- Si un marcador tiene la captura desactivada, la preview debe mostrar un estado visual distinto al fallback normal y distinto a un error de carga.
 
 Riesgos:
 
@@ -116,7 +121,31 @@ Primera version recomendable:
 - Empezar con `lista compacta`, `iconos` y `tarjetas`.
 - Mantener la busqueda funcionando igual en todos los modos.
 
-## 6. Orden manual y drag & drop
+## 6. Multilenguaje
+
+Objetivo: preparar martabs para publicar y compartir con usuarios que no usen espanol.
+
+Forma recomendable:
+
+- Usar el sistema nativo de internacionalizacion de extensiones: carpetas `_locales` y mensajes por idioma.
+- Empezar con `es` e `en`.
+- Extraer textos visibles de `newtab`, `setup`, manifest y mensajes de estado.
+- Mantener una clave por texto para que Codex y Gemini/Antigravity no editen strings sueltos en distintos archivos.
+- Documentar como agregar un idioma nuevo.
+
+Ventajas:
+
+- Es compatible con Chrome y Firefox.
+- No requiere librerias pesadas.
+- Ayuda mucho si la extension se publica o comparte.
+
+Limitaciones:
+
+- Hay que mantener los textos sincronizados.
+- Algunos textos dinamicos deben armarse con placeholders.
+- Conviene hacerlo cuando la UI este bastante estable para no traducir pantallas que cambian mucho.
+
+## 7. Orden manual y drag & drop
 
 Objetivo: que el usuario organice visualmente sin tener que ir al gestor de marcadores.
 

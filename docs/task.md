@@ -10,12 +10,15 @@
 - [x] Etiquetas automaticas y soporte de etiquetas manuales en el modelo de datos.
 - [x] Favicons locales en Chrome con fallback visual.
 - [x] Vista rapida local sin servicios externos.
+- [x] Capturas locales automaticas al abrir marcadores desde martabs, validadas manualmente.
 - [x] Tema claro, oscuro y sistema.
 - [x] Logo de martabs integrado con capsula clara y borde en modo oscuro.
 - [x] Revision opcional de enlaces por carpeta, disparada por el usuario.
 - [x] Vista de fallos con scroll, boton volver y eliminacion segura.
 - [x] Permisos opcionales de URLs solo cuando la revision de enlaces esta activa.
 - [x] Pruebas automaticas de busqueda, tags, bookmarks, setup, privacidad y salud de enlaces.
+- [x] Edicion de marcadores desde la UI: titulo, URL, etiquetas manuales, eliminar y guardar.
+- [x] Nota obligatoria de mantenimiento para el bug corregido de `Guardar` en edicion.
 
 ## Comportamiento importante
 
@@ -24,6 +27,24 @@
 - No hay banner global de fallos.
 - Los estados de salud de enlace solo se muestran si la opcion esta activada.
 - Al desactivar la revision de enlaces, martabs intenta retirar los permisos opcionales.
+- Las capturas locales se intentan solo si la opcion esta activada y solo para marcadores abiertos desde martabs; no se monitorea la navegacion general.
+- El flujo de capturas locales tiene test de regresion para evitar que vuelva a depender de una espera viva del service worker o de navegacion global.
+
+## Registro reciente
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se corrigio y documento el flujo de edicion de marcadores. `Guardar` dependia de exponer `bookmarks.update` en `src/shared/browser-api.js`; tambien se documento el patron visual del boton de editar y del modal.
+Archivos tocados: `src/shared/browser-api.js`, `src/newtab/newtab.js`, `src/newtab/newtab.html`, `src/newtab/newtab.css`, `tests/newtab.test.js`, `tests/privacy.test.js`, `docs/collaboration.md`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/task.md`
+Verificacion: `npm test`, `npm run build` e inspeccion visual local del modal y boton de edicion.
+Pendientes: leer `docs/maintenance_notes.md` antes de modificar este flujo.
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se documento como confirmado el flujo de capturas locales automaticas al abrir marcadores desde martabs.
+Archivos tocados: `docs/implementation_plan.md`, `docs/walkthrough.md`, `docs/task.md`, `docs/roadmap.md`
+Verificacion: cambio documental; la funcionalidad fue validada manualmente por el usuario.
+Pendientes: cuando se implemente edicion de marcadores, agregar `No capturar imagen de este marcador` y un estado visual propio para captura denegada.
 
 ## Pendiente opcional
 

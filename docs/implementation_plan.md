@@ -1,98 +1,21 @@
-# Estado de implementacion - martabs
+# Plan de Implementación
 
-Este documento describe la arquitectura actual de martabs. Ya no funciona como un plan pendiente: es una referencia rapida para entender como esta armado el proyecto.
+Este documento sirve para alinear la arquitectura y diseño técnico entre los agentes y el usuario.
 
-## Objetivo
+## Tareas en curso
 
-Crear una pagina de Nueva pestana muy rapida, visual y privada para navegar carpetas de marcadores. La extension debe ayudar a encontrar marcadores por busqueda y permitir revisar enlaces caidos sin molestar ni cargar trabajo innecesario en segundo plano.
+### Previews por Metadata Local (Roadmap Paso 1)
 
-## Flujo principal
+**Objetivo:** Enriquecer las vistas previas locales extrayendo las etiquetas `og:image` o `twitter:image` de los sitios cuando el usuario lo solicite, sin depender de servicios de terceros.
 
-1. El usuario abre `Configurar`.
-2. Elige una o mas carpetas de marcadores.
-3. Elige si quiere etiquetas automaticas, etiquetas manuales, revision de enlaces y tema visual.
-4. martabs guarda la configuracion en `storage.local`.
-5. El service worker reconstruye el indice local de marcadores.
-6. La Nueva pestana lee ese indice y renderiza columnas, busqueda, favicons y vista rapida.
+**Mecanismo propuesto:**
+1. **Acción Manual:** Añadir un botón "Refrescar Vista Previa" (podría ser un ícono circular en la tarjeta de vista previa o al lado del botón de "Editar" en la fila del marcador).
+2. **Fetch en Background:** Al presionar el botón, se enviará un mensaje al `service-worker.js` con la URL del marcador.
+3. **Parseo de HTML:** El Service Worker hará un `fetch()` nativo al sitio. Como en Service Workers de Manifest V3 no existe `DOMParser`, usaremos expresiones regulares (Regex) seguras para buscar `<meta property="og:image" content="...">` o `<meta name="twitter:image" content="...">`.
+4. **Manejo de CORS:** Si el sitio tiene políticas estrictas (CORS), el `fetch` puede fallar a menos que el usuario tenga otorgados los permisos de `<all_urls>` (los mismos que activamos para el Paso 2 de capturas automáticas).
+5. **Almacenamiento:** Una vez hallada la URL de la imagen, la descargaremos como Blob, la redimensionaremos con `OffscreenCanvas` para que quede liviana y la guardaremos en el mismo caché de `capturedPreviews` (o uno nuevo `metadataPreviews`).
+6. **Prioridad Visual:** Al mostrar la miniatura, martabs verificará primero si hay una *captura de pantalla* (Paso 2), luego si hay *metadata almacenada* (Paso 1), y por último mostrará el fondo gris predeterminado.
 
-## Componentes
-
-### `src/background/service-worker.js`
-
-- Escucha cambios de marcadores y configuracion.
-- Reconstruye el indice local con los datos de las carpetas elegidas.
-- Mezcla etiquetas manuales y automaticas.
-- Adjunta el ultimo estado conocido de salud de cada enlace.
-- No revisa enlaces y no usa alarmas.
-
-### `src/setup/*`
-
-- Muestra las carpetas disponibles.
-- Guarda preferencias.
-- Pide permisos opcionales de URLs solo si el usuario activa la revision de enlaces.
-- Intenta quitar esos permisos cuando el usuario desactiva la opcion.
-- Aplica tema claro, oscuro o sistema.
-
-### `src/newtab/*`
-
-- Reemplaza la pagina Nueva pestana.
-- Renderiza las carpetas monitoreadas como columnas o grilla segun la cantidad.
-- Permite buscar por titulo, URL, dominio, carpeta y etiquetas.
-- Usa favicons locales en Chrome y fallback textual cuando no hay favicon.
-- Muestra una vista rapida local al pasar el mouse.
-- Ejecuta la revision de enlaces desde cada carpeta con el boton `Revisar`, solo cuando la opcion esta activa.
-- Muestra fallos dentro de la carpeta afectada y permite eliminar enlaces desde la vista de revision.
-
-### `src/shared/*`
-
-- `browser-api.js`: adaptador minimo para Chrome/Firefox.
-- `bookmarks.js`: obtiene carpetas, recorre el arbol y arma el indice.
-- `search.js`: busqueda local.
-- `tags.js`: etiquetas automaticas y mezcla con manuales.
-- `storage.js`: lectura/escritura de `storage.local`.
-- `link-health.js`: normaliza resultados de revision de enlaces.
-- `render.js`: utilidades DOM y formato de fechas.
-
-## Revision de enlaces
-
-La revision actual es deliberadamente manual:
-
-- no corre cada dia;
-- no depende de temporizadores;
-- no se ejecuta en el service worker;
-- no muestra banner global;
-- solo aparece en cada carpeta cuando la opcion esta activada.
-
-El boton `Revisar` comprueba los enlaces de esa carpeta, guarda el resultado y vuelve a renderizar. Si hay fallos, la carpeta muestra un boton compacto con la cantidad de fallos.
-
-## Builds
-
-El build une `src/manifest.base.json` con el manifiesto especifico de cada navegador:
-
-- Chrome: `src/manifest.chrome.json`
-- Firefox: `src/manifest.firefox.json`
-
-El resultado queda en:
-
-- `dist/chrome`
-- `dist/firefox`
-
-## Verificacion recomendada
-
-```powershell
-npm test
-npm run build
-```
-
-Despues conviene probar manualmente:
-
-- busqueda;
-- cambio de carpetas monitoreadas;
-- tema claro/oscuro/sistema;
-- revision de enlaces activada y desactivada;
-- eliminacion de enlaces desde la vista de fallos.
-
-## Documentos relacionados
-
-- `docs/roadmap.md`: ideas y prioridades para proximas versiones.
-- `docs/collaboration.md`: reglas de trabajo compartido entre Codex y Gemini/Antigravity.
+**Consideraciones para aprobar:**
+- ¿Dónde te gustaría poner el botón de "Refrescar"? ¿Dentro del menú de Editar (clic), o como un botón adicional que aparece al hacer hover sobre el marcador?
+- Dado que el `fetch` se hace localmente desde la conexión del usuario, algunos sitios pueden bloquear la lectura (ej: sitios que requieren login o anti-bots). Para esos casos, simplemente mostraremos un "No se pudo obtener imagen". ¿De acuerdo?

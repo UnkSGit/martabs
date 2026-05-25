@@ -405,10 +405,12 @@ button svg {
 
 /* Bookmark item styling - compact rows */
 .bookmark {
+  position: relative;
   display: flex;
   gap: 10px;
   align-items: center;
   padding: 6px 8px;
+  padding-right: 44px;
   border-radius: var(--radius-sm);
   color: inherit;
   text-decoration: none;
@@ -812,6 +814,17 @@ button svg {
   border-bottom: 1.5px solid var(--surface-border);
 }
 
+.preview-thumbnail-container.has-capture {
+  background: #0f172a;
+}
+
+.preview-capture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .preview-local-mark {
   display: grid;
   place-items: center;
@@ -887,6 +900,153 @@ button svg {
   box-shadow: 0 0 6px #f59e0b;
 }
 
+/* Edit Button */
+.bookmark-edit-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%) !important;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  background: rgba(13, 148, 136, 0.08);
+  border: 1.5px solid rgba(13, 148, 136, 0.38);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+
+.bookmark-edit-btn::before {
+  content: "\270e";
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.bookmark:hover .bookmark-edit-btn {
+  opacity: 1;
+}
+
+.bookmark-edit-btn:hover {
+  color: #ffffff;
+  border-color: var(--primary);
+  background: var(--primary);
+  transform: translateY(-50%) !important;
+}
+
+/* Edit Modal */
+.edit-modal {
+  padding: 0;
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-bg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  color: var(--text-primary);
+  width: 90%;
+  max-width: 440px;
+  margin: auto;
+}
+
+.edit-modal::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  padding: 34px;
+  gap: 20px;
+}
+
+.edit-modal-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-field span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.edit-field input {
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--surface-border);
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13.5px;
+  transition: var(--transition);
+}
+
+.edit-field input:focus {
+  outline: none;
+  border-color: var(--primary-border);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--surface-border);
+}
+
+.edit-actions-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.edit-actions .link-action-button,
+.edit-actions .danger-button,
+.edit-actions .primary-button {
+  height: 30px;
+  align-items: center;
+}
+
+.primary-button {
+  height: 30px;
+  padding: 0 16px;
+  background: var(--primary);
+  color: #ffffff;
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: none;
+}
+
+.primary-button:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
 .health-status-text {
   color: var(--text-secondary);
 }

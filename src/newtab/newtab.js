@@ -1,18 +1,38 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { searchBookmarks } from "../shared/search.js";
-import { getBookmarkIndex, getSettings, getLinkHealth, saveLinkHealth, STORAGE_KEYS } from "../shared/storage.js";
+import {
+  getBookmarkIndex,
+  getCapturedPreviews,
+  getSettings,
+  getLinkHealth,
+  saveLinkHealth,
+  STORAGE_KEYS,
+  getStoredValue,
+  setStoredValue
+} from "../shared/storage.js";
 import { el, formatDate } from "../shared/render.js";
 import { applyLinkCheckResult } from "../shared/link-health.js";
+import { mergeTags } from "../shared/tags.js";
 
 const api = getBrowserApi();
+const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
 const statusLine = document.querySelector("#status-line");
 const searchInput = document.querySelector("#search");
 const content = document.querySelector("#content");
 const settingsButton = document.querySelector("#settings");
 const previewCard = document.querySelector("#preview-card");
+const editModal = document.querySelector("#edit-modal");
+const editForm = document.querySelector("#edit-form");
+const editTitle = document.querySelector("#edit-title");
+const editUrl = document.querySelector("#edit-url");
+const editTags = document.querySelector("#edit-tags");
+const editDelete = document.querySelector("#edit-delete");
+const editCancel = document.querySelector("#edit-cancel");
+const editSave = document.querySelector("#edit-save");
 
 let bookmarks = [];
 let currentSettings = null;
+let capturedPreviews = {};
 let hoverTimeout = null;
 let hideTimeout = null;
 
@@ -164,6 +184,20 @@ function getBookmarkHealth(bookmark) {
   };
 }
 
+async function openBookmarkFromMartabs(bookmark) {
+  try {
+    await api.runtime.sendMessage({
+      type: CAPTURE_OPENED_BOOKMARK,
+      bookmarkId: bookmark.id,
+      url: bookmark.url
+    });
+  } catch {
+    // Opening the bookmark is more important than capturing the preview.
+  } finally {
+    window.location.href = bookmark.url;
+  }
+}
+
 function renderBookmark(bookmark, rich = false) {
   const details = [
     bookmark.domain,
@@ -194,6 +228,32 @@ function renderBookmark(bookmark, rich = false) {
     ]
   );
 
+  const editBtn = el("button", { class: "bookmark-edit-btn", title: "Editar marcador", type: "button" });
+  
+  editBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showEditModal(bookmark);
+  });
+  
+  bookmarkElement.append(editBtn);
+
+  bookmarkElement.addEventListener("click", (event) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    openBookmarkFromMartabs(bookmark);
+  });
+
   bookmarkElement.addEventListener("mouseenter", () => {
     clearTimeout(hoverTimeout);
     clearTimeout(hideTimeout);
@@ -211,10 +271,16 @@ function renderBookmark(bookmark, rich = false) {
 function showPreviewCard(bookmark, anchorElement) {
   previewCard.innerHTML = "";
 
-  const thumbnailContainer = el("div", { class: "preview-thumbnail-container" }, [
-    el("span", { class: "preview-local-mark", text: faviconLabel(bookmark) }),
-    el("span", { class: "preview-local-label", text: "Vista rapida local" })
-  ]);
+  const capturedPreview = capturedPreviews[bookmark.id];
+  const thumbnailContainer = capturedPreview?.image
+    ? el("div", { class: "preview-thumbnail-container has-capture" }, [
+        el("img", { class: "preview-capture-img", src: capturedPreview.image, alt: "" }),
+        el("span", { class: "preview-local-label", text: "Captura local" })
+      ])
+    : el("div", { class: "preview-thumbnail-container" }, [
+        el("span", { class: "preview-local-mark", text: faviconLabel(bookmark) }),
+        el("span", { class: "preview-local-label", text: "Vista rapida local" })
+      ]);
 
   const health = getBookmarkHealth(bookmark);
   const healthDetails = !health
@@ -445,7 +511,10 @@ async function init() {
     content.append(el("p", { class: "empty", text: "Abre Configurar y elige una o mas carpetas." }));
     return;
   }
-  bookmarks = await getBookmarkIndex(api);
+  [bookmarks, capturedPreviews] = await Promise.all([
+    getBookmarkIndex(api),
+    getCapturedPreviews(api)
+  ]);
   render();
   searchInput.focus();
 }
@@ -462,7 +531,82 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
-settingsButton.addEventListener("click", () => api.runtime.openOptionsPage());
+settingsButton.addEventListener("click", () => {
+  if (api.runtime?.openOptionsPage) {
+    api.runtime.openOptionsPage();
+  } else {
+    window.open(api.runtime.getURL("setup/setup.html"));
+  }
+});
+
+function showEditModal(bookmark) {
+  editTitle.value = bookmark.title;
+  editUrl.value = bookmark.url;
+  editTags.value = (bookmark.manualTags || []).join(", ");
+  editSave.disabled = false;
+  
+  const cleanup = () => {
+    editCancel.removeEventListener("click", onCancel);
+    editDelete.removeEventListener("click", onDelete);
+    editForm.removeEventListener("submit", onSubmit);
+  };
+  
+  const onCancel = () => {
+    editModal.close();
+    cleanup();
+  };
+  
+  const onDelete = async () => {
+    if (confirm(`¿Eliminar el marcador "${bookmark.title}"? Esta accion no se puede deshacer.`)) {
+      await api.bookmarks.remove(bookmark.id);
+      bookmarks = bookmarks.filter(b => b.id !== bookmark.id);
+      editModal.close();
+      cleanup();
+      // Wait for background to rebuild index, then update our UI
+      render();
+    }
+  };
+  
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    editSave.disabled = true;
+    const newTitle = editTitle.value.trim();
+    const newUrl = editUrl.value.trim();
+    const newTagsStr = editTags.value;
+
+    try {
+      await api.bookmarks.update(bookmark.id, { title: newTitle, url: newUrl });
+
+      const newTags = newTagsStr.split(",").map(t => t.trim()).filter(Boolean);
+      const manualTagsDict = await getStoredValue(api, STORAGE_KEYS.manualTags, {});
+      manualTagsDict[bookmark.id] = newTags;
+      await setStoredValue(api, STORAGE_KEYS.manualTags, manualTagsDict);
+
+      bookmark.title = newTitle;
+      bookmark.url = newUrl;
+      try {
+        bookmark.domain = new URL(newUrl).hostname.replace(/^www\./, "");
+      } catch {
+        bookmark.domain = "";
+      }
+      bookmark.manualTags = newTags;
+      bookmark.allTags = mergeTags(bookmark.automaticTags, newTags);
+
+      editModal.close();
+      cleanup();
+      render();
+    } catch (error) {
+      statusLine.textContent = `No se pudo guardar el marcador: ${error.message}`;
+      editSave.disabled = false;
+    }
+  };
+  
+  editCancel.addEventListener("click", onCancel);
+  editDelete.addEventListener("click", onDelete);
+  editForm.addEventListener("submit", onSubmit);
+  
+  editModal.showModal();
+}
 
 if (api.storage && api.storage.onChanged) {
   api.storage.onChanged.addListener((changes, areaName) => {
@@ -475,6 +619,10 @@ if (api.storage && api.storage.onChanged) {
       }
       if (changes[STORAGE_KEYS.bookmarkIndex]) {
         bookmarks = changes[STORAGE_KEYS.bookmarkIndex].newValue || [];
+        render();
+      }
+      if (changes[STORAGE_KEYS.capturedPreviews]) {
+        capturedPreviews = changes[STORAGE_KEYS.capturedPreviews].newValue || {};
         render();
       }
     }

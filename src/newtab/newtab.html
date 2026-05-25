@@ -39,6 +39,34 @@
       <section id="content" class="content" aria-live="polite"></section>
     </main>
     <div id="preview-card" class="preview-card" hidden></div>
+    <dialog id="edit-modal" class="edit-modal">
+      <form id="edit-form" class="edit-form">
+        <h3 class="edit-modal-title">Editar Marcador</h3>
+        
+        <label class="edit-field">
+          <span>Nombre</span>
+          <input type="text" id="edit-title" required autocomplete="off">
+        </label>
+        
+        <label class="edit-field">
+          <span>URL</span>
+          <input type="url" id="edit-url" required autocomplete="off">
+        </label>
+        
+        <label class="edit-field">
+          <span>Etiquetas (separadas por comas)</span>
+          <input type="text" id="edit-tags" placeholder="ej: trabajo, docs, js" autocomplete="off">
+        </label>
+        
+        <div class="edit-actions">
+          <button type="button" id="edit-delete" class="danger-button">Eliminar</button>
+          <div class="edit-actions-right">
+            <button type="button" id="edit-cancel" class="link-action-button">Cancelar</button>
+            <button type="submit" id="edit-save" class="primary-button">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="./newtab.js"></script>
   </body>
 </html>

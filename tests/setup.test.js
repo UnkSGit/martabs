@@ -11,6 +11,7 @@ test("setup page loads setup assets and required controls", async () => {
   assert.match(html, /<input id="automatic-tags" type="checkbox" checked>/);
   assert.match(html, /<input id="manual-tags" type="checkbox" checked>/);
   assert.match(html, /<input id="link-health" type="checkbox">/);
+  assert.match(html, /<input id="preview-capture" type="checkbox">/);
   assert.match(html, /<button id="save" type="button">Guardar configuracion<\/button>/);
   assert.match(html, /<script type="module" src="\.\/setup\.js"><\/script>/);
 });
@@ -38,9 +39,12 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /selectedFolderIds\.length === 0/);
   assert.match(js, /api\.permissions\?\.request/);
   assert.match(js, /origins:\s*\["http:\/\/\*\/\*", "https:\/\/\*\/\*"\]/);
+  assert.match(js, /origins:\s*\["<all_urls>"\]/);
   assert.match(js, /api\.permissions\?\.remove/);
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);
+  assert.match(js, /previewCaptureEnabled: previewCaptureEnabled/);
   assert.match(js, /setupComplete: true/);
   assert.match(js, /No se pudo guardar la configuracion:/);
   assert.match(js, /No se pudo activar la revision de enlaces/);
+  assert.match(js, /No se pudo activar la captura de previews/);
 });

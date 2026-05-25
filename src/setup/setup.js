@@ -9,9 +9,13 @@ const status = document.querySelector("#status");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const linkHealth = document.querySelector("#link-health");
+const previewCapture = document.querySelector("#preview-capture");
 const themeSelect = document.querySelector("#theme-select");
 const linkHealthPermissions = {
   origins: ["http://*/*", "https://*/*"]
+};
+const previewCapturePermissions = {
+  origins: ["<all_urls>"]
 };
 
 function applyTheme(theme) {
@@ -53,22 +57,37 @@ async function requestLinkHealthPermission() {
   }
 }
 
-async function removeLinkHealthPermission() {
-  if (!api.permissions?.remove) {
+async function requestPreviewCapturePermission() {
+  if (!api.permissions?.request) {
     return false;
   }
 
   try {
-    return await api.permissions.remove(linkHealthPermissions);
+    return await api.permissions.request(previewCapturePermissions);
   } catch {
     return false;
   }
 }
 
-function getSuccessMessage(linkHealthRequested, linkHealthEnabled) {
+async function removePermission(permission) {
+  if (!api.permissions?.remove) {
+    return false;
+  }
+
+  try {
+    return await api.permissions.remove(permission);
+  } catch {
+    return false;
+  }
+}
+
+function getSuccessMessage(linkHealthRequested, linkHealthEnabled, previewCaptureRequested, previewCaptureEnabled) {
   const message = "Configuracion guardada. Abre una nueva pestana para usar martabs.";
   if (linkHealthRequested && !linkHealthEnabled) {
     return `${message} No se pudo activar la revision de enlaces porque falta el permiso necesario.`;
+  }
+  if (previewCaptureRequested && !previewCaptureEnabled) {
+    return `${message} No se pudo activar la captura de previews porque falta el permiso necesario.`;
   }
   return message;
 }
@@ -80,6 +99,7 @@ async function init() {
   automaticTags.checked = settings.automaticTagsEnabled;
   manualTags.checked = settings.manualTagsEnabled;
   linkHealth.checked = settings.linkHealthEnabled;
+  previewCapture.checked = settings.previewCaptureEnabled;
   themeSelect.value = settings.theme || "system";
 }
 
@@ -99,13 +119,25 @@ saveButton.addEventListener("click", async () => {
     const linkHealthEnabled = linkHealthRequested
       ? await requestLinkHealthPermission()
       : false;
+    const previewCaptureRequested = previewCapture.checked;
+    const previewCaptureEnabled = previewCaptureRequested
+      ? await requestPreviewCapturePermission()
+      : false;
 
     if (!linkHealthRequested) {
-      await removeLinkHealthPermission();
+      await removePermission(linkHealthPermissions);
+    }
+
+    if (!previewCaptureRequested) {
+      await removePermission(previewCapturePermissions);
     }
 
     if (!linkHealthEnabled) {
       linkHealth.checked = false;
+    }
+
+    if (!previewCaptureEnabled) {
+      previewCapture.checked = false;
     }
 
     await saveSettings(api, {
@@ -113,12 +145,18 @@ saveButton.addEventListener("click", async () => {
       automaticTagsEnabled: automaticTags.checked,
       manualTagsEnabled: manualTags.checked,
       linkHealthEnabled: linkHealthEnabled,
+      previewCaptureEnabled: previewCaptureEnabled,
       theme: themeSelect.value,
       setupComplete: true
     });
 
     applyTheme(themeSelect.value);
-    status.textContent = getSuccessMessage(linkHealthRequested, linkHealthEnabled);
+    status.textContent = getSuccessMessage(
+      linkHealthRequested,
+      linkHealthEnabled,
+      previewCaptureRequested,
+      previewCaptureEnabled
+    );
   } catch (error) {
     status.textContent = `No se pudo guardar la configuracion: ${error.message}`;
   }

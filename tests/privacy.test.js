@@ -31,15 +31,35 @@ test("link health checks run from the new tab page, not the service worker", asy
   assert.match(js, /applyLinkCheckResult/);
   assert.match(js, /saveLinkHealth/);
 
-  assert.doesNotMatch(api, /alarms|onMessage|sendMessage|permissions\.contains|storage\.local\.remove/);
+  assert.doesNotMatch(api, /alarms|permissions\.contains|storage\.local\.remove/);
   assert.doesNotMatch(storage, /dismissedLinkWarnings|saveManualTags/);
+});
+
+test("opened bookmarks can trigger local capture without global navigation tracking", async () => {
+  const worker = await readFile("src/background/service-worker.js", "utf8");
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+  const api = await readFile("src/shared/browser-api.js", "utf8");
+
+  assert.match(js, /CAPTURE_OPENED_BOOKMARK/);
+  assert.match(worker, /CAPTURE_OPENED_BOOKMARK/);
+  assert.match(worker, /armPreviewCapture/);
+  assert.match(worker, /handleCompletedPreviewCapture/);
+  assert.match(worker, /pendingPreviewCaptures/);
+  assert.match(worker, /api\.tabs\.onUpdated\.addListener/);
+  assert.match(worker, /previewCaptureEnabled/);
+  assert.match(api, /onMessage/);
+  assert.match(api, /sendMessage/);
+  assert.match(api, /onUpdated/);
+  assert.match(api, /update: api\.bookmarks\.update/);
+  assert.doesNotMatch(worker, /tabs\.onActivated|webNavigation|waitForTabLoad/);
 });
 
 test("firefox manifest does not inherit chrome-only favicon permission", async () => {
   const base = JSON.parse(await readFile("src/manifest.base.json", "utf8"));
   const chrome = JSON.parse(await readFile("src/manifest.chrome.json", "utf8"));
 
-  assert.deepEqual(base.permissions, ["bookmarks", "storage"]);
-  assert.deepEqual(chrome.permissions, ["bookmarks", "storage", "favicon"]);
+  assert.deepEqual(base.permissions, ["bookmarks", "storage", "activeTab"]);
+  assert.deepEqual(chrome.permissions, ["bookmarks", "storage", "activeTab", "favicon"]);
+  assert.ok(base.optional_host_permissions.includes("<all_urls>"));
   assert.ok(!base.optional_permissions, "base manifest should not declare optional alarms");
 });
