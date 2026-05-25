@@ -6,7 +6,10 @@ const DEFAULT_SETTINGS = {
   previewCaptureEnabled: false,
   showPinnedFolder: true,
   theme: "system",
-  setupComplete: false
+  setupComplete: false,
+  defaultFolderMode: "list",
+  folderModes: {},
+  collapsedFolders: {}
 };
 
 export const STORAGE_KEYS = {

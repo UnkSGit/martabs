@@ -97,3 +97,11 @@ Se reemplazaron los antiguos modos `layout-single`, `layout-columns` y `layout-g
 3. **Centrado DinÃ¡mico sin JS**: Para evitar que en pantallas muy anchas, 1 o 2 carpetas floten a la izquierda o se expandan torpemente, el script `newtab.js` asigna clases dinÃ¡micas de ancho mÃ¡ximo (`.masonry-1`, `.masonry-2`, `.masonry-3`, `.masonry-max`) a `.content` segÃºn el nÃºmero total de carpetas a renderizar. Esto permite que el `margin: 0 auto` logre un centrado horizontal perfecto.
 4. **LÃ­mite de Altura y Scroll Interno**: Para evitar que carpetas gigantes acaparen demasiada altura y rompan el equilibrio visual de las columnas, se fijÃ³ un `max-height: 550px` a `.group`. El contenedor de enlaces (`.bookmark-list`) recibe `overflow-y: auto`, habilitando scroll interno solo para las carpetas excedidas.
 5. **Reordenamiento Manual (Drag & Drop)**: Como el CSS Multi-column distribuye los bloques de arriba hacia abajo y de izquierda a derecha, se implementÃ³ Drag & Drop en la vista de ConfiguraciÃ³n (`setup.html`) en lugar de en el tablero. `newtab.js` lee la secuencia ordenada por el usuario en `currentSettings.selectedFolders` y fuerza al motor a renderizar las carpetas exactamente en ese orden.
+
+### Paso 5B: Modos Visuales por Carpeta (Mayo 2026)
+**Decisión**: Permitir configurar la visualización de cada carpeta (lista completa, compacta, grilla de iconos, quicklinks) y un estado de 'colapsado', tanto desde configuración como desde la pestaña nueva.
+**Razonamiento**: Los usuarios tienen carpetas de diferente naturaleza. Una carpeta de herramientas frecuentes se ve mejor en iconos grandes (quicklinks), mientras que un archivo se ve mejor en una lista compacta.
+**Implementación**:
+1. **Separación de estado**: Se mantiene el modo visual (folderModes) separado del estado colapsado (collapsedFolders) en storage.local para que una carpeta no olvide su modo al cerrarse.
+2. **Sincronización Dual**: Las opciones pueden configurarse masivamente en setup.js o ajustarse interactivamente desde newtab.js.
+3. **Manejo CSS Modular**: newtab.js inyecta clases modificadoras (ej. .mode-compact, .mode-icons) en .bookmark-list. Los resultados de búsqueda fuerzan un contenedor .results que no usa estas clases y respeta una vista legible de lista por defecto.

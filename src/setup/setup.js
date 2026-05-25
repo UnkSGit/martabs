@@ -11,6 +11,7 @@ const manualTags = document.querySelector("#manual-tags");
 const showPinnedFolder = document.querySelector("#show-pinned-folder");
 const linkHealth = document.querySelector("#link-health");
 const previewCapture = document.querySelector("#preview-capture");
+const defaultModeSelect = document.querySelector("#default-mode-select");
 const themeSelect = document.querySelector("#theme-select");
 const linkHealthPermissions = {
   origins: ["http://*/*", "https://*/*"]
@@ -29,7 +30,7 @@ function applyTheme(theme) {
   }
 }
 
-function renderFolders(folders, selectedFolderIds) {
+function renderFolders(folders, selectedFolderIds, folderModes = {}, collapsedFolders = {}) {
   folderList.innerHTML = "";
 
   const orderedFolders = [];
@@ -81,7 +82,49 @@ function renderFolders(folders, selectedFolderIds) {
     checkbox.type = "checkbox";
     checkbox.value = folder.id;
     checkbox.checked = selectedFolderIds.includes(folder.id);
-    label.append(checkbox, document.createTextNode(folder.path));
+    
+    const controlsWrap = document.createElement("div");
+    controlsWrap.className = "folder-controls";
+    controlsWrap.style.marginLeft = "auto";
+    controlsWrap.style.display = "flex";
+    controlsWrap.style.gap = "8px";
+    controlsWrap.style.alignItems = "center";
+
+    const modeSelect = document.createElement("select");
+    modeSelect.className = "folder-mode-select";
+    modeSelect.dataset.folderId = folder.id;
+    modeSelect.innerHTML = `
+      <option value="default">Predeterminado</option>
+      <option value="list">Lista completa</option>
+      <option value="compact">Lista compacta</option>
+      <option value="icons">Grilla de iconos</option>
+      <option value="quicklinks">Quicklinks</option>
+    `;
+    modeSelect.value = folderModes[folder.id] || "default";
+    
+    // Stop drag when interacting with select
+    modeSelect.addEventListener("mousedown", (e) => e.stopPropagation());
+
+    const collapsedCheck = document.createElement("label");
+    collapsedCheck.style.fontSize = "12px";
+    collapsedCheck.style.display = "flex";
+    collapsedCheck.style.alignItems = "center";
+    collapsedCheck.style.gap = "4px";
+    
+    const collapsedInput = document.createElement("input");
+    collapsedInput.type = "checkbox";
+    collapsedInput.className = "folder-collapsed-check";
+    collapsedInput.dataset.folderId = folder.id;
+    collapsedInput.checked = !!collapsedFolders[folder.id];
+    
+    // Stop drag when interacting with checkbox
+    collapsedInput.addEventListener("mousedown", (e) => e.stopPropagation());
+    
+    collapsedCheck.append(collapsedInput, "Colapsado");
+    
+    controlsWrap.append(modeSelect, collapsedCheck);
+    
+    label.append(checkbox, document.createTextNode(folder.path), controlsWrap);
     folderList.append(label);
   }
 }
@@ -138,15 +181,20 @@ function getSuccessMessage(linkHealthRequested, linkHealthEnabled, previewCaptur
 }
 
 async function init() {
-  const [tree, settings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
-  applyTheme(settings.theme || "system");
-  renderFolders(getFolderOptions(tree), settings.selectedFolderIds);
-  automaticTags.checked = settings.automaticTagsEnabled;
-  manualTags.checked = settings.manualTagsEnabled;
-  showPinnedFolder.checked = settings.showPinnedFolder !== false;
-  linkHealth.checked = settings.linkHealthEnabled;
-  previewCapture.checked = settings.previewCaptureEnabled;
-  themeSelect.value = settings.theme || "system";
+  const [tree, currentSettings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
+  
+  automaticTags.checked = currentSettings.automaticTagsEnabled;
+  manualTags.checked = currentSettings.manualTagsEnabled;
+  showPinnedFolder.checked = currentSettings.showPinnedFolder !== false;
+  linkHealth.checked = currentSettings.linkHealthEnabled;
+  previewCapture.checked = currentSettings.previewCaptureEnabled;
+  themeSelect.value = currentSettings.theme || "system";
+  defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
+
+  applyTheme(themeSelect.value);
+
+  const folders = getFolderOptions(tree);
+  renderFolders(folders, currentSettings.selectedFolderIds, currentSettings.folderModes || {}, currentSettings.collapsedFolders || {});
 }
 
 themeSelect.addEventListener("change", () => {
@@ -186,6 +234,21 @@ saveButton.addEventListener("click", async () => {
       previewCapture.checked = false;
     }
 
+    const folderModes = {};
+    const collapsedFolders = {};
+    
+    folderList.querySelectorAll(".folder-mode-select").forEach(select => {
+      if (select.value !== "default") {
+        folderModes[select.dataset.folderId] = select.value;
+      }
+    });
+    
+    folderList.querySelectorAll(".folder-collapsed-check").forEach(check => {
+      if (check.checked) {
+        collapsedFolders[check.dataset.folderId] = true;
+      }
+    });
+
     await saveSettings(api, {
       selectedFolderIds,
       automaticTagsEnabled: automaticTags.checked,
@@ -194,6 +257,9 @@ saveButton.addEventListener("click", async () => {
       linkHealthEnabled: linkHealthEnabled,
       previewCaptureEnabled: previewCaptureEnabled,
       theme: themeSelect.value,
+      defaultFolderMode: defaultModeSelect.value,
+      folderModes,
+      collapsedFolders,
       setupComplete: true
     });
 

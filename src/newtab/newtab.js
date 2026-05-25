@@ -444,6 +444,10 @@ function renderDashboard(items) {
       ? folderBookmarks.filter((bookmark) => bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0)
       : [];
 
+    const folderId = folder === "📌 Fijados" ? "pinned" : folderBookmarks[0]?.parentId;
+    const mode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
+    const isCollapsed = !!currentSettings?.collapsedFolders?.[folderId];
+
     if (folderBrokenBookmarks.length > 0) {
       const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: `${folderBrokenBookmarks.length} fallo(s)` });
       viewButton.addEventListener("click", (event) => {
@@ -453,14 +457,57 @@ function renderDashboard(items) {
       headerButtons.push(viewButton);
     }
 
-    const headerChildren = [el("h2", { text: folder })];
+    const modeSelect = el("select", { class: "group-mode-select", "data-folder-id": folderId });
+    modeSelect.style.fontSize = "11px";
+    modeSelect.style.padding = "2px 4px";
+    modeSelect.innerHTML = `
+      <option value="default">Por defecto</option>
+      <option value="list">Lista completa</option>
+      <option value="compact">Lista compacta</option>
+      <option value="icons">Grilla de iconos</option>
+      <option value="quicklinks">Quicklinks</option>
+    `;
+    modeSelect.value = currentSettings?.folderModes?.[folderId] || "default";
+    modeSelect.addEventListener("change", async (e) => {
+      const newModes = { ...(currentSettings.folderModes || {}) };
+      if (e.target.value === "default") {
+        delete newModes[folderId];
+      } else {
+        newModes[folderId] = e.target.value;
+      }
+      currentSettings.folderModes = newModes;
+      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+      render();
+    });
+
+    const collapseBtn = el("button", { class: "group-collapse-btn", type: "button", title: "Colapsar/Expandir" });
+    collapseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    collapseBtn.addEventListener("click", async () => {
+      const newCollapsed = { ...(currentSettings.collapsedFolders || {}) };
+      if (newCollapsed[folderId]) {
+        delete newCollapsed[folderId];
+      } else {
+        newCollapsed[folderId] = true;
+      }
+      currentSettings.collapsedFolders = newCollapsed;
+      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+      render();
+    });
+
+    const headerControls = el("div", { class: "group-header-controls" }, [modeSelect, collapseBtn]);
     if (headerButtons.length > 0) {
-      headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
+      headerControls.prepend(...headerButtons);
     }
 
-    const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}`;
+    const headerChildren = [el("h2", { text: folder }), headerControls];
+
+    const modeClass = mode !== "list" ? ` mode-${mode}` : "";
+    const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
+    
+    const groupClass = `group${isCollapsed ? " is-collapsed" : ""}`;
+    
     masonryWrapper.append(
-      el("article", { class: "group" }, [
+      el("article", { class: groupClass }, [
         el("div", { class: "group-header" }, headerChildren),
         el("div", { class: bookmarkListClass }, folderBookmarks.map((bookmark) => renderBookmark(bookmark)))
       ])
