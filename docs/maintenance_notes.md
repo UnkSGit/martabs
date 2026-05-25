@@ -69,3 +69,19 @@ Verificacion ejecutada:
 - `npm test`
 - `npm run build`
 - Inspeccion visual local con navegador: lapiz visible, modal con margen, botones alineados y fila sin salto vertical.
+
+## 2026-05-25 - Favoritos Fijados y visibilidad dual
+
+### Detalles de la implementacion
+
+La funcion de "Favoritos Fijados" permite destacar marcadores. 
+
+1. **Estado:** Se almacenan unicamente los IDs de los marcadores en `chrome.storage.local` bajo la clave `STORAGE_KEYS.pinnedBookmarks`.
+2. **Carpeta Virtual:** En `newtab.js`, dentro de `renderDashboard`, la carpeta "📌 Fijados" no existe en la estructura original de marcadores del navegador. Se inyecta al vuelo interceptando el arreglo de marcadores si la configuracion `currentSettings.showPinnedFolder !== false` lo permite.
+3. **Visibilidad Dual:** Los marcadores fijados se muestran tanto en la carpeta virtual superior como en su carpeta original.
+4. **Ordenamiento Inteligente:** Ademas, la funcion `renderDashboard` aplica un `.sort()` sobre las carpetas reales para que los marcadores fijados suban al inicio de la lista dentro de su propia carpeta, garantizando prioridad visual inmediata.
+5. **UI de Acciones:** Se introdujo `.bookmark-actions` en CSS para agrupar ambos botones (Pin y Editar) con `position: absolute` a la derecha. Para evitar que superpongan el texto, `.bookmark` ahora requiere `padding-right: 76px`.
+
+### Consideracion a futuro
+
+Si otro agente necesita agregar un tercer boton, no olvidar incrementar el `padding-right` en `.bookmark` para acomodar el ancho extra de los botones flotantes.

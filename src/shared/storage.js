@@ -4,6 +4,7 @@ const DEFAULT_SETTINGS = {
   manualTagsEnabled: true,
   linkHealthEnabled: false,
   previewCaptureEnabled: false,
+  showPinnedFolder: true,
   theme: "system",
   setupComplete: false
 };

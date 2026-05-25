@@ -4,7 +4,7 @@ Este documento explica las funcionalidades principales desde la perspectiva del 
 
 ## Interfaz Principal (Dashboard)
 
-- **Favoritos Fijados**: Si fijaste algún marcador, aparecerá una carpeta virtual al principio de la página llamada "📌 Fijados", dándote acceso inmediato a tus enlaces más importantes.
+- **Favoritos Fijados**: Si fijaste algún marcador, este aparecerá siempre **primero** dentro de su carpeta original. Además, si tenés habilitada la opción, aparecerá una carpeta virtual al principio de toda la página llamada "📌 Fijados" para un acceso más directo. Podés ocultar esta carpeta superior tocando el ícono del ojo ("Ocultar") junto a su título.
 - **Carpetas Monitoreadas**: A continuación, se muestran las carpetas de marcadores que elegiste en la Configuración.
 - **Búsqueda Instantánea**: La barra superior permite buscar en tiempo real por título, URL, dominio, etiqueta (tag) o carpeta. Usa la tecla `Escape` para borrar la búsqueda rápidamente. Al presionar `Enter` se abrirá el primer resultado.
 - **Vista Rápida (Hover)**: Al dejar el cursor sobre un marcador, aparece una tarjeta flotante con más información:
@@ -22,8 +22,9 @@ Este documento explica las funcionalidades principales desde la perspectiva del 
 Accesible desde el botón "Configurar" en la esquina superior derecha.
 
 - **Selección de Carpetas**: Permite marcar qué carpetas del navegador serán indexadas. Solo los marcadores dentro de las carpetas seleccionadas (o sus subcarpetas) aparecerán en martabs.
-- **Apariencia**: Permite forzar el modo oscuro, modo claro, o seguir la preferencia del sistema operativo.
-- **Revisión de Enlaces**: Habilita o deshabilita la función para buscar enlaces caídos.
+- **Etiquetas**: Activa o desactiva las etiquetas generadas automáticamente (según nombre de carpetas) o manuales.
+- **Carpeta Fijados**: Activa o desactiva la visibilidad de la carpeta virtual "📌 Fijados" en el tope del dashboard.
+- **Revisión de Enlaces**: Opcionalmente, permite a martabs detectar URLs caídas para que las borres (requiere permisos de acceso a red).
 
 ## Revisión de Enlaces Caídos
 

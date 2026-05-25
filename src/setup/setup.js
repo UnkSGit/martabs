@@ -8,6 +8,7 @@ const saveButton = document.querySelector("#save");
 const status = document.querySelector("#status");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
+const showPinnedFolder = document.querySelector("#show-pinned-folder");
 const linkHealth = document.querySelector("#link-health");
 const previewCapture = document.querySelector("#preview-capture");
 const themeSelect = document.querySelector("#theme-select");
@@ -98,6 +99,7 @@ async function init() {
   renderFolders(getFolderOptions(tree), settings.selectedFolderIds);
   automaticTags.checked = settings.automaticTagsEnabled;
   manualTags.checked = settings.manualTagsEnabled;
+  showPinnedFolder.checked = settings.showPinnedFolder !== false;
   linkHealth.checked = settings.linkHealthEnabled;
   previewCapture.checked = settings.previewCaptureEnabled;
   themeSelect.value = settings.theme || "system";
@@ -144,6 +146,7 @@ saveButton.addEventListener("click", async () => {
       selectedFolderIds,
       automaticTagsEnabled: automaticTags.checked,
       manualTagsEnabled: manualTags.checked,
+      showPinnedFolder: showPinnedFolder.checked,
       linkHealthEnabled: linkHealthEnabled,
       previewCaptureEnabled: previewCaptureEnabled,
       theme: themeSelect.value,

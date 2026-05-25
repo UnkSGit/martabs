@@ -375,7 +375,7 @@ function renderDashboard(items) {
   const pinnedItems = items.filter(b => pinnedBookmarks.includes(b.id));
   const folders = Array.from(foldersMap.entries());
   
-  if (pinnedItems.length > 0) {
+  if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
     folders.unshift(["📌 Fijados", pinnedItems]);
   }
   
@@ -389,13 +389,33 @@ function renderDashboard(items) {
     content.classList.add("layout-grid");
   }
 
-  for (const [folder, folderBookmarks] of folders) {
+  for (const [folder, items] of folders) {
+    // Sort so pinned bookmarks appear first within the folder
+    const folderBookmarks = [...items].sort((a, b) => {
+      const aPinned = pinnedBookmarks.includes(a.id);
+      const bPinned = pinnedBookmarks.includes(b.id);
+      if (aPinned === bPinned) return 0;
+      return aPinned ? -1 : 1;
+    });
+
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
 
     const headerButtons = [];
 
-    if (currentSettings?.linkHealthEnabled) {
+    if (folder === "📌 Fijados") {
+      const toggleBtn = el("button", { class: "review-button", type: "button", title: "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuracion)" });
+      toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: middle; margin-right: 4px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>Ocultar`;
+      toggleBtn.addEventListener("click", async () => {
+        const newSettings = { ...currentSettings, showPinnedFolder: false };
+        await setStoredValue(api, STORAGE_KEYS.settings, newSettings);
+        currentSettings = newSettings;
+        render();
+      });
+      headerButtons.push(toggleBtn);
+    }
+
+    if (currentSettings?.linkHealthEnabled && folder !== "📌 Fijados") {
       const progressEl = el("span", { class: "review-progress" });
       const reviewButton = el("button", { class: "review-button", type: "button", text: "Revisar" });
       reviewButton.addEventListener("click", () => {
