@@ -109,8 +109,18 @@ label {
   font-weight: 500;
   color: var(--text-primary);
   border-radius: var(--radius-md);
-  cursor: pointer;
+  cursor: grab;
+  user-select: none;
   transition: all 0.2s ease;
+}
+
+label:active {
+  cursor: grabbing;
+}
+
+label.is-dragging {
+  opacity: 0.4;
+  background: var(--primary-light);
 }
 
 label:hover {

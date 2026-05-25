@@ -2,8 +2,9 @@
 
 Este documento explica las funcionalidades principales desde la perspectiva del usuario final.
 
-## Interfaz Principal (Dashboard)
+## Interfaz Principal (Dashboard Masonry)
 
+- **Layout Fluido (Masonry)**: Las carpetas se acomodan automáticamente utilizando todo el ancho disponible, apilándose verticalmente para evitar espacios en blanco (similar a un tablero estilo Pinterest o start.me). El contenedor se centra inteligentemente según la cantidad de carpetas que tengas activas.
 - **Favoritos Fijados**: Si fijaste algún marcador, este aparecerá siempre **primero** dentro de su carpeta original. Además, si tenés habilitada la opción, aparecerá una carpeta virtual al principio de toda la página llamada "📌 Fijados" para un acceso más directo. Podés ocultar esta carpeta superior tocando el ícono del ojo ("Ocultar") junto a su título.
 - **Carpetas Monitoreadas**: A continuación, se muestran las carpetas de marcadores que elegiste en la Configuración.
 - **Búsqueda Instantánea**: La barra superior permite buscar en tiempo real por título, URL, dominio, etiqueta (tag) o carpeta. Usa la tecla `Escape` para borrar la búsqueda rápidamente. Al presionar `Enter` se abrirá el primer resultado.
@@ -22,6 +23,7 @@ Este documento explica las funcionalidades principales desde la perspectiva del 
 Accesible desde el botón "Configurar" en la esquina superior derecha.
 
 - **Selección de Carpetas**: Permite marcar qué carpetas del navegador serán indexadas. Solo los marcadores dentro de las carpetas seleccionadas (o sus subcarpetas) aparecerán en martabs.
+- **Reordenar carpetas**: Podés arrastrar y soltar (Drag & Drop) las carpetas en la lista para cambiar su orden. Ese mismo orden se reflejará en el tablero principal.
 - **Etiquetas**: Activa o desactiva las etiquetas generadas automáticamente (según nombre de carpetas) o manuales.
 - **Carpeta Fijados**: Activa o desactiva la visibilidad de la carpeta virtual "📌 Fijados" en el tope del dashboard.
 - **Revisión de Enlaces**: Opcionalmente, permite a martabs detectar URLs caídas para que las borres (requiere permisos de acceso a red).

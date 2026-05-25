@@ -65,9 +65,9 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /api\.runtime\.openOptionsPage\(\)/);
   assert.match(js, /api\.storage\.onChanged\.addListener/);
   assert.match(js, /showPreviewCard/);
-  assert.match(js, /layout-single/);
-  assert.match(js, /layout-columns/);
-  assert.match(js, /layout-grid/);
+  assert.match(js, /layout-masonry/);
+  assert.match(js, /masonry-1/);
+  assert.match(js, /masonry-max/);
   assert.match(js, /async function checkUrl/);
   assert.match(js, /async function reviewFolderHealth/);
   assert.match(js, /text:\s*"Volver"/);

@@ -31,8 +31,52 @@ function applyTheme(theme) {
 
 function renderFolders(folders, selectedFolderIds) {
   folderList.innerHTML = "";
+
+  const orderedFolders = [];
+  const unselectedFolders = [];
+
   for (const folder of folders) {
+    if (!selectedFolderIds.includes(folder.id)) {
+      unselectedFolders.push(folder);
+    }
+  }
+
+  for (const id of selectedFolderIds) {
+    const f = folders.find(f => f.id === id);
+    if (f) orderedFolders.push(f);
+  }
+  
+  const finalFolders = [...orderedFolders, ...unselectedFolders];
+
+  let draggedItem = null;
+
+  for (const folder of finalFolders) {
     const label = document.createElement("label");
+    label.draggable = true;
+    
+    label.addEventListener("dragstart", function() {
+      draggedItem = this;
+      setTimeout(() => this.classList.add("is-dragging"), 0);
+    });
+
+    label.addEventListener("dragend", function() {
+      draggedItem = null;
+      this.classList.remove("is-dragging");
+    });
+
+    label.addEventListener("dragover", function(e) {
+      e.preventDefault();
+      if (draggedItem && this !== draggedItem) {
+        const bounding = this.getBoundingClientRect();
+        const offset = bounding.y + (bounding.height / 2);
+        if (e.clientY - offset > 0) {
+          this.after(draggedItem);
+        } else {
+          this.before(draggedItem);
+        }
+      }
+    });
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.value = folder.id;

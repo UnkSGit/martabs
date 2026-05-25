@@ -117,7 +117,7 @@ body {
 }
 
 .app-shell {
-  width: min(1280px, 100%);
+  width: min(1600px, 100%);
   margin: 0 auto;
   padding: 24px;
   display: flex;
@@ -133,7 +133,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
+  max-width: 1280px;
+  width: 100%;
   flex-shrink: 0;
 }
 
@@ -293,6 +295,12 @@ button svg {
 .content {
   flex-grow: 1;
   min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 /* Group folder widget styling */
@@ -495,134 +503,48 @@ button svg {
 }
 
 /* LAYOUT MODES */
-
-/* A. 1 Folder Selected (layout-single) */
-.content.layout-single {
-  display: grid;
-  grid-template-columns: 1fr;
+/* --- Dashboard Layout Modes --- */
+/* Internal layout for standard bookmark lists */
+.layout-masonry .bookmark-list {
+  direction: ltr; /* Normal text flow */
+}
+.layout-masonry {
+  column-width: 320px;
+  column-gap: 20px;
   width: 100%;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  padding-right: 8px; /* Room for scrollbar */
 }
 
-.content.layout-single .group {
-  width: 100%;
-  max-width: 100%;
-  max-height: calc(100vh - 160px);
+/* Dynamic width constraint for perfect centering */
+.layout-masonry.masonry-1 { max-width: 360px; }
+.layout-masonry.masonry-2 { max-width: 700px; }
+.layout-masonry.masonry-3 { max-width: 1040px; }
+.layout-masonry.masonry-max { max-width: 1440px; }
+
+.layout-masonry .group {
+  break-inside: avoid-column;
+  page-break-inside: avoid;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-.content.layout-single .bookmark-list {
-  direction: rtl; /* Left-side scrollbar */
-  overflow-y: auto;
-  flex-grow: 1;
-  padding-left: 10px;
-  padding-right: 2px;
-}
-
-.content.layout-single .bookmark-list > * {
-  direction: ltr; /* Restore standard direction */
-}
-
-/* Grid within card list if single is active with many bookmarks */
-.content.layout-single .bookmark-list.single-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 6px 16px;
-  direction: rtl; /* Left-side scrollbar */
-  overflow-y: auto;
-  max-height: 100%;
-  padding-left: 10px;
-  padding-right: 2px;
-}
-
-.content.layout-single .bookmark-list.single-grid > * {
-  direction: ltr; /* Restore standard direction */
-}
-
-/* B. 2-4 Folders Selected (layout-columns) - side-by-side flex */
-.content.layout-columns {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 20px;
-  align-items: stretch;
-  overflow-x: auto;
-  height: calc(100vh - 150px);
   width: 100%;
-  padding-bottom: 8px; /* space for horizontal scrollbar */
-}
-
-.content.layout-columns .group {
-  flex: 1 1 320px;
-  min-width: 280px;
-  max-width: 450px;
-  height: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.content.layout-columns .bookmark-list {
-  direction: rtl; /* Left-side scrollbar */
-  overflow-y: auto;
-  flex-grow: 1;
-  padding-left: 10px;
-  padding-right: 2px;
-}
-
-.content.layout-columns .bookmark-list > * {
-  direction: ltr; /* restore normal text flow */
-}
-
-/* C. >4 Folders Selected (layout-grid) - wrapping grid */
-.content.layout-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  margin-bottom: 20px;
   height: auto;
-  overflow: visible;
-  max-height: calc(100vh - 150px);
-  overflow-y: auto;
+  max-height: 550px;
 }
 
-.content.layout-grid .group {
-  min-height: 250px;
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-  overflow: hidden;
-}
-
-.content.layout-grid .bookmark-list {
-  direction: rtl; /* Left-side scroll */
+.layout-masonry .bookmark-list {
+  direction: ltr; /* Normal text flow */
   overflow-y: auto;
   flex-grow: 1;
-  padding-left: 10px;
+  min-height: 0;
   padding-right: 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-.content.layout-grid .bookmark-list > * {
-  direction: ltr;
-}
-
-/* Scroll indicator styling - Left-side and subtle */
-.bookmark-list::-webkit-scrollbar,
-.content.layout-grid::-webkit-scrollbar,
-.content.results::-webkit-scrollbar {
-  width: 4px;
-}
-.bookmark-list::-webkit-scrollbar-track,
-.content.layout-grid::-webkit-scrollbar-track,
-.content.results::-webkit-scrollbar-track {
-  background: transparent;
-}
-.bookmark-list::-webkit-scrollbar-thumb,
-.content.layout-grid::-webkit-scrollbar-thumb,
-.content.results::-webkit-scrollbar-thumb {
-  background: rgba(13, 148, 136, 0.25);
-  border-radius: 2px;
+.layout-masonry .bookmark-list::-webkit-scrollbar {
+  display: none;
 }
 
 /* Search results view override */

@@ -85,3 +85,15 @@ La funcion de "Favoritos Fijados" permite destacar marcadores.
 ### Consideracion a futuro
 
 Si otro agente necesita agregar un tercer boton, no olvidar incrementar el `padding-right` en `.bookmark` para acomodar el ancho extra de los botones flotantes.
+
+## 2026-05-25 - Masonry Layout Base (Paso 5A)
+
+### Detalles Arquitectónicos
+
+Se reemplazaron los antiguos modos `layout-single`, `layout-columns` y `layout-grid` por un único `layout-masonry` basado en CSS Multi-column (`column-width: 320px`).
+
+1. **Scroll**: El layout delega el scroll al contenedor `.content` (usando `overflow-y: auto`), el cual se estira para usar todo el alto de la pantalla disponible menos el header (mediante `flex-grow: 1`). Esto evita que el search bar desaparezca al hacer scroll.
+2. **Alturas Dinámicas**: Las carpetas (`.group`) ya no tienen `max-height` restringido (usan `height: auto`) y pueden crecer lo que necesiten. Usan `break-inside: avoid-column` para no partirse.
+3. **Centrado Dinámico sin JS**: Para evitar que en pantallas muy anchas, 1 o 2 carpetas floten a la izquierda o se expandan torpemente, el script `newtab.js` asigna clases dinámicas de ancho máximo (`.masonry-1`, `.masonry-2`, `.masonry-3`, `.masonry-max`) a `.content` según el número total de carpetas a renderizar. Esto permite que el `margin: 0 auto` logre un centrado horizontal perfecto.
+4. **Límite de Altura y Scroll Interno**: Para evitar que carpetas gigantes acaparen demasiada altura y rompan el equilibrio visual de las columnas, se fijó un `max-height: 550px` a `.group`. El contenedor de enlaces (`.bookmark-list`) recibe `overflow-y: auto`, habilitando scroll interno solo para las carpetas excedidas.
+5. **Reordenamiento Manual (Drag & Drop)**: Como el CSS Multi-column distribuye los bloques de arriba hacia abajo y de izquierda a derecha, se implementó Drag & Drop en la vista de Configuración (`setup.html`) en lugar de en el tablero. `newtab.js` lee la secuencia ordenada por el usuario en `currentSettings.selectedFolders` y fuerza al motor a renderizar las carpetas exactamente en ese orden.

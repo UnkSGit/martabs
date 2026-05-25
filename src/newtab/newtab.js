@@ -367,27 +367,43 @@ function groupByFolder(items) {
 }
 
 function renderDashboard(items) {
-  content.classList.remove("results", "layout-single", "layout-columns", "layout-grid");
+  content.classList.remove("results", "review-results");
   content.innerHTML = "";
 
   const foldersMap = groupByFolder(items);
+  let folders = Array.from(foldersMap.entries());
+
+  if (currentSettings?.selectedFolderIds) {
+    folders.sort((a, b) => {
+      const idA = a[1][0]?.parentId;
+      const idB = b[1][0]?.parentId;
+      const indexA = currentSettings.selectedFolderIds.indexOf(idA);
+      const indexB = currentSettings.selectedFolderIds.indexOf(idB);
+      const rankA = indexA === -1 ? 9999 : indexA;
+      const rankB = indexB === -1 ? 9999 : indexB;
+      return rankA - rankB;
+    });
+  }
   
   const pinnedItems = items.filter(b => pinnedBookmarks.includes(b.id));
-  const folders = Array.from(foldersMap.entries());
   
   if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
     folders.unshift(["📌 Fijados", pinnedItems]);
   }
   
   const count = folders.length;
-
+  const masonryWrapper = el("div", { class: "layout-masonry" });
   if (count === 1) {
-    content.classList.add("layout-single");
-  } else if (count >= 2 && count <= 4) {
-    content.classList.add("layout-columns");
-  } else if (count > 4) {
-    content.classList.add("layout-grid");
+    masonryWrapper.classList.add("masonry-1");
+  } else if (count === 2) {
+    masonryWrapper.classList.add("masonry-2");
+  } else if (count === 3) {
+    masonryWrapper.classList.add("masonry-3");
+  } else {
+    masonryWrapper.classList.add("masonry-max");
   }
+
+  content.append(masonryWrapper);
 
   for (const [folder, items] of folders) {
     // Sort so pinned bookmarks appear first within the folder
@@ -443,7 +459,7 @@ function renderDashboard(items) {
     }
 
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}`;
-    content.append(
+    masonryWrapper.append(
       el("article", { class: "group" }, [
         el("div", { class: "group-header" }, headerChildren),
         el("div", { class: bookmarkListClass }, folderBookmarks.map((bookmark) => renderBookmark(bookmark)))
@@ -453,7 +469,7 @@ function renderDashboard(items) {
 }
 
 function renderResults(items) {
-  content.classList.remove("layout-single", "layout-columns", "layout-grid", "review-results");
+  content.classList.remove("review-results");
   content.classList.add("results");
   content.innerHTML = "";
   if (items.length === 0) {
