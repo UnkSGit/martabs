@@ -11,8 +11,7 @@ export const STORAGE_KEYS = {
   settings: "settings",
   bookmarkIndex: "bookmarkIndex",
   manualTags: "manualTags",
-  linkHealth: "linkHealth",
-  dismissedLinkWarnings: "dismissedLinkWarnings"
+  linkHealth: "linkHealth"
 };
 
 export async function getSettings(api) {
@@ -36,10 +35,6 @@ export async function saveBookmarkIndex(api, bookmarkIndex) {
 
 export async function getManualTags(api) {
   return getStoredValue(api, STORAGE_KEYS.manualTags, {});
-}
-
-export async function saveManualTags(api, manualTags) {
-  await setStoredValue(api, STORAGE_KEYS.manualTags, manualTags);
 }
 
 export async function getLinkHealth(api) {

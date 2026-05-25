@@ -1,14 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {
-  applyLinkCheckResult,
-  shouldShowLinkWarning
-} from "../src/shared/link-health.js";
+import { applyLinkCheckResult } from "../src/shared/link-health.js";
 
-const day = 24 * 60 * 60 * 1000;
 const now = Date.UTC(2026, 4, 24);
 
-test("first failure does not show warning", () => {
+test("failure records status and increments consecutive failures", () => {
   const state = applyLinkCheckResult(null, {
     ok: false,
     status: 404,
@@ -16,29 +12,17 @@ test("first failure does not show warning", () => {
   });
 
   assert.equal(state.consecutiveFailures, 1);
-  assert.equal(shouldShowLinkWarning(state, now + day * 2), false);
-});
-
-test("failure for at least 10 days shows warning", () => {
-  const state = {
-    firstFailureAt: now - day * 10,
-    lastCheckedAt: now,
-    lastStatus: 404,
-    lastSuccessAt: null,
-    consecutiveFailures: 4,
-    dismissedAt: null
-  };
-
-  assert.equal(shouldShowLinkWarning(state, now), true);
+  assert.equal(state.lastStatus, 404);
+  assert.equal(state.lastCheckedAt, now);
 });
 
 test("success resets failures", () => {
   const state = applyLinkCheckResult(
-    { firstFailureAt: now - day * 10, consecutiveFailures: 4 },
+    { consecutiveFailures: 4, lastStatus: 404 },
     { ok: true, status: 200, checkedAt: now }
   );
 
   assert.equal(state.consecutiveFailures, 0);
-  assert.equal(state.firstFailureAt, null);
+  assert.equal(state.lastStatus, 200);
   assert.equal(state.lastSuccessAt, now);
 });

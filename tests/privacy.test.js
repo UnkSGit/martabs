@@ -15,6 +15,8 @@ test("new tab does not call third-party preview or icon services", async () => {
 test("link health checks run from the new tab page, not the service worker", async () => {
   const worker = await readFile("src/background/service-worker.js", "utf8");
   const js = await readFile("src/newtab/newtab.js", "utf8");
+  const api = await readFile("src/shared/browser-api.js", "utf8");
+  const storage = await readFile("src/shared/storage.js", "utf8");
 
   // Service worker no longer handles health checks
   assert.doesNotMatch(worker, /runInitialHealthCheck/);
@@ -28,6 +30,9 @@ test("link health checks run from the new tab page, not the service worker", asy
   assert.match(js, /async function reviewFolderHealth/);
   assert.match(js, /applyLinkCheckResult/);
   assert.match(js, /saveLinkHealth/);
+
+  assert.doesNotMatch(api, /alarms|onMessage|sendMessage|permissions\.contains|storage\.local\.remove/);
+  assert.doesNotMatch(storage, /dismissedLinkWarnings|saveManualTags/);
 });
 
 test("firefox manifest does not inherit chrome-only favicon permission", async () => {

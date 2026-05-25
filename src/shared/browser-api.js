@@ -31,10 +31,6 @@ export function getBrowserApi(globalScope = globalThis) {
     },
     runtime: {
       id: api.runtime?.id || "",
-      sendMessage: api.runtime.sendMessage
-        ? wrap(api.runtime.sendMessage, api.runtime)
-        : async () => null,
-      onMessage: api.runtime.onMessage,
       openOptionsPage: api.runtime.openOptionsPage
         ? wrap(api.runtime.openOptionsPage, api.runtime)
         : async () => {}
@@ -42,21 +38,12 @@ export function getBrowserApi(globalScope = globalThis) {
     storage: {
       local: {
         get: wrap(api.storage.local.get, api.storage.local),
-        set: wrap(api.storage.local.set, api.storage.local),
-        remove: wrap(api.storage.local.remove, api.storage.local)
+        set: wrap(api.storage.local.set, api.storage.local)
       },
       onChanged: api.storage.onChanged
     },
-    alarms: api.alarms
-      ? {
-          create: wrap(api.alarms.create, api.alarms),
-          clear: wrap(api.alarms.clear, api.alarms),
-          onAlarm: api.alarms.onAlarm
-        }
-      : null,
     permissions: api.permissions
       ? {
-          contains: wrap(api.permissions.contains, api.permissions),
           request: wrap(api.permissions.request, api.permissions),
           remove: api.permissions.remove
             ? wrap(api.permissions.remove, api.permissions)
