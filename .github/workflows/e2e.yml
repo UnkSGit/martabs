@@ -28,7 +28,7 @@ jobs:
       run: npm run build:chrome
       
     - name: Run Playwright tests
-      run: npm run test:e2e:chrome
+      run: xvfb-run npm run test:e2e:chrome
       
     - uses: actions/upload-artifact@v4
       if: always()
