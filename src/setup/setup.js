@@ -1,11 +1,15 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { getFolderOptions } from "../shared/bookmarks.js";
-import { getSettings, saveSettings } from "../shared/storage.js";
+import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shared/storage.js";
 
 const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
 const saveButton = document.querySelector("#save");
 const status = document.querySelector("#status");
+const setupContent = document.querySelector(".setup-content");
+const settingsSearch = document.querySelector("#settings-search");
+const navButtons = document.querySelectorAll(".setup-nav-button");
+const sections = document.querySelectorAll(".setup-section");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const showPinnedFolder = document.querySelector("#show-pinned-folder");
@@ -15,10 +19,11 @@ const previewCapture = document.querySelector("#preview-capture");
 const defaultModeSelect = document.querySelector("#default-mode-select");
 const defaultSortSelect = document.querySelector("#default-sort-select");
 const themeSelect = document.querySelector("#theme-select");
-const linkHealthPermissions = {
-  origins: ["http://*/*", "https://*/*"]
-};
-const previewCapturePermissions = {
+const resetLocalOrganizationButton = document.querySelector("#reset-local-organization");
+const clearPreviewCacheButton = document.querySelector("#clear-preview-cache");
+let currentSettings = null;
+
+const urlPermissions = {
   origins: ["<all_urls>"]
 };
 
@@ -29,6 +34,95 @@ function applyTheme(theme) {
     root.classList.add("theme-light");
   } else if (theme === "dark") {
     root.classList.add("theme-dark");
+  }
+}
+
+function normalizeSearchText(value) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function getSearchableItems(section) {
+  return [
+    ...section.querySelectorAll(".setting-row, .switch-row, .advanced-action, .folder-list label")
+  ];
+}
+
+function itemMatchesSearch(item, query) {
+  const text = normalizeSearchText(`${item.textContent} ${item.dataset.search || ""}`);
+  return text.includes(query);
+}
+
+function sectionMatchesSearch(section, query) {
+  if (!query) return true;
+
+  const sectionText = normalizeSearchText(`${section.textContent} ${section.dataset.search || ""}`);
+  return sectionText.includes(query);
+}
+
+function syncSetupContentHeight() {
+  if (!setupContent) return;
+
+  const hiddenItems = [...setupContent.querySelectorAll(".is-search-hidden")];
+  hiddenItems.forEach((item) => item.classList.remove("is-search-hidden"));
+  sections.forEach((section) => section.classList.add("is-measuring"));
+  const maxHeight = Math.max(
+    0,
+    ...[...sections].map((section) => section.scrollHeight)
+  );
+  sections.forEach((section) => section.classList.remove("is-measuring"));
+  hiddenItems.forEach((item) => item.classList.add("is-search-hidden"));
+
+  setupContent.style.setProperty("--setup-content-min-height", `${maxHeight}px`);
+}
+
+function updateActiveSearchItems(query) {
+  sections.forEach((section) => {
+    const isActive = section.classList.contains("is-active");
+    getSearchableItems(section).forEach((item) => {
+      item.classList.toggle("is-search-hidden", Boolean(query && isActive && !itemMatchesSearch(item, query)));
+    });
+  });
+}
+
+function showSection(sectionId) {
+  navButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.section === sectionId);
+  });
+
+  sections.forEach((section) => {
+    section.classList.toggle("is-active", section.dataset.section === sectionId);
+  });
+
+  updateActiveSearchItems(normalizeSearchText(settingsSearch.value));
+  syncSetupContentHeight();
+}
+
+function applySettingsSearch() {
+  const query = normalizeSearchText(settingsSearch.value);
+  const sectionMatches = new Map();
+
+  sections.forEach((section) => {
+    const matches = sectionMatchesSearch(section, query);
+    sectionMatches.set(section.dataset.section, matches);
+  });
+
+  navButtons.forEach((button) => {
+    button.classList.toggle("has-search-match", Boolean(query && sectionMatches.get(button.dataset.section)));
+  });
+
+  const activeSection = [...sections].find((section) => section.classList.contains("is-active"));
+  const activeMatches = activeSection && sectionMatches.get(activeSection.dataset.section);
+  const firstMatch = [...sections].find((section) => sectionMatches.get(section.dataset.section));
+
+  if (query && firstMatch && !activeMatches) {
+    showSection(firstMatch.dataset.section);
+  } else {
+    updateActiveSearchItems(query);
+    syncSetupContentHeight();
   }
 }
 
@@ -68,6 +162,7 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
   for (const folder of finalFolders) {
     const label = document.createElement("label");
     label.draggable = true;
+    label.dataset.search = `${folder.path} carpeta vista orden predeterminado manual lista compacta iconos quicklinks`;
     
     label.addEventListener("dragstart", function() {
       draggedItem = this;
@@ -96,6 +191,10 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
     checkbox.type = "checkbox";
     checkbox.value = folder.id;
     checkbox.checked = selectedFolderIds.includes(folder.id);
+
+    const folderName = document.createElement("span");
+    folderName.className = "folder-name";
+    folderName.append(checkbox, document.createTextNode(folder.path));
     
     const controlsWrap = document.createElement("div");
     controlsWrap.className = "folder-controls";
@@ -125,7 +224,7 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
 
     controlsWrap.append(modeSelect, sortSelect);
     
-    label.append(checkbox, document.createTextNode(folder.path), controlsWrap);
+    label.append(folderName, controlsWrap);
     folderList.append(label);
   }
 }
@@ -134,25 +233,60 @@ function getSelectedFolderIds() {
   return [...folderList.querySelectorAll("input:checked")].map((input) => input.value);
 }
 
-async function requestLinkHealthPermission() {
-  if (!api.permissions?.request) {
-    return false;
-  }
+function getFolderModes() {
+  const folderModes = {};
 
-  try {
-    return await api.permissions.request(linkHealthPermissions);
-  } catch {
-    return false;
-  }
+  folderList.querySelectorAll(".folder-mode-select").forEach(select => {
+    if (select.value !== "default") {
+      folderModes[select.dataset.folderId] = select.value;
+    }
+  });
+
+  return folderModes;
 }
 
-async function requestPreviewCapturePermission() {
+function getFolderSorts() {
+  const folderSorts = {};
+
+  folderList.querySelectorAll(".folder-sort-select").forEach(select => {
+    if (select.value !== "default") {
+      folderSorts[select.dataset.folderId] = select.value;
+    }
+  });
+
+  return folderSorts;
+}
+
+function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
+  return {
+    ...currentSettings,
+    selectedFolderIds: getSelectedFolderIds(),
+    automaticTagsEnabled: automaticTags.checked,
+    manualTagsEnabled: manualTags.checked,
+    showPinnedFolder: showPinnedFolder.checked,
+    linkHealthEnabled: linkHealthEnabled,
+    previewEnabled: previewEnabled.checked,
+    previewCaptureEnabled: previewCaptureEnabled,
+    theme: themeSelect.value,
+    defaultFolderMode: defaultModeSelect.value,
+    defaultFolderSort: defaultSortSelect.value,
+    folderModes: getFolderModes(),
+    folderSorts: getFolderSorts(),
+    setupComplete: true
+  };
+}
+
+function needsUrlPermission(linkHealthRequested, previewCaptureRequested) {
+  return linkHealthRequested || previewCaptureRequested;
+}
+
+async function requestUrlPermission() {
   if (!api.permissions?.request) {
     return false;
   }
 
   try {
-    return await api.permissions.request(previewCapturePermissions);
+    return await api.permissions.request(urlPermissions);
   } catch {
     return false;
   }
@@ -182,7 +316,8 @@ function getSuccessMessage(linkHealthRequested, linkHealthEnabled, previewCaptur
 }
 
 async function init() {
-  const [tree, currentSettings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
+  const [tree, settings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
+  currentSettings = settings;
   
   automaticTags.checked = currentSettings.automaticTagsEnabled;
   manualTags.checked = currentSettings.manualTagsEnabled;
@@ -203,10 +338,57 @@ async function init() {
     currentSettings.folderModes || {},
     currentSettings.folderSorts || {}
   );
+  applySettingsSearch();
 }
+
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    showSection(button.dataset.section);
+  });
+});
 
 themeSelect.addEventListener("change", () => {
   applyTheme(themeSelect.value);
+});
+
+settingsSearch.addEventListener("input", applySettingsSearch);
+window.addEventListener("resize", syncSetupContentHeight);
+
+async function resetLocalOrganization() {
+  const confirmed = window.confirm(
+    "Restablecer todos los movimientos locales y ordenes manuales? No se modifican los marcadores reales del navegador."
+  );
+  if (!confirmed) return;
+
+  currentSettings = {
+    ...currentSettings,
+    bookmarkFolderOverrides: {},
+    folderBookmarkOrders: {}
+  };
+
+  await saveSettings(api, currentSettings);
+  status.textContent = "Organizacion local restablecida.";
+}
+
+async function clearPreviewCache() {
+  const confirmed = window.confirm("Limpiar todas las previews locales cacheadas?");
+  if (!confirmed) return;
+
+  await setStoredValue(api, STORAGE_KEYS.capturedPreviews, {});
+  await setStoredValue(api, STORAGE_KEYS.pendingPreviewCaptures, {});
+  status.textContent = "Previews cacheadas eliminadas.";
+}
+
+resetLocalOrganizationButton.addEventListener("click", () => {
+  resetLocalOrganization().catch((error) => {
+    status.textContent = `No se pudo restablecer la organizacion local: ${error.message}`;
+  });
+});
+
+clearPreviewCacheButton.addEventListener("click", () => {
+  clearPreviewCache().catch((error) => {
+    status.textContent = `No se pudieron limpiar las previews: ${error.message}`;
+  });
 });
 
 saveButton.addEventListener("click", async () => {
@@ -218,20 +400,15 @@ saveButton.addEventListener("click", async () => {
     }
 
     const linkHealthRequested = linkHealth.checked;
-    const linkHealthEnabled = linkHealthRequested
-      ? await requestLinkHealthPermission()
-      : false;
     const previewCaptureRequested = previewCapture.checked;
-    const previewCaptureEnabled = previewCaptureRequested
-      ? await requestPreviewCapturePermission()
+    const urlPermissionGranted = needsUrlPermission(linkHealthRequested, previewCaptureRequested)
+      ? await requestUrlPermission()
       : false;
+    const linkHealthEnabled = linkHealthRequested && urlPermissionGranted;
+    const previewCaptureEnabled = previewCaptureRequested && urlPermissionGranted;
 
-    if (!linkHealthRequested) {
-      await removePermission(linkHealthPermissions);
-    }
-
-    if (!previewCaptureRequested) {
-      await removePermission(previewCapturePermissions);
+    if (!needsUrlPermission(linkHealthRequested, previewCaptureRequested)) {
+      await removePermission(urlPermissions);
     }
 
     if (!linkHealthEnabled) {
@@ -242,36 +419,8 @@ saveButton.addEventListener("click", async () => {
       previewCapture.checked = false;
     }
 
-    const folderModes = {};
-    const folderSorts = {};
-    
-    folderList.querySelectorAll(".folder-mode-select").forEach(select => {
-      if (select.value !== "default") {
-        folderModes[select.dataset.folderId] = select.value;
-      }
-    });
-
-    folderList.querySelectorAll(".folder-sort-select").forEach(select => {
-      if (select.value !== "default") {
-        folderSorts[select.dataset.folderId] = select.value;
-      }
-    });
-
-    await saveSettings(api, {
-      selectedFolderIds,
-      automaticTagsEnabled: automaticTags.checked,
-      manualTagsEnabled: manualTags.checked,
-      showPinnedFolder: showPinnedFolder.checked,
-      linkHealthEnabled: linkHealthEnabled,
-      previewEnabled: previewEnabled.checked,
-      previewCaptureEnabled: previewCaptureEnabled,
-      theme: themeSelect.value,
-      defaultFolderMode: defaultModeSelect.value,
-      defaultFolderSort: defaultSortSelect.value,
-      folderModes,
-      folderSorts,
-      setupComplete: true
-    });
+    currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled);
+    await saveSettings(api, currentSettings);
 
     applyTheme(themeSelect.value);
     status.textContent = getSuccessMessage(

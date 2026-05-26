@@ -1,58 +1,145 @@
-# Plan de Implementación
+# Arquitectura vigente - martabs
 
-Este documento sirve para alinear la arquitectura y diseño técnico entre los agentes y el usuario.
+Este documento resume como esta armado martabs hoy. Las ideas futuras viven en `docs/roadmap.md`.
 
-## Tareas en curso
+## Estructura
 
-### Favoritos Fijados (Completado ✅)
+- `src/manifest.base.json`: manifest comun.
+- `src/manifest.chrome.json`: permisos extra de Chrome, hoy solo `favicon`.
+- `src/manifest.firefox.json`: configuracion especifica de Firefox.
+- `src/background/service-worker.js`: reindexado, capturas locales pendientes y escucha de cambios.
+- `src/newtab/*`: tablero de Nueva pestana.
+- `src/setup/*`: Configuracion.
+- `src/shared/*`: helpers compartidos.
+- `tests/*`: tests livianos con `node --test`.
+- `scripts/build.mjs`: genera `dist/chrome` y `dist/firefox`.
 
-**Objetivo:** Permitir destacar enlaces importantes para un acceso rápido.
+## Datos locales
 
-**Arquitectura:**
-- **Estado Local:** Se usará `chrome.storage.local` con una nueva clave `martabs_pinned` para almacenar un arreglo de `id`s de los marcadores fijados. Además, se añade `showPinnedFolder` en los settings globales.
-- **Renderizado Virtual:** Al iniciar la vista de la Nueva Pestaña, se cruzará el listado global de marcadores con los IDs fijados y se creará un grupo virtual (carpeta) al principio llamado "📌 Fijados" (si `showPinnedFolder` no es falso).
-- **Visibilidad Dual y Ordenamiento:** Los marcadores fijados se renderizan tanto en el grupo "Fijados" como en su carpeta original. Las carpetas originales reciben un ordenamiento (`.sort()`) interno para mostrar los marcadores fijados al tope de su lista.
-- **UI de Interacción:** 
-  - Botón flotante al hacer hover sobre un marcador (ícono de Pin/Chincheta), posicionado junto al botón de "Editar".
-  - El botón cambiará de estado (Pin lleno vs Pin vacío) dependiendo de si el marcador ya está fijado.
-  - Al hacer clic, se actualiza el storage local y se re-renderiza la grilla/lista.
+Settings principales en `storage.local`:
 
-**Impacto:**
-No afecta la estructura original de marcadores del navegador (`chrome.bookmarks`), solo la vista interna de martabs.
+- `selectedFolderIds`
+- `automaticTagsEnabled`
+- `manualTagsEnabled`
+- `linkHealthEnabled`
+- `previewEnabled`
+- `previewCaptureEnabled`
+- `showPinnedFolder`
+- `theme`
+- `setupComplete`
+- `defaultFolderMode`
+- `folderModes`
+- `defaultFolderSort`
+- `folderSorts`
+- `folderBookmarkOrders`
+- `bookmarkFolderOverrides`
+- `customFavicons`
+- `brokenCustomFavicons`
 
-## Estado confirmado: Modos visuales y foco suave
+Otras claves:
 
-Los modos visuales por carpeta ya estan implementados sobre el tablero masonry.
+- `bookmarkIndex`
+- `manualTags`
+- `linkHealth`
+- `capturedPreviews`
+- `pendingPreviewCaptures`
+- `pinnedBookmarks`
 
-**Comportamiento actual:**
-- Cada carpeta puede usar un modo visual propio mediante `folderModes` en `storage.local`.
-- El usuario puede configurar modos desde Configuracion y tambien rotarlos desde el boton `Vista` en cada carpeta.
-- Los resultados de busqueda mantienen una vista legible independiente de los modos visuales.
-- El estado colapsado se descarto para mantener la UI simple.
+## Indexado de marcadores
 
-**Foco suave al cambiar vista:**
-- Cambiar de modo puede alterar la altura de una carpeta y hacer que CSS masonry la reacomode.
-- Para que el usuario no pierda el contexto, `newtab.js` guarda el `folderId` en `pendingViewFocusFolderId`.
-- Tras el render, se busca la carpeta por `data-folder-id`, se llama a `scrollIntoView({ behavior: "smooth" })` y se aplica la clase temporal `.is-view-focus`.
-- `newtab.css` usa la animacion `view-focus-pulse` para resaltar la carpeta durante 900 ms.
+El service worker reconstruye `bookmarkIndex` cuando:
 
-**Regla tecnica:**
-- Toda carpeta renderizada como `.group` debe conservar `data-folder-id` si se espera que el foco suave funcione.
-- Si se cambia el motor masonry o el render de carpetas, actualizar `tests/newtab.test.js` y `docs/maintenance_notes.md`.
+- cambian marcadores;
+- cambia la configuracion.
 
-## Estado confirmado: Ordenamiento por carpeta
+`buildBookmarkIndex()` filtra por carpetas seleccionadas y aplica `bookmarkFolderOverrides` para movimientos locales. Luego mezcla etiquetas automaticas, etiquetas manuales y estado de salud.
 
-El Paso 7A del roadmap ya esta implementado como ordenamiento visual por carpeta.
+## Nueva pestana
 
-**Comportamiento actual:**
-- `defaultFolderSort` define el orden global por defecto.
-- `folderSorts` guarda overrides por carpeta.
-- Configuracion muestra un selector global y un selector por carpeta.
-- El tablero aplica el orden elegido, pero no muestra un boton `Orden` para no sobrecargar el encabezado de las carpetas.
-- El orden visual no modifica los bookmarks reales del navegador.
-- Los resultados de busqueda conservan su ranking propio.
+`newtab.js`:
 
-**Criterios actuales:**
+- carga settings, indice, previews y fijados;
+- aplica tema;
+- renderiza tablero masonry;
+- agrupa marcadores por carpeta;
+- inyecta la carpeta virtual `Fijados` si corresponde;
+- aplica orden visual;
+- maneja busqueda, vista rapida, revision de enlaces, edicion, fijados y drag & drop local.
+
+Reglas:
+
+- La busqueda conserva su ranking propio y no aplica `folderSorts`.
+- La carpeta virtual `Fijados` respeta `pinnedBookmarks`.
+- El drag & drop es local. No usar `chrome.bookmarks.move` para estos flujos.
+- El foco suave depende de `data-folder-id` en cada `.group`.
+
+## Configuracion
+
+`setup` es una sola pagina con secciones:
+
+- `Carpetas`
+- `Apariencia`
+- `Privacidad`
+- `Etiquetas`
+- `Avanzado`
+
+`collectSettingsFromForm()` debe partir de `currentSettings` y pisar solo campos visibles. No construir settings desde cero, porque se perderian claves internas como ordenes manuales, iconos custom o estados rotos.
+
+Acciones avanzadas:
+
+- `Restablecer organizacion local`: limpia `bookmarkFolderOverrides` y `folderBookmarkOrders`.
+- `Limpiar previews cacheadas`: limpia `capturedPreviews` y `pendingPreviewCaptures`.
+
+## Permisos
+
+Permisos base:
+
+- `bookmarks`
+- `storage`
+- `favicon` solo en Chrome
+
+Permisos opcionales por URLs:
+
+- Revision de enlaces.
+- Capturas locales.
+
+Estas dos opciones comparten el mismo permiso opcional (`<all_urls>`). Configuracion debe pedirlo una sola vez si cualquiera de las dos esta activa, y retirarlo solo cuando ambas estan desactivadas. Esto evita dobles prompts en Chrome y evita que Firefox conceda una opcion y deje la otra en error.
+
+El flujo experimental de captura desde el boton de extension fue eliminado. Las capturas se arman solo cuando el usuario abre un marcador desde martabs y `previewCaptureEnabled` esta activo.
+
+Compatibilidad de background:
+
+- Chrome usa `background.service_worker`.
+- Firefox usa `background.scripts` con `type: "module"`.
+- `src/manifest.firefox.json` debe sobrescribir el bloque `background` completo para que el build de Firefox no herede el service worker de Chrome.
+
+## Capturas locales
+
+Flujo:
+
+1. `newtab.js` envia `CAPTURE_OPENED_BOOKMARK` antes de navegar.
+2. El service worker guarda la captura pendiente por `tabId`.
+3. `tabs.onUpdated` detecta carga completa.
+4. Se espera un delay corto.
+5. `captureVisibleTab` intenta capturar.
+6. La imagen se guarda en `capturedPreviews` con limite de cache.
+
+No se usa `webNavigation`, `tabs.onActivated` ni monitoreo general.
+
+## Favicons
+
+Chrome usa el endpoint interno `_favicon` con el permiso `favicon`.
+
+Firefox no soporta ese endpoint. En Firefox martabs intenta un fallback liviano a `/favicon.ico` del dominio del marcador. Si no carga, vuelve al fallback visual con la letra/dominio.
+
+No usar servicios externos de favicons.
+
+## Orden y movimiento local
+
+`src/shared/bookmark-sort.js` centraliza el orden visual.
+
+Criterios:
+
 - `browser`
 - `manual`
 - `title-asc`
@@ -60,23 +147,10 @@ El Paso 7A del roadmap ya esta implementado como ordenamiento visual por carpeta
 - `domain-asc`
 - `health-broken-first`
 
-**Regla tecnica:**
-- La logica vive en `src/shared/bookmark-sort.js`.
-- Si se agrega un criterio nuevo, actualizar `SORT_MODES`, los selectores de `setup`, los tests y la documentacion.
-- La carpeta virtual `Fijados` no debe tomar el orden global; respeta `pinnedBookmarks`.
+`folderBookmarkOrders` guarda el orden manual dentro de una carpeta.
 
-## Estado confirmado: Orden manual por carpeta
+`bookmarkFolderOverrides` mueve marcadores entre carpetas solo dentro de martabs.
 
-El Paso 7B ya permite ordenar manualmente marcadores dentro de una carpeta sin moverlos en Chrome/Firefox.
+## Pendiente tecnico principal
 
-**Comportamiento actual:**
-- Configuracion incluye el criterio `Manual`.
-- Solo las carpetas configuradas en `Manual` habilitan drag & drop de marcadores en el tablero.
-- El orden manual se guarda en `folderBookmarkOrders` dentro de settings.
-- Al soltar un marcador, martabs persiste el nuevo orden visual y re-renderiza la carpeta.
-- Los marcadores fijados siguen teniendo prioridad visual dentro de la carpeta.
-- La carpeta virtual `Fijados` no permite drag & drop de marcadores.
-
-**Regla tecnica:**
-- El orden manual es una capa local de martabs. No usar `chrome.bookmarks.move` para este flujo.
-- Si se cambia el drag & drop, mantener la condicion `folderSort === "manual"` para no mezclar orden manual con orden A-Z, fecha, dominio o salud.
+Multilenguaje con `_locales` y `messages.json`.

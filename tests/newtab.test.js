@@ -24,6 +24,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   const css = await readFile("src/newtab/newtab.css", "utf8");
 
   assert.match(css, /\.app-shell\s*{/);
+  assert.match(css, /--surface-bg:\s*rgba\(255, 255, 255, 0\.225\);/);
+  assert.match(css, /--surface-bg:\s*rgba\(30, 41, 59, 0\.225\);/);
   assert.match(css, /\.topbar\s*{/);
   assert.match(css, /\.search-wrap\s*{/);
   assert.match(css, /\.content\s*{/);
@@ -45,6 +47,13 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.preview-card\s*{/);
   assert.match(css, /\.health-dot-indicator\s*{/);
   assert.match(css, /\.logo-wrap\s*{/);
+  assert.match(css, /background:\s*transparent;/);
+  assert.match(css, /border:\s*0;/);
+  assert.match(css, /border-radius:\s*0;/);
+  assert.match(css, /box-shadow:\s*none;/);
+  assert.match(css, /backdrop-filter:\s*none;/);
+  assert.match(css, /height:\s*57px;/);
+  assert.match(css, /drop-shadow\(0 0 8px rgba\(255, 255, 255, 0\.72\)\)/);
   assert.match(css, /grid-auto-rows:\s*max-content/);
   assert.match(css, /align-content:\s*start/);
   assert.match(css, /overflow-y:\s*auto\s*!important/);
@@ -97,6 +106,11 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /No comprobado/);
   assert.match(js, /if \(!bookmark\.linkHealth\?\.lastCheckedAt\)/);
   assert.match(js, /const healthDetails = !health/);
+  assert.match(js, /function isFirefoxRuntime/);
+  assert.match(js, /function getBrowserFaviconUrl/);
+  assert.match(js, /function getRootFaviconUrl/);
+  assert.match(js, /getRootFaviconUrl\(url\)/);
+  assert.match(js, /dataset\.faviconFallbackIndex/);
   assert.match(js, /capturedPreviews\[bookmark\.id\]/);
   assert.match(js, /function openBookmarkFromMartabs/);
   assert.match(js, /CAPTURE_OPENED_BOOKMARK/);

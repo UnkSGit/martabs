@@ -40,17 +40,6 @@ export function getBrowserApi(globalScope = globalThis) {
         ? wrap(api.runtime.openOptionsPage, api.runtime)
         : async () => {}
     },
-    action: api.action
-      ? {
-          onClicked: api.action.onClicked,
-          setBadgeText: api.action.setBadgeText
-            ? wrap(api.action.setBadgeText, api.action)
-            : async () => {},
-          setBadgeBackgroundColor: api.action.setBadgeBackgroundColor
-            ? wrap(api.action.setBadgeBackgroundColor, api.action)
-            : async () => {}
-        }
-      : null,
     tabs: api.tabs
       ? {
           captureVisibleTab: api.tabs.captureVisibleTab

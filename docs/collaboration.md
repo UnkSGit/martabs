@@ -1,6 +1,6 @@
 # Trabajo compartido entre Codex y Gemini/Antigravity
 
-El proyecto se desarrolla con mas de una herramienta. Para evitar perdida de contexto, cada agente debe dejar rastros cortos y utiles de lo que hizo.
+El proyecto se desarrolla con mas de una herramienta. Cada agente debe dejar contexto corto y util para que el siguiente no tenga que reconstruir todo desde cero.
 
 ## Antes de empezar
 
@@ -14,26 +14,25 @@ El proyecto se desarrolla con mas de una herramienta. Para evitar perdida de con
 
 ## Durante el trabajo
 
-- Mantener los cambios acotados al objetivo.
+- Mantener cambios acotados al objetivo.
 - No revertir cambios de otra herramienta sin confirmacion del usuario.
-- Si se cambia una decision de producto, actualizar `docs/roadmap.md` o `docs/task.md`.
-- Si se cambia arquitectura o flujo interno, actualizar `docs/implementation_plan.md`.
-- Si se cambia el uso visible para el usuario, actualizar `README.md` o `docs/walkthrough.md`.
-- Si se corrige un bug que puede repetirse, agregar una nota corta en `docs/maintenance_notes.md`.
+- Si cambia una decision de producto, actualizar `docs/roadmap.md` o `docs/task.md`.
+- Si cambia arquitectura o flujo interno, actualizar `docs/implementation_plan.md`.
+- Si cambia el uso visible, actualizar `README.md` o `docs/walkthrough.md`.
+- Si se corrige un bug que puede repetirse, agregar nota en `docs/maintenance_notes.md`.
 - Si se agrega o corrige un flujo importante, agregar o actualizar tests segun `docs/testing.md`.
+- No crear planes historicos nuevos si el trabajo ya quedo implementado; integrar el resultado en los docs vivos.
 
 ## Al terminar
 
-Cada agente debe dejar registrado:
+Registrar:
 
 - que cambio;
-- que archivos principales toco;
-- que pruebas o build ejecuto;
-- si quedo algun pendiente.
+- archivos principales tocados;
+- pruebas o build ejecutados;
+- pendientes reales.
 
-Si el cambio es grande, agregar una seccion corta en `docs/task.md` o crear una nota especifica en `docs/`.
-
-## Formato sugerido para notas de cierre
+Formato sugerido:
 
 ```text
 Fecha:
@@ -46,9 +45,7 @@ Pendientes:
 
 ## Reglas practicas
 
-- La documentacion debe describir el estado actual, no aspiraciones mezcladas con comportamiento real.
-- `docs/maintenance_notes.md` es lectura obligatoria antes de modificar zonas sensibles ya corregidas.
-- `docs/testing.md` define la verificacion minima para cambios grandes.
-- Las ideas futuras viven en `docs/roadmap.md`.
-- Los documentos historicos o maquetas que ya no aportan se pueden quitar.
-- Los permisos nuevos de extension deben quedar justificados en documentacion antes de publicarse.
+- La documentacion describe el estado actual. Las ideas futuras viven en `docs/roadmap.md`.
+- `docs/maintenance_notes.md` es lectura obligatoria antes de modificar zonas sensibles.
+- `docs/testing.md` define la verificacion minima.
+- Los permisos nuevos de extension deben quedar justificados antes de publicarse.

@@ -9,53 +9,172 @@
   <body>
     <main class="setup-shell">
       <section class="setup-panel">
-        <h1>Elegir carpetas</h1>
-        <p>Selecciona las carpetas de marcadores que quieres ver en la nueva pestana.</p>
-        <div id="folder-list" class="folder-list" aria-live="polite"></div>
-        <fieldset>
-          <legend>Funciones</legend>
-          <label><input id="automatic-tags" type="checkbox" checked> Etiquetas automaticas</label>
-          <label><input id="manual-tags" type="checkbox" checked> Etiquetas manuales</label>
-          <label><input id="show-pinned-folder" type="checkbox" checked> Mostrar carpeta virtual de "📌 Fijados" al tope de la pagina</label>
-          <label><input id="link-health" type="checkbox"> Habilitar revision de enlaces (boton Revisar en cada carpeta)</label>
-          <label><input id="preview-enabled" type="checkbox" checked> Mostrar vista rápida al pasar el mouse</label>
-          <label><input id="preview-capture" type="checkbox"> Capturar previews locales al abrir marcadores</label>
-        </fieldset>
-        <fieldset>
-          <legend>Apariencia</legend>
-          <label class="theme-label">
-            <span>Modo visual de carpetas (por defecto)</span>
-            <select id="default-mode-select">
-              <option value="list">Lista completa (Dominio y tags)</option>
-              <option value="compact">Lista compacta</option>
-              <option value="icons">Grilla de iconos</option>
-              <option value="icons-large">Grilla de iconos (grande)</option>
-              <option value="quicklinks">Quicklinks</option>
-            </select>
+        <header class="setup-header">
+          <div>
+            <p class="eyebrow">martabs</p>
+            <h1>Configuracion</h1>
+          </div>
+          <label class="setup-search" for="settings-search">
+            <span class="sr-only">Buscar ajustes</span>
+            <input id="settings-search" type="search" autocomplete="off" placeholder="Buscar ajustes...">
           </label>
-          <label class="theme-label">
-            <span>Orden de marcadores (por defecto)</span>
-            <select id="default-sort-select">
-              <option value="browser">Orden original</option>
-              <option value="manual">Manual</option>
-              <option value="title-asc">Titulo A-Z</option>
-              <option value="date-newest">Mas nuevos primero</option>
-              <option value="domain-asc">Dominio A-Z</option>
-              <option value="health-broken-first">Fallidos primero</option>
-            </select>
-          </label>
-          <label class="theme-label">
-            <span>Tema de color</span>
-            <select id="theme-select">
-              <option value="system">Sistema (Automatico)</option>
-              <option value="light">Claro</option>
-              <option value="dark">Oscuro</option>
-            </select>
-          </label>
-        </fieldset>
-        <div class="actions">
-          <button id="save" type="button">Guardar configuracion</button>
-          <p id="status" role="status"></p>
+          <div class="actions">
+            <p id="status" role="status"></p>
+            <button id="save" type="button">Guardar cambios</button>
+          </div>
+        </header>
+
+        <div class="setup-layout">
+          <nav class="setup-sidebar" aria-label="Secciones de configuracion">
+            <button class="setup-nav-button is-active" type="button" data-section="folders">Carpetas</button>
+            <button class="setup-nav-button" type="button" data-section="appearance">Apariencia</button>
+            <button class="setup-nav-button" type="button" data-section="privacy">Privacidad</button>
+            <button class="setup-nav-button" type="button" data-section="tags">Etiquetas</button>
+            <button class="setup-nav-button" type="button" data-section="advanced">Avanzado</button>
+          </nav>
+
+          <div class="setup-content">
+            <section id="section-folders" class="setup-section is-active" data-section="folders" data-search="carpetas seleccionar monitorear vista orden manual predeterminado">
+              <div class="section-heading">
+                <h2>Carpetas</h2>
+                <p>Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
+              </div>
+              <div class="folder-list-header" aria-hidden="true">
+                <span>Carpeta</span>
+                <span>Vista</span>
+                <span>Orden</span>
+              </div>
+              <div id="folder-list" class="folder-list" aria-live="polite"></div>
+            </section>
+
+            <section id="section-appearance" class="setup-section" data-section="appearance" data-search="apariencia tema modo vista orden fijados preview vista rapida">
+              <div class="section-heading">
+                <h2>Apariencia</h2>
+                <p>Preferencias visuales generales del tablero.</p>
+              </div>
+              <div class="settings-stack">
+                <label class="setting-row" data-search="modo visual defecto lista compacta iconos quicklinks">
+                  <span>
+                    <strong>Modo visual por defecto</strong>
+                    <small>Se usa cuando una carpeta no tiene modo propio.</small>
+                  </span>
+                  <select id="default-mode-select">
+                    <option value="list">Lista completa (Dominio y tags)</option>
+                    <option value="compact">Lista compacta</option>
+                    <option value="icons">Grilla de iconos</option>
+                    <option value="icons-large">Grilla de iconos (grande)</option>
+                    <option value="quicklinks">Quicklinks</option>
+                  </select>
+                </label>
+
+                <label class="setting-row" data-search="orden defecto original manual titulo fecha dominio fallidos">
+                  <span>
+                    <strong>Orden por defecto</strong>
+                    <small>Se aplica a carpetas sin orden personalizado.</small>
+                  </span>
+                  <select id="default-sort-select">
+                    <option value="browser">Orden original</option>
+                    <option value="manual">Manual</option>
+                    <option value="title-asc">Titulo A-Z</option>
+                    <option value="date-newest">Mas nuevos primero</option>
+                    <option value="domain-asc">Dominio A-Z</option>
+                    <option value="health-broken-first">Fallidos primero</option>
+                  </select>
+                </label>
+
+                <label class="setting-row" data-search="tema color sistema claro oscuro">
+                  <span>
+                    <strong>Tema</strong>
+                    <small>Respeta el sistema o fuerza claro/oscuro.</small>
+                  </span>
+                  <select id="theme-select">
+                    <option value="system">Sistema (Automatico)</option>
+                    <option value="light">Claro</option>
+                    <option value="dark">Oscuro</option>
+                  </select>
+                </label>
+
+                <label class="switch-row" data-search="fijados favoritos carpeta virtual destacados">
+                  <input id="show-pinned-folder" type="checkbox" checked>
+                  <span>
+                    <strong>Mostrar carpeta virtual de fijados</strong>
+                    <small>La carpeta superior agrupa los marcadores fijados.</small>
+                  </span>
+                </label>
+
+                <label class="switch-row" data-search="vista rapida preview tooltip detalle mouse">
+                  <input id="preview-enabled" type="checkbox" checked>
+                  <span>
+                    <strong>Mostrar vista rapida</strong>
+                    <small>Abre el panel de detalle al pasar el mouse.</small>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <section id="section-privacy" class="setup-section" data-section="privacy" data-search="privacidad permisos enlaces capturas red">
+              <div class="section-heading">
+                <h2>Privacidad</h2>
+                <p>Funciones que pueden pedir permisos opcionales del navegador.</p>
+              </div>
+              <div class="settings-stack">
+                <label class="switch-row" data-search="revision enlaces caidos fallos permisos red">
+                  <input id="link-health" type="checkbox">
+                  <span>
+                    <strong>Revision de enlaces</strong>
+                    <small>Agrega el boton Revisar en cada carpeta y pide permisos de red.</small>
+                  </span>
+                </label>
+
+                <label class="switch-row" data-search="capturar previews locales imagen captura permisos">
+                  <input id="preview-capture" type="checkbox">
+                  <span>
+                    <strong>Capturar previews locales</strong>
+                    <small>Solo para marcadores abiertos desde martabs.</small>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <section id="section-tags" class="setup-section" data-section="tags" data-search="etiquetas tags automaticas manuales">
+              <div class="section-heading">
+                <h2>Etiquetas</h2>
+                <p>Controla como martabs genera y muestra tags.</p>
+              </div>
+              <div class="settings-stack">
+                <label class="switch-row" data-search="etiquetas automaticas tags dominio carpeta">
+                  <input id="automatic-tags" type="checkbox" checked>
+                  <span>
+                    <strong>Etiquetas automaticas</strong>
+                    <small>Se derivan de carpetas, dominio y datos del marcador.</small>
+                  </span>
+                </label>
+
+                <label class="switch-row" data-search="etiquetas manuales tags editar marcador">
+                  <input id="manual-tags" type="checkbox" checked>
+                  <span>
+                    <strong>Etiquetas manuales</strong>
+                    <small>Permite editar tags desde la UI de cada marcador.</small>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <section id="section-advanced" class="setup-section" data-section="advanced" data-search="avanzado limpiar restablecer reset previews cache organizacion">
+              <div class="section-heading">
+                <h2>Avanzado</h2>
+                <p>Acciones poco frecuentes para limpiar estado local.</p>
+              </div>
+              <div class="advanced-actions">
+                <button id="reset-local-organization" class="secondary-button advanced-action" type="button" data-search="restablecer reset organizacion local movimientos ordenes manuales">
+                  Restablecer organizacion local
+                </button>
+                <button id="clear-preview-cache" class="secondary-button advanced-action" type="button" data-search="limpiar previews cache capturas imagenes">
+                  Limpiar previews cacheadas
+                </button>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
     </main>

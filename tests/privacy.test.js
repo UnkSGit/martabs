@@ -36,10 +36,14 @@ test("link health checks run from the new tab page, not the service worker", asy
 });
 
 test("opened bookmarks can trigger local capture without global navigation tracking", async () => {
+  const base = JSON.parse(await readFile("src/manifest.base.json", "utf8"));
   const worker = await readFile("src/background/service-worker.js", "utf8");
   const js = await readFile("src/newtab/newtab.js", "utf8");
   const api = await readFile("src/shared/browser-api.js", "utf8");
 
+  assert.deepEqual(base.permissions, ["bookmarks", "storage"]);
+  assert.ok(base.optional_host_permissions.includes("<all_urls>"));
+  assert.ok(!base.action, "toolbar capture action should not be declared");
   assert.match(js, /CAPTURE_OPENED_BOOKMARK/);
   assert.match(worker, /CAPTURE_OPENED_BOOKMARK/);
   assert.match(worker, /armPreviewCapture/);
@@ -51,15 +55,22 @@ test("opened bookmarks can trigger local capture without global navigation track
   assert.match(api, /sendMessage/);
   assert.match(api, /onUpdated/);
   assert.match(api, /update: api\.bookmarks\.update/);
-  assert.doesNotMatch(worker, /tabs\.onActivated|webNavigation|waitForTabLoad/);
+  assert.doesNotMatch(worker, /tabs\.onActivated|webNavigation|waitForTabLoad|capturePreviewForTab|setCaptureBadge/);
+  assert.doesNotMatch(api, /action:/);
 });
 
 test("firefox manifest does not inherit chrome-only favicon permission", async () => {
   const base = JSON.parse(await readFile("src/manifest.base.json", "utf8"));
   const chrome = JSON.parse(await readFile("src/manifest.chrome.json", "utf8"));
+  const firefox = JSON.parse(await readFile("src/manifest.firefox.json", "utf8"));
 
-  assert.deepEqual(base.permissions, ["bookmarks", "storage", "activeTab"]);
-  assert.deepEqual(chrome.permissions, ["bookmarks", "storage", "activeTab", "favicon"]);
+  assert.deepEqual(base.permissions, ["bookmarks", "storage"]);
+  assert.deepEqual(chrome.permissions, ["bookmarks", "storage", "favicon"]);
+  assert.deepEqual(firefox.background, {
+    scripts: ["background/service-worker.js"],
+    type: "module"
+  });
+  assert.ok(!("service_worker" in firefox.background));
   assert.ok(base.optional_host_permissions.includes("<all_urls>"));
   assert.ok(!base.optional_permissions, "base manifest should not declare optional alarms");
 });

@@ -3,7 +3,7 @@
   "name": "martabs",
   "version": "1.0.0",
   "description": "A beautiful, fast, and privacy-first New Tab dashboard to organize and monitor your bookmark folders.",
-  "permissions": ["bookmarks", "storage", "activeTab"],
+  "permissions": ["bookmarks", "storage"],
   "optional_host_permissions": ["http://*/*", "https://*/*", "<all_urls>"],
   "chrome_url_overrides": {
     "newtab": "newtab/newtab.html"
@@ -12,8 +12,5 @@
     "service_worker": "background/service-worker.js",
     "type": "module"
   },
-  "options_page": "setup/setup.html",
-  "action": {
-    "default_title": "martabs"
-  }
+  "options_page": "setup/setup.html"
 }

@@ -1,28 +1,33 @@
-# Tareas y estado actual - martabs
+# Estado actual - martabs
+
+Ultima actualizacion: 2026-05-26.
 
 ## Completado
 
-- [x] Extension WebExtension Manifest V3 con builds separados para Chrome y Firefox.
-- [x] Reemplazo de Nueva pestana.
-- [x] Configuracion inicial de carpetas monitoreadas.
-- [x] Reindexado local cuando cambian marcadores o configuracion.
-- [x] Busqueda por titulo, URL, dominio, carpeta y etiquetas.
-- [x] Etiquetas automaticas y soporte de etiquetas manuales en el modelo de datos.
-- [x] Favicons locales en Chrome con fallback visual.
-- [x] Vista rapida local sin servicios externos.
-- [x] Capturas locales automaticas al abrir marcadores desde martabs, validadas manualmente.
-- [x] Tema claro, oscuro y sistema.
-- [x] Logo de martabs integrado con capsula clara y borde en modo oscuro.
-- [x] Revision opcional de enlaces por carpeta, disparada por el usuario.
-- [x] Vista de fallos con scroll, boton volver y eliminacion segura.
-- [x] Permisos opcionales de URLs solo cuando la revision de enlaces esta activa.
-- [x] Pruebas automaticas de busqueda, tags, bookmarks, setup, privacidad y salud de enlaces.
-- [x] Edicion de marcadores desde la UI: titulo, URL, etiquetas manuales, eliminar y guardar.
-- [x] Nota obligatoria de mantenimiento para el bug corregido de `Guardar` en edicion.
-- [x] Modos visuales por carpeta con foco suave al cambiar vista desde el tablero.
-- [x] Ordenamiento de marcadores por carpeta sin modificar el orden real del navegador.
-- [x] Orden manual por carpeta con drag & drop local cuando la carpeta esta en modo `Manual`.
-- [x] Guia de verificacion general en `docs/testing.md`.
+- Extension WebExtension Manifest V3 con builds para Chrome y Firefox.
+- Reemplazo de Nueva pestana.
+- Configuracion inicial y seleccion de carpetas monitoreadas.
+- Reindexado local cuando cambian marcadores o configuracion.
+- Busqueda por titulo, URL, dominio, carpeta y etiquetas.
+- Etiquetas automaticas y manuales.
+- Favicons locales en Chrome y fallback liviano en Firefox usando `/favicon.ico`.
+- Vista rapida local sin servicios externos.
+- Capturas locales automaticas al abrir marcadores desde martabs.
+- Tema claro, oscuro y sistema.
+- Logo integrado sin capsula, con brillo aplicado directamente a la imagen.
+- Revision opcional de enlaces por carpeta, disparada por el usuario.
+- Vista de fallos con scroll, boton volver y eliminacion segura.
+- Permisos opcionales para URLs solo cuando revision de enlaces o capturas estan activas, con un unico pedido compartido para ambas opciones.
+- Edicion de marcadores desde la UI: titulo, URL, etiquetas, icono custom, eliminar y guardar.
+- Fallback de icono custom sin loop entre imagen rota y favicon por defecto.
+- Favoritos fijados y carpeta virtual opcional de fijados.
+- Modos visuales por carpeta.
+- Foco suave cuando una carpeta cambia de vista y el masonry la reacomoda.
+- Ordenamiento visual global y por carpeta.
+- Orden manual por carpeta con drag & drop local.
+- Movimiento local de marcadores entre carpetas monitoreadas.
+- Overhaul de Configuracion con secciones, buscador y acciones avanzadas.
+- Tests automaticos para busqueda, tags, bookmarks, setup, privacidad, orden, nueva pestana y salud de enlaces.
 
 ## Comportamiento importante
 
@@ -30,48 +35,62 @@
 - La extension no revisa enlaces en segundo plano.
 - No hay banner global de fallos.
 - Los estados de salud de enlace solo se muestran si la opcion esta activada.
-- Al desactivar la revision de enlaces, martabs intenta retirar los permisos opcionales.
-- Las capturas locales se intentan solo si la opcion esta activada y solo para marcadores abiertos desde martabs; no se monitorea la navegacion general.
-- El flujo de capturas locales tiene test de regresion para evitar que vuelva a depender de una espera viva del service worker o de navegacion global.
-- El ordenamiento por carpeta es solo visual: no mueve marcadores reales en Chrome/Firefox.
-- Los marcadores fijados siguen arriba dentro de su carpeta; la carpeta virtual de fijados respeta el orden manual de `pinnedBookmarks`.
-- El drag & drop de marcadores solo se activa si la carpeta usa orden `Manual`.
+- Al desactivar revision de enlaces o capturas, martabs intenta retirar permisos opcionales.
+- Las capturas locales se intentan solo si la opcion esta activada y solo para marcadores abiertos desde martabs.
+- No se monitorea la navegacion general del usuario.
+- El flujo experimental de captura desde el boton de la extension fue eliminado.
+- El ordenamiento y los movimientos de marcadores son locales: no cambian el orden ni la carpeta real en Chrome/Firefox.
+- Los marcadores fijados siguen arriba dentro de su carpeta.
+- La carpeta virtual de fijados respeta el orden local de `pinnedBookmarks`.
+- El drag & drop de marcadores solo representa cambios locales de martabs.
+- Configuracion esta organizada en `Carpetas`, `Apariencia`, `Privacidad`, `Etiquetas` y `Avanzado`.
+- El boton global `Guardar cambios` debe preservar settings internos no visibles en el formulario.
 
-## Registro reciente
+## Pendiente actual
 
-Fecha: 2026-05-25
-Herramienta: Codex
-Resumen: Se implementaron el Paso 7A y 7B del roadmap: orden global por defecto, orden por carpeta desde Configuracion y orden manual local con drag & drop solo cuando la carpeta esta en `Manual`. El tablero aplica el orden, pero no muestra boton `Orden` para mantener livianos los encabezados. La busqueda conserva su ranking propio.
-Archivos tocados: `src/shared/bookmark-sort.js`, `src/shared/storage.js`, `src/setup/setup.html`, `src/setup/setup.js`, `src/setup/setup.css`, `src/newtab/newtab.js`, `src/newtab/newtab.css`, `tests/bookmark-sort.test.js`, `tests/setup.test.js`, `tests/newtab.test.js`, `docs/implementation_plan_7a_sorting.md`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/testing.md`, `docs/task.md`, `docs/roadmap.md`
-Verificacion: `npm test`, `npm run build` y revision estatica de UI. La inspeccion visual con navegador interno quedo bloqueada por politica de URL local del entorno.
-Pendientes: probar visualmente el drag & drop en Chrome cargando `dist/chrome` como extension desempaquetada.
+- Multilenguaje con el sistema nativo de extensiones (`_locales`), empezando por `es` y `en`.
 
-Fecha: 2026-05-25
-Herramienta: Codex
-Resumen: Se documento el foco suave al cambiar modo visual de una carpeta y se agrego una guia de verificacion general para cambios grandes.
-Archivos tocados: `docs/testing.md`, `docs/collaboration.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/task.md`
-Verificacion: cambio documental; la funcionalidad ya fue verificada con `npm test`, `npm run build` e inspeccion visual local.
-Pendientes: considerar tests E2E reales si el proyecto crece y los flujos visuales se vuelven mas criticos.
-
-Fecha: 2026-05-25
-Herramienta: Codex
-Resumen: Se corrigio y documento el flujo de edicion de marcadores. `Guardar` dependia de exponer `bookmarks.update` en `src/shared/browser-api.js`; tambien se documento el patron visual del boton de editar y del modal.
-Archivos tocados: `src/shared/browser-api.js`, `src/newtab/newtab.js`, `src/newtab/newtab.html`, `src/newtab/newtab.css`, `tests/newtab.test.js`, `tests/privacy.test.js`, `docs/collaboration.md`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/task.md`
-Verificacion: `npm test`, `npm run build` e inspeccion visual local del modal y boton de edicion.
-Pendientes: leer `docs/maintenance_notes.md` antes de modificar este flujo.
-
-Fecha: 2026-05-25
-Herramienta: Codex
-Resumen: Se documento como confirmado el flujo de capturas locales automaticas al abrir marcadores desde martabs.
-Archivos tocados: `docs/implementation_plan.md`, `docs/walkthrough.md`, `docs/task.md`, `docs/roadmap.md`
-Verificacion: cambio documental; la funcionalidad fue validada manualmente por el usuario.
-Pendientes: cuando se implemente edicion de marcadores, agregar `No capturar imagen de este marcador` y un estado visual propio para captura denegada.
-
-## Pendiente opcional
+## Pendientes opcionales
 
 - Validacion manual en Firefox antes de publicar.
 - Preparar capturas definitivas para Chrome Web Store si se decide publicarla.
 - Definir texto final de privacidad para la ficha de publicacion.
 - Evaluar tests E2E con navegador si aparecen mas flujos visuales sensibles.
-- Ver `docs/roadmap.md` para la lista priorizada de proximas mejoras.
-- Ver `docs/collaboration.md` para la forma de trabajar entre Codex y Gemini/Antigravity.
+
+## Registro reciente
+
+Fecha: 2026-05-26
+Herramienta: Codex
+Resumen: Se agrego fallback `/favicon.ico` para Firefox y se unifico el pedido de permisos de URLs para revision de enlaces y capturas locales.
+Archivos tocados: `src/newtab/newtab.js`, `src/setup/setup.js`, `tests/newtab.test.js`, `tests/setup.test.js`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/task.md`.
+Verificacion: `npm test` y `npm run build`.
+Pendientes: multilenguaje.
+
+Fecha: 2026-05-26
+Herramienta: Codex
+Resumen: Se corrigio el build de Firefox para usar `background.scripts` en lugar de heredar `background.service_worker`, que Firefox rechaza al cargar el complemento temporal.
+Archivos tocados: `src/manifest.firefox.json`, `tests/privacy.test.js`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`.
+Verificacion: `npm test`, `npm run build` y revision de `dist/firefox/manifest.json`.
+Pendientes: multilenguaje.
+
+Fecha: 2026-05-26
+Herramienta: Codex
+Resumen: Limpieza general. Se consolido documentacion viva, se quitaron planes historicos ya absorbidos, se retiro el flujo experimental de captura desde el boton de extension y se elimino `activeTab` como permiso fijo.
+Archivos tocados: `README.md`, `docs/*`, `src/background/service-worker.js`, `src/manifest.base.json`, `src/manifest.chrome.json`, `src/shared/browser-api.js`, `tests/privacy.test.js`.
+Verificacion: pendiente de cierre con `npm test` y `npm run build`.
+Pendientes: multilenguaje.
+
+Fecha: 2026-05-26
+Herramienta: Codex
+Resumen: Se implemento el overhaul de Configuracion: panel con navegacion por secciones, guardado global, buscador de ajustes y acciones avanzadas.
+Verificacion: `npm test` y `npm run build`.
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se implementaron orden global, orden por carpeta, orden manual y drag & drop local.
+Verificacion: `npm test`, `npm run build` y revision estatica de UI.
+
+Fecha: 2026-05-25
+Herramienta: Codex
+Resumen: Se corrigio el flujo de edicion de marcadores y se documento el bug del boton `Guardar`.
+Verificacion: `npm test`, `npm run build` e inspeccion visual local.

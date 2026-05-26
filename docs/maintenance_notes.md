@@ -1,249 +1,127 @@
 # Notas obligatorias de mantenimiento
 
-Este documento debe leerse antes de tocar flujos sensibles. Sirve para que Codex y Gemini/Antigravity no repitan errores ya encontrados.
+Leer este documento antes de tocar flujos sensibles. Sirve para que Codex y Gemini/Antigravity no repitan errores ya encontrados.
 
-## 2026-05-25 - Edicion de marcadores desde la UI
+## Reglas globales
 
-### Problema detectado
+- Si una accion de UI llama a APIs del navegador, revisar `src/shared/browser-api.js`.
+- `setup.js` debe conservar settings completos al guardar. No construir un objeto parcial desde cero.
+- No reintroducir servicios externos para previews, favicons, busqueda o metadata.
+- No revisar enlaces en service worker ni con temporizadores.
+- No capturar navegacion general del usuario.
+- No usar `chrome.bookmarks.move` para orden o movimiento local de martabs.
+- No reintroducir `backdrop-filter` en cards flotantes o modales que se superponen a carpetas.
 
-El modal de edicion aparecia, pero:
+## Edicion de marcadores
 
-- `Guardar` no funcionaba.
-- El icono de lapiz no se veia.
-- Al hacer hover sobre un marcador, el boton de editar podia desacomodar la fila.
-- El modal tenia poco margen interno.
-- `Guardar` quedaba visualmente fuera de linea con `Cancelar` y `Eliminar`.
+Problema corregido: el modal aparecia, pero `Guardar` no funcionaba.
 
-### Causa real
+Causa real: `newtab.js` llamaba a `api.bookmarks.update(...)`, pero `browser-api.js` no exponia `bookmarks.update`.
 
-La falla principal de guardado no estaba en el modal: `src/newtab/newtab.js` llamaba a `api.bookmarks.update(bookmark.id, ...)`, pero `src/shared/browser-api.js` no exponia `bookmarks.update`.
+Reglas:
 
-Mientras eso faltara, cambiar HTML o CSS no podia hacer que `Guardar` funcionara.
+- El modal debe mantener `class="edit-form"`.
+- El boton de editar usa CSS con `.bookmark-edit-btn::before`, no SVG inyectado.
+- `.bookmark` debe conservar espacio para acciones flotantes.
+- Los botones del modal deben compartir altura.
+- Si se cambia este flujo, actualizar tests de `newtab` y `privacy`.
 
-Tambien habia problemas visuales separados:
+## Iconos custom
 
-- El formulario tenia `id="edit-form"` pero no `class="edit-form"`, por eso los estilos de margen/padding del modal no aplicaban.
-- El icono del lapiz dependia de SVG inyectado en JavaScript, que era fragil para este caso.
-- El boton de editar necesitaba posicion absoluta dentro de una fila `.bookmark` con `position: relative` y espacio reservado a la derecha.
-- Los botones de acciones del modal necesitaban una regla comun de altura.
+Problema corregido: un icono custom roto podia entrar en loop entre imagen rota y fallback.
 
-### Correccion aplicada
+Reglas:
 
-Archivos relevantes:
+- Solo una carga exitosa del icono custom puede limpiar `brokenCustomFavicons`.
+- El fallback nunca debe limpiar esa marca.
+- Antes de cambiar al favicon por defecto, cambiar `dataset.faviconSource` a `default` y desactivar el `onload` del custom.
 
-- `src/shared/browser-api.js`
-- `src/newtab/newtab.js`
-- `src/newtab/newtab.html`
-- `src/newtab/newtab.css`
-- `tests/newtab.test.js`
-- `tests/privacy.test.js`
+## Favoritos fijados
 
-Cambios importantes:
+Los fijados se guardan en `pinnedBookmarks`.
 
-- Se agrego `bookmarks.update` al adaptador compartido en `getBrowserApi`.
-- `showEditModal` deshabilita `Guardar` mientras intenta guardar y muestra error si falla.
-- El formulario del dialog ahora tiene `class="edit-form"`.
-- El lapiz se dibuja por CSS con `.bookmark-edit-btn::before`, no con SVG inyectado desde JS.
-- `.bookmark` reserva espacio con `padding-right: 44px` y actua como referencia con `position: relative`.
-- `.bookmark-edit-btn` queda absoluto a la derecha, sin afectar el layout de la fila.
-- `.edit-actions .link-action-button`, `.edit-actions .danger-button` y `.edit-actions .primary-button` comparten `height: 30px`.
+Reglas:
 
-### Regla para futuros cambios
+- Los fijados se muestran arriba dentro de su carpeta real.
+- La carpeta virtual `Fijados` es opcional y no existe en el arbol real.
+- Si se agrega otra accion flotante al marcador, revisar el espacio reservado en `.bookmark`.
 
-Cuando una accion de UI llama a APIs del navegador, revisar siempre el adaptador `src/shared/browser-api.js`.
+## Masonry y modos visuales
 
-No alcanza con verificar que el codigo de UI llame a `api.algo.metodo(...)`: ese metodo tambien debe existir en el wrapper compartido y tener test de regresion.
+El layout usa masonry basado en CSS columns.
 
-### Tests de regresion
+Reglas:
 
-Quedaron cubiertos estos puntos:
+- Cada carpeta renderizada como `.group` debe conservar `data-folder-id`.
+- El foco suave despues de cambiar vista depende de `pendingViewFocusFolderId`, `focusPendingViewFolder()` y `.is-view-focus`.
+- En modos con iconos, usar `flex-wrap` en vez de grid dentro de masonry para evitar colapsos visuales en Chrome.
+- El estado colapsado se descarto: si el usuario no quiere una carpeta, puede desmarcarla.
 
-- El HTML incluye el modal y `class="edit-form"`.
-- El CSS incluye el boton de editar, el icono por `::before`, el espacio reservado de la fila y la altura alineada de acciones.
-- El controlador llama a `api.bookmarks.update(bookmark.id, ...)`.
-- El guardado maneja estado deshabilitado y error visible.
-- El adaptador expone `update: api.bookmarks.update`.
+## Ordenamiento y drag & drop
 
-Verificacion ejecutada:
-
-- `npm test`
-- `npm run build`
-- Inspeccion visual local con navegador: lapiz visible, modal con margen, botones alineados y fila sin salto vertical.
-
-## 2026-05-25 - Favoritos Fijados y visibilidad dual
-
-### Detalles de la implementacion
-
-La funcion de "Favoritos Fijados" permite destacar marcadores. 
-
-1. **Estado:** Se almacenan unicamente los IDs de los marcadores en `chrome.storage.local` bajo la clave `STORAGE_KEYS.pinnedBookmarks`.
-2. **Carpeta Virtual:** En `newtab.js`, dentro de `renderDashboard`, la carpeta "ðŸ“Œ Fijados" no existe en la estructura original de marcadores del navegador. Se inyecta al vuelo interceptando el arreglo de marcadores si la configuracion `currentSettings.showPinnedFolder !== false` lo permite.
-3. **Visibilidad Dual:** Los marcadores fijados se muestran tanto en la carpeta virtual superior como en su carpeta original.
-4. **Ordenamiento Inteligente:** Ademas, la funcion `renderDashboard` aplica un `.sort()` sobre las carpetas reales para que los marcadores fijados suban al inicio de la lista dentro de su propia carpeta, garantizando prioridad visual inmediata.
-5. **UI de Acciones:** Se introdujo `.bookmark-actions` en CSS para agrupar ambos botones (Pin y Editar) con `position: absolute` a la derecha. Para evitar que superpongan el texto, `.bookmark` ahora requiere `padding-right: 76px`.
-
-### Consideracion a futuro
-
-Si otro agente necesita agregar un tercer boton, no olvidar incrementar el `padding-right` en `.bookmark` para acomodar el ancho extra de los botones flotantes.
-
-## 2026-05-25 - Masonry Layout Base (Paso 5A)
-
-### Detalles ArquitectÃ³nicos
-
-Se reemplazaron los antiguos modos `layout-single`, `layout-columns` y `layout-grid` por un Ãºnico `layout-masonry` basado en CSS Multi-column (`column-width: 320px`).
-
-1. **Scroll**: El layout delega el scroll al contenedor `.content` (usando `overflow-y: auto`), el cual se estira para usar todo el alto de la pantalla disponible menos el header (mediante `flex-grow: 1`). Esto evita que el search bar desaparezca al hacer scroll.
-2. **Alturas DinÃ¡micas**: Las carpetas (`.group`) ya no tienen `max-height` restringido (usan `height: auto`) y pueden crecer lo que necesiten. Usan `break-inside: avoid-column` para no partirse.
-3. **Centrado DinÃ¡mico sin JS**: Para evitar que en pantallas muy anchas, 1 o 2 carpetas floten a la izquierda o se expandan torpemente, el script `newtab.js` asigna clases dinÃ¡micas de ancho mÃ¡ximo (`.masonry-1`, `.masonry-2`, `.masonry-3`, `.masonry-max`) a `.content` segÃºn el nÃºmero total de carpetas a renderizar. Esto permite que el `margin: 0 auto` logre un centrado horizontal perfecto.
-4. **LÃ­mite de Altura y Scroll Interno**: Para evitar que carpetas gigantes acaparen demasiada altura y rompan el equilibrio visual de las columnas, se fijÃ³ un `max-height: 550px` a `.group`. El contenedor de enlaces (`.bookmark-list`) recibe `overflow-y: auto`, habilitando scroll interno solo para las carpetas excedidas.
-5. **Reordenamiento Manual (Drag & Drop)**: Como el CSS Multi-column distribuye los bloques de arriba hacia abajo y de izquierda a derecha, se implementÃ³ Drag & Drop en la vista de ConfiguraciÃ³n (`setup.html`) en lugar de en el tablero. `newtab.js` lee la secuencia ordenada por el usuario en `currentSettings.selectedFolders` y fuerza al motor a renderizar las carpetas exactamente en ese orden.
-
-### Paso 5B: Modos Visuales por Carpeta (Mayo 2026)
-**Decisión**: Permitir configurar la visualización de cada carpeta (lista completa, compacta, grilla de iconos, quicklinks) tanto desde configuración como desde la pestaña nueva mediante un botón que rota entre modos.
-**Razonamiento**: Los usuarios tienen carpetas de diferente naturaleza. Una carpeta de herramientas frecuentes se ve mejor en iconos grandes (quicklinks), mientras que un archivo se ve mejor en una lista compacta. Se descartó el estado "colapsado" por redundante (si no se usa, la carpeta se puede desmarcar en setup).
-**Implementación**:
-1. **Separación de estado**: Se mantiene el modo visual (`folderModes`) en `storage.local` para que una carpeta recuerde su modo.
-2. **Sincronización Dual**: Las opciones pueden configurarse masivamente en `setup.js` o ajustarse interactivamente desde `newtab.js` (botón "Vista").
-3. **Manejo CSS Modular**: `newtab.js` inyecta clases modificadoras (ej. `.mode-compact`, `.mode-icons`) en `.bookmark-list`. Los resultados de búsqueda fuerzan un contenedor `.results` que no usa estas clases y respeta una vista legible de lista por defecto.
-4. **CSS Grid vs Flexbox en Masonry**: Se intentó usar `display: grid` para `.mode-icons`, pero esto disparó un bug conocido en Chrome al anidarse dentro de CSS Multi-column (`column-width`), causando que las filas colapsaran a `height: 0` y los íconos se solaparan. Se optó por `display: flex; flex-wrap: wrap;` logrando la misma grilla estable sin bugs.
-5. **Favicons Custom y Fallback (`size=64`)**: Se añadió soporte para íconos custom (`currentSettings.customFavicons`). Si una imagen custom no se puede cargar, el handler `onerror` registra la falla en `currentSettings.brokenCustomFavicons` y muestra el icono por defecto. Esto detiene bucles infinitos en re-renderizados vinculados al evento `chrome.storage.onChanged`.
-
-## 2026-05-25 - Correccion de loop en iconos custom
-
-### Problema detectado
-
-Cuando un icono custom fallaba, martabs lo marcaba en `brokenCustomFavicons` y cambiaba el `<img>` al favicon por defecto. El problema era que el mismo `onload` seguia activo; cuando cargaba el fallback, borraba la marca de error como si hubiera cargado correctamente el icono custom. Eso disparaba `storage.onChanged`, re-renderizaba, volvia a intentar el custom roto y entraba en loop.
-
-### Regla para futuros cambios
-
-El fallback nunca debe limpiar `brokenCustomFavicons`. Solo una carga exitosa del icono custom puede hacerlo.
-
-### Correccion aplicada
-
-- `renderFavicon` calcula `usingCustomFavicon` antes de crear la imagen.
-- El `<img>` guarda su origen en `dataset.faviconSource`.
-- Antes de cambiar el `src` al favicon por defecto, se cambia `dataset.faviconSource` a `default` y se desactiva `contentNode.onload`.
-- Al guardar desde el modal, si el mismo icono estaba marcado como roto, se limpia la marca para permitir un reintento controlado.
-- `DEFAULT_SETTINGS` ahora incluye `brokenCustomFavicons: {}`.
-- `tests/newtab.test.js` cubre estas reglas para evitar que vuelva el loop.
-
-## 2026-05-25 - Foco suave al cambiar vista de carpeta
-
-### Problema detectado
-
-Con el layout masonry basado en CSS columns, cambiar el modo visual de una carpeta puede alterar su altura. Cuando eso pasa, el navegador reacomoda automaticamente las columnas y la carpeta puede aparecer en otra posicion. Es comportamiento normal del masonry, pero visualmente puede sentirse como que la carpeta "salto" o se perdio.
-
-### Decision aplicada
-
-No se intenta bloquear el reacomodo del masonry. En su lugar, despues de cambiar la vista:
-
-- `newtab.js` guarda temporalmente el `folderId` en `pendingViewFocusFolderId`.
-- Tras re-renderizar, busca la carpeta con `data-folder-id`.
-- Aplica `scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })`.
-- Agrega la clase temporal `.is-view-focus`.
-- CSS ejecuta `view-focus-pulse` durante 900 ms para orientar visualmente al usuario.
-
-### Regla para futuros cambios
-
-Si se cambian modos visuales, masonry o encabezados de carpetas, conservar `data-folder-id` en `.group`. El foco suave depende de ese atributo para ubicar la carpeta despues del render.
-
-### Tests de regresion
-
-`tests/newtab.test.js` verifica la presencia de:
-
-- `pendingViewFocusFolderId`;
-- `focusPendingViewFolder`;
-- `scrollIntoView` con `behavior: "smooth"`;
-- clase `.is-view-focus`;
-- atributo `data-folder-id`;
-- animacion CSS `view-focus-pulse`.
-
-## 2026-05-25 - Ordenamiento por carpeta (Paso 7A)
-
-### Detalles de la implementacion
-
-El ordenamiento por carpeta es visual y local. No llama a `chrome.bookmarks.move` ni cambia el orden real de los marcadores del navegador.
-
-Archivos principales:
-
-- `src/shared/bookmark-sort.js`: funcion pura `sortBookmarks`.
-- `src/shared/storage.js`: defaults `defaultFolderSort` y `folderSorts`.
-- `src/setup/setup.html`: selector global de orden.
-- `src/setup/setup.js`: selectores de orden por carpeta y persistencia.
-- `src/newtab/newtab.js`: aplica el orden antes de renderizar cada carpeta. No muestra boton `Orden` en el tablero.
-
-### Reglas importantes
+Reglas:
 
 - `sortBookmarks` no debe mutar el array recibido.
-- El modo `browser` conserva el orden de entrada.
-- Si una carpeta no tiene valor en `folderSorts`, usa `defaultFolderSort`.
-- El valor `default` solo existe en la UI de Configuracion; no se guarda como override por carpeta.
-- Los marcadores fijados quedan primero dentro de cada carpeta real y dentro de ese grupo se aplica el orden elegido.
-- La carpeta virtual de fijados es especial: respeta el orden de `pinnedBookmarks`.
-- El tablero no debe agregar boton `Orden`; el control vive solo en Configuracion para mantener livianos los encabezados.
-- La busqueda no debe aplicar `folderSorts`; mantiene su ranking de relevancia.
+- `browser` conserva el orden del navegador.
+- `manual` usa `folderBookmarkOrders`.
+- Los fijados tienen prioridad visual.
+- La busqueda no aplica `folderSorts`; mantiene ranking propio.
+- El drag & drop es local y debe guardar estado en settings.
 
-### Modos actuales
+## Configuracion
 
-- `browser`: orden original del navegador.
-- `title-asc`: titulo A-Z, comparacion base en espanol.
-- `date-newest`: fecha de agregado, nuevos primero; fechas faltantes al final.
-- `domain-asc`: dominio A-Z; dominios faltantes al final.
-- `health-broken-first`: enlaces con fallos primero cuando hay datos de salud.
+Secciones actuales:
 
-### Tests de regresion
+- `Carpetas`
+- `Apariencia`
+- `Privacidad`
+- `Etiquetas`
+- `Avanzado`
 
-- `tests/bookmark-sort.test.js` cubre estabilidad, no mutacion, fechas, dominios, salud y fijados.
-- `tests/setup.test.js` cubre selector global y persistencia de `folderSorts`.
-- `tests/newtab.test.js` cubre importacion de `sortBookmarks`, aplicacion del orden, ausencia del boton `Orden` y tratamiento especial de fijados.
+Reglas:
 
-## 2026-05-25 - Orden manual por carpeta (Paso 7B)
+- `collectSettingsFromForm()` parte de `currentSettings`.
+- Preservar claves internas: `bookmarkFolderOverrides`, `folderBookmarkOrders`, `customFavicons`, `brokenCustomFavicons` y futuras claves no visibles.
+- Las acciones de `Avanzado` son inmediatas y con confirmacion.
+- El buscador vive en `#settings-search`.
+- `syncSetupContentHeight()` evita saltos de alto entre secciones.
 
-### Detalles de la implementacion
+## Permisos y capturas
 
-El orden manual se habilita como un criterio mas de orden: `manual`.
+Estado actual:
 
-Archivos principales:
+- `activeTab` ya no es permiso fijo.
+- No hay accion de toolbar para capturar manualmente.
+- Las capturas locales se arman solo al abrir marcadores desde martabs.
+- La revision de enlaces y las capturas usan permisos opcionales de URLs.
+- Firefox no soporta `background.service_worker` en este flujo. Su manifest debe usar `background.scripts`.
+- Revision de enlaces y capturas locales comparten `urlPermissions` con `<all_urls>`.
 
-- `src/shared/bookmark-sort.js`: `sortBookmarks` acepta `manualOrderIds`.
-- `src/shared/storage.js`: settings incluye `folderBookmarkOrders`.
-- `src/setup/setup.html` y `src/setup/setup.js`: agregan la opcion `Manual`.
-- `src/newtab/newtab.js`: habilita drag & drop solo cuando `folderSort === "manual"`.
+Reglas:
 
-### Reglas importantes
+- Si `previewCaptureEnabled` esta apagado, el service worker no debe armar capturas.
+- No usar `webNavigation`, `tabs.onActivated` ni captura por navegacion general.
+- Al desactivar ambas opciones sensibles, Configuracion debe intentar retirar permisos opcionales.
+- No volver a pedir permisos separados para `linkHealthEnabled` y `previewCaptureEnabled`; Firefox puede conceder uno y dejar el otro en falso.
+- No quitar el override `background.scripts` de `src/manifest.firefox.json`.
 
-- El drag & drop de marcadores es local a martabs y no llama a `chrome.bookmarks.move`.
-- No habilitar drag & drop si la carpeta usa otro criterio de orden.
-- El drop guarda `folderBookmarkOrders[folderId]` y mantiene `folderSorts[folderId] = "manual"`.
-- La carpeta virtual `Fijados` no participa del drag & drop.
-- Los marcadores fijados siguen arriba dentro de carpetas reales; luego se aplica el orden manual dentro de cada grupo.
+## Favicons por navegador
 
-### Tests de regresion
+Chrome usa `_favicon` y el permiso `favicon`.
 
-- `tests/bookmark-sort.test.js` cubre orden manual y prioridad de fijados.
-- `tests/setup.test.js` cubre la opcion `Manual`.
-- `tests/newtab.test.js` cubre drag & drop condicionado por `manual`, uso de `folderBookmarkOrders` y ausencia del boton `Orden`.
+Firefox no tiene ese mecanismo. El fallback compatible es intentar `https://dominio/favicon.ico` y, si falla, usar el fallback visual de martabs.
 
-## 2026-05-26 - Mover marcadores localmente (Paso 8) y Toggle de Vista Rápida
+Reglas:
 
-### Mover Marcadores
+- No usar servicios externos para resolver favicons.
+- No usar `_favicon` cuando `isFirefoxRuntime()` detecta Firefox.
+- Si falla un icono custom, se marca roto y luego se intenta el favicon por defecto del navegador o `/favicon.ico`.
+- Si tambien falla el default, usar `favicon-fallback`.
 
-Se agregó soporte para mover marcadores entre carpetas usando drag & drop de forma exclusivamente local (sin mutar los datos de Chrome).
+## Bug visual de Chrome con `backdrop-filter`
 
-- `src/shared/storage.js`: Agrega `bookmarkFolderOverrides: {}` a `DEFAULT_SETTINGS`.
-- `src/shared/bookmarks.js`: `buildBookmarkIndex` toma los overrides y mapea virtualmente el `parentId` y `folderPath` del marcador si fue movido a otra carpeta, siempre y cuando la carpeta destino también esté seleccionada por el usuario.
-- `src/newtab/newtab.js`: `draggable=true` se habilita para todos los marcadores. Las cajas contenedoras (`.group`) capturan los eventos `drop`. Al soltar en una carpeta diferente, se actualiza el diccionario de overrides y se recarga el tablero con foco suave hacia el destino.
+Chrome puede componer mal capas superpuestas con `backdrop-filter` y botones semitransparentes.
 
-### Toggle de Vista Rápida
+Regla:
 
-Para evitar molestias en usuarios que no desean ver el tooltip de vista rápida (con datos adicionales, capturas o etiquetas) al posar el mouse sobre los marcadores, se agregó la opción de apagarlo:
-- `src/shared/storage.js`: `previewEnabled: true` por defecto.
-- `src/setup/setup.html` / `setup.js`: Toggle "Mostrar vista rápida al pasar el mouse".
-- `src/newtab/newtab.js`: `showPreviewCard` retorna inmediatamente si `currentSettings?.previewEnabled === false`.
-
-### Bug Visual de Compositing en Chrome (backdrop-filter superpuestos)
-
-Se detectó y documentó un bug crítico en la renderización de Chrome que causa que los botones con fondo transparente (`rgba`) aparezcan visualmente en estado activo/hover:
-- **Problema**: Cuando se superponen múltiples capas con la propiedad `backdrop-filter: blur(...)` (por ejemplo, el `.preview-card` flotante encima de un contenedor `.group` que también usa el filtro), Chrome se rompe al componer el color de los elementos semitransparentes subyacentes, ignorando el desenfoque y renderizándolos con saturación al máximo u opacidad completa (haciendo que parezca un estado `hover`).
-- **Solución (Definitiva)**: Nunca apilar elementos con `backdrop-filter: blur()` cuando haya botones con `background: rgba(...)` en la intersección. Se le quitó el `backdrop-filter` al tooltip flotante (`.preview-card`) y se introdujo una nueva variable de color sólido (`--surface-bg-solid`) para su fondo, eliminando así el efecto fantasma.
-> ⚠️ **IMPORTANTE PARA CODEX**: No reintroducir `backdrop-filter` en modales, popups o cards flotantes (`.preview-card`, `.modal`) si van a superponerse sobre las cajas de las carpetas (`.group`), ya que causará este artefacto visual.
+- Mantener fondos solidos en elementos flotantes como `.preview-card` o modales que se superponen a carpetas.

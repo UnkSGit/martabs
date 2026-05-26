@@ -1,76 +1,87 @@
-<div align="center">
-  <img src="src/newtab/logo.png" alt="martabs logo" width="120" />
-  <h1>martabs</h1>
-  <p><strong>Un dashboard visual, rápido y privado para tus carpetas de marcadores.</strong></p>
-</div>
+# martabs
 
----
+martabs es una extension WebExtension ligera que reemplaza la pagina de Nueva pestana por un tablero local de marcadores.
 
-**martabs** es una extensión de navegador ligera que reemplaza tu aburrida página de *Nueva Pestaña* por un dashboard elegante e interactivo. Diseñada con un enfoque en la velocidad y la privacidad, mantiene todo localmente en tu navegador sin enviar tus datos a terceros.
+El objetivo es encontrar rapido marcadores guardados en carpetas grandes, con busqueda, etiquetas, vistas visuales, orden local y herramientas de limpieza, sin depender de servicios externos.
 
-<div align="center">
-  <img src=".github/images/screenshot-dashboard.png" alt="Dashboard Principal" width="800" />
-  <p><em>Vista principal del dashboard (Tema Oscuro)</em></p>
-</div>
+## Funciones actuales
 
-## ✨ Características Principales
+- Nueva pestana con dashboard tipo masonry.
+- Seleccion de carpetas monitoreadas.
+- Busqueda instantanea por titulo, URL, dominio, carpeta y etiquetas.
+- Etiquetas automaticas y manuales.
+- Favoritos fijados dentro de su carpeta y, si el usuario quiere, en una carpeta virtual superior.
+- Modos visuales por carpeta: lista, compacta, iconos, iconos grandes y quicklinks.
+- Orden visual global y por carpeta: original, manual, titulo, fecha, dominio o fallidos primero.
+- Drag & drop local para carpetas y para marcadores en carpetas con orden manual.
+- Movimiento local de marcadores entre carpetas monitoreadas, sin modificar Chrome/Firefox.
+- Edicion desde la UI: titulo, URL, etiquetas manuales, icono custom y eliminacion.
+- Fallback para iconos custom rotos.
+- Vista rapida opcional al pasar el mouse.
+- Capturas locales opcionales al abrir marcadores desde martabs.
+- Revision opcional de enlaces caidos por carpeta.
+- Modo claro, oscuro o sistema.
+- Configuracion organizada por secciones con buscador de ajustes.
 
-- **📂 Gestión por Carpetas:** Elige exactamente qué carpetas de marcadores quieres monitorear y visualizar en tu nueva pestaña.
-- **🎨 Diseño Premium:** Interfaz moderna tipo "glassmorphism", animaciones fluidas y soporte completo para **Modo Claro** y **Modo Oscuro** automático.
-- **🔍 Búsqueda Instantánea:** Encuentra lo que necesitas al instante buscando por título, URL, dominio, carpeta o etiquetas.
-- **🏷️ Etiquetado Inteligente:** Generación automática de etiquetas basadas en la carpeta y el dominio, más soporte para etiquetas manuales.
-- **🩺 Monitoreo de Enlaces (Opcional):** Revisa el estado de tus marcadores con un solo clic. martabs comprobará si los enlaces están caídos y te permitirá limpiar tu colección fácilmente.
-- **🛡️ 100% Privado:** Todo el procesamiento y almacenamiento se realiza localmente. Sin servidores externos, sin rastreadores.
+## Privacidad
 
-## 📸 Galería
+martabs guarda todo localmente en el navegador. No usa servicios externos para previews, iconos, busqueda o sincronizacion.
 
-<div align="center">
-  <img src=".github/images/screenshot-health.png" alt="Revisión de Enlaces" width="400" />
-  <img src=".github/images/screenshot-preview.png" alt="Vista Previa de Marcador" width="400" />
-  <p><em>Herramienta de revisión de enlaces caídos y tarjeta de vista rápida al pasar el cursor.</em></p>
-</div>
+Permisos base:
 
-## 🚀 Instalación (Modo Desarrollador)
+- `bookmarks`: leer y editar marcadores cuando el usuario lo pide.
+- `storage`: guardar configuracion local, etiquetas, ordenes, previews y estados.
+- `favicon` solo en Chrome: leer favicons locales del navegador.
 
-Actualmente, **martabs** debe instalarse manualmente. Soporta **Google Chrome**, **Brave**, **Edge** y **Mozilla Firefox**.
+Permisos opcionales:
 
-### Prerrequisitos
-Necesitas tener instalado [Node.js](https://nodejs.org/) para compilar la extensión.
+- Acceso a URLs para revisar enlaces caidos.
+- Acceso a URLs para capturar previews locales cuando el usuario activa esa opcion.
 
-1. Clona este repositorio o descarga el `.zip`.
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-3. Compila la extensión:
-   ```bash
-   npm run build
-   ```
+Al desactivar esas opciones desde Configuracion, martabs intenta retirar los permisos opcionales.
 
-### En Chrome / Brave / Edge
-1. Ve a `chrome://extensions` (o `brave://extensions`, `edge://extensions`).
-2. Activa el **Modo desarrollador** (arriba a la derecha).
-3. Haz clic en **Cargar descomprimida** y selecciona la carpeta `dist/chrome` que se generó dentro del proyecto.
+## Instalacion en modo desarrollador
 
-### En Firefox
-1. Ve a `about:debugging#/runtime/this-firefox`.
-2. Haz clic en **Cargar complemento temporal**.
-3. Selecciona el archivo `manifest.json` dentro de la carpeta `dist/firefox`.
+Requisitos:
 
-## ⚙️ Configuración
+- Node.js.
 
-Al instalarla por primera vez, verás un mensaje para configurar tus carpetas. Haz clic en **Configurar** (arriba a la derecha) y elige las carpetas que quieres que martabs indexe. Desde ahí también podrás habilitar la **Revisión de enlaces caídos** y cambiar el **Tema de color**.
+Pasos:
 
-<div align="center">
-  <img src=".github/images/screenshot-setup.png" alt="Pantalla de Configuración" width="600" />
-</div>
+```powershell
+npm install
+npm run build
+```
 
-## 🛠️ Arquitectura Técnica
+Chrome, Brave o Edge:
 
-- **Manifest V3:** Construido bajo los últimos estándares de extensiones web.
-- **Vanilla JS & CSS:** Sin frameworks pesados. Rendimiento nativo.
-- **Service Worker Reactivo:** Solo se despierta para reconstruir el índice de marcadores en segundo plano cuando detecta cambios.
+1. Abrir `chrome://extensions`, `brave://extensions` o `edge://extensions`.
+2. Activar modo desarrollador.
+3. Cargar la carpeta `dist/chrome` como extension descomprimida.
 
-## 📝 Licencia
+Firefox:
 
-Este proyecto es de código abierto. Siéntete libre de modificarlo y adaptarlo a tus necesidades.
+1. Abrir `about:debugging#/runtime/this-firefox`.
+2. Elegir `Cargar complemento temporal`.
+3. Seleccionar `dist/firefox/manifest.json`.
+
+## Desarrollo
+
+Comandos principales:
+
+```powershell
+npm test
+npm run build
+```
+
+La documentacion de trabajo vive en `docs/`:
+
+- `docs/task.md`: estado actual.
+- `docs/walkthrough.md`: comportamiento para usuario final.
+- `docs/implementation_plan.md`: arquitectura vigente.
+- `docs/maintenance_notes.md`: reglas obligatorias para flujos sensibles.
+- `docs/testing.md`: verificacion recomendada.
+- `docs/collaboration.md`: forma de trabajo entre Codex y Gemini/Antigravity.
+- `docs/roadmap.md`: pendientes futuros.
+
+Pendiente principal actual: multilenguaje.

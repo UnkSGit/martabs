@@ -117,16 +117,108 @@ function faviconLabel(bookmark) {
   return (bookmark.domain || bookmark.title || "?").slice(0, 1).toUpperCase();
 }
 
-function getFaviconUrl(url) {
-  if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id) {
-    return `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(url)}&size=32`;
+function isFirefoxRuntime() {
+  return typeof navigator !== "undefined" && /Firefox/i.test(navigator.userAgent);
+}
+
+function getBrowserFaviconUrl(url, size = 64) {
+  if (!isFirefoxRuntime() && typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id) {
+    return `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`;
   }
   return "";
 }
 
+function getRootFaviconUrl(url) {
+  try {
+    return `${new URL(url).origin}/favicon.ico`;
+  } catch {
+    return "";
+  }
+}
+
+function getFaviconUrl(url) {
+  return getBrowserFaviconUrl(url, 32) || getRootFaviconUrl(url);
+}
+
+function getFaviconCandidates(url) {
+  return [getBrowserFaviconUrl(url), getRootFaviconUrl(url)].filter(Boolean);
+}
+
 function getDefaultFaviconUrl(url) {
-  const faviconUrl = getFaviconUrl(url);
-  return faviconUrl ? faviconUrl.replace("&size=32", "&size=64") : "";
+  const [faviconUrl] = getFaviconCandidates(url);
+  return faviconUrl || "";
+}
+
+function renderFaviconFallback(bookmark) {
+  return el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) });
+}
+
+function applyNextDefaultFavicon(contentNode, fallbackUrls, bookmark) {
+  const nextIndex = Number(contentNode.dataset.faviconFallbackIndex || 0) + 1;
+  const nextUrl = fallbackUrls[nextIndex];
+  if (!nextUrl) {
+    contentNode.replaceWith(renderFaviconFallback(bookmark));
+    return;
+  }
+
+  contentNode.dataset.faviconSource = "default";
+  contentNode.dataset.faviconFallbackIndex = String(nextIndex);
+  contentNode.src = nextUrl;
+}
+
+function applyFirstDefaultFavicon(contentNode, fallbackUrls, bookmark) {
+  const fallbackUrl = fallbackUrls[0];
+  if (!fallbackUrl) {
+    contentNode.replaceWith(renderFaviconFallback(bookmark));
+    return;
+  }
+
+  contentNode.dataset.faviconSource = "default";
+  contentNode.dataset.faviconFallbackIndex = "0";
+  contentNode.src = fallbackUrl;
+}
+
+function markCustomFaviconBroken(bookmark) {
+  currentSettings.brokenCustomFavicons = currentSettings.brokenCustomFavicons || {};
+  if (currentSettings.brokenCustomFavicons[bookmark.id]) {
+    return;
+  }
+
+  currentSettings.brokenCustomFavicons[bookmark.id] = true;
+  setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
+}
+
+function clearCustomFaviconBroken(bookmark) {
+  if (!currentSettings?.brokenCustomFavicons?.[bookmark.id]) {
+    return;
+  }
+
+  delete currentSettings.brokenCustomFavicons[bookmark.id];
+  setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
+}
+
+function handleFaviconError(contentNode, bookmark, fallbackUrls) {
+  if (contentNode.dataset.faviconSource === "custom") {
+    markCustomFaviconBroken(bookmark);
+    contentNode.onload = null;
+    applyFirstDefaultFavicon(contentNode, fallbackUrls, bookmark);
+    return;
+  }
+
+  applyNextDefaultFavicon(contentNode, fallbackUrls, bookmark);
+}
+
+function handleFaviconLoad(contentNode, bookmark) {
+  if (contentNode.dataset.faviconSource === "custom") {
+    clearCustomFaviconBroken(bookmark);
+  }
+}
+
+function createFaviconImage(src, source, fallbackIndex = "") {
+  const image = el("img", { class: "favicon-img", src, alt: "" });
+  image.dataset.faviconSource = source;
+  image.dataset.faviconFallbackIndex = fallbackIndex;
+  return image;
 }
 
 // --- Rendering helpers ---
@@ -154,47 +246,17 @@ function renderFavicon(bookmark) {
   const customFavicon = currentSettings?.customFavicons?.[bookmark.id];
   const isBroken = currentSettings?.brokenCustomFavicons?.[bookmark.id];
   const usingCustomFavicon = Boolean(customFavicon && !isBroken);
+  const fallbackUrls = getFaviconCandidates(bookmark.url);
   const faviconUrl = usingCustomFavicon ? customFavicon : getDefaultFaviconUrl(bookmark.url);
 
   const contentNode = faviconUrl
-    ? el("img", { class: "favicon-img", src: faviconUrl, alt: "" })
-    : el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) });
+    ? createFaviconImage(faviconUrl, usingCustomFavicon ? "custom" : "default", usingCustomFavicon ? "" : "0")
+    : renderFaviconFallback(bookmark);
   const faviconContainer = el("div", { class: "favicon-container" }, [contentNode]);
 
   if (contentNode.tagName === "IMG") {
-    contentNode.dataset.faviconSource = usingCustomFavicon ? "custom" : "default";
-    contentNode.onerror = () => {
-      if (usingCustomFavicon) {
-        currentSettings.brokenCustomFavicons = currentSettings.brokenCustomFavicons || {};
-        if (!currentSettings.brokenCustomFavicons[bookmark.id]) {
-          currentSettings.brokenCustomFavicons[bookmark.id] = true;
-          setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
-        }
-
-        contentNode.dataset.faviconSource = "default";
-        contentNode.onload = null;
-        contentNode.onerror = () => {
-          contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
-        };
-        const fallbackUrl = getDefaultFaviconUrl(bookmark.url);
-        contentNode.src = fallbackUrl;
-        if (!fallbackUrl) contentNode.onerror();
-      } else {
-        contentNode.replaceWith(el("span", { class: "favicon-fallback", text: faviconLabel(bookmark) }));
-      }
-    };
-
-    if (usingCustomFavicon) {
-      contentNode.onload = () => {
-        if (
-          contentNode.dataset.faviconSource === "custom" &&
-          currentSettings?.brokenCustomFavicons?.[bookmark.id]
-        ) {
-          delete currentSettings.brokenCustomFavicons[bookmark.id];
-          setStoredValue(api, STORAGE_KEYS.settings, currentSettings).catch(console.error);
-        }
-      };
-    }
+    contentNode.onerror = () => handleFaviconError(contentNode, bookmark, fallbackUrls);
+    contentNode.onload = () => handleFaviconLoad(contentNode, bookmark);
   }
 
   if (currentSettings?.linkHealthEnabled && bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0) {

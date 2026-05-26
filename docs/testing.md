@@ -1,6 +1,6 @@
 # Verificacion y tests
 
-Este documento define que se debe revisar despues de cada cambio importante. Aplica para Codex y Gemini/Antigravity.
+Este documento define que revisar despues de cada cambio importante. Aplica para Codex y Gemini/Antigravity.
 
 ## Comandos base
 
@@ -15,69 +15,77 @@ npm run build
 
 `npm run build` genera los paquetes de extension en `dist/chrome` y `dist/firefox`.
 
-En este proyecto puede aparecer `MaxListenersExceededWarning` durante los comandos. Si el proceso termina con exit code 0 y los tests pasan, ese warning no bloquea la verificacion.
+Puede aparecer `MaxListenersExceededWarning`. Si el proceso termina con exit code 0 y los tests pasan, ese warning no bloquea.
 
-## Que cubren hoy los tests
+## Cobertura actual
 
-- **Bookmarks e indice:** lectura del arbol, filtrado por carpetas monitoreadas y datos base del indice.
-- **Busqueda:** coincidencias por titulo, URL, dominio, carpeta, tags y normalizacion de acentos.
-- **Tags:** generacion automatica y mezcla con tags manuales.
-- **Setup:** estructura HTML/CSS, guardado de carpetas, opciones visuales y configuracion.
-- **Nueva pestana:** estructura de UI, layout masonry, acciones de marcador, modal de edicion, estados de enlace, previews locales, modos visuales y regresiones de CSS importantes.
-- **Ordenamiento:** funcion pura `sortBookmarks`, orden por titulo/fecha/dominio/salud, prioridad de fijados y aplicacion desde el tablero.
-- **Orden manual:** modo `Manual`, `folderBookmarkOrders` y drag & drop condicionado por carpeta.
-- **Privacidad/permisos:** evita servicios externos de previews/iconos, revisa que la salud de enlaces no corra en service worker y protege el flujo de capturas locales.
-- **Salud de enlaces:** acumulacion y limpieza de fallos.
+- Bookmarks e indice.
+- Busqueda.
+- Tags.
+- Setup y guardado de configuracion.
+- Nueva pestana y layout principal.
+- Privacidad y permisos.
+- Salud de enlaces.
+- Capturas locales.
+- Edicion de marcadores.
+- Iconos custom y fallback.
+- Fijados.
+- Modos visuales.
+- Ordenamiento y orden manual.
+- Movimiento local de marcadores.
 
 ## Verificacion manual recomendada
 
-Despues de cambios visuales o de interaccion, abrir la extension o una pagina local y revisar:
+Despues de cambios visuales o de interaccion:
 
-- Carga inicial de la Nueva pestana.
-- Busqueda y tecla `Escape`.
-- Cambio de modo visual por carpeta.
-- Foco suave al cambiar la vista de una carpeta.
-- Edicion de titulo, URL, tags e icono custom.
+- Carga inicial de Nueva pestana.
+- Busqueda, `Escape` y `Enter`.
+- Cambio de vista por carpeta.
+- Foco suave al cambiar vista.
+- Editar titulo, URL, tags e icono custom.
 - Fallback cuando un icono custom falla.
-- Fijar/desfijar marcadores.
+- Fijar y desfijar marcadores.
 - Revision de enlaces activada y desactivada.
-- Modo claro/oscuro/sistema.
-- Configuracion de carpetas y orden.
-- Orden global y orden por carpeta desde Configuracion.
-- Confirmar que no aparece boton `Orden` en las carpetas reales y que la busqueda mantiene ranking propio.
-- Si una carpeta esta en `Manual`, arrastrar un marcador dentro de esa carpeta y verificar que el orden se conserva tras recargar.
+- Capturas locales activadas y desactivadas.
+- Modo claro, oscuro y sistema.
+- Configuracion de carpetas, vistas y orden.
+- Buscador de Configuracion.
+- Guardado global sin perder ordenes, movimientos ni iconos personalizados.
+- Acciones avanzadas con confirmacion.
+- Drag & drop de marcadores y carpetas.
 
-## Cuando agregar tests nuevos
+## Cuando agregar tests
 
 Agregar o actualizar tests si el cambio:
 
 - corrige un bug que podria volver;
 - toca `storage.local`, permisos o APIs del navegador;
 - cambia el render de `newtab`;
-- cambia configuracion en `setup`;
+- cambia Configuracion;
 - agrega botones, estados visuales o clases CSS que sostienen comportamiento;
 - modifica busqueda, tags, revision de enlaces, previews, pinning, modos visuales, ordenamiento o edicion.
 
-## Testeo general para cambios grandes
+## Secuencia para cambios grandes
 
-Para cada agregado grande, usar esta secuencia:
-
-1. Antes de tocar codigo, identificar que test deberia fallar si el flujo no existe o esta roto.
-2. Agregar el test de regresion o comportamiento.
+1. Identificar que test deberia fallar si el flujo no existe o esta roto.
+2. Agregar o actualizar ese test.
 3. Ejecutar `npm test` y confirmar que falla por la razon esperada.
 4. Implementar el cambio.
 5. Ejecutar `npm test` hasta que pase.
 6. Ejecutar `npm run build`.
-7. Hacer una prueba manual del flujo principal afectado.
-8. Actualizar `docs/task.md`, `docs/maintenance_notes.md` o `docs/walkthrough.md` si cambia comportamiento visible o una regla tecnica.
+7. Hacer prueba manual si el cambio es visual o interactivo.
+8. Actualizar docs si cambia comportamiento visible o una regla tecnica.
 
-## Nota sobre tests visuales
+## Tests visuales
 
-Los tests actuales son livianos y revisan estructura, reglas CSS y presencia de flujos clave. No reemplazan una prueba visual real cuando se cambia layout. Para cambios grandes de UI conviene sumar una inspeccion manual con navegador, especialmente en:
+Los tests actuales son livianos y revisan estructura, reglas CSS y flujos clave. No reemplazan una prueba visual real cuando se cambia layout.
+
+Para cambios grandes de UI conviene revisar:
 
 - escritorio ancho;
 - ventana angosta;
 - pocas carpetas;
 - muchas carpetas;
 - carpetas con muchos marcadores;
-- modo oscuro.
+- modo oscuro;
+- modo claro.
