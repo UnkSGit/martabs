@@ -240,3 +240,10 @@ Para evitar molestias en usuarios que no desean ver el tooltip de vista rápida 
 - `src/shared/storage.js`: `previewEnabled: true` por defecto.
 - `src/setup/setup.html` / `setup.js`: Toggle "Mostrar vista rápida al pasar el mouse".
 - `src/newtab/newtab.js`: `showPreviewCard` retorna inmediatamente si `currentSettings?.previewEnabled === false`.
+
+### Bug Visual de Compositing en Chrome (backdrop-filter superpuestos)
+
+Se detectó y documentó un bug crítico en la renderización de Chrome que causa que los botones con fondo transparente (`rgba`) aparezcan visualmente en estado activo/hover:
+- **Problema**: Cuando se superponen múltiples capas con la propiedad `backdrop-filter: blur(...)` (por ejemplo, el `.preview-card` flotante encima de un contenedor `.group` que también usa el filtro), Chrome se rompe al componer el color de los elementos semitransparentes subyacentes, ignorando el desenfoque y renderizándolos con saturación al máximo u opacidad completa (haciendo que parezca un estado `hover`).
+- **Solución (Definitiva)**: Nunca apilar elementos con `backdrop-filter: blur()` cuando haya botones con `background: rgba(...)` en la intersección. Se le quitó el `backdrop-filter` al tooltip flotante (`.preview-card`) y se introdujo una nueva variable de color sólido (`--surface-bg-solid`) para su fondo, eliminando así el efecto fantasma.
+> ⚠️ **IMPORTANTE PARA CODEX**: No reintroducir `backdrop-filter` en modales, popups o cards flotantes (`.preview-card`, `.modal`) si van a superponerse sobre las cajas de las carpetas (`.group`), ya que causará este artefacto visual.
