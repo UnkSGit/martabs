@@ -65,7 +65,16 @@ Ultima actualizacion: 2026-05-26.
 - `[x]` **UI JS**: Implementar los manejadores de eventos en `src/setup/setup.js` llamando a `sync.js`.
 - `[x]` **Permisos**: Validar que import_config compruebe `api.permissions.contains` antes de habilitar `linkHealthEnabled`/`previewCaptureEnabled`.
 - `[x]` **Tests de Integración**: Correr `npm test` y build.
-- Preparar capturas definitivas para Chrome Web Store si se decide publicarla.
+
+### Playwright Fase 0: Infraestructura y Smoke
+- `[x]` Instalar dependencias (`@playwright/test` y navegadores).
+- `[x]` Crear `playwright.config.mjs` configurado para Chromium y Firefox.
+- `[x]` Crear fixtures (`e2e/fixtures/extension.fixture.mjs`) para inyectar la extensión en Chrome y Firefox.
+- `[x]` Crear helper (`e2e/helpers/bookmarks.helper.mjs`) para inyectar marcadores usando `api.bookmarks`.
+- `[x]` Escribir `e2e/tests/smoke.spec.mjs` para validar la infraestructura.
+- `[x]` Correr smoke test y documentar resultados/limitaciones.
+
+## Pendientes opcionales
 - Definir texto final de privacidad para la ficha de publicacion.
 - Evaluar tests E2E con navegador si aparecen mas flujos visuales sensibles.
 

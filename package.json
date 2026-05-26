@@ -5,9 +5,15 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
+    "test:e2e": "npx playwright test",
+    "test:e2e:chrome": "npx playwright test --project=chromium",
+    "test:e2e:firefox": "npx playwright test --project=firefox",
+    "test:e2e:update-screenshots": "npx playwright test --update-snapshots",
     "build": "node scripts/build.mjs",
     "build:chrome": "node scripts/build.mjs chrome",
     "build:firefox": "node scripts/build.mjs firefox"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
 }
