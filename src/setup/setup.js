@@ -4,6 +4,7 @@ import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shar
 
 const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
+const toggleAllFoldersBtn = document.querySelector("#toggle-all-folders");
 const saveButton = document.querySelector("#save");
 const status = document.querySelector("#status");
 const setupContent = document.querySelector(".setup-content");
@@ -377,6 +378,14 @@ async function clearPreviewCache() {
   await setStoredValue(api, STORAGE_KEYS.capturedPreviews, {});
   await setStoredValue(api, STORAGE_KEYS.pendingPreviewCaptures, {});
   status.textContent = "Previews cacheadas eliminadas.";
+}
+
+if (toggleAllFoldersBtn) {
+  toggleAllFoldersBtn.addEventListener("click", () => {
+    const checkboxes = folderList.querySelectorAll("input[type='checkbox']");
+    const anyUnchecked = [...checkboxes].some(cb => !cb.checked);
+    checkboxes.forEach(cb => cb.checked = anyUnchecked);
+  });
 }
 
 resetLocalOrganizationButton.addEventListener("click", () => {
