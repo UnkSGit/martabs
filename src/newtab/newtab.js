@@ -701,7 +701,52 @@ function renderDashboard(items) {
     
     headerButtons.push(modeBtn);
 
-    const headerChildren = [el("h2", { text: folder })];
+    const folderDisplayName = (currentSettings.folderNameOverrides || {})[folderId] || folder;
+    const h2 = el("h2", { text: folderDisplayName, title: folderDisplayName });
+    
+    if (!isPinnedFolder) {
+      h2.addEventListener("dblclick", () => {
+        h2.setAttribute("contenteditable", "true");
+        h2.focus();
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(h2);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
+
+      const saveNewName = async () => {
+        if (!h2.hasAttribute("contenteditable")) return;
+        h2.removeAttribute("contenteditable");
+        const newName = h2.textContent.trim();
+        if (newName !== folderDisplayName) {
+          const overrides = { ...(currentSettings.folderNameOverrides || {}) };
+          if (!newName || newName === folder) {
+            delete overrides[folderId];
+          } else {
+            overrides[folderId] = newName;
+          }
+          currentSettings.folderNameOverrides = overrides;
+          await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+          render();
+        } else {
+          h2.textContent = folderDisplayName;
+        }
+      };
+
+      h2.addEventListener("blur", saveNewName);
+      h2.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          saveNewName();
+        } else if (e.key === "Escape") {
+          h2.textContent = folderDisplayName;
+          h2.removeAttribute("contenteditable");
+        }
+      });
+    }
+
+    const headerChildren = [h2];
     if (headerButtons.length > 0) {
       headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
     }

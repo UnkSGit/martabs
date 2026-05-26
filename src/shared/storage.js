@@ -14,6 +14,7 @@ const DEFAULT_SETTINGS = {
   folderSorts: {},
   folderBookmarkOrders: {},
   bookmarkFolderOverrides: {},
+  folderNameOverrides: {},
   customFavicons: {},
   brokenCustomFavicons: {}
 };

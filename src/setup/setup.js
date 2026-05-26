@@ -195,7 +195,58 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
 
     const folderName = document.createElement("span");
     folderName.className = "folder-name";
-    folderName.append(checkbox, document.createTextNode(folder.path));
+    
+    const nameText = document.createElement("span");
+    const overrideName = (currentSettings.folderNameOverrides || {})[folder.id];
+    nameText.textContent = overrideName || folder.path;
+    nameText.title = overrideName || folder.path;
+    
+    nameText.addEventListener("dblclick", () => {
+      nameText.setAttribute("contenteditable", "true");
+      nameText.focus();
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(nameText);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    });
+
+    const saveNewName = () => {
+      if (!nameText.hasAttribute("contenteditable")) return;
+      nameText.removeAttribute("contenteditable");
+      const newName = nameText.textContent.trim();
+      const currentOverride = (currentSettings.folderNameOverrides || {})[folder.id];
+      const displayName = currentOverride || folder.path;
+      
+      if (newName !== displayName) {
+        const overrides = { ...(currentSettings.folderNameOverrides || {}) };
+        if (!newName || newName === folder.path) {
+          delete overrides[folder.id];
+        } else {
+          overrides[folder.id] = newName;
+        }
+        currentSettings.folderNameOverrides = overrides;
+        if (typeof status !== "undefined" && status) {
+          status.textContent = "Cambios sin guardar (Haz clic en Guardar)";
+        }
+      } else {
+        nameText.textContent = displayName;
+      }
+    };
+
+    nameText.addEventListener("blur", saveNewName);
+    nameText.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        saveNewName();
+      } else if (e.key === "Escape") {
+        const overrideName = (currentSettings.folderNameOverrides || {})[folder.id];
+        nameText.textContent = overrideName || folder.path;
+        nameText.removeAttribute("contenteditable");
+      }
+    });
+
+    folderName.append(checkbox, nameText);
     
     const controlsWrap = document.createElement("div");
     controlsWrap.className = "folder-controls";
@@ -364,7 +415,8 @@ async function resetLocalOrganization() {
   currentSettings = {
     ...currentSettings,
     bookmarkFolderOverrides: {},
-    folderBookmarkOrders: {}
+    folderBookmarkOrders: {},
+    folderNameOverrides: {}
   };
 
   await saveSettings(api, currentSettings);

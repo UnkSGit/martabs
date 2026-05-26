@@ -50,6 +50,14 @@ Ultima actualizacion: 2026-05-26.
 
 - Multilenguaje con el sistema nativo de extensiones (`_locales`), empezando por `es` y `en`.
 
+### Paso 10: Edición de Nombres de Carpetas y Ajuste Visual
+- `[x]` **CSS**: Modificar `.group-header h2` para soportar 2 líneas (`-webkit-line-clamp: 2`).
+- `[x]` **Storage**: Agregar `folderNameOverrides: {}` a `DEFAULT_SETTINGS` en `src/shared/storage.js`.
+- `[x]` **UI (Tablero)**: Usar `folderNameOverrides` en `newtab.js` y habilitar doble clic para editar (`contenteditable`).
+- `[x]` **UI (Setup)**: Usar `folderNameOverrides` en `setup.js` y habilitar doble clic para editar.
+- `[x]` **Avanzado**: Hacer que "Restablecer organización local" también limpie `folderNameOverrides`.
+- `[ ]` **Tests**: Correr `npm test` y verificar.
+
 ## Pendientes opcionales
 
 - Validacion manual en Firefox antes de publicar.
