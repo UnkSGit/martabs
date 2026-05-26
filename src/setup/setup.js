@@ -457,11 +457,25 @@ clearPreviewCacheButton.addEventListener("click", () => {
   });
 });
 
+const importSummaryContainer = document.querySelector("#import-summary-container");
+const importSummaryText = document.querySelector("#import-summary-text");
+const importConfirmBtn = document.querySelector("#import-confirm-btn");
+const importCancelBtn = document.querySelector("#import-cancel-btn");
+
+let pendingImportResult = null;
+
 exportConfigButton.addEventListener("click", async () => {
   try {
-    const data = await api.storage.local.get([STORAGE_KEYS.settings, STORAGE_KEYS.manualTags, STORAGE_KEYS.pinnedBookmarks, STORAGE_KEYS.bookmarkIndex]);
+    const data = await api.storage.local.get([STORAGE_KEYS.manualTags, STORAGE_KEYS.pinnedBookmarks, STORAGE_KEYS.bookmarkIndex]);
+    
+    // Use current UI state for settings, fallback to currentSettings for permissions
+    const settingsToExport = collectSettingsFromForm(
+      currentSettings?.linkHealthEnabled || false, 
+      currentSettings?.previewCaptureEnabled || false
+    );
+
     const exportData = generateExportData(
-      data[STORAGE_KEYS.settings] || {},
+      settingsToExport,
       data[STORAGE_KEYS.manualTags] || {},
       data[STORAGE_KEYS.pinnedBookmarks] || [],
       data[STORAGE_KEYS.bookmarkIndex] || {}
@@ -507,25 +521,38 @@ importConfigFile.addEventListener("change", async (event) => {
       }
     }
 
-    importSummary.style.display = "block";
-    importSummary.textContent = `Se mapearon ${result.stats.mappedFolders} carpetas, ${result.stats.mappedTags} etiquetas y ${result.stats.mappedPinned} marcadores fijados. Elementos no encontrados: ${result.stats.unmappedItems}.`;
+    pendingImportResult = result;
+    importSummaryContainer.style.display = "block";
+    importSummaryText.textContent = `Se mapearon ${result.stats.mappedFolders} carpetas, ${result.stats.mappedTags} etiquetas y ${result.stats.mappedPinned} marcadores fijados. Elementos ignorados: ${result.stats.unmappedItems}.`;
     
-    const confirmed = window.confirm("¿Estás seguro de que deseas sobrescribir tu configuración local con estos datos?");
-    if (!confirmed) {
-      importConfigFile.value = "";
-      importSummary.style.display = "none";
-      return;
-    }
-
-    await setStoredValue(api, STORAGE_KEYS.settings, result.settings);
-    await setStoredValue(api, STORAGE_KEYS.manualTags, result.manualTags);
-    await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, result.pinnedBookmarks);
-    
-    status.textContent = "Configuración importada exitosamente. Recargando...";
-    setTimeout(() => window.location.reload(), 1500);
   } catch (error) {
-    status.textContent = `Error al importar: ${error.message}`;
+    status.textContent = `Error al procesar el archivo: ${error.message}`;
   }
+  importConfigFile.value = "";
+});
+
+importConfirmBtn.addEventListener("click", async () => {
+  if (!pendingImportResult) return;
+  
+  try {
+    importSummaryContainer.style.display = "none";
+    status.textContent = "Guardando configuración importada...";
+    
+    await setStoredValue(api, STORAGE_KEYS.settings, pendingImportResult.settings);
+    await setStoredValue(api, STORAGE_KEYS.manualTags, pendingImportResult.manualTags);
+    await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, pendingImportResult.pinnedBookmarks);
+    
+    pendingImportResult = null;
+    status.textContent = "Configuración importada exitosamente. Recargando en breve...";
+    setTimeout(() => window.location.reload(), 2000);
+  } catch (error) {
+    status.textContent = `Error al guardar: ${error.message}`;
+  }
+});
+
+importCancelBtn.addEventListener("click", () => {
+  pendingImportResult = null;
+  importSummaryContainer.style.display = "none";
   importConfigFile.value = "";
 });
 

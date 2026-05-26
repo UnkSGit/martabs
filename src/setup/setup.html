@@ -182,7 +182,13 @@
                   Importar configuracion
                 </button>
                 <input type="file" id="import-config-file" accept=".json" style="display: none;">
-                <div id="import-summary" class="advanced-action" style="display: none; width: 100%; margin-top: 10px; font-size: 13px; color: var(--text-secondary);"></div>
+                <div id="import-summary-container" style="display: none; width: 100%; margin-top: 15px; padding: 12px; border: 1px solid var(--primary); border-radius: var(--radius-sm); background: var(--primary-soft);">
+                  <p id="import-summary-text" style="margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary);"></p>
+                  <div style="display: flex; gap: 8px;">
+                    <button id="import-confirm-btn" type="button" class="primary-button" style="height: 32px; font-size: 12px; padding: 0 12px;">Confirmar y aplicar</button>
+                    <button id="import-cancel-btn" type="button" class="secondary-button" style="height: 32px; font-size: 12px; padding: 0 12px;">Cancelar</button>
+                  </div>
+                </div>
               </div>
             </section>
           </div>
