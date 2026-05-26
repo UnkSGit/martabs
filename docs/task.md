@@ -58,9 +58,13 @@ Ultima actualizacion: 2026-05-26.
 - `[x]` **Avanzado**: Hacer que "Restablecer organización local" también limpie `folderNameOverrides`.
 - `[ ]` **Tests**: Correr `npm test` y verificar.
 
-## Pendientes opcionales
-
-- Validacion manual en Firefox antes de publicar.
+### Paso 11: Exportar e Importar Configuración (Robusto)
+- `[x]` **Logic**: Crear `src/shared/sync.js` con las funciones `generateExportData` y `parseAndRemapImport`.
+- `[x]` **Tests**: Crear `test/sync.test.js` para probar la lógica pura de remapeo.
+- `[x]` **UI HTML**: Agregar botones de exportar/importar en `src/setup/setup.html` (Avanzado).
+- `[x]` **UI JS**: Implementar los manejadores de eventos en `src/setup/setup.js` llamando a `sync.js`.
+- `[x]` **Permisos**: Validar que import_config compruebe `api.permissions.contains` antes de habilitar `linkHealthEnabled`/`previewCaptureEnabled`.
+- `[x]` **Tests de Integración**: Correr `npm test` y build.
 - Preparar capturas definitivas para Chrome Web Store si se decide publicarla.
 - Definir texto final de privacidad para la ficha de publicacion.
 - Evaluar tests E2E con navegador si aparecen mas flujos visuales sensibles.

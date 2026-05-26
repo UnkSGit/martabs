@@ -1,6 +1,7 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { getFolderOptions } from "../shared/bookmarks.js";
 import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shared/storage.js";
+import { generateExportData, parseAndRemapImport } from "../shared/sync.js";
 
 const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
@@ -22,6 +23,10 @@ const defaultSortSelect = document.querySelector("#default-sort-select");
 const themeSelect = document.querySelector("#theme-select");
 const resetLocalOrganizationButton = document.querySelector("#reset-local-organization");
 const clearPreviewCacheButton = document.querySelector("#clear-preview-cache");
+const exportConfigButton = document.querySelector("#export-config");
+const importConfigButton = document.querySelector("#import-config");
+const importConfigFile = document.querySelector("#import-config-file");
+const importSummary = document.querySelector("#import-summary");
 let currentSettings = null;
 
 const urlPermissions = {
@@ -448,8 +453,80 @@ resetLocalOrganizationButton.addEventListener("click", () => {
 
 clearPreviewCacheButton.addEventListener("click", () => {
   clearPreviewCache().catch((error) => {
-    status.textContent = `No se pudieron limpiar las previews: ${error.message}`;
+    status.textContent = `No se pudo limpiar el cache de previews: ${error.message}`;
   });
+});
+
+exportConfigButton.addEventListener("click", async () => {
+  try {
+    const data = await api.storage.local.get([STORAGE_KEYS.settings, STORAGE_KEYS.manualTags, STORAGE_KEYS.pinnedBookmarks, STORAGE_KEYS.bookmarkIndex]);
+    const exportData = generateExportData(
+      data[STORAGE_KEYS.settings] || {},
+      data[STORAGE_KEYS.manualTags] || {},
+      data[STORAGE_KEYS.pinnedBookmarks] || [],
+      data[STORAGE_KEYS.bookmarkIndex] || {}
+    );
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `martabs-config-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    status.textContent = "Configuración exportada exitosamente.";
+  } catch (error) {
+    status.textContent = `Error al exportar: ${error.message}`;
+  }
+});
+
+importConfigButton.addEventListener("click", () => {
+  importConfigFile.click();
+});
+
+importConfigFile.addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const json = JSON.parse(text);
+    
+    const data = await api.storage.local.get([STORAGE_KEYS.bookmarkIndex]);
+    const result = parseAndRemapImport(json, data[STORAGE_KEYS.bookmarkIndex] || {});
+    
+    // Validar permisos requeridos
+    if (result.settings.linkHealthEnabled || result.settings.previewCaptureEnabled) {
+      if (api.permissions?.contains) {
+        const hasUrlPerms = await api.permissions.contains(urlPermissions);
+        if (!hasUrlPerms) {
+          result.settings.linkHealthEnabled = false;
+          result.settings.previewCaptureEnabled = false;
+        }
+      } else {
+        result.settings.linkHealthEnabled = false;
+        result.settings.previewCaptureEnabled = false;
+      }
+    }
+
+    importSummary.style.display = "block";
+    importSummary.textContent = `Se mapearon ${result.stats.mappedFolders} carpetas, ${result.stats.mappedTags} etiquetas y ${result.stats.mappedPinned} marcadores fijados. Elementos no encontrados: ${result.stats.unmappedItems}.`;
+    
+    const confirmed = window.confirm("¿Estás seguro de que deseas sobrescribir tu configuración local con estos datos?");
+    if (!confirmed) {
+      importConfigFile.value = "";
+      importSummary.style.display = "none";
+      return;
+    }
+
+    await setStoredValue(api, STORAGE_KEYS.settings, result.settings);
+    await setStoredValue(api, STORAGE_KEYS.manualTags, result.manualTags);
+    await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, result.pinnedBookmarks);
+    
+    status.textContent = "Configuración importada exitosamente. Recargando...";
+    setTimeout(() => window.location.reload(), 1500);
+  } catch (error) {
+    status.textContent = `Error al importar: ${error.message}`;
+  }
+  importConfigFile.value = "";
 });
 
 saveButton.addEventListener("click", async () => {
