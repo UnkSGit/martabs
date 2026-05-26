@@ -143,10 +143,10 @@ Estado: en progreso. Base publica, privacidad, licencia y paquetes generados; fa
   - `[x]` Generar build final de Chrome.
   - `[x]` Generar build final de Firefox.
   - `[x]` Verificar manifests finales, permisos y archivos incluidos.
-  - `[ ]` Probar instalacion limpia en ambos navegadores.
+  - `[x]` Probar instalacion limpia en ambos navegadores.
 - `[ ]` **Publicacion manual pendiente**:
-  - `[ ]` Activar GitHub Pages desde `main` / `/docs`.
-  - `[ ]` Verificar URL publica `https://unksgit.github.io/martabs/privacy_policy.html`.
+  - `[x]` Activar GitHub Pages desde `main` / `/docs`.
+  - `[x]` Verificar URL publica `https://unksgit.github.io/martabs/privacy_policy.html`.
   - `[ ]` Cargar paquetes en Chrome Web Store y Firefox Add-ons.
 
 ## Completado tecnico reciente
