@@ -6,7 +6,7 @@ import path from 'node:path';
 
 const rootDir = path.resolve('.');
 const screenshotsDir = path.resolve('docs/assets/screenshots');
-const chromePath = process.env.CHROME_EXECUTABLE_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const chromePath = process.env.CHROME_EXECUTABLE_PATH || undefined;
 
 function iconDataUrl(label, color) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><rect width="96" height="96" rx="22" fill="${color}"/><text x="48" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#fff">${label}</text></svg>`;
