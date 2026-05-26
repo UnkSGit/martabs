@@ -1,145 +1,146 @@
+*Read this in other languages: [Español](README.es.md).*
+
 # martabs
 
-Una extension de navegador que reemplaza la pagina de Nueva pestana por un tablero local de marcadores.
+A browser extension that replaces the New Tab page with a local, private bookmark dashboard.
 
-El objetivo es encontrar rapido marcadores guardados en carpetas grandes, con busqueda, etiquetas, vistas visuales, orden local y herramientas de limpieza, sin depender de servicios externos.
+The goal is to easily find bookmarks saved in large folders, featuring instant search, tags, visual modes, local ordering, and link health tools—without relying on external services.
 
-Compatible con Chrome, Edge, Brave y Firefox.
+Compatible with Chrome, Edge, Brave, and Firefox.
 
-## Capturas
+## Screenshots
 
-![Dashboard en modo oscuro](docs/assets/screenshots/dashboard-dark.png)
+![Dashboard in dark mode](docs/assets/screenshots/dashboard-dark.png)
 
-| Busqueda | Configuracion |
+| Search | Settings |
 | --- | --- |
-| ![Resultados de busqueda](docs/assets/screenshots/search-results.png) | ![Panel de configuracion](docs/assets/screenshots/settings.png) |
+| ![Search results](docs/assets/screenshots/search-results.png) | ![Settings panel](docs/assets/screenshots/settings.png) |
 
-| Modos visuales | Edicion de marcador |
+| Visual Modes | Edit Bookmark |
 | --- | --- |
-| ![Modos visuales por carpeta](docs/assets/screenshots/folder-modes.png) | ![Modal de edicion de marcador](docs/assets/screenshots/edit-bookmark.png) |
+| ![Folder visual modes](docs/assets/screenshots/folder-modes.png) | ![Edit bookmark modal](docs/assets/screenshots/edit-bookmark.png) |
 
-## Funciones
+## Features
 
-- Nueva pestana con dashboard tipo masonry.
-- Seleccion de carpetas monitoreadas.
-- Busqueda instantanea por titulo, URL, dominio, carpeta y etiquetas.
-- Etiquetas automaticas y manuales.
-- Favoritos fijados dentro de su carpeta y en una carpeta virtual superior.
-- Modos visuales por carpeta: lista, compacta, iconos, iconos grandes y quicklinks.
-- Orden visual global y por carpeta: original, manual, titulo, fecha, dominio o fallidos primero.
-- Drag & drop local para reordenar marcadores y moverlos entre carpetas.
-- Edicion desde la UI: titulo, URL, etiquetas manuales, icono custom y eliminacion.
-- Fallback automatico para iconos custom rotos.
-- Vista rapida opcional al pasar el mouse.
-- Capturas locales opcionales al abrir marcadores desde martabs.
-- Revision manual de enlaces caidos por carpeta.
-- Tema claro, oscuro o automatico segun el sistema.
-- Selector de idioma con 9 idiomas disponibles: espanol, ingles, portugues, aleman, frances, italiano, coreano, chino simplificado y japones.
-- Exportar e importar configuracion con remapeo de IDs entre perfiles.
-- Configuracion organizada por secciones con buscador de ajustes.
+- New Tab with masonry-style dashboard layout.
+- Monitored folder selection.
+- Instant search by title, URL, domain, folder, and tags.
+- Automatic and manual tags.
+- Pinned favorites within their folder and in a virtual top-level folder.
+- Visual modes per folder: list, compact, icons, large icons, and quicklinks.
+- Visual ordering globally and per folder: original, manual, title, date, domain, or broken-first.
+- Local drag & drop to reorder bookmarks and move them between folders.
+- In-UI editing: title, URL, manual tags, custom icon, and deletion.
+- Automatic fallback for broken custom icons.
+- Optional quick-view tooltips on hover.
+- Optional local screenshots triggered when opening bookmarks from martabs.
+- Manual link-health checking per folder.
+- Theme: light, dark, or system default.
+- Language selector with 9 supported languages: English, Spanish, Portuguese, German, French, Italian, Korean, Simplified Chinese, and Japanese.
+- Settings export and import with profile ID remapping.
+- Settings panel with built-in search.
 
-## Privacidad
+## Privacy
 
-martabs guarda todo localmente en el navegador. No usa servicios externos para previews, iconos, busqueda, metadata ni sincronizacion. No hay telemetria ni recoleccion de datos.
+martabs stores everything locally in the browser. It does not use external services for previews, icons, search, metadata, or synchronization. There is no telemetry or data collection of any kind.
 
-Las capturas de pantalla solo se generan si el usuario activa la opcion y abre un marcador desde martabs. La revision de enlaces solo se ejecuta por accion explicita del usuario.
+Screenshots are only generated if you actively enable the option and open a bookmark from martabs. Link checking is only triggered by your explicit action.
 
-Permisos base:
+Base permissions:
 
-- `bookmarks`: leer y editar marcadores cuando el usuario lo pide.
-- `storage`: guardar configuracion local, etiquetas, ordenes, previews y estados.
-- `favicon` (solo Chrome): leer favicons locales del navegador.
+- `bookmarks`: to read the bookmark tree and save user edits.
+- `storage`: to save local settings, tags, orders, previews, and state.
+- `favicon` (Chrome only): to read native browser favicons.
 
-Permisos opcionales:
+Optional permissions:
 
-- Acceso a URLs para revisar enlaces caidos.
-- Acceso a URLs para capturar previews locales.
+- Host permissions: requested dynamically only if you enable link health checks or local previews.
 
-Al desactivar estas opciones desde Configuracion, martabs intenta retirar los permisos opcionales.
+When you disable these options from the Settings panel, martabs attempts to revoke the optional permissions.
 
-Politica de privacidad publica: https://unksgit.github.io/martabs/privacy_policy.html
+Public Privacy Policy: https://unksgit.github.io/martabs/privacy_policy.html
 
-## Instalacion en modo desarrollador
+## Installation (Developer Mode)
 
-Requisitos:
+Requirements:
 
-- Node.js (18 o superior recomendado).
+- Node.js (18 or higher recommended).
 
 ```bash
 npm install
 npm run build
 ```
 
-### Chrome, Edge o Brave
+### Chrome, Edge, or Brave
 
-1. Abrir `chrome://extensions` (o `brave://extensions` / `edge://extensions`).
-2. Activar modo desarrollador.
-3. Cargar la carpeta `dist/chrome` como extension descomprimida.
+1. Open `chrome://extensions` (or `brave://extensions` / `edge://extensions`).
+2. Enable Developer mode.
+3. Load the `dist/chrome` folder as an unpacked extension.
 
 ### Firefox
 
-1. Abrir `about:debugging#/runtime/this-firefox`.
-2. Elegir `Cargar complemento temporal`.
-3. Seleccionar `dist/firefox/manifest.json`.
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click `Load Temporary Add-on`.
+3. Select `dist/firefox/manifest.json`.
 
-## Desarrollo
+## Development
 
-Comandos principales:
+Main commands:
 
 ```bash
-npm test            # tests unitarios con node --test
-npm run build       # genera dist/chrome y dist/firefox
+npm test            # unit tests using node --test
+npm run build       # generates dist/chrome and dist/firefox
 npm run build:chrome
 npm run build:firefox
-npm run package     # genera zips finales en release/
+npm run package     # generates final zips in release/
 ```
 
-Tests E2E (requiere Playwright instalado):
+E2E Tests (requires Playwright installed):
 
 ```bash
-npm run test:e2e:chrome    # E2E solo en Chromium
+npm run test:e2e:chrome    # E2E on Chromium only
 ```
 
-Los tests E2E en Firefox tienen limitaciones documentadas en `docs/firefox-testing-issues.md`.
+E2E testing in Firefox has documented limitations. See `docs/firefox-testing-issues.md`.
 
-## Estructura del proyecto
+## Project Structure
 
 ```
 src/
-  _locales/           traducciones (es, en, pt, de, fr, it, ko, zh_CN, ja)
-  background/         service worker (reindexado, capturas)
-  newtab/             tablero de Nueva pestana
-  setup/              panel de Configuracion
-  shared/             helpers compartidos (i18n, busqueda, orden, render, storage, sync)
-  manifest.base.json  manifest comun
+  _locales/           translations (en, es, pt, de, fr, it, ko, zh_CN, ja)
+  background/         service worker (re-indexing, local captures)
+  newtab/             New Tab dashboard
+  setup/              Settings panel
+  shared/             shared helpers (i18n, search, sort, render, storage, sync)
+  manifest.base.json  common manifest
   manifest.chrome.json
   manifest.firefox.json
-tests/                tests unitarios
-e2e/                  tests E2E con Playwright
-scripts/              build script
-docs/                 documentacion viva
+tests/                unit tests
+e2e/                  E2E tests using Playwright
+scripts/              build scripts
+docs/                 living documentation
 ```
 
-## Documentacion
+## Documentation
 
-- `docs/task.md` - estado actual del proyecto y registro de cambios.
-- `docs/implementation_plan.md` - arquitectura vigente.
-- `docs/maintenance_notes.md` - reglas para flujos sensibles.
-- `docs/testing.md` - verificacion recomendada.
-- `docs/walkthrough.md` - funcionalidades desde la perspectiva del usuario.
-- `docs/collaboration.md` - como colaborar entre herramientas.
-- `docs/roadmap.md` - pendientes y planes futuros.
-- `docs/firefox-testing-issues.md` - limitaciones de E2E en Firefox.
+- `docs/task.md` - current project status and changelog.
+- `docs/implementation_plan.md` - current architecture.
+- `docs/maintenance_notes.md` - rules for sensitive flows.
+- `docs/testing.md` - recommended verification steps.
+- `docs/walkthrough.md` - user-perspective features.
+- `docs/collaboration.md` - how to collaborate across AI tools.
+- `docs/roadmap.md` - pending items and future plans.
+- `docs/firefox-testing-issues.md` - E2E limitations in Firefox.
 
-## Colaboracion con IA
+## AI Collaboration
 
-Este proyecto fue desarrollado de forma colaborativa entre el autor y asistentes de IA:
+This project was developed collaboratively between the author and AI assistants:
 
-- **Antigravity** (Google DeepMind) con modelos Gemini.
-- **Codex** (OpenAI) con modelos GPT.
+- **Antigravity** (Google DeepMind) using Gemini models.
+- **Codex** (OpenAI) using GPT models.
 
-La documentacion en `docs/collaboration.md` describe como trabajar con agentes de IA propios sin depender de una herramienta especifica. Los cambios se registran en `docs/task.md` indicando la herramienta utilizada.
+The documentation in `docs/collaboration.md` describes how to work with your own AI agents without depending on a specific tool. Changes are logged in `docs/task.md`, indicating the tool used.
 
-## Licencia
+## License
 
-martabs se publica bajo GPL-3.0-only. Ver `LICENSE`.
+martabs is published under the GPL-3.0-only license. See `LICENSE`.
