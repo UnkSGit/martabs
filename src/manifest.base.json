@@ -4,6 +4,9 @@
   "version": "0.9.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "es",
+  "icons": {
+    "128": "images/icon-128.png"
+  },
   "permissions": ["bookmarks", "storage"],
   "optional_host_permissions": ["http://*/*", "https://*/*", "<all_urls>"],
   "chrome_url_overrides": {
