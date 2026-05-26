@@ -72,6 +72,18 @@ Ultima actualizacion: 2026-05-26.
 ## Registro reciente
 
 Fecha: 2026-05-26
+Herramienta: Antigravity
+Resumen: Paso 11 - Exportar/Importar configuracion con remapeo robusto de IDs por URL y path. Modulo puro `sync.js`, UI con resumen y confirmacion, seguridad de permisos.
+Archivos tocados: `src/shared/sync.js` (nuevo), `test/sync.test.js` (nuevo), `src/setup/setup.html`, `src/setup/setup.js`, `src/shared/storage.js`, `docs/maintenance_notes.md`.
+Verificacion: `npm test` (35 tests), `npm run build`.
+
+Fecha: 2026-05-26
+Herramienta: Antigravity
+Resumen: Paso 10 - Nombres personalizados de carpetas (doble clic) y titulo de carpeta expandido a 2 lineas. Toggle marcar/desmarcar todas las carpetas en Configuracion.
+Archivos tocados: `src/newtab/newtab.js`, `src/newtab/newtab.css`, `src/setup/setup.js`, `src/setup/setup.html`, `src/shared/storage.js`.
+Verificacion: `npm test`, `npm run build`.
+
+Fecha: 2026-05-26
 Herramienta: Codex
 Resumen: Se agrego fallback `/favicon.ico` para Firefox y se unifico el pedido de permisos de URLs para revision de enlaces y capturas locales.
 Archivos tocados: `src/newtab/newtab.js`, `src/setup/setup.js`, `tests/newtab.test.js`, `tests/setup.test.js`, `docs/implementation_plan.md`, `docs/maintenance_notes.md`, `docs/walkthrough.md`, `docs/task.md`.

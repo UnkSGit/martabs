@@ -81,10 +81,44 @@ Secciones actuales:
 Reglas:
 
 - `collectSettingsFromForm()` parte de `currentSettings`.
-- Preservar claves internas: `bookmarkFolderOverrides`, `folderBookmarkOrders`, `customFavicons`, `brokenCustomFavicons` y futuras claves no visibles.
+- Preservar claves internas: `bookmarkFolderOverrides`, `folderBookmarkOrders`, `folderNameOverrides`, `customFavicons`, `brokenCustomFavicons` y futuras claves no visibles.
 - Las acciones de `Avanzado` son inmediatas y con confirmacion.
 - El buscador vive en `#settings-search`.
 - `syncSetupContentHeight()` evita saltos de alto entre secciones.
+
+## Nombres personalizados de carpetas
+
+El usuario puede hacer doble clic en el titulo de una carpeta (tanto en el Tablero como en Configuracion) para asignar un alias local.
+
+Reglas:
+
+- Los alias se guardan en `folderNameOverrides` dentro de settings, mapeando `folderId -> string`.
+- No modifican el nombre real de la carpeta en el navegador.
+- Si el usuario borra el texto o escribe el nombre original, el override se elimina.
+- `Restablecer organizacion local` en Avanzado tambien limpia `folderNameOverrides`.
+- En el tablero, los titulos de carpeta permiten hasta 2 lineas (`-webkit-line-clamp: 2`). No usar `white-space: nowrap`.
+
+## Exportar e importar configuracion
+
+El modulo `src/shared/sync.js` contiene la logica pura. Es independiente de la UI para facilitar testing.
+
+Estructura del JSON exportado:
+
+- `version`: siempre `1`.
+- `settings`: la configuracion completa (filtrada por allowlist al importar).
+- `manualTags`: tags manuales del usuario.
+- `pinnedBookmarks`: marcadores fijados.
+- `refs.bookmarks`: diccionario `id -> URL` para remapear marcadores entre perfiles.
+- `refs.folders`: diccionario `id -> path` para remapear carpetas entre perfiles.
+
+Reglas:
+
+- Al exportar, `generateExportData` recibe `folderOptions` (de `getFolderOptions`) ademas de `bookmarkIndex`. El bookmarkIndex solo contiene marcadores, no carpetas.
+- Al importar, `parseAndRemapImport` recibe tambien `folderOptions` del arbol actual para construir el mapa de traduccion.
+- Si `linkHealthEnabled` o `previewCaptureEnabled` estan activos en el JSON, verificar `api.permissions.contains` antes de activarlos. Si no hay permiso, forzar a `false`.
+- No importar claves desconocidas en settings. Usar la allowlist de `booleanSettings` y `stringSettings`.
+- No exportar `bookmarkIndex`, `linkHealth`, `capturedPreviews` ni `pendingPreviewCaptures`.
+- La UI de importacion muestra un resumen con botones "Confirmar y aplicar" / "Cancelar". No usar `window.confirm()`.
 
 ## Permisos y capturas
 
