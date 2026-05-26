@@ -2,17 +2,14 @@ import { test, expect } from '../fixtures/extension.fixture.mjs';
 import { createTestFolder, createTestBookmark, clearTestBookmarks } from '../helpers/bookmarks.helper.mjs';
 
 test.describe('Smoke Test - Infraestructura', () => {
-  
-  test('La extensión carga y la página de setup es accesible', async ({ page, extensionId, browserName }) => {
-    // Firefox addon temporal support needs to be validated separately for now.
-    // We skip the extension URL check for firefox if we don't have extensionId yet.
-    if (browserName === 'firefox') {
-      test.skip(true, 'Firefox extension loading to be implemented');
-      return;
-    }
 
+  test.beforeEach(async ({ browserName }) => {
+    if (browserName === 'firefox') test.skip(true, 'Firefox no soportado por inestabilidad de runner MV3');
+  });
+  
+  test('La extensión carga y la página de setup es accesible', async ({ page, extensionId, extensionProtocol }) => {
     // 1. Navegar a la página de setup de la extensión
-    const setupUrl = `chrome-extension://${extensionId}/setup/setup.html`;
+    const setupUrl = `${extensionProtocol}${extensionId}/setup/setup.html`;
     await page.goto(setupUrl);
 
     // 2. Verificar que la página carga

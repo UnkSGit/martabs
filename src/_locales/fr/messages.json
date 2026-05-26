@@ -1,0 +1,642 @@
+{
+  "extensionName": {
+    "message": "martabs"
+  },
+  "extensionDescription": {
+    "message": "Un magnifique tableau de bord, rapide et respectueux de la vie privée pour organiser et suivre vos dossiers de favoris dans le nouvel onglet."
+  },
+  "newtabTitle": {
+    "message": "Accueil - martabs"
+  },
+  "loadingBookmarks": {
+    "message": "Chargement des favoris..."
+  },
+  "settingsBtn": {
+    "message": "Configurer"
+  },
+  "settingsBtnTitle": {
+    "message": "Configurer les favoris et les préférences"
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher un titre, un tag, une URL ou un dossier..."
+  },
+  "editModalTitle": {
+    "message": "Editar Marcador"
+  },
+  "editFieldName": {
+    "message": "Nom"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editFieldTags": {
+    "message": "Etiquetas (separadas por comas)"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "ej: trabajo, docs, js"
+  },
+  "editFieldFavicon": {
+    "message": "Icono personalizado (URL de la imagen)"
+  },
+  "editFaviconError": {
+    "message": "La imagen actual no se pudo cargar."
+  },
+  "delete": {
+    "message": "Supprimer"
+  },
+  "cancel": {
+    "message": "Annuler"
+  },
+  "save": {
+    "message": "Enregistrer"
+  },
+  "emptyResults": {
+    "message": "No hay resultados."
+  },
+  "hide": {
+    "message": "Ocultar"
+  },
+  "hidePinnedFolder": {
+    "message": "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuración)"
+  },
+  "review": {
+    "message": "Revisar"
+  },
+  "reviewing": {
+    "message": "Revisando..."
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ erreur",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ erreurs",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "changeView": {
+    "message": "Changer de vue"
+  },
+  "pinnedFolderTitle": {
+    "message": "Épinglés"
+  },
+  "back": {
+    "message": "Volver"
+  },
+  "deleteAllCount": {
+    "message": "Eliminar todos ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteAllFailures": {
+    "message": "Supprimer les $COUNT$ favoris invalides de \"$FOLDER$\" ? Cette action est irréversible.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "allFolders": {
+    "message": "todas las carpetas"
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ marcador para revisar.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ marcador(es) para revisar.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "noFailuresRegistered": {
+    "message": "No hay enlaces con fallos registrados."
+  },
+  "confirmDeleteBookmark": {
+    "message": "¿Eliminar el marcador \"$TITLE$\"?",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "¿Eliminar el marcador \"$TITLE$\"? Esta acción no se puede deshacer.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ favori surveillé",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ favoris surveillés",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "setupEmptyStateTitle": {
+    "message": "Configura tus carpetas para empezar."
+  },
+  "setupEmptyStateDescription": {
+    "message": "Abre Configurar y elige una o más carpetas."
+  },
+  "domainNone": {
+    "message": "Sin dominio"
+  },
+  "noFolder": {
+    "message": "Sin carpeta"
+  },
+  "dateAdded": {
+    "message": "Agregado: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthUnchecked": {
+    "message": "No comprobado"
+  },
+  "healthBroken": {
+    "message": "Inaccesible (Código: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Enlace accesible"
+  },
+  "previewLabelLocal": {
+    "message": "Capture locale"
+  },
+  "previewLabelQuick": {
+    "message": "Aperçu rapide local"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "Ce lien n'a pas répondu correctement lors de la dernière vérification."
+  },
+  "bookmarkEditBtn": {
+    "message": "Editar marcador"
+  },
+  "bookmarkPinBtn": {
+    "message": "Fijar marcador"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "Desfijar marcador"
+  },
+  "setupTitle": {
+    "message": "Configurer martabs"
+  },
+  "setupHeaderTitle": {
+    "message": "Paramètres"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Rechercher des paramètres..."
+  },
+  "saveChanges": {
+    "message": "Enregistrer les modifications"
+  },
+  "foldersSection": {
+    "message": "Dossiers"
+  },
+  "appearanceSection": {
+    "message": "Apparence"
+  },
+  "privacySection": {
+    "message": "Confidentialité"
+  },
+  "tagsSection": {
+    "message": "Tags"
+  },
+  "advancedSection": {
+    "message": "Avancé"
+  },
+  "foldersHeading": {
+    "message": "Dossiers"
+  },
+  "foldersDescription": {
+    "message": "Choisissez les dossiers, réorganisez-les et ajustez la vue ou le tri par dossier."
+  },
+  "toggleAllFolders": {
+    "message": "Tout cocher / décocher"
+  },
+  "folderTableHeaderFolder": {
+    "message": "Dossier"
+  },
+  "folderTableHeaderView": {
+    "message": "Vue"
+  },
+  "folderTableHeaderSort": {
+    "message": "Tri"
+  },
+  "appearanceHeading": {
+    "message": "Apparence"
+  },
+  "appearanceDescription": {
+    "message": "Préférences visuelles générales du tableau de bord."
+  },
+  "defaultMode": {
+    "message": "Mode visuel par défaut"
+  },
+  "defaultModeDesc": {
+    "message": "Utilisé lorsqu'un dossier n'a pas son propre mode."
+  },
+  "defaultSort": {
+    "message": "Tri par défaut"
+  },
+  "defaultSortDesc": {
+    "message": "S'applique aux dossiers sans tri personnalisé."
+  },
+  "theme": {
+    "message": "Thème"
+  },
+  "themeDesc": {
+    "message": "Respecte les paramètres système ou force le mode clair/sombre."
+  },
+  "showPinnedFolder": {
+    "message": "Afficher le dossier virtuel pour les favoris épinglés"
+  },
+  "showPinnedFolderDesc": {
+    "message": "Le dossier supérieur regroupe les favoris épinglés."
+  },
+  "showPreview": {
+    "message": "Afficher l'aperçu rapide"
+  },
+  "showPreviewDesc": {
+    "message": "Ouvre le panneau de détails au survol de la souris."
+  },
+  "privacyHeading": {
+    "message": "Confidentialité"
+  },
+  "privacyDescription": {
+    "message": "Fonctionnalités qui peuvent demander des autorisations système facultatives."
+  },
+  "linkHealth": {
+    "message": "Vérification des liens"
+  },
+  "linkHealthDesc": {
+    "message": "Ajoute le bouton Vérifier à chaque dossier et demande des autorisations réseau."
+  },
+  "previewCapture": {
+    "message": "Capturer des aperçus locaux"
+  },
+  "previewCaptureDesc": {
+    "message": "Uniquement pour les favoris ouverts depuis martabs."
+  },
+  "tagsHeading": {
+    "message": "Tags"
+  },
+  "tagsDescription": {
+    "message": "Contrôle comment martabs génère et affiche les tags."
+  },
+  "automaticTags": {
+    "message": "Tags automatiques"
+  },
+  "automaticTagsDesc": {
+    "message": "Dérivés des dossiers, du domaine et des données du favori."
+  },
+  "manualTags": {
+    "message": "Tags manuels"
+  },
+  "manualTagsDesc": {
+    "message": "Permet de modifier les tags depuis l'interface du favori."
+  },
+  "advancedHeading": {
+    "message": "Avancé"
+  },
+  "advancedDescription": {
+    "message": "Actions peu fréquentes pour réinitialiser l'état local."
+  },
+  "resetLocalOrg": {
+    "message": "Réinitialiser l'organisation locale"
+  },
+  "clearPreviewCache": {
+    "message": "Effacer les aperçus en cache"
+  },
+  "exportConfig": {
+    "message": "Exporter la configuration"
+  },
+  "importConfig": {
+    "message": "Importer la configuration"
+  },
+  "confirmAndApply": {
+    "message": "Confirmer et appliquer"
+  },
+  "cancelImport": {
+    "message": "Annuler"
+  },
+  "modeDefault": {
+    "message": "Par défaut"
+  },
+  "modeList": {
+    "message": "Liste complète"
+  },
+  "modeCompact": {
+    "message": "Liste compacte"
+  },
+  "modeIcons": {
+    "message": "Grille d'icônes"
+  },
+  "modeIconsLarge": {
+    "message": "Grille d'icônes (grande)"
+  },
+  "modeQuicklinks": {
+    "message": "Quicklinks"
+  },
+  "sortDefault": {
+    "message": "Par défaut"
+  },
+  "sortBrowser": {
+    "message": "Ordre d'origine"
+  },
+  "sortManual": {
+    "message": "Manuel"
+  },
+  "sortTitleAsc": {
+    "message": "Titre A-Z"
+  },
+  "sortDateNewest": {
+    "message": "Plus récents en premier"
+  },
+  "sortDomainAsc": {
+    "message": "Domaine A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "Erreurs en premier"
+  },
+  "themeSystem": {
+    "message": "Système (Automatique)"
+  },
+  "themeLight": {
+    "message": "Clair"
+  },
+  "themeDark": {
+    "message": "Sombre"
+  },
+  "unsavedChanges": {
+    "message": "Modifications non enregistrées (Cliquez sur Enregistrer)"
+  },
+  "saveSuccess": {
+    "message": "Paramètres enregistrés. Ouvrez un nouvel onglet pour utiliser martabs."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Paramètres enregistrés. Impossible d'activer la vérification des liens par manque d'autorisation."
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Paramètres enregistrés. Impossible d'activer la capture d'aperçus par manque d'autorisation."
+  },
+  "saveError": {
+    "message": "Impossible d'enregistrer la configuration : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "Impossible de charger les dossiers : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "Réinitialiser tous les déplacements locaux et le tri manuel ? Les favoris réels du navigateur ne seront pas modifiés."
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Organisation locale réinitialisée."
+  },
+  "resetLocalOrgError": {
+    "message": "Impossible de réinitialiser l'organisation locale : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmClearPreviews": {
+    "message": "Effacer tous les aperçus locaux en cache ?"
+  },
+  "clearPreviewsSuccess": {
+    "message": "Aperçus en cache effacés."
+  },
+  "clearPreviewsError": {
+    "message": "Impossible d'effacer le cache des aperçus : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "Configuration exportée avec succès."
+  },
+  "exportError": {
+    "message": "Erreur d'exportation : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorParse": {
+    "message": "Le fichier de configuration a un format invalide."
+  },
+  "importErrorVersion": {
+    "message": "Version du fichier JSON non supportée ou invalide."
+  },
+  "importSummary": {
+    "message": "$FOLDERS$ dossiers, $TAGS$ tags et $PINNED$ favoris épinglés associés. Éléments ignorés : $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "importErrorProcess": {
+    "message": "Erreur lors du traitement du fichier : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importSuccess": {
+    "message": "Configuration importée avec succès. Rechargement imminent..."
+  },
+  "importSaving": {
+    "message": "Enregistrement de la configuration importée..."
+  },
+  "importErrorSave": {
+    "message": "Erreur lors de l'enregistrement : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "selectFolderWarning": {
+    "message": "Sélectionnez au moins un dossier."
+  },
+  "searchFolders": {
+    "message": "dossiers sélectionner surveiller vue tri manuel par défaut"
+  },
+  "searchAppearance": {
+    "message": "apparence thème mode vue tri épinglés aperçu rapide"
+  },
+  "searchModeRow": {
+    "message": "mode vue par défaut liste compacte icônes le nouvel onglet"
+  },
+  "searchSortRow": {
+    "message": "tri par défaut original manuel titre date domaine erreur"
+  },
+  "searchThemeRow": {
+    "message": "thème couleur système clair sombre"
+  },
+  "searchPinnedRow": {
+    "message": "épinglés favoris dossier virtuel highlights"
+  },
+  "searchPreviewRow": {
+    "message": "aperçu rapide preview tooltip détail souris"
+  },
+  "searchPrivacySection": {
+    "message": "confidentialité autorisations liens aperçus réseau"
+  },
+  "searchLinkHealthRow": {
+    "message": "vérification liens erreurs autorisations réseau"
+  },
+  "searchPreviewCaptureRow": {
+    "message": "capturer aperçus locaux image capture autorisations"
+  },
+  "searchTagsSection": {
+    "message": "tags automatique manuel"
+  },
+  "searchAutoTagsRow": {
+    "message": "tags automatiques domaine dossier"
+  },
+  "searchManualTagsRow": {
+    "message": "tags manuels modifier favori"
+  },
+  "searchAdvancedSection": {
+    "message": "avancé effacer réinitialiser aperçus cache organisation"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "réinitialiser organisation locale déplacements tri manuel"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "effacer aperçus cache capture images"
+  },
+  "searchExportBtn": {
+    "message": "exporter configuration sauvegarde télécharger json"
+  },
+  "searchImportBtn": {
+    "message": "importer configuration restaurer sauvegarde json"
+  },
+  "saveBookmarkError": {
+    "message": "Impossible d'enregistrer le favori : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadBookmarksError": {
+    "message": "Impossible de charger les favoris : $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Erreurs dans $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "Liens brisés"
+  },
+  "language": {
+    "message": "Langue"
+  },
+  "languageDesc": {
+    "message": "Choisissez la langue de l'interface."
+  },
+  "languageSystem": {
+    "message": "Système (Par défaut)"
+  },
+  "languageEs": {
+    "message": "Espagnol"
+  },
+  "languageEn": {
+    "message": "Anglais"
+  },
+  "languagePt": {
+    "message": "Portugais"
+  },
+  "languageDe": {
+    "message": "Allemand"
+  },
+  "languageFr": {
+    "message": "Français"
+  },
+  "languageZh": {
+    "message": "Chinois"
+  },
+  "languageJa": {
+    "message": "Japonais"
+  },
+  "languageIt": {
+    "message": "Italien"
+  },
+  "languageKo": {
+    "message": "Coréen"
+  },
+  "searchLanguageRow": {
+    "message": "langue anglais espagnol système par défaut"
+  }
+}

@@ -31,7 +31,7 @@ test("link health checks run from the new tab page, not the service worker", asy
   assert.match(js, /applyLinkCheckResult/);
   assert.match(js, /saveLinkHealth/);
 
-  assert.doesNotMatch(api, /alarms|permissions\.contains|storage\.local\.remove/);
+  assert.doesNotMatch(api, /alarms|storage\.local\.remove/);
   assert.doesNotMatch(storage, /dismissedLinkWarnings|saveManualTags/);
 });
 
@@ -74,3 +74,16 @@ test("firefox manifest does not inherit chrome-only favicon permission", async (
   assert.ok(base.optional_host_permissions.includes("<all_urls>"));
   assert.ok(!base.optional_permissions, "base manifest should not declare optional alarms");
 });
+
+test("service worker does not rebuild index on purely visual setting changes", async () => {
+  const worker = await readFile("src/background/service-worker.js", "utf8");
+
+  assert.match(worker, /selectedFolderIds/);
+  assert.match(worker, /setupComplete/);
+  assert.match(worker, /bookmarkFolderOverrides/);
+  assert.match(worker, /listenToSettingsChanges/);
+  
+  // Make sure it references rebuildAffectingKeys
+  assert.match(worker, /rebuildAffectingKeys/);
+});
+

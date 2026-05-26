@@ -1,0 +1,642 @@
+{
+  "extensionName": {
+    "message": "martabs"
+  },
+  "extensionDescription": {
+    "message": "Una dashboard bella, veloce e attenta alla privacy per organizzare e monitorare le tue cartelle di segnalibri in una nuova scheda."
+  },
+  "newtabTitle": {
+    "message": "Home - martabs"
+  },
+  "loadingBookmarks": {
+    "message": "Caricamento dei segnalibri..."
+  },
+  "settingsBtn": {
+    "message": "Configura"
+  },
+  "settingsBtnTitle": {
+    "message": "Configura segnalibri e preferenze"
+  },
+  "searchPlaceholder": {
+    "message": "Cerca titolo, tag, URL o cartella..."
+  },
+  "editModalTitle": {
+    "message": "Modifica segnalibro"
+  },
+  "editFieldName": {
+    "message": "Nome"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editFieldTags": {
+    "message": "Tag (separati da virgola)"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "es. lavoro, documenti, js"
+  },
+  "editFieldFavicon": {
+    "message": "Icona personalizzata (URL immagine)"
+  },
+  "editFaviconError": {
+    "message": "L'immagine attuale non può essere caricata."
+  },
+  "delete": {
+    "message": "Elimina"
+  },
+  "cancel": {
+    "message": "Annulla"
+  },
+  "save": {
+    "message": "Salva"
+  },
+  "emptyResults": {
+    "message": "Nessun risultato trovato."
+  },
+  "hide": {
+    "message": "Nascondi"
+  },
+  "hidePinnedFolder": {
+    "message": "Nascondi la cartella Fissati (puoi riattivarla dalle Impostazioni)"
+  },
+  "review": {
+    "message": "Controlla"
+  },
+  "reviewing": {
+    "message": "Controllo..."
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ errore",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ errori",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "changeView": {
+    "message": "Cambia visualizzazione"
+  },
+  "pinnedFolderTitle": {
+    "message": "Fissati"
+  },
+  "back": {
+    "message": "Indietro"
+  },
+  "deleteAllCount": {
+    "message": "Elimina tutti ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteAllFailures": {
+    "message": "Eliminare tutti i $COUNT$ segnalibri non validi da \"$FOLDER$\"? Questa azione è irreversibile.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "allFolders": {
+    "message": "tutte le cartelle"
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ segnalibro da controllare.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ segnalibri da controllare.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "noFailuresRegistered": {
+    "message": "Nessun collegamento non valido registrato."
+  },
+  "confirmDeleteBookmark": {
+    "message": "Eliminare il segnalibro \"$TITLE$\"?",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "Eliminare il segnalibro \"$TITLE$\"? Questa azione è irreversibile.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ segnalibro monitorato",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ segnalibri monitorati",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "setupEmptyStateTitle": {
+    "message": "Configura le tue cartelle per iniziare."
+  },
+  "setupEmptyStateDescription": {
+    "message": "Apri le Impostazioni e seleziona una o più cartelle."
+  },
+  "domainNone": {
+    "message": "Nessun dominio"
+  },
+  "noFolder": {
+    "message": "Nessuna cartella"
+  },
+  "dateAdded": {
+    "message": "Aggiunto il: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthUnchecked": {
+    "message": "Non controllato"
+  },
+  "healthBroken": {
+    "message": "Non raggiungibile (Codice: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Collegamento valido"
+  },
+  "previewLabelLocal": {
+    "message": "Screenshot locale"
+  },
+  "previewLabelQuick": {
+    "message": "Anteprima rapida locale"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "Questo collegamento non ha risposto correttamente all'ultimo controllo."
+  },
+  "bookmarkEditBtn": {
+    "message": "Modifica segnalibro"
+  },
+  "bookmarkPinBtn": {
+    "message": "Fissa segnalibro"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "Sblocca segnalibro"
+  },
+  "setupTitle": {
+    "message": "Configura martabs"
+  },
+  "setupHeaderTitle": {
+    "message": "Impostazioni"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Cerca impostazioni..."
+  },
+  "saveChanges": {
+    "message": "Salva modifiche"
+  },
+  "foldersSection": {
+    "message": "Cartelle"
+  },
+  "appearanceSection": {
+    "message": "Aspetto"
+  },
+  "privacySection": {
+    "message": "Privacy"
+  },
+  "tagsSection": {
+    "message": "Tag"
+  },
+  "advancedSection": {
+    "message": "Avanzate"
+  },
+  "foldersHeading": {
+    "message": "Cartelle"
+  },
+  "foldersDescription": {
+    "message": "Seleziona le cartelle, riordinale e regola la vista o l'ordinamento per ciascuna cartella."
+  },
+  "toggleAllFolders": {
+    "message": "Seleziona / deseleziona tutto"
+  },
+  "folderTableHeaderFolder": {
+    "message": "Cartella"
+  },
+  "folderTableHeaderView": {
+    "message": "Vista"
+  },
+  "folderTableHeaderSort": {
+    "message": "Ordinamento"
+  },
+  "appearanceHeading": {
+    "message": "Aspetto"
+  },
+  "appearanceDescription": {
+    "message": "Preferenze visive generali della dashboard."
+  },
+  "defaultMode": {
+    "message": "Modalità visiva predefinita"
+  },
+  "defaultModeDesc": {
+    "message": "Utilizzata quando una cartella non ha una propria modalità."
+  },
+  "defaultSort": {
+    "message": "Ordinamento predefinito"
+  },
+  "defaultSortDesc": {
+    "message": "Si applica alle cartelle senza un ordinamento personalizzato."
+  },
+  "theme": {
+    "message": "Tema"
+  },
+  "themeDesc": {
+    "message": "Segue le impostazioni di sistema o forza il tema chiaro/scuro."
+  },
+  "showPinnedFolder": {
+    "message": "Mostra cartella virtuale per i segnalibri fissati"
+  },
+  "showPinnedFolderDesc": {
+    "message": "La cartella superiore raggruppa i segnalibri fissati."
+  },
+  "showPreview": {
+    "message": "Mostra anteprima rapida"
+  },
+  "showPreviewDesc": {
+    "message": "Apre il pannello dei dettagli al passaggio del mouse."
+  },
+  "privacyHeading": {
+    "message": "Privacy"
+  },
+  "privacyDescription": {
+    "message": "Funzionalità che possono richiedere autorizzazioni facoltative del browser."
+  },
+  "linkHealth": {
+    "message": "Verifica dei collegamenti"
+  },
+  "linkHealthDesc": {
+    "message": "Aggiunge il pulsante Controlla a ciascuna cartella e richiede le autorizzazioni di rete."
+  },
+  "previewCapture": {
+    "message": "Cattura anteprime locali"
+  },
+  "previewCaptureDesc": {
+    "message": "Solo per i segnalibri aperti da martabs."
+  },
+  "tagsHeading": {
+    "message": "Tag"
+  },
+  "tagsDescription": {
+    "message": "Controlla come martabs genera e visualizza i tag."
+  },
+  "automaticTags": {
+    "message": "Tag automatici"
+  },
+  "automaticTagsDesc": {
+    "message": "Derivati da cartelle, dominio e dati del segnalibro."
+  },
+  "manualTags": {
+    "message": "Tag manuali"
+  },
+  "manualTagsDesc": {
+    "message": "Consente di modificare i tag dall'interfaccia del segnalibro."
+  },
+  "advancedHeading": {
+    "message": "Avanzate"
+  },
+  "advancedDescription": {
+    "message": "Azioni non frequenti per reimpostare lo stato locale."
+  },
+  "resetLocalOrg": {
+    "message": "Ripristina organizzazione locale"
+  },
+  "clearPreviewCache": {
+    "message": "Cancella anteprime in cache"
+  },
+  "exportConfig": {
+    "message": "Esporta configurazione"
+  },
+  "importConfig": {
+    "message": "Importa configurazione"
+  },
+  "confirmAndApply": {
+    "message": "Conferma e applica"
+  },
+  "cancelImport": {
+    "message": "Annulla"
+  },
+  "modeDefault": {
+    "message": "Predefinito"
+  },
+  "modeList": {
+    "message": "Elenco completo"
+  },
+  "modeCompact": {
+    "message": "Elenco compatto"
+  },
+  "modeIcons": {
+    "message": "Griglia di icone"
+  },
+  "modeIconsLarge": {
+    "message": "Griglia di icone (grande)"
+  },
+  "modeQuicklinks": {
+    "message": "Quicklinks"
+  },
+  "sortDefault": {
+    "message": "Predefinito"
+  },
+  "sortBrowser": {
+    "message": "Ordine originale"
+  },
+  "sortManual": {
+    "message": "Manuale"
+  },
+  "sortTitleAsc": {
+    "message": "Titolo A-Z"
+  },
+  "sortDateNewest": {
+    "message": "Più recenti prima"
+  },
+  "sortDomainAsc": {
+    "message": "Dominio A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "Errori prima"
+  },
+  "themeSystem": {
+    "message": "Sistema (Automatico)"
+  },
+  "themeLight": {
+    "message": "Chiaro"
+  },
+  "themeDark": {
+    "message": "Scuro"
+  },
+  "unsavedChanges": {
+    "message": "Modifiche non salvate (Fai clic su Salva)"
+  },
+  "saveSuccess": {
+    "message": "Impostazioni salvate. Apri una nuova scheda per utilizzare martabs."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Impostazioni salvate. Impossibile attivare la verifica dei collegamenti per mancanza di autorizzazione."
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Impostazioni salvate. Impossibile attivare la cattura delle anteprime per mancanza di autorizzazione."
+  },
+  "saveError": {
+    "message": "Impossibile salvare la configurazione: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "Impossibile caricare le cartelle: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "Ripristinare tutti gli spostamenti locali e gli ordinamenti manuali? I veri segnalibri del browser non verranno modificati."
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Organizzazione locale ripristinata."
+  },
+  "resetLocalOrgError": {
+    "message": "Impossibile ripristinare l'organizzazione locale: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmClearPreviews": {
+    "message": "Cancellare tutte le anteprime locali in cache?"
+  },
+  "clearPreviewsSuccess": {
+    "message": "Anteprime in cache cancellate."
+  },
+  "clearPreviewsError": {
+    "message": "Impossibile cancellare la cache delle anteprime: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "Configurazione esportata con successo."
+  },
+  "exportError": {
+    "message": "Errore durante l'esportazione: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorParse": {
+    "message": "Il file di configurazione ha un formato non valido."
+  },
+  "importErrorVersion": {
+    "message": "Versione del file JSON non supportata o non valida."
+  },
+  "importSummary": {
+    "message": "Mappate $FOLDERS$ cartelle, $TAGS$ tag e $PINNED$ segnalibri fissati. Elementi ignorati: $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "importErrorProcess": {
+    "message": "Errore durante l'elaborazione del file: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importSuccess": {
+    "message": "Configurazione importata con successo. Ricaricamento in corso..."
+  },
+  "importSaving": {
+    "message": "Salvataggio della configurazione importata..."
+  },
+  "importErrorSave": {
+    "message": "Errore durante il salvataggio: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "selectFolderWarning": {
+    "message": "Seleziona almeno una cartella."
+  },
+  "searchFolders": {
+    "message": "cartelle seleziona monitora vista ordinamento manuale predefinito"
+  },
+  "searchAppearance": {
+    "message": "aspetto tema modalità vista ordinamento fissati anteprima rapida"
+  },
+  "searchModeRow": {
+    "message": "modalità vista predefinita elenco compatto icone quicklinks"
+  },
+  "searchSortRow": {
+    "message": "ordinamento predefinito originale manuale titolo data dominio errore"
+  },
+  "searchThemeRow": {
+    "message": "tema colore sistema chiaro scuro"
+  },
+  "searchPinnedRow": {
+    "message": "fissati preferiti cartella virtuale highlights"
+  },
+  "searchPreviewRow": {
+    "message": "anteprima rapida anteprima tooltip dettaglio mouse"
+  },
+  "searchPrivacySection": {
+    "message": "privacy autorizzazioni collegamenti anteprime rete"
+  },
+  "searchLinkHealthRow": {
+    "message": "verifica collegamenti errori autorizzazioni rete"
+  },
+  "searchPreviewCaptureRow": {
+    "message": "cattura anteprime locali immagine cattura autorizzazioni"
+  },
+  "searchTagsSection": {
+    "message": "tag automatico manuale"
+  },
+  "searchAutoTagsRow": {
+    "message": "tag automatici dominio cartella"
+  },
+  "searchManualTagsRow": {
+    "message": "tag manuali modifica segnalibro"
+  },
+  "searchAdvancedSection": {
+    "message": "avanzate cancella ripristina anteprime cache organizzazione"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "ripristina organizzazione locale spostamenti ordinamento manuale"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "cancella anteprime cache cattura immagini"
+  },
+  "searchExportBtn": {
+    "message": "esporta configurazione backup scarica json"
+  },
+  "searchImportBtn": {
+    "message": "importa configurazione ripristina backup json"
+  },
+  "saveBookmarkError": {
+    "message": "Impossibile salvare il segnalibro: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadBookmarksError": {
+    "message": "Impossibile caricare i segnalibri: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Errori in $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "Collegamenti non validi"
+  },
+  "language": {
+    "message": "Lingua"
+  },
+  "languageDesc": {
+    "message": "Scegli la lingua dell'interfaccia."
+  },
+  "languageSystem": {
+    "message": "Sistema (Predefinito)"
+  },
+  "languageEs": {
+    "message": "Spagnolo"
+  },
+  "languageEn": {
+    "message": "Inglese"
+  },
+  "languagePt": {
+    "message": "Portoghese"
+  },
+  "languageDe": {
+    "message": "Tedesco"
+  },
+  "languageFr": {
+    "message": "Francese"
+  },
+  "languageZh": {
+    "message": "Cinese"
+  },
+  "languageJa": {
+    "message": "Giapponese"
+  },
+  "languageIt": {
+    "message": "Italiano"
+  },
+  "languageKo": {
+    "message": "Coreano"
+  },
+  "searchLanguageRow": {
+    "message": "lingua inglese spagnolo sistema predefinito"
+  }
+}

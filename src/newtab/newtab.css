@@ -30,58 +30,64 @@
   --radius-lg: 14px;
   --radius-pill: 9999px;
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --search-bg: var(--surface-bg);
+  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.72));
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
-    --bg-gradient: linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%);
-    --surface-bg: rgba(30, 41, 59, 0.225);
-    --surface-bg-solid: #1e293b;
-    --surface-border: rgba(255, 255, 255, 0.08);
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --primary: #14b8a6;
-    --primary-hover: #2dd4bf;
-    --primary-light: rgba(20, 184, 166, 0.2);
-    --primary-light-text: #2dd4bf;
-    --success-bg: rgba(34, 197, 94, 0.15);
+    --bg-gradient: linear-gradient(135deg, #101318 0%, #151921 50%, #101318 100%);
+    --surface-bg: rgba(24, 30, 40, 0.72);
+    --surface-bg-solid: #181e28;
+    --surface-border: rgba(148, 163, 184, 0.14);
+    --text-primary: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --primary: #129a8f;
+    --primary-hover: #14b8a6;
+    --primary-light: rgba(18, 154, 143, 0.15);
+    --primary-light-text: #14b8a6;
+    --success-bg: rgba(34, 197, 94, 0.12);
     --success-text: #86efac;
-    --warning-bg: rgba(239, 68, 68, 0.15);
+    --warning-bg: rgba(239, 68, 68, 0.12);
     --warning-text: #fca5a5;
-    --warning-border: rgba(239, 68, 68, 0.3);
-    --tag-auto-bg: rgba(59, 130, 246, 0.15);
+    --warning-border: rgba(239, 68, 68, 0.25);
+    --tag-auto-bg: rgba(59, 130, 246, 0.12);
     --tag-auto-text: #93c5fd;
-    --tag-auto-border: rgba(59, 130, 246, 0.3);
-    --tag-manual-bg: rgba(16, 185, 129, 0.15);
+    --tag-auto-border: rgba(59, 130, 246, 0.25);
+    --tag-manual-bg: rgba(16, 185, 129, 0.12);
     --tag-manual-text: #a7f3d0;
-    --tag-manual-border: rgba(16, 185, 129, 0.3);
+    --tag-manual-border: rgba(16, 185, 129, 0.25);
+    --search-bg: rgba(30, 38, 50, 0.72);
+    --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 2px rgba(20, 184, 166, 0.35)) drop-shadow(0 0 5px rgba(20, 184, 166, 0.15));
   }
 }
 
 :root.theme-dark {
-  --bg-gradient: linear-gradient(135deg, #09090b 0%, #18181b 50%, #09090b 100%);
-  --surface-bg: rgba(30, 41, 59, 0.225);
-  --surface-bg-solid: #1e293b;
-  --surface-border: rgba(255, 255, 255, 0.08);
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --primary: #14b8a6;
-  --primary-hover: #2dd4bf;
-  --primary-light: rgba(20, 184, 166, 0.2);
-  --primary-light-text: #2dd4bf;
-  --success-bg: rgba(34, 197, 94, 0.15);
+  --bg-gradient: linear-gradient(135deg, #101318 0%, #151921 50%, #101318 100%);
+  --surface-bg: rgba(24, 30, 40, 0.72);
+  --surface-bg-solid: #181e28;
+  --surface-border: rgba(148, 163, 184, 0.14);
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --primary: #129a8f;
+  --primary-hover: #14b8a6;
+  --primary-light: rgba(18, 154, 143, 0.15);
+  --primary-light-text: #14b8a6;
+  --success-bg: rgba(34, 197, 94, 0.12);
   --success-text: #86efac;
-  --warning-bg: rgba(239, 68, 68, 0.15);
+  --warning-bg: rgba(239, 68, 68, 0.12);
   --warning-text: #fca5a5;
-  --warning-border: rgba(239, 68, 68, 0.3);
-  --tag-auto-bg: rgba(59, 130, 246, 0.15);
+  --warning-border: rgba(239, 68, 68, 0.25);
+  --tag-auto-bg: rgba(59, 130, 246, 0.12);
   --tag-auto-text: #93c5fd;
-  --tag-auto-border: rgba(59, 130, 246, 0.3);
-  --tag-manual-bg: rgba(16, 185, 129, 0.15);
+  --tag-auto-border: rgba(59, 130, 246, 0.25);
+  --tag-manual-bg: rgba(16, 185, 129, 0.12);
   --tag-manual-text: #a7f3d0;
-  --tag-manual-border: rgba(16, 185, 129, 0.3);
+  --tag-manual-border: rgba(16, 185, 129, 0.25);
+  --search-bg: rgba(30, 38, 50, 0.72);
+  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 2px rgba(20, 184, 166, 0.35)) drop-shadow(0 0 5px rgba(20, 184, 166, 0.15));
 }
 
 * {
@@ -144,10 +150,7 @@ body {
 .logo-img-header {
   height: 57px;
   object-fit: contain;
-  filter:
-    drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32))
-    drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
-    drop-shadow(0 0 8px rgba(255, 255, 255, 0.72));
+  filter: var(--logo-filter);
 }
 
 #status-line {
@@ -181,6 +184,7 @@ button {
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(10px);
+  white-space: nowrap;
 }
 
 button:hover {
@@ -231,13 +235,13 @@ button svg {
 #search {
   height: 40px;
   width: 100%;
-  border: 1.5px solid var(--surface-border);
+  border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 0 16px 0 40px;
   font-family: inherit;
   font-size: 13.5px;
   font-weight: 600;
-  background: var(--surface-bg);
+  background: var(--search-bg);
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
   outline: none;
@@ -247,7 +251,7 @@ button svg {
 
 #search::placeholder {
   color: var(--text-secondary);
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 #search:focus {
@@ -352,9 +356,9 @@ button svg {
 .review-button {
   height: 24px !important;
   padding: 0 8px !important;
-  background: var(--primary-light) !important;
-  color: var(--primary) !important;
-  border: 1.5px solid var(--primary) !important;
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--surface-border) !important;
   font-size: 11px !important;
   border-radius: var(--radius-sm) !important;
   display: inline-flex;
@@ -365,8 +369,9 @@ button svg {
 }
 
 .review-button:hover:not(:disabled) {
-  background: var(--primary) !important;
-  color: #ffffff !important;
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 .review-button:disabled {
@@ -430,7 +435,7 @@ button svg {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 6px 8px;
+  padding: 7px 10px;
   padding-right: 76px;
   border-radius: var(--radius-sm);
   color: inherit;
@@ -520,7 +525,7 @@ button svg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .domain {

@@ -31,8 +31,11 @@ Puede aparecer `MaxListenersExceededWarning`. Si el proceso termina con exit cod
 - Iconos custom y fallback.
 - Fijados.
 - Modos visuales.
+- Cambio de modo visual in-place sin redibujado completo.
 - Ordenamiento y orden manual.
 - Movimiento local de marcadores.
+- Internacionalizacion (paridad de claves, mojibake, CJK, selector de idioma).
+- Filtrado de rebuild en service worker (solo settings estructurales).
 
 ## Verificacion manual recomendada
 

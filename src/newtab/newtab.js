@@ -13,6 +13,7 @@ import {
 } from "../shared/storage.js";
 import { el, formatDate } from "../shared/render.js";
 import { applyLinkCheckResult } from "../shared/link-health.js";
+import { localizeHtml, t, initI18n } from "../shared/i18n-helper.js";
 import { mergeTags } from "../shared/tags.js";
 
 const api = getBrowserApi();
@@ -32,6 +33,7 @@ const editCancel = document.querySelector("#edit-cancel");
 const editSave = document.querySelector("#edit-save");
 const editFavicon = document.querySelector("#edit-favicon");
 const editFaviconError = document.querySelector("#edit-favicon-error");
+const PINNED_FOLDER_KEY = "__martabs_pinned__";
 
 let bookmarks = [];
 let currentSettings = null;
@@ -88,7 +90,7 @@ async function checkUrl(url) {
 
 async function reviewFolderHealth(folderBookmarks, reviewButton, progressEl) {
   reviewButton.disabled = true;
-  reviewButton.textContent = "Revisando...";
+  reviewButton.textContent = t(api, "reviewing");
   const total = folderBookmarks.length;
 
   const linkHealth = await getLinkHealth(api);
@@ -274,20 +276,20 @@ function getBookmarkHealth(bookmark) {
   if (!bookmark.linkHealth?.lastCheckedAt) {
     return {
       state: "unchecked",
-      text: "No comprobado"
+      text: t(api, "healthUnchecked")
     };
   }
 
   if (bookmark.linkHealth.consecutiveFailures > 0) {
     return {
       state: "broken",
-      text: `Inaccesible (Codigo: ${bookmark.linkHealth.lastStatus || "Error"})`
+      text: t(api, "healthBroken", [bookmark.linkHealth.lastStatus || "Error"])
     };
   }
 
   return {
     state: "ok",
-    text: "Enlace accesible"
+    text: t(api, "healthOk")
   };
 }
 
@@ -322,7 +324,7 @@ function renderBookmark(bookmark, rich = false) {
       class: `bookmark${isBroken ? " is-broken" : ""}`,
       href: bookmark.url,
       title: isBroken
-        ? "Este enlace no respondio correctamente en la ultima comprobacion."
+        ? t(api, "linkHealthBrokenTitle")
         : bookmark.title
     },
     [
@@ -335,7 +337,7 @@ function renderBookmark(bookmark, rich = false) {
     ]
   );
 
-  const editBtn = el("button", { class: "bookmark-edit-btn", title: "Editar marcador", type: "button" });
+  const editBtn = el("button", { class: "bookmark-edit-btn", title: t(api, "bookmarkEditBtn"), type: "button" });
   
   editBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -344,7 +346,7 @@ function renderBookmark(bookmark, rich = false) {
   });
   
   const isPinned = pinnedBookmarks.includes(bookmark.id);
-  const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? "Desfijar marcador" : "Fijar marcador", type: "button" });
+  const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), type: "button" });
   
   pinBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${isPinned ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
     <line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.2V6a3 3 0 0 0-6 0v5.2a2 2 0 0 1-1.11 1.35l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
@@ -404,11 +406,11 @@ function showPreviewCard(bookmark, anchorElement) {
   const thumbnailContainer = capturedPreview?.image
     ? el("div", { class: "preview-thumbnail-container has-capture" }, [
         el("img", { class: "preview-capture-img", src: capturedPreview.image, alt: "" }),
-        el("span", { class: "preview-local-label", text: "Captura local" })
+        el("span", { class: "preview-local-label", text: t(api, "previewLabelLocal") })
       ])
     : el("div", { class: "preview-thumbnail-container" }, [
         el("span", { class: "preview-local-mark", text: faviconLabel(bookmark) }),
-        el("span", { class: "preview-local-label", text: "Vista rapida local" })
+        el("span", { class: "preview-local-label", text: t(api, "previewLabelQuick") })
       ]);
 
   const health = getBookmarkHealth(bookmark);
@@ -421,9 +423,9 @@ function showPreviewCard(bookmark, anchorElement) {
 
   const detailsContainer = el("div", { class: "preview-details" }, [
     el("div", { class: "preview-title", text: bookmark.title }),
-    el("div", { class: "preview-domain", text: bookmark.domain || "Sin dominio" }),
+    el("div", { class: "preview-domain", text: bookmark.domain || t(api, "domainNone") }),
     bookmark.folderPath ? el("div", { class: "preview-domain", text: bookmark.folderPath }) : null,
-    bookmark.dateAdded ? el("div", { class: "preview-domain", text: `Agregado: ${formatDate(bookmark.dateAdded)}` }) : null,
+    bookmark.dateAdded ? el("div", { class: "preview-domain", text: t(api, "dateAdded", [formatDate(bookmark.dateAdded)]) }) : null,
     healthDetails,
     renderTags(bookmark)
   ].filter(Boolean));
@@ -466,9 +468,9 @@ function hidePreviewCard() {
 
 function groupByFolder(items) {
   return Map.groupBy
-    ? Map.groupBy(items, (bookmark) => bookmark.folderPath || "Sin carpeta")
+    ? Map.groupBy(items, (bookmark) => bookmark.folderPath || t(api, "noFolder"))
     : items.reduce((map, bookmark) => {
-        const key = bookmark.folderPath || "Sin carpeta";
+        const key = bookmark.folderPath || t(api, "noFolder");
         map.set(key, [...(map.get(key) || []), bookmark]);
         return map;
       }, new Map());
@@ -499,6 +501,39 @@ function focusPendingViewFolder() {
       group.classList.remove("is-view-focus");
     }, 900);
   });
+}
+
+function applyFolderModeClass(folderId, mode) {
+  const groupEl = content.querySelector(`article.group[data-folder-id="${folderId}"]`);
+  if (!groupEl) return;
+  const listEl = groupEl.querySelector(".bookmark-list");
+  if (!listEl) return;
+
+  const targetClass = mode !== "list" ? `mode-${mode}` : "";
+  const modes = ["mode-compact", "mode-icons", "mode-icons-large", "mode-quicklinks"];
+  const hasTargetClass = targetClass ? listEl.classList.contains(targetClass) : !modes.some((m) => listEl.classList.contains(m));
+
+  if (hasTargetClass) {
+    return;
+  }
+
+  listEl.classList.remove(...modes);
+  if (targetClass) {
+    listEl.classList.add(targetClass);
+  }
+}
+
+function onlyFolderModesChanged(oldSettings, newSettings) {
+  const allKeys = new Set([...Object.keys(oldSettings), ...Object.keys(newSettings)]);
+  for (const key of allKeys) {
+    if (key === "folderModes") continue;
+    const oldVal = oldSettings[key];
+    const newVal = newSettings[key];
+    if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function getFolderSort(folderId) {
@@ -613,7 +648,7 @@ function renderDashboard(items) {
     .filter(Boolean);
   
   if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
-    folders.unshift(["📌 Fijados", pinnedItems]);
+    folders.unshift([PINNED_FOLDER_KEY, pinnedItems]);
   }
   
   const count = folders.length;
@@ -631,7 +666,7 @@ function renderDashboard(items) {
   content.append(masonryWrapper);
 
   for (const [folder, items] of folders) {
-    const isPinnedFolder = folder === "📌 Fijados";
+    const isPinnedFolder = folder === PINNED_FOLDER_KEY;
     const folderId = isPinnedFolder ? "pinned" : items[0]?.parentId;
     const folderSort = isPinnedFolder ? "browser" : getFolderSort(folderId);
     const manualOrder = getFolderManualOrder(folderId);
@@ -645,8 +680,8 @@ function renderDashboard(items) {
     const headerButtons = [];
 
     if (isPinnedFolder) {
-      const toggleBtn = el("button", { class: "review-button", type: "button", title: "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuracion)" });
-      toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: middle; margin-right: 4px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>Ocultar`;
+      const toggleBtn = el("button", { class: "review-button", type: "button", title: t(api, "hidePinnedFolder") });
+      toggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: middle; margin-right: 4px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>${t(api, "hide")}`;
       toggleBtn.addEventListener("click", async () => {
         const newSettings = { ...currentSettings, showPinnedFolder: false };
         await setStoredValue(api, STORAGE_KEYS.settings, newSettings);
@@ -658,7 +693,7 @@ function renderDashboard(items) {
 
     if (currentSettings?.linkHealthEnabled && !isPinnedFolder) {
       const progressEl = el("span", { class: "review-progress" });
-      const reviewButton = el("button", { class: "review-button", type: "button", text: "Revisar" });
+      const reviewButton = el("button", { class: "review-button", type: "button", text: t(api, "review") });
       reviewButton.addEventListener("click", () => {
         reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
       });
@@ -672,7 +707,10 @@ function renderDashboard(items) {
     const mode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
 
     if (folderBrokenBookmarks.length > 0) {
-      const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: `${folderBrokenBookmarks.length} fallo(s)` });
+      const failuresText = folderBrokenBookmarks.length === 1
+        ? t(api, "failuresCountSingular", [folderBrokenBookmarks.length])
+        : t(api, "failuresCountPlural", [folderBrokenBookmarks.length]);
+      const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: failuresText });
       viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
@@ -681,7 +719,7 @@ function renderDashboard(items) {
     }
 
     const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
-    const modeBtn = el("button", { class: "review-button", type: "button", title: "Cambiar vista" });
+    const modeBtn = el("button", { class: "review-button", type: "button", title: t(api, "changeView") });
     modeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`;
     modeBtn.style.padding = "0 6px"; // Make it square-ish
     
@@ -692,16 +730,24 @@ function renderDashboard(items) {
       
       const newModes = { ...(currentSettings.folderModes || {}) };
       newModes[folderId] = nextMode;
-      currentSettings.folderModes = newModes;
+      
+      const nextSettings = {
+        ...currentSettings,
+        folderModes: newModes
+      };
+      
+      applyFolderModeClass(folderId, nextMode);
+      currentSettings = nextSettings;
       scheduleViewFocus(folderId);
       
-      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
-      render();
+      await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
     });
     
     headerButtons.push(modeBtn);
 
-    const folderDisplayName = (currentSettings.folderNameOverrides || {})[folderId] || folder;
+    const folderDisplayName = isPinnedFolder
+      ? t(api, "pinnedFolderTitle")
+      : (currentSettings.folderNameOverrides || {})[folderId] || folder;
     const h2 = el("h2", { text: folderDisplayName, title: folderDisplayName });
     
     if (!isPinnedFolder) {
@@ -798,7 +844,7 @@ function renderResults(items) {
   content.classList.add("results");
   content.innerHTML = "";
   if (items.length === 0) {
-    content.append(el("p", { class: "empty", text: "No hay resultados." }));
+    content.append(el("p", { class: "empty", text: t(api, "emptyResults") }));
     return;
   }
   for (const bookmark of items) {
@@ -819,20 +865,21 @@ function renderBrokenLinks(items, folderName = "") {
   content.classList.add("results", "review-results");
   content.innerHTML = "";
 
-  const backButton = el("button", { class: "link-action-button", type: "button", text: "Volver" });
+  const backButton = el("button", { class: "link-action-button", type: "button", text: t(api, "back") });
   backButton.addEventListener("click", () => {
     searchInput.value = "";
     render();
   });
 
   const deleteAllButton = items.length > 0
-    ? el("button", { class: "danger-button", type: "button", text: `Eliminar todos (${items.length})` })
+    ? el("button", { class: "danger-button", type: "button", text: t(api, "deleteAllCount", [items.length]) })
     : null;
 
   if (deleteAllButton) {
     deleteAllButton.addEventListener("click", async () => {
+      const folderScope = folderName || t(api, "allFolders");
       const confirmed = window.confirm(
-        `Eliminar los ${items.length} marcadores con fallos de "${folderName || "todas las carpetas"}"? Esta accion no se puede deshacer.`
+        t(api, "confirmDeleteAllFailures", [items.length, folderScope])
       );
       if (!confirmed) return;
       for (const bookmark of items) {
@@ -843,26 +890,30 @@ function renderBrokenLinks(items, folderName = "") {
     });
   }
 
+  const reviewText = items.length === 1
+    ? t(api, "bookmarksToReviewSingular", [items.length])
+    : t(api, "bookmarksToReviewPlural", [items.length]);
+
   content.append(
     el("div", { class: "results-toolbar" }, [
       el("div", {}, [
-        el("strong", { text: folderName ? `Fallos en ${folderName}` : "Enlaces con fallos" }),
-        el("p", { text: `${items.length} marcador(es) para revisar.` })
+        el("strong", { text: folderName ? t(api, "failuresIn", [folderName]) : t(api, "brokenLinksTitle") }),
+        el("p", { text: reviewText })
       ]),
       el("div", { class: "results-toolbar-actions" }, [deleteAllButton, backButton].filter(Boolean))
     ])
   );
 
   if (items.length === 0) {
-    content.append(el("p", { class: "empty", text: "No hay enlaces con fallos registrados." }));
+    content.append(el("p", { class: "empty", text: t(api, "noFailuresRegistered") }));
     return;
   }
 
   for (const bookmark of items) {
-    const removeButton = el("button", { class: "danger-button", type: "button", text: "Eliminar" });
+    const removeButton = el("button", { class: "danger-button", type: "button", text: t(api, "delete") });
     removeButton.addEventListener("click", async (event) => {
       event.preventDefault();
-      const confirmed = window.confirm(`Eliminar el marcador "${bookmark.title}"?`);
+      const confirmed = window.confirm(t(api, "confirmDeleteBookmark", [bookmark.title]));
       if (!confirmed) return;
       await api.bookmarks.remove(bookmark.id);
       bookmarks = bookmarks.filter((item) => item.id !== bookmark.id);
@@ -886,7 +937,10 @@ function renderBrokenLinks(items, folderName = "") {
 function render() {
   const query = searchInput.value;
   const results = searchBookmarks(bookmarks, query);
-  statusLine.textContent = `${bookmarks.length} marcador(es) monitoreados`;
+  const monitoredText = bookmarks.length === 1
+    ? t(api, "monitoredBookmarksCountSingular", [bookmarks.length])
+    : t(api, "monitoredBookmarksCountPlural", [bookmarks.length]);
+  statusLine.textContent = monitoredText;
   if (query.trim()) renderResults(results);
   else renderDashboard(bookmarks);
 }
@@ -894,11 +948,13 @@ function render() {
 async function init() {
   const settings = await getSettings(api);
   currentSettings = settings;
+  await initI18n(api, settings.language);
+  localizeHtml(api);
   applyTheme(settings.theme || "system");
   if (!settings.setupComplete) {
-    statusLine.textContent = "Configura tus carpetas para empezar.";
+    statusLine.textContent = t(api, "setupEmptyStateTitle");
     content.innerHTML = "";
-    content.append(el("p", { class: "empty", text: "Abre Configurar y elige una o mas carpetas." }));
+    content.append(el("p", { class: "empty", text: t(api, "setupEmptyStateDescription") }));
     return;
   }
   [bookmarks, capturedPreviews, pinnedBookmarks] = await Promise.all([
@@ -955,7 +1011,7 @@ function showEditModal(bookmark) {
   };
   
   const onDelete = async () => {
-    if (confirm(`¿Eliminar el marcador "${bookmark.title}"? Esta accion no se puede deshacer.`)) {
+    if (confirm(t(api, "confirmDeleteBookmarkPermanent", [bookmark.title]))) {
       await api.bookmarks.remove(bookmark.id);
       bookmarks = bookmarks.filter(b => b.id !== bookmark.id);
       editModal.close();
@@ -1018,7 +1074,7 @@ function showEditModal(bookmark) {
       cleanup();
       render();
     } catch (error) {
-      statusLine.textContent = `No se pudo guardar el marcador: ${error.message}`;
+      statusLine.textContent = t(api, "saveBookmarkError", [error.message]);
       editSave.disabled = false;
     }
   };
@@ -1034,10 +1090,28 @@ if (api.storage && api.storage.onChanged) {
   api.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local") {
       if (changes[STORAGE_KEYS.settings]) {
+        const oldSettings = changes[STORAGE_KEYS.settings].oldValue || {};
         const newSettings = changes[STORAGE_KEYS.settings].newValue || {};
-        currentSettings = { ...(currentSettings || {}), ...newSettings };
-        applyTheme(newSettings.theme || "system");
-        render();
+        if (onlyFolderModesChanged(oldSettings, newSettings)) {
+          const defaultMode = newSettings.defaultFolderMode || "list";
+          const folderIds = new Set([
+            ...Object.keys(oldSettings.folderModes || {}),
+            ...Object.keys(newSettings.folderModes || {})
+          ]);
+          for (const folderId of folderIds) {
+            const oldMode = oldSettings.folderModes?.[folderId] || defaultMode;
+            const newMode = newSettings.folderModes?.[folderId] || defaultMode;
+            if (oldMode !== newMode) {
+              applyFolderModeClass(folderId, newMode);
+            }
+          }
+          currentSettings = { ...(currentSettings || {}), ...newSettings };
+          applyTheme(newSettings.theme || "system");
+        } else {
+          currentSettings = { ...(currentSettings || {}), ...newSettings };
+          applyTheme(newSettings.theme || "system");
+          render();
+        }
       }
       if (changes[STORAGE_KEYS.bookmarkIndex]) {
         bookmarks = changes[STORAGE_KEYS.bookmarkIndex].newValue || [];
@@ -1056,5 +1130,5 @@ if (api.storage && api.storage.onChanged) {
 }
 
 init().catch((error) => {
-  statusLine.textContent = `No se pudieron cargar los marcadores: ${error.message}`;
+  statusLine.textContent = t(api, "loadBookmarksError", [error.message]);
 });

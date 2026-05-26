@@ -5,12 +5,12 @@ import { readFile } from "node:fs/promises";
 test("setup page loads setup assets and required controls", async () => {
   const html = await readFile("src/setup/setup.html", "utf8");
 
-  assert.match(html, /<html lang="es">/);
+  assert.match(html, /<html/);
   assert.match(html, /<link rel="stylesheet" href="\.\/setup\.css">/);
   assert.match(html, /class="setup-sidebar"/);
   assert.match(html, /id="settings-search"/);
   assert.match(html, /type="search"/);
-  assert.match(html, /placeholder="Buscar ajustes\.\.\."/);
+  assert.match(html, /data-i18n-placeholder="searchSettingsPlaceholder"/);
   assert.match(html, /data-section="folders"/);
   assert.match(html, /data-section="appearance"/);
   assert.match(html, /data-section="privacy"/);
@@ -32,10 +32,11 @@ test("setup page loads setup assets and required controls", async () => {
   assert.match(html, /<input id="link-health" type="checkbox">/);
   assert.match(html, /<input id="preview-capture" type="checkbox">/);
   assert.match(html, /id="default-sort-select"/);
-  assert.match(html, /value="manual">Manual/);
+  assert.match(html, /value="manual"/);
   assert.match(html, /id="reset-local-organization"/);
   assert.match(html, /id="clear-preview-cache"/);
-  assert.match(html, /<button id="save" type="button">Guardar cambios<\/button>/);
+  assert.match(html, /id="language-select"/);
+  assert.match(html, /id="save"/);
   assert.match(html, /<script type="module" src="\.\/setup\.js"><\/script>/);
 });
 
@@ -44,7 +45,7 @@ test("setup styles include the setup shell and folder list layout", async () => 
 
   assert.match(css, /\.setup-shell\s*{/);
   assert.match(css, /--surface-bg:\s*rgba\(255, 255, 255, 0\.29\);/);
-  assert.match(css, /--surface-bg:\s*rgba\(30, 41, 59, 0\.36\);/);
+  assert.match(css, /--surface-bg:\s*rgba\(24, 30, 40, 0\.72\);/);
   assert.match(css, /place-items: start center;/);
   assert.match(css, /padding: 50px 24px 24px;/);
   assert.match(css, /\.setup-panel\s*{/);
@@ -98,6 +99,7 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);
   assert.match(js, /previewEnabled: previewEnabled\.checked/);
   assert.match(js, /previewCaptureEnabled: previewCaptureEnabled/);
+  assert.match(js, /language:\s*languageSelect\.value/);
   assert.match(js, /defaultFolderSort:\s*defaultSortSelect\.value/);
   assert.match(js, /folderSorts/);
   assert.match(js, /\.folder-sort-select/);
@@ -107,7 +109,7 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /folderBookmarkOrders:\s*\{\}/);
   assert.match(js, /STORAGE_KEYS\.capturedPreviews/);
   assert.match(js, /setupComplete: true/);
-  assert.match(js, /No se pudo guardar la configuracion:/);
-  assert.match(js, /No se pudo activar la revision de enlaces/);
-  assert.match(js, /No se pudo activar la captura de previews/);
+  assert.match(js, /saveError/);
+  assert.match(js, /saveErrorNoPermissionsHealth/);
+  assert.match(js, /saveErrorNoPermissionsCapture/);
 });

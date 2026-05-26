@@ -11,9 +11,12 @@
     "test:e2e:update-screenshots": "npx playwright test --update-snapshots",
     "build": "node scripts/build.mjs",
     "build:chrome": "node scripts/build.mjs chrome",
-    "build:firefox": "node scripts/build.mjs firefox"
+    "build:firefox": "node scripts/build.mjs firefox",
+    "package": "node scripts/package.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0"
+    "@playwright/test": "^1.60.0",
+    "playwright-webextext": "^0.0.5",
+    "tslib": "^2.8.1"
   }
 }

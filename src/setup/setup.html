@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Configurar martabs</title>
+    <title data-i18n="setupTitle">Configurar martabs</title>
     <link rel="stylesheet" href="./setup.css">
   </head>
   <body>
@@ -12,181 +12,200 @@
         <header class="setup-header">
           <div>
             <p class="eyebrow">martabs</p>
-            <h1>Configuracion</h1>
+            <h1 data-i18n="setupHeaderTitle">Configuracion</h1>
           </div>
           <label class="setup-search" for="settings-search">
-            <span class="sr-only">Buscar ajustes</span>
-            <input id="settings-search" type="search" autocomplete="off" placeholder="Buscar ajustes...">
+            <span class="sr-only" data-i18n="searchSettingsPlaceholder">Buscar ajustes</span>
+            <input id="settings-search" type="search" autocomplete="off" data-i18n-placeholder="searchSettingsPlaceholder" placeholder="Buscar ajustes...">
           </label>
           <div class="actions">
             <p id="status" role="status"></p>
-            <button id="save" type="button">Guardar cambios</button>
+            <button id="save" type="button" data-i18n="saveChanges">Guardar cambios</button>
           </div>
         </header>
 
         <div class="setup-layout">
           <nav class="setup-sidebar" aria-label="Secciones de configuracion">
-            <button class="setup-nav-button is-active" type="button" data-section="folders">Carpetas</button>
-            <button class="setup-nav-button" type="button" data-section="appearance">Apariencia</button>
-            <button class="setup-nav-button" type="button" data-section="privacy">Privacidad</button>
-            <button class="setup-nav-button" type="button" data-section="tags">Etiquetas</button>
-            <button class="setup-nav-button" type="button" data-section="advanced">Avanzado</button>
+            <button class="setup-nav-button is-active" type="button" data-section="folders" data-i18n="foldersSection">Carpetas</button>
+            <button class="setup-nav-button" type="button" data-section="appearance" data-i18n="appearanceSection">Apariencia</button>
+            <button class="setup-nav-button" type="button" data-section="privacy" data-i18n="privacySection">Privacidad</button>
+            <button class="setup-nav-button" type="button" data-section="tags" data-i18n="tagsSection">Etiquetas</button>
+            <button class="setup-nav-button" type="button" data-section="advanced" data-i18n="advancedSection">Avanzado</button>
           </nav>
 
           <div class="setup-content">
-            <section id="section-folders" class="setup-section is-active" data-section="folders" data-search="carpetas seleccionar monitorear vista orden manual predeterminado">
+            <section id="section-folders" class="setup-section is-active" data-section="folders" data-i18n-search="searchFolders" data-search="carpetas seleccionar monitorear vista orden manual predeterminado">
               <div class="section-heading" style="display: flex; justify-content: space-between; align-items: flex-end;">
                 <div>
-                  <h2>Carpetas</h2>
-                  <p>Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
+                  <h2 data-i18n="foldersHeading">Carpetas</h2>
+                  <p data-i18n="foldersDescription">Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
                 </div>
-                <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;">Marcar / desmarcar todas</button>
+                <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
               </div>
               <div class="folder-list-header" aria-hidden="true">
-                <span>Carpeta</span>
-                <span>Vista</span>
-                <span>Orden</span>
+                <span data-i18n="folderTableHeaderFolder">Carpeta</span>
+                <span data-i18n="folderTableHeaderView">Vista</span>
+                <span data-i18n="folderTableHeaderSort">Orden</span>
               </div>
               <div id="folder-list" class="folder-list" aria-live="polite"></div>
             </section>
 
-            <section id="section-appearance" class="setup-section" data-section="appearance" data-search="apariencia tema modo vista orden fijados preview vista rapida">
+            <section id="section-appearance" class="setup-section" data-section="appearance" data-i18n-search="searchAppearance" data-search="apariencia tema modo vista orden fijados preview vista rapida">
               <div class="section-heading">
-                <h2>Apariencia</h2>
-                <p>Preferencias visuales generales del tablero.</p>
+                <h2 data-i18n="appearanceHeading">Apariencia</h2>
+                <p data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</p>
               </div>
               <div class="settings-stack">
-                <label class="setting-row" data-search="modo visual defecto lista compacta iconos quicklinks">
+                <label class="setting-row" data-i18n-search="searchModeRow" data-search="modo visual defecto lista compacta iconos quicklinks">
                   <span>
-                    <strong>Modo visual por defecto</strong>
-                    <small>Se usa cuando una carpeta no tiene modo propio.</small>
+                    <strong data-i18n="defaultMode">Modo visual por defecto</strong>
+                    <small data-i18n="defaultModeDesc">Se usa cuando una carpeta no tiene modo propio.</small>
                   </span>
                   <select id="default-mode-select">
-                    <option value="list">Lista completa (Dominio y tags)</option>
-                    <option value="compact">Lista compacta</option>
-                    <option value="icons">Grilla de iconos</option>
-                    <option value="icons-large">Grilla de iconos (grande)</option>
-                    <option value="quicklinks">Quicklinks</option>
+                    <option value="list" data-i18n="modeList">Lista completa (Dominio y tags)</option>
+                    <option value="compact" data-i18n="modeCompact">Lista compacta</option>
+                    <option value="icons" data-i18n="modeIcons">Grilla de iconos</option>
+                    <option value="icons-large" data-i18n="modeIconsLarge">Grilla de iconos (grande)</option>
+                    <option value="quicklinks" data-i18n="modeQuicklinks">Quicklinks</option>
                   </select>
                 </label>
 
-                <label class="setting-row" data-search="orden defecto original manual titulo fecha dominio fallidos">
+                <label class="setting-row" data-i18n-search="searchSortRow" data-search="orden defecto original manual titulo fecha dominio fallidos">
                   <span>
-                    <strong>Orden por defecto</strong>
-                    <small>Se aplica a carpetas sin orden personalizado.</small>
+                    <strong data-i18n="defaultSort">Orden por defecto</strong>
+                    <small data-i18n="defaultSortDesc">Se aplica a carpetas sin orden personalizado.</small>
                   </span>
                   <select id="default-sort-select">
-                    <option value="browser">Orden original</option>
-                    <option value="manual">Manual</option>
-                    <option value="title-asc">Titulo A-Z</option>
-                    <option value="date-newest">Mas nuevos primero</option>
-                    <option value="domain-asc">Dominio A-Z</option>
-                    <option value="health-broken-first">Fallidos primero</option>
+                    <option value="browser" data-i18n="sortBrowser">Orden original</option>
+                    <option value="manual" data-i18n="sortManual">Manual</option>
+                    <option value="title-asc" data-i18n="sortTitleAsc">Titulo A-Z</option>
+                    <option value="date-newest" data-i18n="sortDateNewest">Mas nuevos primero</option>
+                    <option value="domain-asc" data-i18n="sortDomainAsc">Dominio A-Z</option>
+                    <option value="health-broken-first" data-i18n="sortHealthBrokenFirst">Fallidos primero</option>
                   </select>
                 </label>
 
-                <label class="setting-row" data-search="tema color sistema claro oscuro">
+                <label class="setting-row" data-i18n-search="searchThemeRow" data-search="tema color sistema claro oscuro">
                   <span>
-                    <strong>Tema</strong>
-                    <small>Respeta el sistema o fuerza claro/oscuro.</small>
+                    <strong data-i18n="theme">Tema</strong>
+                    <small data-i18n="themeDesc">Respeta el sistema o fuerza claro/oscuro.</small>
                   </span>
                   <select id="theme-select">
-                    <option value="system">Sistema (Automatico)</option>
-                    <option value="light">Claro</option>
-                    <option value="dark">Oscuro</option>
+                    <option value="system" data-i18n="themeSystem">Sistema (Automatico)</option>
+                    <option value="light" data-i18n="themeLight">Claro</option>
+                    <option value="dark" data-i18n="themeDark">Oscuro</option>
                   </select>
                 </label>
 
-                <label class="switch-row" data-search="fijados favoritos carpeta virtual destacados">
+                <label class="setting-row" data-i18n-search="searchLanguageRow" data-search="idioma lenguaje ingles espanol system sistema">
+                  <span>
+                    <strong data-i18n="language">Idioma</strong>
+                    <small data-i18n="languageDesc">Elige el idioma de la interfaz.</small>
+                  </span>
+                  <select id="language-select">
+                    <option value="system" data-i18n="languageSystem">Sistema (Predeterminado)</option>
+                    <option value="es" data-i18n="languageEs">Español</option>
+                    <option value="en" data-i18n="languageEn">Inglés</option>
+                    <option value="pt" data-i18n="languagePt">Portugués</option>
+                    <option value="de" data-i18n="languageDe">Alemán</option>
+                    <option value="fr" data-i18n="languageFr">Francés</option>
+                    <option value="zh_CN" data-i18n="languageZh">Chino simplificado</option>
+                    <option value="ja" data-i18n="languageJa">Japonés</option>
+                    <option value="it" data-i18n="languageIt">Italiano</option>
+                    <option value="ko" data-i18n="languageKo">Coreano</option>
+                  </select>
+                </label>
+
+                <label class="switch-row" data-i18n-search="searchPinnedRow" data-search="fijados favoritos carpeta virtual destacados">
                   <input id="show-pinned-folder" type="checkbox" checked>
                   <span>
-                    <strong>Mostrar carpeta virtual de fijados</strong>
-                    <small>La carpeta superior agrupa los marcadores fijados.</small>
+                    <strong data-i18n="showPinnedFolder">Mostrar carpeta virtual de fijados</strong>
+                    <small data-i18n="showPinnedFolderDesc">La carpeta superior agrupa los marcadores fijados.</small>
                   </span>
                 </label>
 
-                <label class="switch-row" data-search="vista rapida preview tooltip detalle mouse">
+                <label class="switch-row" data-i18n-search="searchPreviewRow" data-search="vista rapida preview tooltip detalle mouse">
                   <input id="preview-enabled" type="checkbox" checked>
                   <span>
-                    <strong>Mostrar vista rapida</strong>
-                    <small>Abre el panel de detalle al pasar el mouse.</small>
+                    <strong data-i18n="showPreview">Mostrar vista rapida</strong>
+                    <small data-i18n="showPreviewDesc">Abre el panel de detalle al pasar el mouse.</small>
                   </span>
                 </label>
               </div>
             </section>
 
-            <section id="section-privacy" class="setup-section" data-section="privacy" data-search="privacidad permisos enlaces capturas red">
+            <section id="section-privacy" class="setup-section" data-section="privacy" data-i18n-search="searchPrivacySection" data-search="privacidad permisos enlaces capturas red">
               <div class="section-heading">
-                <h2>Privacidad</h2>
-                <p>Funciones que pueden pedir permisos opcionales del navegador.</p>
+                <h2 data-i18n="privacyHeading">Privacidad</h2>
+                <p data-i18n="privacyDescription">Funciones que pueden pedir permisos opcionales del navegador.</p>
               </div>
               <div class="settings-stack">
-                <label class="switch-row" data-search="revision enlaces caidos fallos permisos red">
+                <label class="switch-row" data-i18n-search="searchLinkHealthRow" data-search="revision enlaces caidos fallos permisos red">
                   <input id="link-health" type="checkbox">
                   <span>
-                    <strong>Revision de enlaces</strong>
-                    <small>Agrega el boton Revisar en cada carpeta y pide permisos de red.</small>
+                    <strong data-i18n="linkHealth">Revision de enlaces</strong>
+                    <small data-i18n="linkHealthDesc">Agrega el boton Revisar en cada carpeta y pide permisos de red.</small>
                   </span>
                 </label>
 
-                <label class="switch-row" data-search="capturar previews locales imagen captura permisos">
+                <label class="switch-row" data-i18n-search="searchPreviewCaptureRow" data-search="capturar previews locales imagen captura permisos">
                   <input id="preview-capture" type="checkbox">
                   <span>
-                    <strong>Capturar previews locales</strong>
-                    <small>Solo para marcadores abiertos desde martabs.</small>
+                    <strong data-i18n="previewCapture">Capturar previews locales</strong>
+                    <small data-i18n="previewCaptureDesc">Solo para marcadores abiertos desde martabs.</small>
                   </span>
                 </label>
               </div>
             </section>
 
-            <section id="section-tags" class="setup-section" data-section="tags" data-search="etiquetas tags automaticas manuales">
+            <section id="section-tags" class="setup-section" data-section="tags" data-i18n-search="searchTagsSection" data-search="etiquetas tags automaticas manuales">
               <div class="section-heading">
-                <h2>Etiquetas</h2>
-                <p>Controla como martabs genera y muestra tags.</p>
+                <h2 data-i18n="tagsHeading">Etiquetas</h2>
+                <p data-i18n="tagsDescription">Controla como martabs genera y muestra tags.</p>
               </div>
               <div class="settings-stack">
-                <label class="switch-row" data-search="etiquetas automaticas tags dominio carpeta">
+                <label class="switch-row" data-i18n-search="searchAutoTagsRow" data-search="etiquetas automaticas tags dominio carpeta">
                   <input id="automatic-tags" type="checkbox" checked>
                   <span>
-                    <strong>Etiquetas automaticas</strong>
-                    <small>Se derivan de carpetas, dominio y datos del marcador.</small>
+                    <strong data-i18n="automaticTags">Etiquetas automaticas</strong>
+                    <small data-i18n="automaticTagsDesc">Se derivan de carpetas, dominio y datos del marcador.</small>
                   </span>
                 </label>
 
-                <label class="switch-row" data-search="etiquetas manuales tags editar marcador">
+                <label class="switch-row" data-i18n-search="searchManualTagsRow" data-search="etiquetas manuales tags editar marcador">
                   <input id="manual-tags" type="checkbox" checked>
                   <span>
-                    <strong>Etiquetas manuales</strong>
-                    <small>Permite editar tags desde la UI de cada marcador.</small>
+                    <strong data-i18n="manualTags">Etiquetas manuales</strong>
+                    <small data-i18n="manualTagsDesc">Permite editar tags desde la UI de cada marcador.</small>
                   </span>
                 </label>
               </div>
             </section>
 
-            <section id="section-advanced" class="setup-section" data-section="advanced" data-search="avanzado limpiar restablecer reset previews cache organizacion">
+            <section id="section-advanced" class="setup-section" data-section="advanced" data-i18n-search="searchAdvancedSection" data-search="avanzado limpiar restablecer reset previews cache organizacion">
               <div class="section-heading">
-                <h2>Avanzado</h2>
-                <p>Acciones poco frecuentes para limpiar estado local.</p>
+                <h2 data-i18n="advancedHeading">Avanzado</h2>
+                <p data-i18n="advancedDescription">Acciones poco frecuentes para limpiar estado local.</p>
               </div>
               <div class="advanced-actions">
-                <button id="reset-local-organization" class="secondary-button advanced-action" type="button" data-search="restablecer reset organizacion local movimientos ordenes manuales">
+                <button id="reset-local-organization" class="secondary-button advanced-action" type="button" data-i18n-search="searchResetLocalOrgBtn" data-i18n="resetLocalOrg">
                   Restablecer organizacion local
                 </button>
-                <button id="clear-preview-cache" class="secondary-button advanced-action" type="button" data-search="limpiar previews cache capturas imagenes">
+                <button id="clear-preview-cache" class="secondary-button advanced-action" type="button" data-i18n-search="searchClearPreviewsBtn" data-i18n="clearPreviewCache">
                   Limpiar previews cacheadas
                 </button>
-                <button id="export-config" class="secondary-button advanced-action" type="button" data-search="exportar configuracion backup descargar json">
+                <button id="export-config" class="secondary-button advanced-action" type="button" data-i18n-search="searchExportBtn" data-i18n="exportConfig">
                   Exportar configuracion
                 </button>
-                <button id="import-config" class="secondary-button advanced-action" type="button" data-search="importar configuracion restaurar backup json">
+                <button id="import-config" class="secondary-button advanced-action" type="button" data-i18n-search="searchImportBtn" data-i18n="importConfig">
                   Importar configuracion
                 </button>
                 <input type="file" id="import-config-file" accept=".json" style="display: none;">
                 <div id="import-summary-container" style="display: none; width: 100%; margin-top: 15px; padding: 12px; border: 1px solid var(--primary); border-radius: var(--radius-sm); background: var(--primary-soft);">
                   <p id="import-summary-text" style="margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary);"></p>
                   <div style="display: flex; gap: 8px;">
-                    <button id="import-confirm-btn" type="button" class="primary-button" style="height: 32px; font-size: 12px; padding: 0 12px;">Confirmar y aplicar</button>
-                    <button id="import-cancel-btn" type="button" class="secondary-button" style="height: 32px; font-size: 12px; padding: 0 12px;">Cancelar</button>
+                    <button id="import-confirm-btn" type="button" class="primary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="confirmAndApply">Confirmar y aplicar</button>
+                    <button id="import-cancel-btn" type="button" class="secondary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="cancelImport">Cancelar</button>
                   </div>
                 </div>
               </div>

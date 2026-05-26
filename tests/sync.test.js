@@ -6,7 +6,8 @@ test("generateExportData creates correct refs map", () => {
   const settings = {
     selectedFolderIds: ["f1"],
     folderNameOverrides: { "f1": "My Folder" },
-    bookmarkFolderOverrides: { "b1": "f2" }
+    bookmarkFolderOverrides: { "b1": "f2" },
+    customFavicons: { "b3": "https://icons.example/icon.png" }
   };
   const manualTags = { "b1": ["tag1"] };
   const pinnedBookmarks = ["b2"];
@@ -14,7 +15,8 @@ test("generateExportData creates correct refs map", () => {
   // bookmarkIndex is an array of bookmark objects (no folders)
   const bookmarkIndex = [
     { id: "b1", url: "https://b1.com" },
-    { id: "b2", url: "https://b2.com" }
+    { id: "b2", url: "https://b2.com" },
+    { id: "b3", url: "https://b3.com" }
   ];
 
   // folderOptions is the list from getFolderOptions
@@ -26,10 +28,50 @@ test("generateExportData creates correct refs map", () => {
   const exported = generateExportData(settings, manualTags, pinnedBookmarks, bookmarkIndex, folderOptions);
 
   assert.strictEqual(exported.version, 1);
+  assert.ok(exported.exportedAt);
+  assert.doesNotThrow(() => new Date(exported.exportedAt));
   assert.strictEqual(exported.refs.folders["f1"], "Folder 1");
   assert.strictEqual(exported.refs.folders["f2"], "Folder 2");
   assert.strictEqual(exported.refs.bookmarks["b1"], "https://b1.com");
   assert.strictEqual(exported.refs.bookmarks["b2"], "https://b2.com");
+  assert.strictEqual(exported.refs.bookmarks["b3"], "https://b3.com");
+  
+  // Excluye propiedades derivadas o ruidosas explicitamente
+  assert.strictEqual(exported.bookmarkIndex, undefined);
+  assert.strictEqual(exported.linkHealth, undefined);
+  assert.strictEqual(exported.capturedPreviews, undefined);
+  assert.strictEqual(exported.pendingPreviewCaptures, undefined);
+});
+
+test("parseAndRemapImport remaps custom favicon bookmark ids", () => {
+  const exportedJson = {
+    version: 1,
+    settings: {
+      customFavicons: {
+        "old-b1": "https://icons.example/icon.png",
+        "old-missing": "https://icons.example/missing.png"
+      }
+    },
+    refs: {
+      bookmarks: {
+        "old-b1": "https://b1.com",
+        "old-missing": "https://missing.com"
+      },
+      folders: {}
+    }
+  };
+
+  const currentBookmarkIndex = [
+    { id: "new-b1", url: "https://b1.com" }
+  ];
+
+  const result = parseAndRemapImport(exportedJson, currentBookmarkIndex, []);
+
+  assert.deepStrictEqual(result.settings.customFavicons, {
+    "new-b1": "https://icons.example/icon.png"
+  });
+  assert.strictEqual(result.settings.customFavicons["old-b1"], undefined);
+  assert.strictEqual(result.stats.unmappedItems, 1);
 });
 
 test("parseAndRemapImport ignores unmapped items and remaps correctly", () => {
@@ -91,6 +133,16 @@ test("parseAndRemapImport throws on invalid version", () => {
   assert.throws(() => {
     parseAndRemapImport({ version: 2 }, [], []);
   }, /soportada/);
+});
+
+test("parseAndRemapImport throws on invalid json structure (null/string)", () => {
+  assert.throws(() => {
+    parseAndRemapImport(null, [], []);
+  });
+  
+  assert.throws(() => {
+    parseAndRemapImport("just a string", [], []);
+  });
 });
 
 test("parseAndRemapImport allows only safe settings", () => {

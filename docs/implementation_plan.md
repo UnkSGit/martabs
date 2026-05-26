@@ -8,6 +8,8 @@ Este documento resume como esta armado martabs hoy. Las ideas futuras viven en `
 - `src/manifest.chrome.json`: permisos extra de Chrome, hoy solo `favicon`.
 - `src/manifest.firefox.json`: configuracion especifica de Firefox.
 - `src/background/service-worker.js`: reindexado, capturas locales pendientes y escucha de cambios.
+- `src/shared/i18n-helper.js`: helpers de traduccion (`localizeHtml`, `t`, `initI18n`).
+- `src/_locales/*/messages.json`: traducciones (es, en, pt, de, fr, it, ko, zh_CN, ja).
 - `src/newtab/*`: tablero de Nueva pestana.
 - `src/setup/*`: Configuracion.
 - `src/shared/*`: helpers compartidos.
@@ -50,7 +52,9 @@ Otras claves:
 El service worker reconstruye `bookmarkIndex` cuando:
 
 - cambian marcadores;
-- cambia la configuracion.
+- cambian settings que afectan la estructura del indice (`selectedFolderIds`, `setupComplete`, `bookmarkFolderOverrides`).
+
+Cambios visuales o locales (`folderModes`, `folderSorts`, `theme`, `language`, etc.) no disparan reconstruccion.
 
 `buildBookmarkIndex()` filtra por carpetas seleccionadas y aplica `bookmarkFolderOverrides` para movimientos locales. Luego mezcla etiquetas automaticas, etiquetas manuales y estado de salud.
 
@@ -153,4 +157,4 @@ Criterios:
 
 ## Pendiente tecnico principal
 
-Multilenguaje con `_locales` y `messages.json`.
+Limpieza, README publico y preparacion para stores. Ver `docs/task.md` para el estado actual.

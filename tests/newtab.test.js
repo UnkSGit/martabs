@@ -5,7 +5,7 @@ import { readFile } from "node:fs/promises";
 test("newtab page loads required HTML structures and selectors", async () => {
   const html = await readFile("src/newtab/newtab.html", "utf8");
 
-  assert.match(html, /<html lang="es">/);
+  assert.match(html, /<html/);
   assert.match(html, /<link rel="stylesheet" href="\.\/newtab\.css">/);
   assert.match(html, /id="status-line"/);
   assert.match(html, /id="settings"/);
@@ -25,7 +25,7 @@ test("newtab stylesheet contains modern layout definitions", async () => {
 
   assert.match(css, /\.app-shell\s*{/);
   assert.match(css, /--surface-bg:\s*rgba\(255, 255, 255, 0\.225\);/);
-  assert.match(css, /--surface-bg:\s*rgba\(30, 41, 59, 0\.225\);/);
+  assert.match(css, /--surface-bg:\s*rgba\(24, 30, 40, 0\.72\);/);
   assert.match(css, /\.topbar\s*{/);
   assert.match(css, /\.search-wrap\s*{/);
   assert.match(css, /\.content\s*{/);
@@ -64,6 +64,7 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.preview-capture-img\s*{/);
   assert.doesNotMatch(css, /\.review-links/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
+  assert.doesNotMatch(css, /Ã|Â/);
 });
 
 test("newtab controller imports correct shared modules", async () => {
@@ -86,7 +87,7 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /function focusPendingViewFolder/);
   assert.match(js, /function getFolderSort/);
   assert.match(js, /const pinnedItems = pinnedBookmarks\s*\.map/);
-  assert.match(js, /const isPinnedFolder = folder === "📌 Fijados"/);
+  assert.match(js, /const isPinnedFolder = folder ===/);
   assert.match(js, /const folderSort = isPinnedFolder \? "browser" : getFolderSort\(folderId\)/);
   assert.match(js, /currentSettings\?\.folderBookmarkOrders/);
   assert.match(js, /sortBookmarks\(items, folderSort, pinnedBookmarks, manualOrder\)/);
@@ -101,9 +102,11 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /data-folder-id/);
   assert.match(js, /async function checkUrl/);
   assert.match(js, /async function reviewFolderHealth/);
-  assert.match(js, /text:\s*"Volver"/);
+  assert.match(js, /textContent = t\(api, "reviewing"\)/);
+  assert.match(js, /text:\s*t\(api,\s*"back"\)/);
+  assert.match(js, /text:\s*t\(api,\s*"delete"\)/);
   assert.match(js, /class:\s*"link-action-button"/);
-  assert.match(js, /No comprobado/);
+  assert.match(js, /healthUnchecked/);
   assert.match(js, /if \(!bookmark\.linkHealth\?\.lastCheckedAt\)/);
   assert.match(js, /const healthDetails = !health/);
   assert.match(js, /function isFirefoxRuntime/);
@@ -125,11 +128,31 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /contentNode\.onload = null/);
   assert.match(js, /brokenCustomFavicons/);
   assert.match(js, /const faviconWasBroken/);
-  assert.match(js, /No se pudo guardar/);
+  assert.match(js, /saveBookmarkError/);
   assert.doesNotMatch(js, /function renderReviewLinks/);
+  assert.doesNotMatch(js, /"Revisando\.\.\."/);
+  assert.doesNotMatch(js, /text:\s*"Eliminar"/);
+  assert.doesNotMatch(js, /"Sin carpeta"/);
+  assert.doesNotMatch(js, /ðŸ/);
   assert.doesNotMatch(js, /runManualLinkCheck/);
   assert.doesNotMatch(js, /CHECK_LINK_HEALTH_NOW/);
   assert.doesNotMatch(js, /image\.thum\.io/);
   assert.doesNotMatch(js, /icons\.duckduckgo/);
   assert.doesNotMatch(js, /Ã|Â/);
 });
+
+test("newtab folder mode change updates DOM in-place without full redraw", async () => {
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+
+  assert.match(js, /function applyFolderModeClass/);
+  assert.match(js, /function onlyFolderModesChanged/);
+
+  const modeBtnIndex = js.indexOf("modeBtn.addEventListener");
+  assert.ok(modeBtnIndex !== -1, "modeBtn click listener should be registered");
+
+  const clickHandlerBlock = js.substring(modeBtnIndex, modeBtnIndex + 700);
+  assert.doesNotMatch(clickHandlerBlock, /\brender\(\)/, "modeBtn click handler should not trigger render()");
+  assert.match(clickHandlerBlock, /applyFolderModeClass/, "modeBtn click handler should apply folder mode class in-place");
+  assert.match(clickHandlerBlock, /setStoredValue/, "modeBtn click handler should save settings");
+});
+

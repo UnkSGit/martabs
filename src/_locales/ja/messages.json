@@ -1,0 +1,642 @@
+{
+  "extensionName": {
+    "message": "martabs"
+  },
+  "extensionDescription": {
+    "message": "新規タブでブックマークフォルダを整理・監視するための、美しく高速でプライバシーを重視したダッシュボード。"
+  },
+  "newtabTitle": {
+    "message": "ホーム - martabs"
+  },
+  "loadingBookmarks": {
+    "message": "ブックマークを読み込み中..."
+  },
+  "settingsBtn": {
+    "message": "設定"
+  },
+  "settingsBtnTitle": {
+    "message": "ブックマークと設定を構成"
+  },
+  "searchPlaceholder": {
+    "message": "タイトル、タグ、URL、フォルダを検索..."
+  },
+  "editModalTitle": {
+    "message": "ブックマークの編集"
+  },
+  "editFieldName": {
+    "message": "名前"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editFieldTags": {
+    "message": "タグ（カンマ区切り）"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "例：仕事, ドキュメント, js"
+  },
+  "editFieldFavicon": {
+    "message": "カスタムアイコン (画像URL)"
+  },
+  "editFaviconError": {
+    "message": "現在の画像を読み込めませんでした。"
+  },
+  "delete": {
+    "message": "削除"
+  },
+  "cancel": {
+    "message": "キャンセル"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "emptyResults": {
+    "message": "結果が見つかりません。"
+  },
+  "hide": {
+    "message": "非表示"
+  },
+  "hidePinnedFolder": {
+    "message": "固定フォルダを非表示にする（設定から再表示できます）"
+  },
+  "review": {
+    "message": "検査"
+  },
+  "reviewing": {
+    "message": "検査中..."
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ 件のエラー",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ 件のエラー",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "changeView": {
+    "message": "ビューの変更"
+  },
+  "pinnedFolderTitle": {
+    "message": "固定済み"
+  },
+  "back": {
+    "message": "戻る"
+  },
+  "deleteAllCount": {
+    "message": "すべて削除 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteAllFailures": {
+    "message": "「$FOLDER$」からすべての $COUNT$ 件のエラーブックマークを削除しますか？この操作は取り消せません。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "allFolders": {
+    "message": "すべてのフォルダ"
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ 件のブックマークを検査する必要があります。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ 件のブックマークを検査する必要があります。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "noFailuresRegistered": {
+    "message": "エラーリンクは登録されていません。"
+  },
+  "confirmDeleteBookmark": {
+    "message": "ブックマーク「$TITLE$」を削除しますか？",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "ブックマーク「$TITLE$」を削除しますか？この操作は取り消せません。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ 件のブックマークを監視中",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ 件のブックマークを監視中",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "setupEmptyStateTitle": {
+    "message": "開始するにはフォルダを設定してください。"
+  },
+  "setupEmptyStateDescription": {
+    "message": "設定を開き、1つ以上のフォルダを選択してください。"
+  },
+  "domainNone": {
+    "message": "ドメインなし"
+  },
+  "noFolder": {
+    "message": "フォルダなし"
+  },
+  "dateAdded": {
+    "message": "追加日: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthUnchecked": {
+    "message": "未検査"
+  },
+  "healthBroken": {
+    "message": "アクセス不可 (コード: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "アクセス可能"
+  },
+  "previewLabelLocal": {
+    "message": "ローカルキャプチャ"
+  },
+  "previewLabelQuick": {
+    "message": "ローカルクイックプレビュー"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "このリンクは最後の検査で正常に返答しませんでした。"
+  },
+  "bookmarkEditBtn": {
+    "message": "ブックマークを編集"
+  },
+  "bookmarkPinBtn": {
+    "message": "ブックマークを固定"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "ブックマークの固定を解除"
+  },
+  "setupTitle": {
+    "message": "martabs の設定"
+  },
+  "setupHeaderTitle": {
+    "message": "設定"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "設定を検索..."
+  },
+  "saveChanges": {
+    "message": "変更を保存"
+  },
+  "foldersSection": {
+    "message": "フォルダ"
+  },
+  "appearanceSection": {
+    "message": "外観"
+  },
+  "privacySection": {
+    "message": "プライバシー"
+  },
+  "tagsSection": {
+    "message": "タグ"
+  },
+  "advancedSection": {
+    "message": "高度な設定"
+  },
+  "foldersHeading": {
+    "message": "フォルダ"
+  },
+  "foldersDescription": {
+    "message": "フォルダを選択、並べ替え、フォルダごとの表示やソート順を調整します。"
+  },
+  "toggleAllFolders": {
+    "message": "すべて選択 / 解除"
+  },
+  "folderTableHeaderFolder": {
+    "message": "フォルダ"
+  },
+  "folderTableHeaderView": {
+    "message": "表示"
+  },
+  "folderTableHeaderSort": {
+    "message": "ソート"
+  },
+  "appearanceHeading": {
+    "message": "外観"
+  },
+  "appearanceDescription": {
+    "message": "ダッシュボードの全体的な表示設定。"
+  },
+  "defaultMode": {
+    "message": "デフォルトの表示モード"
+  },
+  "defaultModeDesc": {
+    "message": "フォルダに固有のモードが設定されていない場合に使用されます。"
+  },
+  "defaultSort": {
+    "message": "デフォルトのソート順"
+  },
+  "defaultSortDesc": {
+    "message": "ソート順が指定されていないフォルダに適用されます。"
+  },
+  "theme": {
+    "message": "テーマ"
+  },
+  "themeDesc": {
+    "message": "システム設定に従うか、ライト/ダークモードを強制します。"
+  },
+  "showPinnedFolder": {
+    "message": "固定されたブックマークの仮想フォルダを表示"
+  },
+  "showPinnedFolderDesc": {
+    "message": "最上部のフォルダに固定されたブックマークをまとめて表示します。"
+  },
+  "showPreview": {
+    "message": "クイックプレビューを表示"
+  },
+  "showPreviewDesc": {
+    "message": "マウスを重ねたときに詳細情報パネルを開きます。"
+  },
+  "privacyHeading": {
+    "message": "プライバシー"
+  },
+  "privacyDescription": {
+    "message": "ブラウザのオプション権限をリクエストできる機能。"
+  },
+  "linkHealth": {
+    "message": "リンク検査"
+  },
+  "linkHealthDesc": {
+    "message": "各フォルダに検査ボタンを追加し、ネットワークアクセス権限をリクエストします。"
+  },
+  "previewCapture": {
+    "message": "ローカルプレビューをキャプチャ"
+  },
+  "previewCaptureDesc": {
+    "message": "martabs から開いたブックマークのみキャプチャします。"
+  },
+  "tagsHeading": {
+    "message": "タグ"
+  },
+  "tagsDescription": {
+    "message": "martabs がタグを生成して表示する方法を制御します。"
+  },
+  "automaticTags": {
+    "message": "自動タグ"
+  },
+  "automaticTagsDesc": {
+    "message": "フォルダ、ドメイン、ブックマークデータから自動的に生成されます。"
+  },
+  "manualTags": {
+    "message": "手動タグ"
+  },
+  "manualTagsDesc": {
+    "message": "ブックマークのインターフェースからタグを編集できるようにします。"
+  },
+  "advancedHeading": {
+    "message": "高度な設定"
+  },
+  "advancedDescription": {
+    "message": "ローカル状態をクリアするための頻度の低い操作。"
+  },
+  "resetLocalOrg": {
+    "message": "ローカルの配置データをリセット"
+  },
+  "clearPreviewCache": {
+    "message": "キャッシュされたプレビューをクリア"
+  },
+  "exportConfig": {
+    "message": "設定をエクスポート"
+  },
+  "importConfig": {
+    "message": "設定をインポート"
+  },
+  "confirmAndApply": {
+    "message": "確認して適用"
+  },
+  "cancelImport": {
+    "message": "キャンセル"
+  },
+  "modeDefault": {
+    "message": "デフォルト"
+  },
+  "modeList": {
+    "message": "フルリスト"
+  },
+  "modeCompact": {
+    "message": "コンパクトリスト"
+  },
+  "modeIcons": {
+    "message": "アイコングリッド"
+  },
+  "modeIconsLarge": {
+    "message": "アイコングリッド (大)"
+  },
+  "modeQuicklinks": {
+    "message": "クイックリンク"
+  },
+  "sortDefault": {
+    "message": "デフォルト"
+  },
+  "sortBrowser": {
+    "message": "元の順番"
+  },
+  "sortManual": {
+    "message": "手動ソート"
+  },
+  "sortTitleAsc": {
+    "message": "タイトル A-Z"
+  },
+  "sortDateNewest": {
+    "message": "新しい順"
+  },
+  "sortDomainAsc": {
+    "message": "ドメイン A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "エラー優先"
+  },
+  "themeSystem": {
+    "message": "システム (自動)"
+  },
+  "themeLight": {
+    "message": "ライト"
+  },
+  "themeDark": {
+    "message": "ダーク"
+  },
+  "unsavedChanges": {
+    "message": "未保存の変更があります (保存をクリック)"
+  },
+  "saveSuccess": {
+    "message": "設定が保存されました。新規タブを開いて martabs を使用してください。"
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "設定が保存されました。必要な権限が不足しているため、リンク検査を有効にできませんでした。"
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "設定が保存されました。必要な権限が不足しているため、プレビューキャプチャを有効にできませんでした。"
+  },
+  "saveError": {
+    "message": "設定を保存できませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "フォルダを読み込めませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "すべてのローカル配置と手動ソートをリセットしますか？ブラウザの実際のブックマークは変更されません。"
+  },
+  "resetLocalOrgSuccess": {
+    "message": "ローカル配置がリセットされました。"
+  },
+  "resetLocalOrgError": {
+    "message": "ローカル配置をリセットできませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmClearPreviews": {
+    "message": "キャッシュされたローカルプレビューをすべてクリアしますか？"
+  },
+  "clearPreviewsSuccess": {
+    "message": "キャッシュされたプレビューがクリアされました。"
+  },
+  "clearPreviewsError": {
+    "message": "プレビューキャッシュをクリアできませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "設定が正常にエクスポートされました。"
+  },
+  "exportError": {
+    "message": "エクスポートエラー: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorParse": {
+    "message": "構成ファイルの形式が無効です。"
+  },
+  "importErrorVersion": {
+    "message": "サポートされていない、または無効な JSON ファイルバージョンです。"
+  },
+  "importSummary": {
+    "message": "$FOLDERS$ 個のフォルダ、$TAGS$ 個のタグ、および $PINNED$ 個の固定ブックマークがマッピングされました。無視された要素: $UNMAPPED$。",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "importErrorProcess": {
+    "message": "ファイル処理エラー: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importSuccess": {
+    "message": "設定が正常にインポートされました。まもなく再読み込みします..."
+  },
+  "importSaving": {
+    "message": "インポートされた設定を保存中..."
+  },
+  "importErrorSave": {
+    "message": "保存エラー: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "selectFolderWarning": {
+    "message": "少なくとも1つのフォルダを選択してください。"
+  },
+  "searchFolders": {
+    "message": "フォルダ 選択 監視 表示 ソート 手動 デフォルト"
+  },
+  "searchAppearance": {
+    "message": "外観 テーマ モード 表示 ソート 固定 プレビュー クイック"
+  },
+  "searchModeRow": {
+    "message": "モード 表示 デフォルト リスト コンパクト アイコン クイックリンク"
+  },
+  "searchSortRow": {
+    "message": "ソート デフォルト 元の順番 手動 タイトル 日付 ドメイン エラー"
+  },
+  "searchThemeRow": {
+    "message": "テーマ 色 システム ライト ダーク"
+  },
+  "searchPinnedRow": {
+    "message": "固定 お気に入り 仮想フォルダ ハイライト"
+  },
+  "searchPreviewRow": {
+    "message": "クイックプレビュー プレビュー ツールチップ 詳細 マウス"
+  },
+  "searchPrivacySection": {
+    "message": "プライバシー 権限 リンク キャプチャ ネットワーク"
+  },
+  "searchLinkHealthRow": {
+    "message": "リンク検査 エラー 権限 ネットワーク"
+  },
+  "searchPreviewCaptureRow": {
+    "message": "キャプチャ ローカルプレビュー 画像 キャプチャ 権限"
+  },
+  "searchTagsSection": {
+    "message": "タグ 自動 手動"
+  },
+  "searchAutoTagsRow": {
+    "message": "自動タグ ドメイン フォルダ"
+  },
+  "searchManualTagsRow": {
+    "message": "手動タグ 編集 ブックマーク"
+  },
+  "searchAdvancedSection": {
+    "message": "高度な設定 クリア リセット プレビュー キャッシュ 配置"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "リセット ローカル 配置 データの移動 手動ソート"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "クリア プレビュー キャッシュ キャプチャ 画像"
+  },
+  "searchExportBtn": {
+    "message": "エクスポート 設定 バックアップ ダウンロード json"
+  },
+  "searchImportBtn": {
+    "message": "インポート 設定 復元 バックアップ json"
+  },
+  "saveBookmarkError": {
+    "message": "ブックマークを保存できませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadBookmarksError": {
+    "message": "ブックマークを読み込めませんでした: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "$FOLDER$ のエラーリンク",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "エラーリンク"
+  },
+  "language": {
+    "message": "言語"
+  },
+  "languageDesc": {
+    "message": "ユーザーインターフェースの言語を選択します。"
+  },
+  "languageSystem": {
+    "message": "システム (デフォルト)"
+  },
+  "languageEs": {
+    "message": "スペイン語"
+  },
+  "languageEn": {
+    "message": "英語"
+  },
+  "languagePt": {
+    "message": "ポルトガル語"
+  },
+  "languageDe": {
+    "message": "ドイツ語"
+  },
+  "languageFr": {
+    "message": "フランス語"
+  },
+  "languageZh": {
+    "message": "中国語 (簡体字)"
+  },
+  "languageJa": {
+    "message": "日本語"
+  },
+  "languageIt": {
+    "message": "イタリア語"
+  },
+  "languageKo": {
+    "message": "韓国語"
+  },
+  "searchLanguageRow": {
+    "message": "言語 英語 スペイン語 システム デフォルト"
+  }
+}

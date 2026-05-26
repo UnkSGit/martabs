@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>martabs Privacy Policy</title>
+    <style>
+      body {
+        max-width: 840px;
+        margin: 0 auto;
+        padding: 48px 20px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.65;
+        color: #172033;
+      }
+
+      h1, h2 {
+        line-height: 1.2;
+      }
+
+      a {
+        color: #0f766e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>martabs Privacy Policy</h1>
+    <p><strong>Effective date:</strong> May 26, 2026</p>
+
+    <p>martabs is a browser extension that replaces the new tab page with a local bookmark dashboard. This policy explains what data the extension uses and how it is handled.</p>
+
+    <h2>Summary</h2>
+    <p>martabs is local-first. It does not use telemetry, analytics, tracking pixels, remote databases, external preview services, external favicon services, or third-party metadata services.</p>
+
+    <h2>Data handled by the extension</h2>
+    <p>martabs may access and store the following data locally in your browser:</p>
+    <ul>
+      <li>Bookmark titles, URLs, folder names and bookmark metadata needed to build the dashboard.</li>
+      <li>User settings, selected folders, visual modes, local ordering and local folder aliases.</li>
+      <li>Manual tags, pinned bookmarks and custom favicon URLs configured by the user.</li>
+      <li>Optional local preview screenshots, only when the user enables local preview capture and opens a bookmark from martabs.</li>
+      <li>Optional link check results, only when the user enables link review and manually starts a review.</li>
+    </ul>
+
+    <h2>Storage</h2>
+    <p>All extension data is stored locally using the browser extension storage APIs. martabs does not send this data to the developer or to any external server.</p>
+
+    <h2>Permissions</h2>
+    <ul>
+      <li><strong>bookmarks:</strong> required to read bookmark folders and to apply bookmark edits requested by the user.</li>
+      <li><strong>storage:</strong> required to save local settings, tags, ordering, pinned bookmarks, cached previews and link review state.</li>
+      <li><strong>favicon:</strong> used only on Chrome to display browser-provided favicons.</li>
+      <li><strong>Optional host permissions:</strong> requested only when the user enables link review or local preview capture. These permissions are used to check links or capture previews, and martabs attempts to remove them when both optional features are disabled.</li>
+    </ul>
+
+    <h2>Network activity</h2>
+    <p>martabs does not call external APIs. If link review is enabled and started by the user, martabs may make direct requests to the bookmarked URLs to determine whether they are reachable. If local preview capture is enabled, martabs may capture a page opened from martabs after it loads in the browser.</p>
+
+    <h2>Data sharing</h2>
+    <p>martabs does not sell, rent, transfer or share user data.</p>
+
+    <h2>Data deletion</h2>
+    <p>You can remove local extension data by uninstalling the extension or clearing extension data from the browser. martabs also includes settings actions to clear cached previews and reset local organization data.</p>
+
+    <h2>Contact</h2>
+    <p>For questions or privacy requests, contact <a href="mailto:martabs.extension@gmail.com">martabs.extension@gmail.com</a>.</p>
+  </body>
+</html>

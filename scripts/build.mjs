@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const targets = process.argv[2] ? [process.argv[2]] : ["chrome", "firefox"];
-const copyPaths = ["src/background", "src/newtab", "src/setup", "src/shared"];
+const copyPaths = ["src/background", "src/newtab", "src/setup", "src/shared", "src/_locales"];
 
 async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));

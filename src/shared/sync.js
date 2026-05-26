@@ -26,6 +26,11 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
     if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
   });
 
+  // Extraer referencias de favicons personalizados
+  Object.keys(settings.customFavicons || {}).forEach(id => {
+    if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
+  });
+
   // Extraer referencias de carpetas seleccionadas
   (settings.selectedFolderIds || []).forEach(id => {
     if (folderById[id]) refs.folders[id] = folderById[id];
@@ -55,6 +60,7 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
 
   return {
     version: 1,
+    exportedAt: new Date().toISOString(),
     settings,
     manualTags,
     pinnedBookmarks,
@@ -63,8 +69,15 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
 }
 
 export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
+  if (!jsonData || typeof jsonData !== "object") {
+    const err = new Error("INVALID_FORMAT: El archivo de configuracion no tiene un formato valido.");
+    err.code = "INVALID_FORMAT";
+    throw err;
+  }
   if (jsonData.version !== 1) {
-    throw new Error("Versión de archivo JSON no soportada o inválida.");
+    const err = new Error("INVALID_VERSION: Version de archivo JSON no soportada o invalida.");
+    err.code = "INVALID_VERSION";
+    throw err;
   }
 
   // Diccionarios inversos de la sesión actual
@@ -124,8 +137,16 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
     if (typeof oldSettings[key] === "string") newSettings[key] = oldSettings[key];
   });
   
-  if (typeof oldSettings.customFavicons === "object" && !Array.isArray(oldSettings.customFavicons)) {
-    newSettings.customFavicons = oldSettings.customFavicons;
+  if (oldSettings.customFavicons && typeof oldSettings.customFavicons === "object" && !Array.isArray(oldSettings.customFavicons)) {
+    newSettings.customFavicons = {};
+    Object.entries(oldSettings.customFavicons).forEach(([oldBId, faviconUrl]) => {
+      const newBId = oldToNewBookmarks[oldBId];
+      if (newBId && typeof faviconUrl === "string") {
+        newSettings.customFavicons[newBId] = faviconUrl;
+      } else {
+        stats.unmappedItems++;
+      }
+    });
   }
   
   // Remapear carpetas seleccionadas

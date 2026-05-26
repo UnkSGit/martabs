@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "martabs",
+  "name": "__MSG_extensionName__",
   "version": "1.0.0",
-  "description": "A beautiful, fast, and privacy-first New Tab dashboard to organize and monitor your bookmark folders.",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "es",
   "permissions": ["bookmarks", "storage"],
   "optional_host_permissions": ["http://*/*", "https://*/*", "<all_urls>"],
   "chrome_url_overrides": {

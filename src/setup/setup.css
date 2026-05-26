@@ -18,16 +18,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-gradient: linear-gradient(135deg, #090d16 0%, #101827 100%);
-    --surface-bg: rgba(30, 41, 59, 0.36);
-    --surface-strong: #111827;
-    --surface-border: rgba(255, 255, 255, 0.1);
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --primary: #14b8a6;
-    --primary-hover: #2dd4bf;
-    --primary-soft: rgba(20, 184, 166, 0.16);
+    --bg-gradient: linear-gradient(135deg, #101318 0%, #151921 100%);
+    --surface-bg: rgba(24, 30, 40, 0.72);
+    --surface-strong: #181e28;
+    --surface-border: rgba(148, 163, 184, 0.14);
+    --text-primary: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --primary: #129a8f;
+    --primary-hover: #14b8a6;
+    --primary-soft: rgba(18, 154, 143, 0.16);
     --danger-soft: rgba(251, 113, 133, 0.12);
     --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.28);
   }
@@ -366,6 +366,7 @@ button {
   font-size: 14px;
   font-weight: 700;
   transition: background 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
 
 button:hover {

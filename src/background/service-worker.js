@@ -144,7 +144,20 @@ function listenToBookmarkChanges() {
 function listenToSettingsChanges() {
   api.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local" && changes[STORAGE_KEYS.settings]) {
-      requestRebuild("settings");
+      const oldSettings = changes[STORAGE_KEYS.settings].oldValue || {};
+      const newSettings = changes[STORAGE_KEYS.settings].newValue || {};
+      
+      const rebuildAffectingKeys = ["selectedFolderIds", "setupComplete", "bookmarkFolderOverrides"];
+      let needsRebuild = false;
+      for (const key of rebuildAffectingKeys) {
+        if (JSON.stringify(oldSettings[key]) !== JSON.stringify(newSettings[key])) {
+          needsRebuild = true;
+          break;
+        }
+      }
+      if (needsRebuild) {
+        requestRebuild("settings");
+      }
     }
   });
 }

@@ -1,0 +1,642 @@
+{
+  "extensionName": {
+    "message": "martabs"
+  },
+  "extensionDescription": {
+    "message": "Ein schönes, schnelles und datenschutzfreundliches Dashboard für neue Tabs zur Organisation und Überwachung Ihrer Lesezeichenordner."
+  },
+  "newtabTitle": {
+    "message": "Startseite - martabs"
+  },
+  "loadingBookmarks": {
+    "message": "Lesezeichen werden geladen..."
+  },
+  "settingsBtn": {
+    "message": "Einrichten"
+  },
+  "settingsBtnTitle": {
+    "message": "Lesezeichen und Einstellungen konfigurieren"
+  },
+  "searchPlaceholder": {
+    "message": "Titel, Tag, URL oder Ordner suchen..."
+  },
+  "editModalTitle": {
+    "message": "Lesezeichen bearbeiten"
+  },
+  "editFieldName": {
+    "message": "Name"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editFieldTags": {
+    "message": "Tags (kommagetrennt)"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "z.B. Arbeit, Dokumente, js"
+  },
+  "editFieldFavicon": {
+    "message": "Benutzerdefiniertes Symbol (Bild-URL)"
+  },
+  "editFaviconError": {
+    "message": "Das aktuelle Bild konnte nicht geladen werden."
+  },
+  "delete": {
+    "message": "Löschen"
+  },
+  "cancel": {
+    "message": "Abbrechen"
+  },
+  "save": {
+    "message": "Speichern"
+  },
+  "emptyResults": {
+    "message": "Keine Ergebnisse gefunden."
+  },
+  "hide": {
+    "message": "Ausblenden"
+  },
+  "hidePinnedFolder": {
+    "message": "Angehefteten Ordner ausblenden (kann in den Einstellungen wieder aktiviert werden)"
+  },
+  "review": {
+    "message": "Überprüfen"
+  },
+  "reviewing": {
+    "message": "Überprüfung..."
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ Fehler",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ Fehler",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "changeView": {
+    "message": "Ansicht ändern"
+  },
+  "pinnedFolderTitle": {
+    "message": "Angeheftet"
+  },
+  "back": {
+    "message": "Zurück"
+  },
+  "deleteAllCount": {
+    "message": "Alle löschen ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteAllFailures": {
+    "message": "Alle $COUNT$ fehlerhaften Lesezeichen aus \"$FOLDER$\" löschen? Dies kann nicht rückgängig gemacht werden.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "allFolders": {
+    "message": "Alle Ordner"
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ Lesezeichen zu überprüfen.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ Lesezeichen zu überprüfen.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "noFailuresRegistered": {
+    "message": "Keine fehlerhaften Links registriert."
+  },
+  "confirmDeleteBookmark": {
+    "message": "Lesezeichen \"$TITLE$\" löschen?",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "Lesezeichen \"$TITLE$\" löschen? Dies kann nicht rückgängig gemacht werden.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ Lesezeichen überwacht",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ Lesezeichen überwacht",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "setupEmptyStateTitle": {
+    "message": "Konfigurieren Sie Ihre Ordner, um zu beginnen."
+  },
+  "setupEmptyStateDescription": {
+    "message": "Öffnen Sie die Einstellungen und wählen Sie einen oder mehrere Ordner aus."
+  },
+  "domainNone": {
+    "message": "Keine Domain"
+  },
+  "noFolder": {
+    "message": "Kein Ordner"
+  },
+  "dateAdded": {
+    "message": "Hinzugefügt: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthUnchecked": {
+    "message": "Ungeprüft"
+  },
+  "healthBroken": {
+    "message": "Unerreichbar (Code: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Link erreichbar"
+  },
+  "previewLabelLocal": {
+    "message": "Lokaler Screenshot"
+  },
+  "previewLabelQuick": {
+    "message": "Lokale Schnellansicht"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "Dieser Link hat bei der letzten Prüfung nicht korrekt geantwortet."
+  },
+  "bookmarkEditBtn": {
+    "message": "Lesezeichen bearbeiten"
+  },
+  "bookmarkPinBtn": {
+    "message": "Lesezeichen anheften"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "Lesezeichen lösen"
+  },
+  "setupTitle": {
+    "message": "martabs konfigurieren"
+  },
+  "setupHeaderTitle": {
+    "message": "Einstellungen"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Einstellungen suchen..."
+  },
+  "saveChanges": {
+    "message": "Änderungen speichern"
+  },
+  "foldersSection": {
+    "message": "Ordner"
+  },
+  "appearanceSection": {
+    "message": "Aussehen"
+  },
+  "privacySection": {
+    "message": "Datenschutz"
+  },
+  "tagsSection": {
+    "message": "Tags"
+  },
+  "advancedSection": {
+    "message": "Erweitert"
+  },
+  "foldersHeading": {
+    "message": "Ordner"
+  },
+  "foldersDescription": {
+    "message": "Ordner auswählen, neu anordnen und Ansicht oder Sortierung pro Ordner anpassen."
+  },
+  "toggleAllFolders": {
+    "message": "Alle auswählen / abwählen"
+  },
+  "folderTableHeaderFolder": {
+    "message": "Ordner"
+  },
+  "folderTableHeaderView": {
+    "message": "Ansicht"
+  },
+  "folderTableHeaderSort": {
+    "message": "Sortierung"
+  },
+  "appearanceHeading": {
+    "message": "Aussehen"
+  },
+  "appearanceDescription": {
+    "message": "Allgemeine visuelle Einstellungen für das Dashboard."
+  },
+  "defaultMode": {
+    "message": "Standard-Ansichtsmodus"
+  },
+  "defaultModeDesc": {
+    "message": "Wird verwendet, wenn ein Ordner keinen eigenen Modus hat."
+  },
+  "defaultSort": {
+    "message": "Standard-Sortierung"
+  },
+  "defaultSortDesc": {
+    "message": "Gilt für Ordner ohne Lesezeichen-Sortierung."
+  },
+  "theme": {
+    "message": "Design"
+  },
+  "themeDesc": {
+    "message": "Folgt den System-Einstellungen oder erzwingt Hell/Dunkel."
+  },
+  "showPinnedFolder": {
+    "message": "Virtuellen Ordner für angeheftete Lesezeichen anzeigen"
+  },
+  "showPinnedFolderDesc": {
+    "message": "Der oberste Ordner gruppiert angeheftete Lesezeichen."
+  },
+  "showPreview": {
+    "message": "Schnellansicht anzeigen"
+  },
+  "showPreviewDesc": {
+    "message": "Öffnet die Details beim Darüberfahren mit der Maus."
+  },
+  "privacyHeading": {
+    "message": "Datenschutz"
+  },
+  "privacyDescription": {
+    "message": "Funktionen, die optionale Browser-Berechtigungen anfordern können."
+  },
+  "linkHealth": {
+    "message": "Link-Überprüfung"
+  },
+  "linkHealthDesc": {
+    "message": "Fügt jedem Ordner die Schaltfläche Überprüfen hinzu und fordert Netzwerkberechtigungen an."
+  },
+  "previewCapture": {
+    "message": "Lokale Vorschauen erfassen"
+  },
+  "previewCaptureDesc": {
+    "message": "Nur für aus martabs geöffnete Lesezeichen."
+  },
+  "tagsHeading": {
+    "message": "Tags"
+  },
+  "tagsDescription": {
+    "message": "Steuert, wie martabs Tags generiert und anzeigt."
+  },
+  "automaticTags": {
+    "message": "Automatische Tags"
+  },
+  "automaticTagsDesc": {
+    "message": "Abgeleitet von Ordnern, Domain und Lesezeichendaten."
+  },
+  "manualTags": {
+    "message": "Manuelle Tags"
+  },
+  "manualTagsDesc": {
+    "message": "Ermöglicht die Bearbeitung von Tags über die Lesezeichen-Oberfläche."
+  },
+  "advancedHeading": {
+    "message": "Erweitert"
+  },
+  "advancedDescription": {
+    "message": "Seltene Aktionen zum Löschen des lokalen Status."
+  },
+  "resetLocalOrg": {
+    "message": "Lokale Organisation zurücksetzen"
+  },
+  "clearPreviewCache": {
+    "message": "Vorschaubilder löschen"
+  },
+  "exportConfig": {
+    "message": "Konfiguration exportieren"
+  },
+  "importConfig": {
+    "message": "Konfiguration importieren"
+  },
+  "confirmAndApply": {
+    "message": "Bestätigen und anwenden"
+  },
+  "cancelImport": {
+    "message": "Abbrechen"
+  },
+  "modeDefault": {
+    "message": "Standard"
+  },
+  "modeList": {
+    "message": "Vollständige Liste"
+  },
+  "modeCompact": {
+    "message": "Kompakte Liste"
+  },
+  "modeIcons": {
+    "message": "Symbolraster"
+  },
+  "modeIconsLarge": {
+    "message": "Symbolraster (groß)"
+  },
+  "modeQuicklinks": {
+    "message": "Quicklinks"
+  },
+  "sortDefault": {
+    "message": "Standard"
+  },
+  "sortBrowser": {
+    "message": "Originalreihenfolge"
+  },
+  "sortManual": {
+    "message": "Manuell"
+  },
+  "sortTitleAsc": {
+    "message": "Titel A-Z"
+  },
+  "sortDateNewest": {
+    "message": "Neueste zuerst"
+  },
+  "sortDomainAsc": {
+    "message": "Domain A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "Fehlerhafte zuerst"
+  },
+  "themeSystem": {
+    "message": "System (Automatisch)"
+  },
+  "themeLight": {
+    "message": "Hell"
+  },
+  "themeDark": {
+    "message": "Dunkel"
+  },
+  "unsavedChanges": {
+    "message": "Ungespeicherte Änderungen (Klicken Sie auf Speichern)"
+  },
+  "saveSuccess": {
+    "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden. Link-Überprüfung konnte mangels Berechtigung nicht aktiviert werden."
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden. Vorschau-Erfassung konnte mangels Berechtigung nicht aktiviert werden."
+  },
+  "saveError": {
+    "message": "Konfiguration konnte nicht gespeichert werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "Ordner konnten nicht geladen werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "Alle lokalen Verschiebungen und manuellen Sortierungen zurücksetzen? Echte Browser-Lesezeichen werden nicht geändert."
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Lokale Organisation zurückgesetzt."
+  },
+  "resetLocalOrgError": {
+    "message": "Lokale Organisation konnte nicht zurückgesetzt werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmClearPreviews": {
+    "message": "Alle lokalen Vorschauen löschen?"
+  },
+  "clearPreviewsSuccess": {
+    "message": "Vorschauen gelöscht."
+  },
+  "clearPreviewsError": {
+    "message": "Vorschau-Cache konnte nicht gelöscht werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "Konfiguration erfolgreich exportiert."
+  },
+  "exportError": {
+    "message": "Fehler beim Exportieren: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorParse": {
+    "message": "Die Konfigurationsdatei hat ein ungültiges Format."
+  },
+  "importErrorVersion": {
+    "message": "Nicht unterstützte oder ungültige JSON-Dateiversion."
+  },
+  "importSummary": {
+    "message": "$FOLDERS$ Ordner, $TAGS$ Tags und $PINNED$ angeheftete Lesezeichen zugeordnet. Ignorierte Elemente: $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "importErrorProcess": {
+    "message": "Fehler beim Verarbeiten der Datei: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importSuccess": {
+    "message": "Konfiguration erfolgreich importiert. Wird in Kürze neu geladen..."
+  },
+  "importSaving": {
+    "message": "Importierte Konfiguration wird gespeichert..."
+  },
+  "importErrorSave": {
+    "message": "Fehler beim Speichern: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "selectFolderWarning": {
+    "message": "Wählen Sie mindestens einen Ordner aus."
+  },
+  "searchFolders": {
+    "message": "ordner auswählen überwachen ansicht sortierung manuell standard"
+  },
+  "searchAppearance": {
+    "message": "aussehen design modus ansicht sortierung angeheftet vorschau schnell"
+  },
+  "searchModeRow": {
+    "message": "modus ansicht standard liste kompakt symbole quicklinks"
+  },
+  "searchSortRow": {
+    "message": "sortierung standard original manuell titel datum domain fehler"
+  },
+  "searchThemeRow": {
+    "message": "design farbe system hell dunkel"
+  },
+  "searchPinnedRow": {
+    "message": "angeheftet favoriten virtueller ordner highlights"
+  },
+  "searchPreviewRow": {
+    "message": "schnellansicht vorschau tooltip detail maus"
+  },
+  "searchPrivacySection": {
+    "message": "datenschutz berechtigungen links vorschauen netzwerk"
+  },
+  "searchLinkHealthRow": {
+    "message": "überprüfung links fehler berechtigungen netzwerk"
+  },
+  "searchPreviewCaptureRow": {
+    "message": "vorschauen erfassen bild vorschau berechtigungen"
+  },
+  "searchTagsSection": {
+    "message": "tags automatisch manuell"
+  },
+  "searchAutoTagsRow": {
+    "message": "automatische tags domain ordner"
+  },
+  "searchManualTagsRow": {
+    "message": "manuelle tags bearbeiten lesezeichen"
+  },
+  "searchAdvancedSection": {
+    "message": "erweitert löschen zurücksetzen vorschauen cache organisation"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "zurücksetzen organisation lokal verschiebungen manuelle sortierung"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "löschen vorschauen cache erfassen bilder"
+  },
+  "searchExportBtn": {
+    "message": "exportieren konfiguration backup herunterladen json"
+  },
+  "searchImportBtn": {
+    "message": "importieren konfiguration wiederherstellen backup json"
+  },
+  "saveBookmarkError": {
+    "message": "Lesezeichen konnte nicht gespeichert werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadBookmarksError": {
+    "message": "Lesezeichen konnten nicht geladen werden: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Fehler in $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "Fehlerhafte Links"
+  },
+  "language": {
+    "message": "Sprache"
+  },
+  "languageDesc": {
+    "message": "Wählen Sie die Sprache der Benutzeroberfläche."
+  },
+  "languageSystem": {
+    "message": "System (Standard)"
+  },
+  "languageEs": {
+    "message": "Spanisch"
+  },
+  "languageEn": {
+    "message": "Englisch"
+  },
+  "languagePt": {
+    "message": "Portugiesisch"
+  },
+  "languageDe": {
+    "message": "Deutsch"
+  },
+  "languageFr": {
+    "message": "Französisch"
+  },
+  "languageZh": {
+    "message": "Chinesisch"
+  },
+  "languageJa": {
+    "message": "Japanisch"
+  },
+  "languageIt": {
+    "message": "Italienisch"
+  },
+  "languageKo": {
+    "message": "Koreanisch"
+  },
+  "searchLanguageRow": {
+    "message": "sprache englisch spanisch system standard"
+  }
+}

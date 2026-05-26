@@ -1,0 +1,642 @@
+{
+  "extensionName": {
+    "message": "martabs"
+  },
+  "extensionDescription": {
+    "message": "一个美观、快速且保护隐私的新标签页仪表板，用于组织和监控您的书签文件夹。"
+  },
+  "newtabTitle": {
+    "message": "主页 - martabs"
+  },
+  "loadingBookmarks": {
+    "message": "正在加载书签..."
+  },
+  "settingsBtn": {
+    "message": "配置"
+  },
+  "settingsBtnTitle": {
+    "message": "配置书签和偏好设置"
+  },
+  "searchPlaceholder": {
+    "message": "搜索标题、标签、URL或文件夹..."
+  },
+  "editModalTitle": {
+    "message": "编辑书签"
+  },
+  "editFieldName": {
+    "message": "名称"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editFieldTags": {
+    "message": "标签（用逗号分隔）"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "例如：工作, 文档, js"
+  },
+  "editFieldFavicon": {
+    "message": "自定义图标 (图片 URL)"
+  },
+  "editFaviconError": {
+    "message": "无法加载当前图片。"
+  },
+  "delete": {
+    "message": "删除"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "emptyResults": {
+    "message": "没有找到结果。"
+  },
+  "hide": {
+    "message": "隐藏"
+  },
+  "hidePinnedFolder": {
+    "message": "隐藏固定文件夹（您可以在设置中重新显示）"
+  },
+  "review": {
+    "message": "检查"
+  },
+  "reviewing": {
+    "message": "正在检查..."
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ 个失效",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ 个失效",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "changeView": {
+    "message": "切换视图"
+  },
+  "pinnedFolderTitle": {
+    "message": "已固定"
+  },
+  "back": {
+    "message": "返回"
+  },
+  "deleteAllCount": {
+    "message": "全部删除 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteAllFailures": {
+    "message": "确定要从 \"$FOLDER$\" 中删除所有 $COUNT$ 个失效的书签吗？此操作无法撤销。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "allFolders": {
+    "message": "所有文件夹"
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ 个书签待检查。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ 个书签待检查。",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "noFailuresRegistered": {
+    "message": "未记录到失效的链接。"
+  },
+  "confirmDeleteBookmark": {
+    "message": "确定要删除书签 \"$TITLE$\" 吗？",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "确定要删除书签 \"$TITLE$\" 吗？此操作无法撤销。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "已监控 $COUNT$ 个书签",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "已监控 $COUNT$ 个书签",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "setupEmptyStateTitle": {
+    "message": "请先配置您的文件夹。"
+  },
+  "setupEmptyStateDescription": {
+    "message": "打开“配置”并选择一个或多个文件夹。"
+  },
+  "domainNone": {
+    "message": "无域名"
+  },
+  "noFolder": {
+    "message": "无文件夹"
+  },
+  "dateAdded": {
+    "message": "添加日期: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthUnchecked": {
+    "message": "未检查"
+  },
+  "healthBroken": {
+    "message": "无法访问 (代码: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "链接正常"
+  },
+  "previewLabelLocal": {
+    "message": "本地捕获"
+  },
+  "previewLabelQuick": {
+    "message": "本地快速预览"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "此链接在上次检查中未正常响应。"
+  },
+  "bookmarkEditBtn": {
+    "message": "编辑书签"
+  },
+  "bookmarkPinBtn": {
+    "message": "固定书签"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "取消固定书签"
+  },
+  "setupTitle": {
+    "message": "配置 martabs"
+  },
+  "setupHeaderTitle": {
+    "message": "设置"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "搜索设置..."
+  },
+  "saveChanges": {
+    "message": "保存修改"
+  },
+  "foldersSection": {
+    "message": "文件夹"
+  },
+  "appearanceSection": {
+    "message": "外观"
+  },
+  "privacySection": {
+    "message": "隐私"
+  },
+  "tagsSection": {
+    "message": "标签"
+  },
+  "advancedSection": {
+    "message": "高级"
+  },
+  "foldersHeading": {
+    "message": "文件夹"
+  },
+  "foldersDescription": {
+    "message": "选择文件夹、对其排序，并调整每个文件夹的的视图或排序方式。"
+  },
+  "toggleAllFolders": {
+    "message": "全选 / 反选"
+  },
+  "folderTableHeaderFolder": {
+    "message": "文件夹"
+  },
+  "folderTableHeaderView": {
+    "message": "视图"
+  },
+  "folderTableHeaderSort": {
+    "message": "排序"
+  },
+  "appearanceHeading": {
+    "message": "外观"
+  },
+  "appearanceDescription": {
+    "message": "仪表板的通用视觉偏好设置。"
+  },
+  "defaultMode": {
+    "message": "默认显示模式"
+  },
+  "defaultModeDesc": {
+    "message": "当文件夹未设置特定模式时使用。"
+  },
+  "defaultSort": {
+    "message": "默认排序方式"
+  },
+  "defaultSortDesc": {
+    "message": "应用于未自定义排序方式的文件夹。"
+  },
+  "theme": {
+    "message": "主题"
+  },
+  "themeDesc": {
+    "message": "跟随系统设置或强制开启浅色/深色模式。"
+  },
+  "showPinnedFolder": {
+    "message": "显示固定书签的虚拟文件夹"
+  },
+  "showPinnedFolderDesc": {
+    "message": "顶部文件夹将所有已固定的书签合并展示。"
+  },
+  "showPreview": {
+    "message": "显示快速预览"
+  },
+  "showPreviewDesc": {
+    "message": "鼠标悬停时打开详细信息面板。"
+  },
+  "privacyHeading": {
+    "message": "隐私"
+  },
+  "privacyDescription": {
+    "message": "可以申请浏览器可选权限的功能。"
+  },
+  "linkHealth": {
+    "message": "链接检查"
+  },
+  "linkHealthDesc": {
+    "message": "为每个文件夹添加“检查”按钮并申请网络访问权限。"
+  },
+  "previewCapture": {
+    "message": "捕获本地预览"
+  },
+  "previewCaptureDesc": {
+    "message": "仅适用于从 martabs 打开的书签。"
+  },
+  "tagsHeading": {
+    "message": "标签"
+  },
+  "tagsDescription": {
+    "message": "控制 martabs 生成和显示标签的方式。"
+  },
+  "automaticTags": {
+    "message": "自动标签"
+  },
+  "automaticTagsDesc": {
+    "message": "根据文件夹、域名和书签数据自动生成。"
+  },
+  "manualTags": {
+    "message": "手动标签"
+  },
+  "manualTagsDesc": {
+    "message": "允许在书签的编辑界面修改标签。"
+  },
+  "advancedHeading": {
+    "message": "高级"
+  },
+  "advancedDescription": {
+    "message": "清理本地状态的不常用操作。"
+  },
+  "resetLocalOrg": {
+    "message": "重置本地排序及移动"
+  },
+  "clearPreviewCache": {
+    "message": "清除缓存的预览图"
+  },
+  "exportConfig": {
+    "message": "导出配置"
+  },
+  "importConfig": {
+    "message": "导入配置"
+  },
+  "confirmAndApply": {
+    "message": "确认并应用"
+  },
+  "cancelImport": {
+    "message": "取消"
+  },
+  "modeDefault": {
+    "message": "默认"
+  },
+  "modeList": {
+    "message": "完整列表"
+  },
+  "modeCompact": {
+    "message": "紧凑列表"
+  },
+  "modeIcons": {
+    "message": "图标网格"
+  },
+  "modeIconsLarge": {
+    "message": "大图标网格"
+  },
+  "modeQuicklinks": {
+    "message": "快速链接"
+  },
+  "sortDefault": {
+    "message": "默认"
+  },
+  "sortBrowser": {
+    "message": "原始顺序"
+  },
+  "sortManual": {
+    "message": "手动排序"
+  },
+  "sortTitleAsc": {
+    "message": "标题 A-Z"
+  },
+  "sortDateNewest": {
+    "message": "最新在前"
+  },
+  "sortDomainAsc": {
+    "message": "域名 A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "失效优先"
+  },
+  "themeSystem": {
+    "message": "系统默认"
+  },
+  "themeLight": {
+    "message": "浅色"
+  },
+  "themeDark": {
+    "message": "深色"
+  },
+  "unsavedChanges": {
+    "message": "有未保存的修改 (点击保存)"
+  },
+  "saveSuccess": {
+    "message": "配置已保存。请打开新标签页以使用 martabs。"
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "配置已保存。由于缺少必要权限，未能启用链接检查功能。"
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "配置已保存。由于缺少必要权限，未能启用预览图捕获功能。"
+  },
+  "saveError": {
+    "message": "无法保存配置: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "无法加载文件夹: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "确定要重置所有本地移动 and 手动排序吗？此操作不会更改浏览器的实际书签。"
+  },
+  "resetLocalOrgSuccess": {
+    "message": "本地排序已重置。"
+  },
+  "resetLocalOrgError": {
+    "message": "重置本地排序失败: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmClearPreviews": {
+    "message": "确定要清除所有缓存的本地预览图吗？"
+  },
+  "clearPreviewsSuccess": {
+    "message": "缓存的预览图已清除。"
+  },
+  "clearPreviewsError": {
+    "message": "清除预览图缓存失败: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "配置导出成功。"
+  },
+  "exportError": {
+    "message": "导出失败: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorParse": {
+    "message": "配置文件格式不正确。"
+  },
+  "importErrorVersion": {
+    "message": "不支持或无效的 JSON 配置文件版本。"
+  },
+  "importSummary": {
+    "message": "成功匹配了 $FOLDERS$ 个文件夹、$TAGS$ 个标签和 $PINNED$ 个固定书签。已忽略元素: $UNMAPPED$。",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "importErrorProcess": {
+    "message": "处理文件时出错: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importSuccess": {
+    "message": "配置导入成功。页面即将重新加载..."
+  },
+  "importSaving": {
+    "message": "正在保存导入的配置..."
+  },
+  "importErrorSave": {
+    "message": "保存失败: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "selectFolderWarning": {
+    "message": "请至少选择一个文件夹。"
+  },
+  "searchFolders": {
+    "message": "文件夹 选择 监控 视图 排序 手动 默认"
+  },
+  "searchAppearance": {
+    "message": "外观 主题 模式 视图 排序 固定 预览 快速"
+  },
+  "searchModeRow": {
+    "message": "模式 视图 默认 列表 紧凑 图标 快速链接"
+  },
+  "searchSortRow": {
+    "message": "排序 默认 原始 手动 标题 日期 域名 失效"
+  },
+  "searchThemeRow": {
+    "message": "主题 颜色 系统 浅色 深色"
+  },
+  "searchPinnedRow": {
+    "message": "固定 收藏 虚拟文件夹 亮点"
+  },
+  "searchPreviewRow": {
+    "message": "快速预览 预览 提示 详情 鼠标"
+  },
+  "searchPrivacySection": {
+    "message": "隐私 权限 链接 捕获 网络"
+  },
+  "searchLinkHealthRow": {
+    "message": "链接检查 失败 错误 权限 网络"
+  },
+  "searchPreviewCaptureRow": {
+    "message": "捕获 本地预览 图片 捕获 权限"
+  },
+  "searchTagsSection": {
+    "message": "标签 自动 手动"
+  },
+  "searchAutoTagsRow": {
+    "message": "自动标签 标签 域名 文件夹"
+  },
+  "searchManualTagsRow": {
+    "message": "手动标签 标签 编辑 书签"
+  },
+  "searchAdvancedSection": {
+    "message": "高级 清理 重置 预览 缓存 组织"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "重置 本地 组织 移动 手动 排序"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "清除 预览 缓存 捕获 图片"
+  },
+  "searchExportBtn": {
+    "message": "导出 配置 备份 下载 json"
+  },
+  "searchImportBtn": {
+    "message": "导入 配置 恢复 备份 json"
+  },
+  "saveBookmarkError": {
+    "message": "无法保存书签: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadBookmarksError": {
+    "message": "无法加载书签: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "$FOLDER$ 中的失效链接",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "失效链接"
+  },
+  "language": {
+    "message": "语言"
+  },
+  "languageDesc": {
+    "message": "选择界面语言。"
+  },
+  "languageSystem": {
+    "message": "系统默认"
+  },
+  "languageEs": {
+    "message": "西班牙语"
+  },
+  "languageEn": {
+    "message": "英语"
+  },
+  "languagePt": {
+    "message": "葡萄牙语"
+  },
+  "languageDe": {
+    "message": "德语"
+  },
+  "languageFr": {
+    "message": "法语"
+  },
+  "languageZh": {
+    "message": "简体中文"
+  },
+  "languageJa": {
+    "message": "日本語"
+  },
+  "languageIt": {
+    "message": "意大利语"
+  },
+  "languageKo": {
+    "message": "韩语"
+  },
+  "searchLanguageRow": {
+    "message": "语言 英语 西班牙语 系统 默认"
+  }
+}

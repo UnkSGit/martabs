@@ -1,6 +1,7 @@
 .playwright-mcp/
 .superpowers/
 dist/
+release/
 node_modules/
 
 playwright-report/

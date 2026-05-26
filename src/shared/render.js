@@ -15,5 +15,17 @@ export function el(tag, attributes = {}, children = []) {
 
 export function formatDate(timestamp) {
   if (!timestamp) return "";
-  return new Intl.DateTimeFormat("es", { day: "2-digit", month: "2-digit", year: "numeric" }).format(timestamp);
+  let locale = "es";
+  try {
+    const api = globalThis.browser || globalThis.chrome;
+    const uiLocale = api?.i18n?.getMessage("@@ui_locale");
+    if (uiLocale) {
+      locale = uiLocale.split(/[_-]/)[0].toLowerCase();
+    } else if (navigator.language) {
+      locale = navigator.language.split(/[_-]/)[0].toLowerCase();
+    }
+  } catch (error) {
+    // Mantener es como fallback
+  }
+  return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).format(timestamp);
 }

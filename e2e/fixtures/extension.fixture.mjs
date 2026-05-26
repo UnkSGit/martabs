@@ -1,44 +1,52 @@
 import { test as base, chromium, firefox } from '@playwright/test';
+import { withExtension } from 'playwright-webextext';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const extensionPath = path.join(__dirname, '../../dist/chrome');
+const chromeExtensionPath = path.join(__dirname, '../../dist/chrome');
+const firefoxExtensionPath = path.join(__dirname, '../../dist/firefox');
+
+import fs from 'fs';
+import os from 'os';
+
+const FIREFOX_UUID = 'eb84f5bc-695d-4f11-9a74-98440f6b4d32';
 
 export const test = base.extend({
   context: async ({ browserName }, use) => {
     let context;
+    let userDataDir = '';
+    
     if (browserName === 'chromium') {
       context = await chromium.launchPersistentContext('', {
         headless: false,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined,
         args: [
-          `--disable-extensions-except=${extensionPath}`,
-          `--load-extension=${extensionPath}`,
+          `--disable-extensions-except=${chromeExtensionPath}`,
+          `--load-extension=${chromeExtensionPath}`,
         ],
       });
     } else if (browserName === 'firefox') {
-      // Nota: Firefox con addon temporal requiere configuraciones específicas
-      // y no soporta cargar extensiones MV3 directo por command line tan fácil en Playwright.
-      // Por ahora, configuraremos un perfil que permita addons sin firmar.
-      // Más adelante usaremos web-ext si es necesario.
-      context = await firefox.launchPersistentContext('', {
+      userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'playwright-firefox-'));
+      const browserTypeWithExtension = withExtension(firefox, firefoxExtensionPath);
+      context = await browserTypeWithExtension.launchPersistentContext(userDataDir, {
         headless: false,
         firefoxUserPrefs: {
-          "xpinstall.signatures.required": false,
-          "extensions.autoDisableScopes": 0
+          'extensions.webextensions.uuids': JSON.stringify({"martabs@example.local": FIREFOX_UUID})
         }
       });
-      // TODO: En Firefox hay que instalar el addon dinámicamente si no se puede por args.
     }
     
     await use(context);
     await context.close();
+    if (userDataDir) {
+      fs.rmSync(userDataDir, { recursive: true, force: true });
+    }
   },
   extensionId: async ({ context, browserName }, use) => {
     let extensionId = '';
     if (browserName === 'chromium') {
-      // Para Chromium, podemos buscar en el target de background
       let [background] = context.serviceWorkers();
       if (!background)
         background = await context.waitForEvent('serviceworker');
@@ -46,9 +54,12 @@ export const test = base.extend({
       const extensionUrl = background.url();
       extensionId = extensionUrl.split('/')[2];
     } else if (browserName === 'firefox') {
-      // TODO: obtener extension ID para Firefox
+      extensionId = FIREFOX_UUID;
     }
     await use(extensionId);
+  },
+  extensionProtocol: async ({ browserName }, use) => {
+    await use(browserName === 'firefox' ? 'moz-extension://' : 'chrome-extension://');
   },
 });
 

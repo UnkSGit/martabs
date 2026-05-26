@@ -2,6 +2,7 @@ import { getBrowserApi } from "../shared/browser-api.js";
 import { getFolderOptions } from "../shared/bookmarks.js";
 import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shared/storage.js";
 import { generateExportData, parseAndRemapImport } from "../shared/sync.js";
+import { localizeHtml, t, initI18n, normalizeLanguageCode } from "../shared/i18n-helper.js";
 
 const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
@@ -21,6 +22,7 @@ const previewCapture = document.querySelector("#preview-capture");
 const defaultModeSelect = document.querySelector("#default-mode-select");
 const defaultSortSelect = document.querySelector("#default-sort-select");
 const themeSelect = document.querySelector("#theme-select");
+const languageSelect = document.querySelector("#language-select");
 const resetLocalOrganizationButton = document.querySelector("#reset-local-organization");
 const clearPreviewCacheButton = document.querySelector("#clear-preview-cache");
 const exportConfigButton = document.querySelector("#export-config");
@@ -28,6 +30,7 @@ const importConfigButton = document.querySelector("#import-config");
 const importConfigFile = document.querySelector("#import-config-file");
 const importSummary = document.querySelector("#import-summary");
 let currentSettings = null;
+let currentFolders = [];
 
 const urlPermissions = {
   origins: ["<all_urls>"]
@@ -134,13 +137,13 @@ function applySettingsSearch() {
 
 function getSortOptions() {
   return `
-    <option value="default">Predeterminado</option>
-    <option value="browser">Orden original</option>
-    <option value="manual">Manual</option>
-    <option value="title-asc">Titulo A-Z</option>
-    <option value="date-newest">Mas nuevos primero</option>
-    <option value="domain-asc">Dominio A-Z</option>
-    <option value="health-broken-first">Fallidos primero</option>
+    <option value="default">${t(api, "sortDefault")}</option>
+    <option value="browser">${t(api, "sortBrowser")}</option>
+    <option value="manual">${t(api, "sortManual")}</option>
+    <option value="title-asc">${t(api, "sortTitleAsc")}</option>
+    <option value="date-newest">${t(api, "sortDateNewest")}</option>
+    <option value="domain-asc">${t(api, "sortDomainAsc")}</option>
+    <option value="health-broken-first">${t(api, "sortHealthBrokenFirst")}</option>
   `;
 }
 
@@ -232,7 +235,7 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
         }
         currentSettings.folderNameOverrides = overrides;
         if (typeof status !== "undefined" && status) {
-          status.textContent = "Cambios sin guardar (Haz clic en Guardar)";
+          status.textContent = t(api, "unsavedChanges");
         }
       } else {
         nameText.textContent = displayName;
@@ -260,12 +263,12 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
     modeSelect.className = "folder-mode-select";
     modeSelect.dataset.folderId = folder.id;
     modeSelect.innerHTML = `
-      <option value="default">Predeterminado</option>
-      <option value="list">Lista completa</option>
-      <option value="compact">Lista compacta</option>
-      <option value="icons">Grilla de iconos</option>
-      <option value="icons-large">Grilla de iconos (grande)</option>
-      <option value="quicklinks">Quicklinks</option>
+      <option value="default">${t(api, "modeDefault")}</option>
+      <option value="list">${t(api, "modeList")}</option>
+      <option value="compact">${t(api, "modeCompact")}</option>
+      <option value="icons">${t(api, "modeIcons")}</option>
+      <option value="icons-large">${t(api, "modeIconsLarge")}</option>
+      <option value="quicklinks">${t(api, "modeQuicklinks")}</option>
     `;
     modeSelect.value = folderModes[folder.id] || "default";
     
@@ -325,6 +328,7 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
     previewEnabled: previewEnabled.checked,
     previewCaptureEnabled: previewCaptureEnabled,
     theme: themeSelect.value,
+    language: languageSelect.value,
     defaultFolderMode: defaultModeSelect.value,
     defaultFolderSort: defaultSortSelect.value,
     folderModes: getFolderModes(),
@@ -362,19 +366,20 @@ async function removePermission(permission) {
 }
 
 function getSuccessMessage(linkHealthRequested, linkHealthEnabled, previewCaptureRequested, previewCaptureEnabled) {
-  const message = "Configuracion guardada. Abre una nueva pestana para usar martabs.";
   if (linkHealthRequested && !linkHealthEnabled) {
-    return `${message} No se pudo activar la revision de enlaces porque falta el permiso necesario.`;
+    return t(api, "saveErrorNoPermissionsHealth");
   }
   if (previewCaptureRequested && !previewCaptureEnabled) {
-    return `${message} No se pudo activar la captura de previews porque falta el permiso necesario.`;
+    return t(api, "saveErrorNoPermissionsCapture");
   }
-  return message;
+  return t(api, "saveSuccess");
 }
 
 async function init() {
   const [tree, settings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
   currentSettings = settings;
+  await initI18n(api, settings.language);
+  localizeHtml(api);
   
   automaticTags.checked = currentSettings.automaticTagsEnabled;
   manualTags.checked = currentSettings.manualTagsEnabled;
@@ -383,14 +388,15 @@ async function init() {
   previewEnabled.checked = currentSettings.previewEnabled;
   previewCapture.checked = currentSettings.previewCaptureEnabled;
   themeSelect.value = currentSettings.theme || "system";
+  languageSelect.value = normalizeLanguageCode(currentSettings.language) || "system";
   defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
   defaultSortSelect.value = currentSettings.defaultFolderSort || "browser";
 
   applyTheme(themeSelect.value);
 
-  const folders = getFolderOptions(tree);
+  currentFolders = getFolderOptions(tree);
   renderFolders(
-    folders,
+    currentFolders,
     currentSettings.selectedFolderIds,
     currentSettings.folderModes || {},
     currentSettings.folderSorts || {}
@@ -413,7 +419,7 @@ window.addEventListener("resize", syncSetupContentHeight);
 
 async function resetLocalOrganization() {
   const confirmed = window.confirm(
-    "Restablecer todos los movimientos locales y ordenes manuales? No se modifican los marcadores reales del navegador."
+    t(api, "confirmResetLocalOrg")
   );
   if (!confirmed) return;
 
@@ -425,16 +431,16 @@ async function resetLocalOrganization() {
   };
 
   await saveSettings(api, currentSettings);
-  status.textContent = "Organizacion local restablecida.";
+  status.textContent = t(api, "resetLocalOrgSuccess");
 }
 
 async function clearPreviewCache() {
-  const confirmed = window.confirm("Limpiar todas las previews locales cacheadas?");
+  const confirmed = window.confirm(t(api, "confirmClearPreviews"));
   if (!confirmed) return;
 
   await setStoredValue(api, STORAGE_KEYS.capturedPreviews, {});
   await setStoredValue(api, STORAGE_KEYS.pendingPreviewCaptures, {});
-  status.textContent = "Previews cacheadas eliminadas.";
+  status.textContent = t(api, "clearPreviewsSuccess");
 }
 
 if (toggleAllFoldersBtn) {
@@ -447,13 +453,13 @@ if (toggleAllFoldersBtn) {
 
 resetLocalOrganizationButton.addEventListener("click", () => {
   resetLocalOrganization().catch((error) => {
-    status.textContent = `No se pudo restablecer la organizacion local: ${error.message}`;
+    status.textContent = t(api, "resetLocalOrgError", [error.message]);
   });
 });
 
 clearPreviewCacheButton.addEventListener("click", () => {
   clearPreviewCache().catch((error) => {
-    status.textContent = `No se pudo limpiar el cache de previews: ${error.message}`;
+    status.textContent = t(api, "clearPreviewsError", [error.message]);
   });
 });
 
@@ -490,9 +496,9 @@ exportConfigButton.addEventListener("click", async () => {
     a.download = `martabs-config-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    status.textContent = "Configuración exportada exitosamente.";
+    status.textContent = t(api, "exportSuccess");
   } catch (error) {
-    status.textContent = `Error al exportar: ${error.message}`;
+    status.textContent = t(api, "exportError", [error.message]);
   }
 });
 
@@ -528,10 +534,20 @@ importConfigFile.addEventListener("change", async (event) => {
 
     pendingImportResult = result;
     importSummaryContainer.style.display = "block";
-    importSummaryText.textContent = `Se mapearon ${result.stats.mappedFolders} carpetas, ${result.stats.mappedTags} etiquetas y ${result.stats.mappedPinned} marcadores fijados. Elementos ignorados: ${result.stats.unmappedItems}.`;
-    
+    importSummaryText.textContent = t(api, "importSummary", [
+      result.stats.mappedFolders,
+      result.stats.mappedTags,
+      result.stats.mappedPinned,
+      result.stats.unmappedItems
+    ]);
   } catch (error) {
-    status.textContent = `Error al procesar el archivo: ${error.message}`;
+    let errorMsg = error.message;
+    if (error.code === "INVALID_FORMAT") {
+      errorMsg = t(api, "importErrorParse");
+    } else if (error.code === "INVALID_VERSION") {
+      errorMsg = t(api, "importErrorVersion");
+    }
+    status.textContent = t(api, "importErrorProcess", [errorMsg]);
   }
   importConfigFile.value = "";
 });
@@ -541,17 +557,17 @@ importConfirmBtn.addEventListener("click", async () => {
   
   try {
     importSummaryContainer.style.display = "none";
-    status.textContent = "Guardando configuración importada...";
+    status.textContent = t(api, "importSaving");
     
     await setStoredValue(api, STORAGE_KEYS.settings, pendingImportResult.settings);
     await setStoredValue(api, STORAGE_KEYS.manualTags, pendingImportResult.manualTags);
     await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, pendingImportResult.pinnedBookmarks);
     
     pendingImportResult = null;
-    status.textContent = "Configuración importada exitosamente. Recargando en breve...";
+    status.textContent = t(api, "importSuccess");
     setTimeout(() => window.location.reload(), 2000);
   } catch (error) {
-    status.textContent = `Error al guardar: ${error.message}`;
+    status.textContent = t(api, "importErrorSave", [error.message]);
   }
 });
 
@@ -565,7 +581,7 @@ saveButton.addEventListener("click", async () => {
   try {
     const selectedFolderIds = getSelectedFolderIds();
     if (selectedFolderIds.length === 0) {
-      status.textContent = "Selecciona al menos una carpeta.";
+      status.textContent = t(api, "selectFolderWarning");
       return;
     }
 
@@ -592,6 +608,15 @@ saveButton.addEventListener("click", async () => {
     currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled);
     await saveSettings(api, currentSettings);
 
+    await initI18n(api, currentSettings.language);
+    localizeHtml(api);
+    renderFolders(
+      currentFolders,
+      currentSettings.selectedFolderIds,
+      currentSettings.folderModes || {},
+      currentSettings.folderSorts || {}
+    );
+
     applyTheme(themeSelect.value);
     status.textContent = getSuccessMessage(
       linkHealthRequested,
@@ -600,10 +625,10 @@ saveButton.addEventListener("click", async () => {
       previewCaptureEnabled
     );
   } catch (error) {
-    status.textContent = `No se pudo guardar la configuracion: ${error.message}`;
+    status.textContent = t(api, "saveError", [error.message]);
   }
 });
 
 init().catch((error) => {
-  status.textContent = `No se pudieron cargar las carpetas: ${error.message}`;
+  status.textContent = t(api, "loadError", [error.message]);
 });

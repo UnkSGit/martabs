@@ -21,6 +21,11 @@ export function getBrowserApi(globalScope = globalThis) {
   };
 
   return {
+    i18n: {
+      getMessage: api.i18n
+        ? (messageName, substitutions) => api.i18n.getMessage(messageName, substitutions)
+        : (messageName) => messageName
+    },
     bookmarks: {
       getTree: wrap(api.bookmarks.getTree, api.bookmarks),
       update: api.bookmarks.update ? wrap(api.bookmarks.update, api.bookmarks) : async () => {},
@@ -58,6 +63,9 @@ export function getBrowserApi(globalScope = globalThis) {
     permissions: api.permissions
       ? {
           request: wrap(api.permissions.request, api.permissions),
+          contains: api.permissions.contains
+            ? wrap(api.permissions.contains, api.permissions)
+            : async () => false,
           remove: api.permissions.remove
             ? wrap(api.permissions.remove, api.permissions)
             : async () => false

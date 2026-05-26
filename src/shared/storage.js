@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   previewCaptureEnabled: false,
   showPinnedFolder: true,
   theme: "system",
+  language: "system",
   setupComplete: false,
   defaultFolderMode: "list",
   folderModes: {},
