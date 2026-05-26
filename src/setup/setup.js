@@ -467,6 +467,8 @@ let pendingImportResult = null;
 exportConfigButton.addEventListener("click", async () => {
   try {
     const data = await api.storage.local.get([STORAGE_KEYS.manualTags, STORAGE_KEYS.pinnedBookmarks, STORAGE_KEYS.bookmarkIndex]);
+    const tree = await api.bookmarks.getTree();
+    const currentFolderOptions = getFolderOptions(tree);
     
     // Use current UI state for settings, fallback to currentSettings for permissions
     const settingsToExport = collectSettingsFromForm(
@@ -478,7 +480,8 @@ exportConfigButton.addEventListener("click", async () => {
       settingsToExport,
       data[STORAGE_KEYS.manualTags] || {},
       data[STORAGE_KEYS.pinnedBookmarks] || [],
-      data[STORAGE_KEYS.bookmarkIndex] || {}
+      data[STORAGE_KEYS.bookmarkIndex] || {},
+      currentFolderOptions
     );
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -505,7 +508,9 @@ importConfigFile.addEventListener("change", async (event) => {
     const json = JSON.parse(text);
     
     const data = await api.storage.local.get([STORAGE_KEYS.bookmarkIndex]);
-    const result = parseAndRemapImport(json, data[STORAGE_KEYS.bookmarkIndex] || {});
+    const tree = await api.bookmarks.getTree();
+    const currentFolderOptions = getFolderOptions(tree);
+    const result = parseAndRemapImport(json, data[STORAGE_KEYS.bookmarkIndex] || {}, currentFolderOptions);
     
     // Validar permisos requeridos
     if (result.settings.linkHealthEnabled || result.settings.previewCaptureEnabled) {

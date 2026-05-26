@@ -1,44 +1,56 @@
-export function generateExportData(settings, manualTags, pinnedBookmarks, bookmarkIndex) {
+export function generateExportData(settings, manualTags, pinnedBookmarks, bookmarkIndex, folderOptions) {
   const refs = {
     bookmarks: {},
     folders: {}
   };
+
+  // Construir lookup rápido de marcadores por ID
+  const bookmarkById = {};
+  if (Array.isArray(bookmarkIndex)) {
+    bookmarkIndex.forEach(b => { bookmarkById[b.id] = b; });
+  } else if (bookmarkIndex && typeof bookmarkIndex === "object") {
+    Object.values(bookmarkIndex).forEach(b => { if (b && b.id) bookmarkById[b.id] = b; });
+  }
+
+  // Construir lookup de carpetas por ID
+  const folderById = {};
+  (folderOptions || []).forEach(f => { folderById[f.id] = f.path; });
   
   // Extraer referencias de manualTags
   Object.keys(manualTags || {}).forEach(id => {
-    if (bookmarkIndex[id]) refs.bookmarks[id] = bookmarkIndex[id].url;
+    if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
   });
   
   // Extraer referencias de pinnedBookmarks
   (pinnedBookmarks || []).forEach(id => {
-    if (bookmarkIndex[id]) refs.bookmarks[id] = bookmarkIndex[id].url;
+    if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
   });
 
   // Extraer referencias de carpetas seleccionadas
   (settings.selectedFolderIds || []).forEach(id => {
-    if (bookmarkIndex[id]) refs.folders[id] = bookmarkIndex[id].folderPath || bookmarkIndex[id].title || "";
+    if (folderById[id]) refs.folders[id] = folderById[id];
   });
   
   // Extraer referencias de modos, ordenamientos y nombres personalizados
   ["folderModes", "folderSorts", "folderNameOverrides"].forEach(key => {
     Object.keys(settings[key] || {}).forEach(id => {
-      if (bookmarkIndex[id]) refs.folders[id] = bookmarkIndex[id].folderPath || bookmarkIndex[id].title || "";
+      if (folderById[id]) refs.folders[id] = folderById[id];
     });
   });
 
   // Extraer referencias de reordenamientos manuales (carpetas y sus marcadores)
   Object.keys(settings.folderBookmarkOrders || {}).forEach(id => {
-    if (bookmarkIndex[id]) refs.folders[id] = bookmarkIndex[id].folderPath || bookmarkIndex[id].title || "";
+    if (folderById[id]) refs.folders[id] = folderById[id];
     (settings.folderBookmarkOrders[id] || []).forEach(bId => {
-      if (bookmarkIndex[bId]) refs.bookmarks[bId] = bookmarkIndex[bId].url;
+      if (bookmarkById[bId]) refs.bookmarks[bId] = bookmarkById[bId].url;
     });
   });
 
   // Extraer referencias de overrides (drag and drop local)
   Object.keys(settings.bookmarkFolderOverrides || {}).forEach(bId => {
-    if (bookmarkIndex[bId]) refs.bookmarks[bId] = bookmarkIndex[bId].url;
+    if (bookmarkById[bId]) refs.bookmarks[bId] = bookmarkById[bId].url;
     const fId = settings.bookmarkFolderOverrides[bId];
-    if (bookmarkIndex[fId]) refs.folders[fId] = bookmarkIndex[fId].folderPath || bookmarkIndex[fId].title || "";
+    if (folderById[fId]) refs.folders[fId] = folderById[fId];
   });
 
   return {
@@ -50,7 +62,7 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
   };
 }
 
-export function parseAndRemapImport(jsonData, currentBookmarkIndex) {
+export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
   if (jsonData.version !== 1) {
     throw new Error("Versión de archivo JSON no soportada o inválida.");
   }
@@ -58,14 +70,21 @@ export function parseAndRemapImport(jsonData, currentBookmarkIndex) {
   // Diccionarios inversos de la sesión actual
   const currentUrlToId = {};
   const currentPathToId = {};
-  
-  Object.values(currentBookmarkIndex).forEach(item => {
-    if (item.url) {
-      currentUrlToId[item.url] = item.id;
-    } else {
-      const path = item.folderPath || item.title || "";
-      if (path) currentPathToId[path] = item.id;
-    }
+
+  // Construir lookup de marcadores por URL
+  if (Array.isArray(bookmarkIndex)) {
+    bookmarkIndex.forEach(item => {
+      if (item.url) currentUrlToId[item.url] = item.id;
+    });
+  } else if (bookmarkIndex && typeof bookmarkIndex === "object") {
+    Object.values(bookmarkIndex).forEach(item => {
+      if (item && item.url) currentUrlToId[item.url] = item.id;
+    });
+  }
+
+  // Construir lookup de carpetas por path
+  (folderOptions || []).forEach(f => {
+    if (f.path) currentPathToId[f.path] = f.id;
   });
 
   // Mapas de traducción de ID viejo -> ID nuevo
@@ -106,7 +125,7 @@ export function parseAndRemapImport(jsonData, currentBookmarkIndex) {
   });
   
   if (typeof oldSettings.customFavicons === "object" && !Array.isArray(oldSettings.customFavicons)) {
-    newSettings.customFavicons = oldSettings.customFavicons; // Los favicons se asocian por dominio, no por ID
+    newSettings.customFavicons = oldSettings.customFavicons;
   }
   
   // Remapear carpetas seleccionadas
