@@ -26,6 +26,7 @@ export const test = base.extend({
         args: [
           `--disable-extensions-except=${chromeExtensionPath}`,
           `--load-extension=${chromeExtensionPath}`,
+          `--lang=es`
         ],
       });
     } else if (browserName === 'firefox') {
