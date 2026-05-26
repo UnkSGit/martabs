@@ -21,6 +21,7 @@ export const test = base.extend({
     if (browserName === 'chromium') {
       context = await chromium.launchPersistentContext('', {
         headless: false,
+        locale: 'es-ES',
         executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined,
         args: [
           `--disable-extensions-except=${chromeExtensionPath}`,
@@ -32,6 +33,7 @@ export const test = base.extend({
       const browserTypeWithExtension = withExtension(firefox, firefoxExtensionPath);
       context = await browserTypeWithExtension.launchPersistentContext(userDataDir, {
         headless: false,
+        locale: 'es-ES',
         firefoxUserPrefs: {
           'extensions.webextensions.uuids': JSON.stringify({"martabs@example.local": FIREFOX_UUID})
         }

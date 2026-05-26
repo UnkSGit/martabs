@@ -63,6 +63,7 @@ test.describe('HU-1: Primer uso (Setup)', () => {
   });
 
   test('S-05: Screenshot de la pantalla de setup completa', async ({ page, extensionId, extensionProtocol }) => {
+    test.skip(!!process.env.CI, 'Snapshots are OS-specific, skipping in CI');
     const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
     await setupPage.goto();
     

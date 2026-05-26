@@ -59,6 +59,7 @@ test.describe('HU-2: Tablero principal', () => {
   });
 
   test('T-03: Screenshot del tablero con marcadores cargados', async ({ page, extensionId, extensionProtocol }) => {
+    test.skip(!!process.env.CI, 'Snapshots are OS-specific, skipping in CI');
     const newTabPage = new NewTabPage(page, `${extensionProtocol}${extensionId}`);
     await newTabPage.goto();
 
