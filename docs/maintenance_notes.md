@@ -223,3 +223,20 @@ Archivos principales:
 - `tests/bookmark-sort.test.js` cubre orden manual y prioridad de fijados.
 - `tests/setup.test.js` cubre la opcion `Manual`.
 - `tests/newtab.test.js` cubre drag & drop condicionado por `manual`, uso de `folderBookmarkOrders` y ausencia del boton `Orden`.
+
+## 2026-05-26 - Mover marcadores localmente (Paso 8) y Toggle de Vista Rápida
+
+### Mover Marcadores
+
+Se agregó soporte para mover marcadores entre carpetas usando drag & drop de forma exclusivamente local (sin mutar los datos de Chrome).
+
+- `src/shared/storage.js`: Agrega `bookmarkFolderOverrides: {}` a `DEFAULT_SETTINGS`.
+- `src/shared/bookmarks.js`: `buildBookmarkIndex` toma los overrides y mapea virtualmente el `parentId` y `folderPath` del marcador si fue movido a otra carpeta, siempre y cuando la carpeta destino también esté seleccionada por el usuario.
+- `src/newtab/newtab.js`: `draggable=true` se habilita para todos los marcadores. Las cajas contenedoras (`.group`) capturan los eventos `drop`. Al soltar en una carpeta diferente, se actualiza el diccionario de overrides y se recarga el tablero con foco suave hacia el destino.
+
+### Toggle de Vista Rápida
+
+Para evitar molestias en usuarios que no desean ver el tooltip de vista rápida (con datos adicionales, capturas o etiquetas) al posar el mouse sobre los marcadores, se agregó la opción de apagarlo:
+- `src/shared/storage.js`: `previewEnabled: true` por defecto.
+- `src/setup/setup.html` / `setup.js`: Toggle "Mostrar vista rápida al pasar el mouse".
+- `src/newtab/newtab.js`: `showPreviewCard` retorna inmediatamente si `currentSettings?.previewEnabled === false`.

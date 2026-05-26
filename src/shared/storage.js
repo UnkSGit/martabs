@@ -3,6 +3,7 @@ const DEFAULT_SETTINGS = {
   automaticTagsEnabled: true,
   manualTagsEnabled: true,
   linkHealthEnabled: false,
+  previewEnabled: true,
   previewCaptureEnabled: false,
   showPinnedFolder: true,
   theme: "system",
@@ -12,6 +13,7 @@ const DEFAULT_SETTINGS = {
   defaultFolderSort: "browser",
   folderSorts: {},
   folderBookmarkOrders: {},
+  bookmarkFolderOverrides: {},
   customFavicons: {},
   brokenCustomFavicons: {}
 };

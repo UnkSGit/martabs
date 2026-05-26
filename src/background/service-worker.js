@@ -158,7 +158,7 @@ async function rebuildIndex() {
     getLinkHealth(api)
   ]);
 
-  const index = buildBookmarkIndex(tree, settings.selectedFolderIds).map((bookmark) => {
+  const index = buildBookmarkIndex(tree, settings.selectedFolderIds, settings.bookmarkFolderOverrides || {}).map((bookmark) => {
     const bookmarkManualTags = manualTags[bookmark.id] || [];
     return {
       ...bookmark,

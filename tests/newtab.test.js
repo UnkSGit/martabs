@@ -81,11 +81,10 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /const folderSort = isPinnedFolder \? "browser" : getFolderSort\(folderId\)/);
   assert.match(js, /currentSettings\?\.folderBookmarkOrders/);
   assert.match(js, /sortBookmarks\(items, folderSort, pinnedBookmarks, manualOrder\)/);
-  assert.match(js, /folderSort === "manual"/);
   assert.match(js, /draggable = true/);
   assert.match(js, /dataTransfer/);
   assert.match(js, /folderBookmarkOrders/);
-  assert.match(js, /\[folderId\]: "manual"/);
+  assert.match(js, /\[sourceFolderId\]: "manual"/);
   assert.doesNotMatch(js, /Cambiar orden/);
   assert.doesNotMatch(js, /sortBtn/);
   assert.match(js, /scrollIntoView\(\{\s*behavior:\s*"smooth"/);

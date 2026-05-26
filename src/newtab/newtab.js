@@ -334,6 +334,8 @@ function renderBookmark(bookmark, rich = false) {
 }
 
 function showPreviewCard(bookmark, anchorElement) {
+  if (currentSettings?.previewEnabled === false) return;
+
   previewCard.innerHTML = "";
 
   const capturedPreview = capturedPreviews[bookmark.id];
@@ -457,14 +459,15 @@ function moveBookmarkId(order, draggedId, targetId, placeAfterTarget) {
   return nextOrder;
 }
 
-function enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBookmarks) {
+function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, folderBookmarks) {
   bookmarkElement.draggable = true;
   bookmarkElement.dataset.bookmarkId = bookmark.id;
-  bookmarkElement.classList.add("is-manual-sortable");
+  bookmarkElement.classList.add("is-draggable");
 
   bookmarkElement.addEventListener("dragstart", (event) => {
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/plain", bookmark.id);
+    event.dataTransfer.setData("application/x-martabs-folder", sourceFolderId);
     bookmarkElement.classList.add("is-dragging");
   });
 
@@ -479,8 +482,29 @@ function enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBoo
 
   bookmarkElement.addEventListener("drop", async (event) => {
     event.preventDefault();
+    event.stopPropagation(); // Prevent group-level drop
     const draggedId = event.dataTransfer.getData("text/plain");
+    const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
+    
     if (!draggedId || draggedId === bookmark.id) return;
+
+    if (draggedSourceFolder !== sourceFolderId) {
+      // Cross-folder drop ON a bookmark
+      currentSettings.bookmarkFolderOverrides = {
+        ...(currentSettings.bookmarkFolderOverrides || {}),
+        [draggedId]: sourceFolderId
+      };
+      scheduleViewFocus(sourceFolderId);
+      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+      render();
+      return;
+    }
+
+    // Same-folder drop: only do manual sort if mode is manual
+    const currentSort = currentSettings.folderSorts?.[sourceFolderId] || currentSettings.defaultFolderSort;
+    if (currentSort !== "manual") {
+      return;
+    }
 
     const rect = bookmarkElement.getBoundingClientRect();
     const placeAfterTarget = event.clientY > rect.top + rect.height / 2;
@@ -489,14 +513,14 @@ function enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBoo
 
     currentSettings.folderBookmarkOrders = {
       ...(currentSettings.folderBookmarkOrders || {}),
-      [folderId]: nextOrder
+      [sourceFolderId]: nextOrder
     };
     currentSettings.folderSorts = {
       ...(currentSettings.folderSorts || {}),
-      [folderId]: "manual"
+      [sourceFolderId]: "manual"
     };
 
-    scheduleViewFocus(folderId);
+    scheduleViewFocus(sourceFolderId);
     await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
     render();
   });
@@ -624,18 +648,39 @@ function renderDashboard(items) {
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
     const bookmarkNodes = folderBookmarks.map((bookmark) => {
       const bookmarkElement = renderBookmark(bookmark);
-      if (!isPinnedFolder && folderSort === "manual") {
-        enableManualBookmarkDrag(bookmarkElement, bookmark, folderId, folderBookmarks);
+      if (!isPinnedFolder) {
+        enableBookmarkDragAndDrop(bookmarkElement, bookmark, folderId, folderBookmarks);
       }
       return bookmarkElement;
     });
     
-    masonryWrapper.append(
-      el("article", { class: "group", "data-folder-id": folderId }, [
-        el("div", { class: "group-header" }, headerChildren),
-        el("div", { class: bookmarkListClass }, bookmarkNodes)
-      ])
-    );
+    const groupElement = el("article", { class: "group", "data-folder-id": folderId }, [
+      el("div", { class: "group-header" }, headerChildren),
+      el("div", { class: bookmarkListClass }, bookmarkNodes)
+    ]);
+    
+    if (!isPinnedFolder) {
+      groupElement.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+      });
+      groupElement.addEventListener("drop", async (event) => {
+        event.preventDefault();
+        const draggedId = event.dataTransfer.getData("text/plain");
+        const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
+        if (!draggedId || draggedSourceFolder === folderId) return;
+        
+        currentSettings.bookmarkFolderOverrides = {
+          ...(currentSettings.bookmarkFolderOverrides || {}),
+          [draggedId]: folderId
+        };
+        scheduleViewFocus(folderId);
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+        render();
+      });
+    }
+
+    masonryWrapper.append(groupElement);
   }
 
   focusPendingViewFolder();

@@ -10,6 +10,7 @@ const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const showPinnedFolder = document.querySelector("#show-pinned-folder");
 const linkHealth = document.querySelector("#link-health");
+const previewEnabled = document.querySelector("#preview-enabled");
 const previewCapture = document.querySelector("#preview-capture");
 const defaultModeSelect = document.querySelector("#default-mode-select");
 const defaultSortSelect = document.querySelector("#default-sort-select");
@@ -187,6 +188,7 @@ async function init() {
   manualTags.checked = currentSettings.manualTagsEnabled;
   showPinnedFolder.checked = currentSettings.showPinnedFolder !== false;
   linkHealth.checked = currentSettings.linkHealthEnabled;
+  previewEnabled.checked = currentSettings.previewEnabled;
   previewCapture.checked = currentSettings.previewCaptureEnabled;
   themeSelect.value = currentSettings.theme || "system";
   defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
@@ -261,6 +263,7 @@ saveButton.addEventListener("click", async () => {
       manualTagsEnabled: manualTags.checked,
       showPinnedFolder: showPinnedFolder.checked,
       linkHealthEnabled: linkHealthEnabled,
+      previewEnabled: previewEnabled.checked,
       previewCaptureEnabled: previewCaptureEnabled,
       theme: themeSelect.value,
       defaultFolderMode: defaultModeSelect.value,

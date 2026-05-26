@@ -33,21 +33,33 @@ function walkFolders(nodes, path = [], output = []) {
   return output;
 }
 
-function walkBookmarks(nodes, selectedFolderIds, path = [], parentFolderId = null, output = []) {
+function walkBookmarks(nodes, selectedFolderIds, overrides, folderMap, path = [], parentFolderId = null, output = []) {
   for (const node of nodes) {
     const nextPath = node.title && isFolder(node) ? [...path, node.title] : path;
     const isNodeFolder = isFolder(node);
-    const selected = !isNodeFolder && selectedFolderIds.includes(parentFolderId);
+    
+    let targetFolderId = parentFolderId;
+    let targetFolderPath = path.join(" / ");
+    
+    if (!isNodeFolder && overrides && overrides[node.id]) {
+      const overrideId = overrides[node.id];
+      if (folderMap.has(overrideId)) {
+        targetFolderId = overrideId;
+        targetFolderPath = folderMap.get(overrideId);
+      }
+    }
+
+    const selected = !isNodeFolder && selectedFolderIds.includes(targetFolderId);
 
     if (isBookmark(node) && selected) {
       const bookmark = {
         id: node.id,
-        parentId: node.parentId || "",
+        parentId: targetFolderId || "",
         title: node.title || node.url,
         url: node.url,
         domain: getDomain(node.url),
         dateAdded: node.dateAdded || null,
-        folderPath: path.join(" / "),
+        folderPath: targetFolderPath,
         automaticTags: [],
         manualTags: [],
         preview: null,
@@ -58,7 +70,7 @@ function walkBookmarks(nodes, selectedFolderIds, path = [], parentFolderId = nul
     }
 
     if (node.children) {
-      walkBookmarks(node.children, selectedFolderIds, nextPath, isNodeFolder ? node.id : parentFolderId, output);
+      walkBookmarks(node.children, selectedFolderIds, overrides, folderMap, nextPath, isNodeFolder ? node.id : parentFolderId, output);
     }
   }
   return output;
@@ -68,6 +80,8 @@ export function getFolderOptions(bookmarkTree) {
   return walkFolders(bookmarkTree);
 }
 
-export function buildBookmarkIndex(bookmarkTree, selectedFolderIds) {
-  return walkBookmarks(bookmarkTree, selectedFolderIds);
+export function buildBookmarkIndex(bookmarkTree, selectedFolderIds, bookmarkFolderOverrides = {}) {
+  const folderOptions = getFolderOptions(bookmarkTree);
+  const folderMap = new Map(folderOptions.map(f => [f.id, f.path]));
+  return walkBookmarks(bookmarkTree, selectedFolderIds, bookmarkFolderOverrides, folderMap);
 }
