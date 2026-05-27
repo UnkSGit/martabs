@@ -10,9 +10,14 @@
     <main class="setup-shell">
       <section class="setup-panel">
         <header class="setup-header">
-          <div>
-            <p class="eyebrow">martabs</p>
-            <h1 data-i18n="setupHeaderTitle">Configuracion</h1>
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <button id="back-to-dashboard" class="back-btn" title="Volver al tablero" type="button" data-i18n-title="backToDashboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div>
+              <p class="eyebrow">martabs</p>
+              <h1 data-i18n="setupHeaderTitle">Configuracion</h1>
+            </div>
           </div>
           <label class="setup-search" for="settings-search">
             <span class="sr-only" data-i18n="searchSettingsPlaceholder">Buscar ajustes</span>

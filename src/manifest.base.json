@@ -1,14 +1,21 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "__MSG_extensionDescription__",
   "default_locale": "es",
   "icons": {
     "128": "images/icon-128.png"
   },
-  "permissions": ["bookmarks", "storage"],
-  "optional_host_permissions": ["http://*/*", "https://*/*", "<all_urls>"],
+  "permissions": [
+    "bookmarks",
+    "storage"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "<all_urls>"
+  ],
   "chrome_url_overrides": {
     "newtab": "newtab/newtab.html"
   },

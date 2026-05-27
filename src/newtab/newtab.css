@@ -641,17 +641,17 @@ button svg {
 .mode-quicklinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 .mode-quicklinks .bookmark {
   flex-direction: column;
-  padding: 10px 4px;
+  padding: 10px 2px;
   text-align: center;
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
   min-width: 0;
-  width: 68px;
+  width: 56px;
 }
 .mode-quicklinks .favicon-container,
 .mode-quicklinks .favicon-img,

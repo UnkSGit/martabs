@@ -408,13 +408,13 @@
     "message": "Cambios sin guardar (Haz clic en Guardar)"
   },
   "saveSuccess": {
-    "message": "Configuración guardada. Abre una nueva pestaña para usar martabs."
+    "message": "Configuración guardada."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Configuración guardada. Abre una nueva pestaña para usar martabs. No se pudo activar la revisión de enlaces porque falta el permiso necesario."
+    "message": "Configuración guardada. No se pudo activar la revisión de enlaces porque falta el permiso necesario."
   },
   "saveErrorNoPermissionsCapture": {
-    "message": "Configuración guardada. Abre una nueva pestaña para usar martabs. No se pudo activar la captura de vistas previas porque falta el permiso necesario."
+    "message": "Configuración guardada. No se pudo activar la captura de vistas previas porque falta el permiso necesario."
   },
   "saveError": {
     "message": "No se pudo guardar la configuración: $ERROR$",
@@ -638,5 +638,11 @@
   },
   "searchLanguageRow": {
     "message": "idioma lenguaje ingles espanol sistema predeterminado"
+  },
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "unsavedChangesWarning": {
+    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   }
 }

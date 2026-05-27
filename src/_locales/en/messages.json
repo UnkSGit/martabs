@@ -408,13 +408,13 @@
     "message": "Unsaved changes (Click Save)"
   },
   "saveSuccess": {
-    "message": "Settings saved. Open a new tab to use martabs."
+    "message": "Settings saved."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Settings saved. Open a new tab to use martabs. Could not activate link checking because the required permission is missing."
+    "message": "Settings saved. Could not activate link checking because the required permission is missing."
   },
   "saveErrorNoPermissionsCapture": {
-    "message": "Settings saved. Open a new tab to use martabs. Could not activate preview capture because the required permission is missing."
+    "message": "Settings saved. Could not activate preview capture because the required permission is missing."
   },
   "saveError": {
     "message": "Could not save configuration: $ERROR$",
@@ -638,5 +638,11 @@
   },
   "searchLanguageRow": {
     "message": "language english spanish system default"
+  },
+  "backToDashboard": {
+    "message": "Back to dashboard"
+  },
+  "unsavedChangesWarning": {
+    "message": "You have unsaved changes. Are you sure you want to exit?"
   }
 }

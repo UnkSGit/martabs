@@ -1040,11 +1040,7 @@ searchInput.addEventListener("keydown", (event) => {
 
 
 settingsButton.addEventListener("click", () => {
-  if (api.runtime?.openOptionsPage) {
-    api.runtime.openOptionsPage();
-  } else {
-    window.open(api.runtime.getURL("setup/setup.html"));
-  }
+  window.location.href = "../setup/setup.html";
 });
 
 function showEditModal(bookmark) {

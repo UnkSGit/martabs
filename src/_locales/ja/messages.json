@@ -638,5 +638,11 @@
   },
   "searchLanguageRow": {
     "message": "言語 英語 スペイン語 システム デフォルト"
+  },
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "unsavedChangesWarning": {
+    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   }
 }

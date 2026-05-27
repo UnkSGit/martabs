@@ -638,5 +638,11 @@
   },
   "searchLanguageRow": {
     "message": "lingua inglese spagnolo sistema predefinito"
+  },
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "unsavedChangesWarning": {
+    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   }
 }

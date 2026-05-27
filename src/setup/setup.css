@@ -73,6 +73,26 @@ body {
   border-bottom: 1px solid var(--surface-border);
 }
 
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.back-btn:hover {
+  background: var(--surface-border);
+  color: var(--text-primary);
+}
+
 .eyebrow {
   margin: 0 0 4px;
   color: var(--primary);

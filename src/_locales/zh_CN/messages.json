@@ -638,5 +638,11 @@
   },
   "searchLanguageRow": {
     "message": "语言 英语 西班牙语 系统 默认"
+  },
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "unsavedChangesWarning": {
+    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   }
 }

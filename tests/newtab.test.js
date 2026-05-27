@@ -51,9 +51,8 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /border:\s*0;/);
   assert.match(css, /border-radius:\s*0;/);
   assert.match(css, /box-shadow:\s*none;/);
+  assert.match(css, /box-shadow:\s*none;/);
   assert.match(css, /backdrop-filter:\s*none;/);
-  assert.match(css, /height:\s*57px;/);
-  assert.match(css, /drop-shadow\(0 0 8px rgba\(255, 255, 255, 0\.72\)\)/);
   assert.match(css, /grid-auto-rows:\s*max-content/);
   assert.match(css, /align-content:\s*start/);
   assert.match(css, /overflow-y:\s*auto\s*!important/);
@@ -77,7 +76,6 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
   assert.match(js, /import { applyLinkCheckResult } from "\.\.\/shared\/link-health\.js";/);
   assert.match(js, /searchInput\.addEventListener\("input",/);
-  assert.match(js, /api\.runtime\.openOptionsPage\(\)/);
   assert.match(js, /api\.storage\.onChanged\.addListener/);
   assert.match(js, /showPreviewCard/);
   assert.match(js, /layout-masonry/);

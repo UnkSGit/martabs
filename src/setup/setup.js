@@ -8,6 +8,7 @@ const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
 const toggleAllFoldersBtn = document.querySelector("#toggle-all-folders");
 const saveButton = document.querySelector("#save");
+const backButton = document.querySelector("#back-to-dashboard");
 const status = document.querySelector("#status");
 const setupContent = document.querySelector(".setup-content");
 const settingsSearch = document.querySelector("#settings-search");
@@ -659,6 +660,16 @@ const handleSettingsChange = (e) => {
 };
 document.querySelector(".setup-content").addEventListener("change", handleSettingsChange);
 document.querySelector(".setup-content").addEventListener("input", handleSettingsChange);
+
+backButton.addEventListener("click", () => {
+  if (!saveButton.disabled) {
+    const message = t(api, "unsavedChangesWarning") || "Tienes cambios sin guardar. ¿Seguro que quieres salir?";
+    if (!window.confirm(message)) {
+      return;
+    }
+  }
+  window.location.href = "../newtab/newtab.html";
+});
 
 init().then(() => {
   saveButton.disabled = true;
