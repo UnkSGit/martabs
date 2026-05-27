@@ -136,15 +136,15 @@ function applySettingsSearch() {
 }
 
 function getSortOptions() {
-  return `
-    <option value="default">${t(api, "sortDefault")}</option>
-    <option value="browser">${t(api, "sortBrowser")}</option>
-    <option value="manual">${t(api, "sortManual")}</option>
-    <option value="title-asc">${t(api, "sortTitleAsc")}</option>
-    <option value="date-newest">${t(api, "sortDateNewest")}</option>
-    <option value="domain-asc">${t(api, "sortDomainAsc")}</option>
-    <option value="health-broken-first">${t(api, "sortHealthBrokenFirst")}</option>
-  `;
+  return [
+    { value: "default", text: t(api, "sortDefault") },
+    { value: "browser", text: t(api, "sortBrowser") },
+    { value: "manual", text: t(api, "sortManual") },
+    { value: "title-asc", text: t(api, "sortTitleAsc") },
+    { value: "date-newest", text: t(api, "sortDateNewest") },
+    { value: "domain-asc", text: t(api, "sortDomainAsc") },
+    { value: "health-broken-first", text: t(api, "sortHealthBrokenFirst") }
+  ];
 }
 
 function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts = {}) {
@@ -262,14 +262,19 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
     const modeSelect = document.createElement("select");
     modeSelect.className = "folder-mode-select";
     modeSelect.dataset.folderId = folder.id;
-    modeSelect.innerHTML = `
-      <option value="default">${t(api, "modeDefault")}</option>
-      <option value="list">${t(api, "modeList")}</option>
-      <option value="compact">${t(api, "modeCompact")}</option>
-      <option value="icons">${t(api, "modeIcons")}</option>
-      <option value="icons-large">${t(api, "modeIconsLarge")}</option>
-      <option value="quicklinks">${t(api, "modeQuicklinks")}</option>
-    `;
+    [
+      { value: "default", text: t(api, "modeDefault") },
+      { value: "list", text: t(api, "modeList") },
+      { value: "compact", text: t(api, "modeCompact") },
+      { value: "icons", text: t(api, "modeIcons") },
+      { value: "icons-large", text: t(api, "modeIconsLarge") },
+      { value: "quicklinks", text: t(api, "modeQuicklinks") }
+    ].forEach(opt => {
+      const o = document.createElement("option");
+      o.value = opt.value;
+      o.textContent = opt.text;
+      modeSelect.appendChild(o);
+    });
     modeSelect.value = folderModes[folder.id] || "default";
     
     // Stop drag when interacting with select
@@ -278,7 +283,12 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
     const sortSelect = document.createElement("select");
     sortSelect.className = "folder-sort-select";
     sortSelect.dataset.folderId = folder.id;
-    sortSelect.innerHTML = getSortOptions();
+    getSortOptions().forEach(opt => {
+      const o = document.createElement("option");
+      o.value = opt.value;
+      o.textContent = opt.text;
+      sortSelect.appendChild(o);
+    });
     sortSelect.value = folderSorts[folder.id] || "default";
     sortSelect.addEventListener("mousedown", (e) => e.stopPropagation());
 
