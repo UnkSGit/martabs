@@ -10,15 +10,19 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 
 ## Screenshots
 
-![Dashboard in dark mode](docs/assets/screenshots/dashboard-dark.png)
+![Dashboard in dark mode](docs/assets/store_screenshots/en/1-dashboard-dark.png)
+
+| Dashboard (Light) | Visual Modes |
+| --- | --- |
+| ![Dashboard in light mode](docs/assets/store_screenshots/en/2-dashboard-light.png) | ![Folder visual modes](docs/assets/store_screenshots/en/3-folder-modes.png) |
 
 | Search | Settings |
 | --- | --- |
-| ![Search results](docs/assets/screenshots/search-results.png) | ![Settings panel](docs/assets/screenshots/settings.png) |
+| ![Search results](docs/assets/store_screenshots/en/4-search-results.png) | ![Settings panel](docs/assets/store_screenshots/en/6-settings.png) |
 
-| Visual Modes | Edit Bookmark |
-| --- | --- |
-| ![Folder visual modes](docs/assets/screenshots/folder-modes.png) | ![Edit bookmark modal](docs/assets/screenshots/edit-bookmark.png) |
+| Edit Bookmark |
+| --- |
+| ![Edit bookmark modal](docs/assets/store_screenshots/en/5-edit-bookmark.png) |
 
 ## Features
 

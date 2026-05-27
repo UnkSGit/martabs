@@ -10,15 +10,19 @@ Compatible con Chrome, Edge, Brave y Firefox.
 
 ## Capturas
 
-![Dashboard en modo oscuro](docs/assets/screenshots/dashboard-dark.png)
+![Dashboard en modo oscuro](docs/assets/store_screenshots/es/1-dashboard-dark.png)
 
-| Busqueda | Configuracion |
+| Dashboard (Claro) | Modos visuales |
 | --- | --- |
-| ![Resultados de busqueda](docs/assets/screenshots/search-results.png) | ![Panel de configuracion](docs/assets/screenshots/settings.png) |
+| ![Dashboard en modo claro](docs/assets/store_screenshots/es/2-dashboard-light.png) | ![Modos visuales por carpeta](docs/assets/store_screenshots/es/3-folder-modes.png) |
 
-| Modos visuales | Edicion de marcador |
+| Búsqueda | Configuración |
 | --- | --- |
-| ![Modos visuales por carpeta](docs/assets/screenshots/folder-modes.png) | ![Modal de edicion de marcador](docs/assets/screenshots/edit-bookmark.png) |
+| ![Resultados de búsqueda](docs/assets/store_screenshots/es/4-search-results.png) | ![Panel de configuración](docs/assets/store_screenshots/es/6-settings.png) |
+
+| Edición de marcador |
+| --- |
+| ![Modal de edición de marcador](docs/assets/store_screenshots/es/5-edit-bookmark.png) |
 
 ## Funciones
 
