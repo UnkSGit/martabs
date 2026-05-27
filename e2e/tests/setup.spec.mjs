@@ -72,4 +72,20 @@ test.describe('HU-1: Primer uso (Setup)', () => {
 
     await expect(page).toHaveScreenshot('setup-page.png', { maxDiffPixelRatio: 0.02 });
   });
+
+  test('S-06: El botón de guardar está deshabilitado sin cambios y se habilita al modificar', async ({ page, extensionId, extensionProtocol }) => {
+    const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
+    await setupPage.goto();
+
+    const saveButton = page.locator('#save');
+    await expect(saveButton).toBeDisabled();
+
+    // Modificar un checkbox para habilitar
+    await setupPage.toggleAllFolders();
+    await expect(saveButton).toBeEnabled();
+
+    // Guardar para que se vuelva a deshabilitar
+    await setupPage.save();
+    await expect(saveButton).toBeDisabled();
+  });
 });

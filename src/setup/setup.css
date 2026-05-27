@@ -378,6 +378,12 @@ button:active {
   transform: translateY(0);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .secondary-button {
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);

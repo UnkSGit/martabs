@@ -72,7 +72,7 @@ test("newtab controller imports correct shared modules", async () => {
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
   assert.match(js, /import { searchBookmarks } from "\.\.\/shared\/search\.js";/);
-  assert.match(js, /import { sortBookmarks } from "\.\.\/shared\/bookmark-sort\.js";/);
+  assert.match(js, /import { sortBookmarks/);
   assert.match(js, /getCapturedPreviews/);
   assert.match(js, /import { el, formatDate } from "\.\.\/shared\/render\.js";/);
   assert.match(js, /import { applyLinkCheckResult } from "\.\.\/shared\/link-health\.js";/);
@@ -96,7 +96,6 @@ test("newtab controller imports correct shared modules", async () => {
   assert.match(js, /folderBookmarkOrders/);
   assert.match(js, /\[sourceFolderId\]: "manual"/);
   assert.doesNotMatch(js, /Cambiar orden/);
-  assert.doesNotMatch(js, /sortBtn/);
   assert.match(js, /scrollIntoView\(\{\s*behavior:\s*"smooth"/);
   assert.match(js, /classList\.add\("is-view-focus"\)/);
   assert.match(js, /data-folder-id/);

@@ -1,6 +1,6 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { searchBookmarks } from "../shared/search.js";
-import { sortBookmarks } from "../shared/bookmark-sort.js";
+import { sortBookmarks, SORT_MODES } from "../shared/bookmark-sort.js";
 import {
   getBookmarkIndex,
   getCapturedPreviews,
@@ -746,7 +746,63 @@ function renderDashboard(items) {
       await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
     });
     
-    headerButtons.push(modeBtn);
+    if (currentSettings.showSortButton !== false) {
+      if (!isPinnedFolder) {
+        const currentSort = currentSettings?.folderSorts?.[folderId] || "browser";
+        
+        const getSortIcon = (sort) => {
+          const icons = {
+            "browser": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M11 5h10"></path><path d="M11 9h7"></path><path d="M11 13h4"></path><path d="M3 17l3 3 3-3"></path><path d="M6 18V4"></path></svg>`,
+            "manual": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>`,
+            "title-asc": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>`,
+            "date-newest": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
+            "domain-asc": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`,
+            "health-broken-first": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`
+          };
+          return icons[sort] || icons["browser"];
+        };
+
+        const getSortTooltipText = (sort) => {
+          const keyMap = {
+            "browser": "sortBrowser",
+            "manual": "sortManual",
+            "title-asc": "sortTitleAsc",
+            "date-newest": "sortDateNewest",
+            "domain-asc": "sortDomainAsc",
+            "health-broken-first": "sortHealthBrokenFirst"
+          };
+          const baseTitle = t(api, "sortBookmarks") || "Ordenar marcadores";
+          const currentModeStr = t(api, keyMap[sort]) || sort;
+          return `${baseTitle} (${currentModeStr})`;
+        };
+
+        const sortBtn = el("button", { class: "review-button", type: "button", title: getSortTooltipText(currentSort) });
+        sortBtn.innerHTML = getSortIcon(currentSort);
+        sortBtn.style.padding = "0 6px";
+        sortBtn.addEventListener("click", async () => {
+          const activeSort = currentSettings?.folderSorts?.[folderId] || "browser";
+          const currentIndex = SORT_MODES.indexOf(activeSort);
+          const nextSort = SORT_MODES[(currentIndex + 1) % SORT_MODES.length];
+          
+          const newSorts = { ...(currentSettings.folderSorts || {}) };
+          newSorts[folderId] = nextSort;
+          
+          const nextSettings = {
+            ...currentSettings,
+            folderSorts: newSorts
+          };
+          
+          currentSettings = nextSettings;
+          await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
+          render(); // Re-render everything to apply new sorting
+        });
+        headerButtons.push(sortBtn);
+      }
+    }
+    
+    if (currentSettings.showViewButton !== false) {
+      headerButtons.push(modeBtn);
+    }
 
     const folderDisplayName = isPinnedFolder
       ? t(api, "pinnedFolderTitle")

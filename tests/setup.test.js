@@ -28,6 +28,8 @@ test("setup page loads setup assets and required controls", async () => {
   assert.match(html, /<div id="folder-list" class="folder-list" aria-live="polite"><\/div>/);
   assert.match(html, /<input id="automatic-tags" type="checkbox" checked>/);
   assert.match(html, /<input id="manual-tags" type="checkbox" checked>/);
+  assert.match(html, /<input id="show-view-button" type="checkbox" checked>/);
+  assert.match(html, /<input id="show-sort-button" type="checkbox" checked>/);
   assert.match(html, /<input id="preview-enabled" type="checkbox" checked>/);
   assert.match(html, /<input id="link-health" type="checkbox">/);
   assert.match(html, /<input id="preview-capture" type="checkbox">/);
@@ -99,11 +101,12 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /linkHealthEnabled: linkHealthEnabled/);
   assert.match(js, /previewEnabled: previewEnabled\.checked/);
   assert.match(js, /previewCaptureEnabled: previewCaptureEnabled/);
+  assert.match(js, /showViewButton: showViewButton\.checked/);
+  assert.match(js, /showSortButton: showSortButton\.checked/);
   assert.match(js, /language:\s*languageSelect\.value/);
   assert.match(js, /defaultFolderSort:\s*defaultSortSelect\.value/);
   assert.match(js, /folderSorts/);
   assert.match(js, /\.folder-sort-select/);
-  assert.match(js, /value="manual"/);
   assert.match(js, /resetLocalOrganization/);
   assert.match(js, /bookmarkFolderOverrides:\s*\{\}/);
   assert.match(js, /folderBookmarkOrders:\s*\{\}/);

@@ -16,6 +16,8 @@ const sections = document.querySelectorAll(".setup-section");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const showPinnedFolder = document.querySelector("#show-pinned-folder");
+const showViewButton = document.querySelector("#show-view-button");
+const showSortButton = document.querySelector("#show-sort-button");
 const linkHealth = document.querySelector("#link-health");
 const previewEnabled = document.querySelector("#preview-enabled");
 const previewCapture = document.querySelector("#preview-capture");
@@ -181,6 +183,7 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
     label.addEventListener("dragend", function() {
       draggedItem = null;
       this.classList.remove("is-dragging");
+      saveButton.disabled = false;
     });
 
     label.addEventListener("dragover", function(e) {
@@ -247,6 +250,7 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
       if (e.key === "Enter") {
         e.preventDefault();
         saveNewName();
+        saveButton.disabled = false;
       } else if (e.key === "Escape") {
         const overrideName = (currentSettings.folderNameOverrides || {})[folder.id];
         nameText.textContent = overrideName || folder.path;
@@ -334,6 +338,8 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
     automaticTagsEnabled: automaticTags.checked,
     manualTagsEnabled: manualTags.checked,
     showPinnedFolder: showPinnedFolder.checked,
+    showViewButton: showViewButton.checked,
+    showSortButton: showSortButton.checked,
     linkHealthEnabled: linkHealthEnabled,
     previewEnabled: previewEnabled.checked,
     previewCaptureEnabled: previewCaptureEnabled,
@@ -391,9 +397,11 @@ async function init() {
   await initI18n(api, settings.language);
   localizeHtml(api);
   
-  automaticTags.checked = currentSettings.automaticTagsEnabled;
-  manualTags.checked = currentSettings.manualTagsEnabled;
+  automaticTags.checked = currentSettings.automaticTagsEnabled !== false;
+  manualTags.checked = currentSettings.manualTagsEnabled !== false;
   showPinnedFolder.checked = currentSettings.showPinnedFolder !== false;
+  showViewButton.checked = currentSettings.showViewButton !== false;
+  showSortButton.checked = currentSettings.showSortButton !== false;
   linkHealth.checked = currentSettings.linkHealthEnabled;
   previewEnabled.checked = currentSettings.previewEnabled;
   previewCapture.checked = currentSettings.previewCaptureEnabled;
@@ -456,8 +464,12 @@ async function clearPreviewCache() {
 if (toggleAllFoldersBtn) {
   toggleAllFoldersBtn.addEventListener("click", () => {
     const checkboxes = folderList.querySelectorAll("input[type='checkbox']");
-    const anyUnchecked = [...checkboxes].some(cb => !cb.checked);
-    checkboxes.forEach(cb => cb.checked = anyUnchecked);
+    const allChecked = [...checkboxes].every(cb => cb.checked);
+    const newState = !allChecked;
+    checkboxes.forEach((cb) => {
+      cb.checked = newState;
+    });
+    saveButton.disabled = false;
   });
 }
 
@@ -634,11 +646,22 @@ saveButton.addEventListener("click", async () => {
       previewCaptureRequested,
       previewCaptureEnabled
     );
+    saveButton.disabled = true;
   } catch (error) {
     status.textContent = t(api, "saveError", [error.message]);
   }
 });
 
-init().catch((error) => {
+const handleSettingsChange = (e) => {
+  if (e.target.id !== "import-config" && e.target.id !== "export-config" && e.target.id !== "settings-search" && e.target.id !== "toggle-all-folders") {
+    saveButton.disabled = false;
+  }
+};
+document.querySelector(".setup-content").addEventListener("change", handleSettingsChange);
+document.querySelector(".setup-content").addEventListener("input", handleSettingsChange);
+
+init().then(() => {
+  saveButton.disabled = true;
+}).catch((error) => {
   status.textContent = t(api, "loadError", [error.message]);
 });
