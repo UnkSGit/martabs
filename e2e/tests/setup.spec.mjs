@@ -46,7 +46,7 @@ test.describe('HU-1: Primer uso (Setup)', () => {
     await setupPage.selectFolder(testFolder.id);
     await setupPage.save();
 
-    await expect(setupPage.statusText).toHaveText('Configuración guardada. Abre una nueva pestaña para usar martabs.');
+    await expect(setupPage.statusText).toHaveText('Configuración guardada.');
   });
 
   test('S-04: "Marcar/desmarcar todas" alterna todos los checkboxes', async ({ page, extensionId, extensionProtocol }) => {
