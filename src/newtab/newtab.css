@@ -31,7 +31,7 @@
   --radius-pill: 9999px;
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --search-bg: var(--surface-bg);
-  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.72));
+  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.1)) drop-shadow(0 0 2px rgba(168, 85, 247, 0.2)) drop-shadow(0 0 6px rgba(59, 130, 246, 0.15));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -59,7 +59,7 @@
     --tag-manual-text: #a7f3d0;
     --tag-manual-border: rgba(16, 185, 129, 0.25);
     --search-bg: rgba(30, 38, 50, 0.72);
-    --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 2px rgba(20, 184, 166, 0.35)) drop-shadow(0 0 5px rgba(20, 184, 166, 0.15));
+    --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.5)) drop-shadow(0 0 4px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
   }
 }
 
@@ -87,7 +87,7 @@
   --tag-manual-text: #a7f3d0;
   --tag-manual-border: rgba(16, 185, 129, 0.25);
   --search-bg: rgba(30, 38, 50, 0.72);
-  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.32)) drop-shadow(0 0 2px rgba(20, 184, 166, 0.35)) drop-shadow(0 0 5px rgba(20, 184, 166, 0.15));
+  --logo-filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.5)) drop-shadow(0 0 4px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
 }
 
 * {
@@ -148,7 +148,7 @@ body {
 }
 
 .logo-img-header {
-  height: 57px;
+  height: 80px;
   object-fit: contain;
   filter: var(--logo-filter);
 }
