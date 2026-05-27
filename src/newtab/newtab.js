@@ -564,7 +564,7 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
 
   bookmarkElement.addEventListener("dragstart", (event) => {
     event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", bookmark.id);
+    event.dataTransfer.setData("application/x-martabs-id", bookmark.id);
     event.dataTransfer.setData("application/x-martabs-folder", sourceFolderId);
     bookmarkElement.classList.add("is-dragging");
   });
@@ -581,7 +581,7 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
   bookmarkElement.addEventListener("drop", async (event) => {
     event.preventDefault();
     event.stopPropagation(); // Prevent group-level drop
-    const draggedId = event.dataTransfer.getData("text/plain");
+    const draggedId = event.dataTransfer.getData("application/x-martabs-id");
     const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
     
     if (!draggedId || draggedId === bookmark.id) return;
@@ -821,7 +821,7 @@ function renderDashboard(items) {
       });
       groupElement.addEventListener("drop", async (event) => {
         event.preventDefault();
-        const draggedId = event.dataTransfer.getData("text/plain");
+        const draggedId = event.dataTransfer.getData("application/x-martabs-id");
         const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
         if (!draggedId || draggedSourceFolder === folderId) return;
         

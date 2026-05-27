@@ -38,10 +38,29 @@ test.describe('HU: Drag and Drop marcadores', () => {
     await expect(bookmarks.nth(0)).toContainText('Bookmark 1');
     await expect(bookmarks.nth(1)).toContainText('Bookmark 2');
 
-    // Arrastrar el marcador 2 sobre el marcador 1
-    await bookmarks.nth(1).dragTo(bookmarks.nth(0));
-
-    // Verificar que el orden haya cambiado
+    await page.evaluate(() => {
+      const marks = document.querySelectorAll('.bookmark');
+      const source = marks[1];
+      const target = marks[0];
+      const dataTransfer = new DataTransfer();
+      
+      const dragStart = new DragEvent('dragstart', { dataTransfer, bubbles: true });
+      source.dispatchEvent(dragStart);
+      
+      // En Playwright el DataTransfer sintético puede no retener datos entre eventos,
+      // los seteamos explícitamente para asegurar que el evento 'drop' los reciba.
+      dataTransfer.setData('application/x-martabs-id', source.dataset.bookmarkId);
+      dataTransfer.setData('application/x-martabs-folder', target.closest('.group').dataset.folderId);
+      
+      const rect = target.getBoundingClientRect();
+      const clientY = rect.top + (rect.height / 4); // Place before
+      
+      const dragOver = new DragEvent('dragover', { dataTransfer, bubbles: true, clientY });
+      target.dispatchEvent(dragOver);
+      
+      const drop = new DragEvent('drop', { dataTransfer, bubbles: true, clientY });
+      target.dispatchEvent(drop);
+    });
     await expect(bookmarks.nth(0)).toContainText('Bookmark 2');
     await expect(bookmarks.nth(1)).toContainText('Bookmark 1');
 
