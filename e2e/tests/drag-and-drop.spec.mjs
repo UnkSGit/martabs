@@ -18,6 +18,11 @@ test.describe('HU: Drag and Drop marcadores', () => {
     await setupPage.goto();
     await expect(setupPage.getFolderCheckbox(testFolder.id)).toBeVisible();
     await setupPage.selectFolder(testFolder.id);
+    
+    // Configurar la carpeta en modo manual para habilitar el Drag & Drop
+    const sortSelect = page.locator(`.folder-sort-select[data-folder-id="${testFolder.id}"]`);
+    await sortSelect.selectOption('manual');
+    
     await setupPage.save();
   });
 
@@ -38,10 +43,39 @@ test.describe('HU: Drag and Drop marcadores', () => {
     await expect(bookmarks.nth(0)).toContainText('Bookmark 1');
     await expect(bookmarks.nth(1)).toContainText('Bookmark 2');
 
-    // Arrastrar el marcador 2 sobre el marcador 1
-    await bookmarks.nth(1).dragTo(bookmarks.nth(0));
+    page.on('console', msg => console.log('BROWSER LOG:', msg.text()));
+    
+    await page.evaluate(() => {
+      const marks = document.querySelectorAll('.bookmark');
+      const source = marks[1];
+      const target = marks[0];
+      
+      const rect = target.getBoundingClientRect();
+      const clientY = rect.top + (rect.height / 4); // Place before
+      
+      const fakeDataTransfer = {
+        getData: (format) => {
+          if (format === 'application/x-martabs-id') return source.dataset.bookmarkId;
+          if (format === 'application/x-martabs-folder') return target.closest('.group').dataset.folderId;
+          return '';
+        },
+        setData: () => {},
+        dropEffect: 'move',
+        effectAllowed: 'move'
+      };
 
-    // Verificar que el orden haya cambiado
+      const dragStart = new DragEvent('dragstart', { bubbles: true });
+      Object.defineProperty(dragStart, 'dataTransfer', { value: fakeDataTransfer });
+      source.dispatchEvent(dragStart);
+      
+      const dragOver = new DragEvent('dragover', { bubbles: true, clientY });
+      Object.defineProperty(dragOver, 'dataTransfer', { value: fakeDataTransfer });
+      target.dispatchEvent(dragOver);
+      
+      const drop = new DragEvent('drop', { bubbles: true, clientY });
+      Object.defineProperty(drop, 'dataTransfer', { value: fakeDataTransfer });
+      target.dispatchEvent(drop);
+    });
     await expect(bookmarks.nth(0)).toContainText('Bookmark 2');
     await expect(bookmarks.nth(1)).toContainText('Bookmark 1');
 

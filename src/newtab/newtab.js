@@ -564,7 +564,7 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
 
   bookmarkElement.addEventListener("dragstart", (event) => {
     event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", bookmark.id);
+    event.dataTransfer.setData("application/x-martabs-id", bookmark.id);
     event.dataTransfer.setData("application/x-martabs-folder", sourceFolderId);
     bookmarkElement.classList.add("is-dragging");
   });
@@ -581,8 +581,9 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
   bookmarkElement.addEventListener("drop", async (event) => {
     event.preventDefault();
     event.stopPropagation(); // Prevent group-level drop
-    const draggedId = event.dataTransfer.getData("text/plain");
+    const draggedId = event.dataTransfer.getData("application/x-martabs-id");
     const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
+    console.log("DROP BOOKMARK", bookmark.id, draggedId, draggedSourceFolder);
     
     if (!draggedId || draggedId === bookmark.id) return;
 
@@ -819,20 +820,21 @@ function renderDashboard(items) {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
       });
-      groupElement.addEventListener("drop", async (event) => {
-        event.preventDefault();
-        const draggedId = event.dataTransfer.getData("text/plain");
-        const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
-        if (!draggedId || draggedSourceFolder === folderId) return;
-        
-        currentSettings.bookmarkFolderOverrides = {
-          ...(currentSettings.bookmarkFolderOverrides || {}),
-          [draggedId]: folderId
-        };
-        scheduleViewFocus(folderId);
-        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
-        render();
-      });
+    groupElement.addEventListener("drop", async (event) => {
+      event.preventDefault();
+      const draggedId = event.dataTransfer.getData("application/x-martabs-id");
+      const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
+      console.log("DROP GROUP", folderId, draggedId, draggedSourceFolder);
+      if (!draggedId || draggedSourceFolder === folderId) return;
+      
+      currentSettings.bookmarkFolderOverrides = {
+        ...(currentSettings.bookmarkFolderOverrides || {}),
+        [draggedId]: folderId
+      };
+      scheduleViewFocus(folderId);
+      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+      render();
+    });
     }
 
     masonryWrapper.append(groupElement);
