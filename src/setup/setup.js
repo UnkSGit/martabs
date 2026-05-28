@@ -702,7 +702,6 @@ const handleSettingsChange = (e) => {
 document.querySelector(".setup-content").addEventListener("change", handleSettingsChange);
 localStats.addEventListener("change", () => {
     renderStatistics();
-    markUnsaved();
 });
 document.querySelector(".setup-content").addEventListener("input", handleSettingsChange);
 
