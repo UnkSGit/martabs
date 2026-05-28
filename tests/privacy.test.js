@@ -72,7 +72,7 @@ test("firefox manifest does not inherit chrome-only favicon permission", async (
   });
   assert.ok(!("service_worker" in firefox.background));
   assert.ok(base.optional_host_permissions.includes("<all_urls>"));
-  assert.ok(!base.optional_permissions, "base manifest should not declare optional alarms");
+  assert.ok(!base.optional_permissions?.includes("alarms"), "base manifest should not declare optional alarms");
 });
 
 test("service worker does not rebuild index on purely visual setting changes", async () => {

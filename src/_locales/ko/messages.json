@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "frequentSites": {
+    "message": "자주 방문하는 사이트"
+  },
+  "frequentSitesDesc": {
+    "message": "가장 많이 방문한 사이트를 표시합니다."
+  },
+  "statisticsSection": {
+    "message": "통계"
+  },
+  "mostVisitedBookmarks": {
+    "message": "가장 많이 사용된 북마크"
+  },
+  "localStorageAudit": {
+    "message": "로컬 스토리지 사용량"
+  },
+  "downloadClickStats": {
+    "message": "클릭 기록 다운로드"
+  },
+  "resetStats": {
+    "message": "통계 초기화"
+  },
+  "frequentTag": {
+    "message": "자주 방문"
+  },
+  "confirmResetStats": {
+    "message": "사용 통계 기록을 초기화하시겠습니까?"
+  },
+  "visitsCountSingular": {
+    "message": "$ 회 방문",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ 회 방문",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "로컬 사용 통계"
+  },
+  "localStatsDesc": {
+    "message": "최근 및 가장 많이 사용된 항목을 표시하기 위해 열기 기록을 기록합니다. 비공개입니다."
+  },
+  "searchStatisticsRow": {
+    "message": "통계 사용 클릭 방문 기록 json"
+  },
+  "hideSite": {
+    "message": "사이트 숨기기"
+  },
+  "topSitesLimit": {
+    "message": "표시되는 수량"
+  },
+  "languageRu": {
+    "message": "러시아어"
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
   }
 }

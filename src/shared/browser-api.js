@@ -70,6 +70,11 @@ export function getBrowserApi(globalScope = globalThis) {
             ? wrap(api.permissions.remove, api.permissions)
             : async () => false
         }
+      : null,
+    topSites: api.topSites
+      ? {
+          get: wrap(api.topSites.get, api.topSites)
+        }
       : null
   };
 }

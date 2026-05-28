@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "You have unsaved changes. Are you sure you want to exit?"
+  },
+  "frequentSites": {
+    "message": "Frequent sites"
+  },
+  "frequentSitesDesc": {
+    "message": "Shows your most visited sites as collected by the browser."
+  },
+  "resetHiddenTopSites": {
+    "message": "Reset hidden sites"
+  },
+  "statisticsSection": {
+    "message": "Statistics"
+  },
+  "mostVisitedBookmarks": {
+    "message": "Most used bookmarks"
+  },
+  "localStorageAudit": {
+    "message": "Local storage usage"
+  },
+  "downloadClickStats": {
+    "message": "Download click history"
+  },
+  "resetStats": {
+    "message": "Reset statistics"
+  },
+  "frequentTag": {
+    "message": "Frequent"
+  },
+  "confirmResetStats": {
+    "message": "Reset usage statistics history?"
+  },
+  "visitsCountSingular": {
+    "message": "$ visit",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ visits",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "Local usage statistics"
+  },
+  "localStatsDesc": {
+    "message": "Logs opens to show recent and most used. Private."
+  },
+  "searchStatisticsRow": {
+    "message": "statistics usage clicks visits history json"
+  },
+  "hideSite": {
+    "message": "Hide site"
+  },
+  "topSitesLimit": {
+    "message": "Visible quantity"
+  },
+  "languageRu": {
+    "message": "Russian"
+  },
+  "statsDisabledMsg": {
+    "message": "Local statistics are disabled. Enable this option in Privacy to see your most used sites."
+  },
+  "enableInPrivacy": {
+    "message": "Enable in Privacy"
+  },
+  "showViewButtonTitle": {
+    "message": "Show View button"
+  },
+  "showViewButtonDesc": {
+    "message": "Shows the button to change the folder's view mode."
+  },
+  "showSortButtonTitle": {
+    "message": "Show Sort button"
+  },
+  "showSortButtonDesc": {
+    "message": "Shows the button to sort the bookmarks in the folder."
   }
 }

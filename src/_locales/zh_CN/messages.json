@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "frequentSites": {
+    "message": "常用网站"
+  },
+  "frequentSitesDesc": {
+    "message": "显示您最常访问的网站。"
+  },
+  "statisticsSection": {
+    "message": "统计"
+  },
+  "mostVisitedBookmarks": {
+    "message": "最常用的书签"
+  },
+  "localStorageAudit": {
+    "message": "本地存储使用情况"
+  },
+  "downloadClickStats": {
+    "message": "下载点击历史记录"
+  },
+  "resetStats": {
+    "message": "重置统计"
+  },
+  "frequentTag": {
+    "message": "常用"
+  },
+  "confirmResetStats": {
+    "message": "重置使用统计历史记录？"
+  },
+  "visitsCountSingular": {
+    "message": "$ 次访问",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ 次访问",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "本地使用统计"
+  },
+  "localStatsDesc": {
+    "message": "记录打开操作以显示最近和最常用的内容。私人使用。"
+  },
+  "searchStatisticsRow": {
+    "message": "统计 使用 点击 访问 历史 json"
+  },
+  "hideSite": {
+    "message": "隐藏网站"
+  },
+  "topSitesLimit": {
+    "message": "可见数量"
+  },
+  "languageRu": {
+    "message": "俄语"
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
   }
 }

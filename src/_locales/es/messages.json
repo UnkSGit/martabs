@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "frequentSites": {
+    "message": "Sitios frecuentes"
+  },
+  "frequentSitesDesc": {
+    "message": "Muestra tus sitios más visitados según recolectó el navegador."
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "statisticsSection": {
+    "message": "Estadísticas"
+  },
+  "mostVisitedBookmarks": {
+    "message": "Marcadores más usados"
+  },
+  "localStorageAudit": {
+    "message": "Uso de almacenamiento local"
+  },
+  "downloadClickStats": {
+    "message": "Descargar historial de clics"
+  },
+  "resetStats": {
+    "message": "Restablecer estadísticas"
+  },
+  "frequentTag": {
+    "message": "Frecuente"
+  },
+  "confirmResetStats": {
+    "message": "¿Restablecer el historial de estadísticas de uso?"
+  },
+  "visitsCountSingular": {
+    "message": "$ visita",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ visitas",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "Estadísticas de uso locales"
+  },
+  "localStatsDesc": {
+    "message": "Registra aperturas para mostrar recientes y más usados. Privado."
+  },
+  "searchStatisticsRow": {
+    "message": "estadisticas uso clics visitas historial json"
+  },
+  "hideSite": {
+    "message": "Ocultar sitio"
+  },
+  "topSitesLimit": {
+    "message": "Cantidad visible"
+  },
+  "languageRu": {
+    "message": "Ruso"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
   }
 }

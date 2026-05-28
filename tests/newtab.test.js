@@ -153,3 +153,18 @@ test("newtab folder mode change updates DOM in-place without full redraw", async
   assert.match(clickHandlerBlock, /setStoredValue/, "modeBtn click handler should save settings");
 });
 
+
+test("newtab fetches topSites when enabled and filters them correctly", async () => {
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+  assert.match(js, /if \(currentSettings\.showTopSitesFolder && api\.topSites\) {/);
+  assert.match(js, /api\.topSites\.get\(\)/);
+  assert.match(js, /topSites = sites/);
+  assert.match(js, /\.filter\(site => !blacklist\.includes\(site\.url\)\)/);
+  assert.match(js, /\.slice\(0, currentSettings\.topSitesLimit/);
+});
+
+test("newtab excludes topSites from review and hover previews", async () => {
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+  assert.match(js, /if \(currentSettings\?\.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder\)/);
+  assert.match(js, /if \(!bookmark\.isTopSite\) {[^}]*bookmarkElement\.addEventListener\("mouseenter"/);
+});

@@ -116,3 +116,12 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /saveErrorNoPermissionsHealth/);
   assert.match(js, /saveErrorNoPermissionsCapture/);
 });
+
+test("setup handles topSites and localStats UI features", async () => {
+  const js = await readFile("src/setup/setup.js", "utf8");
+  assert.match(js, /const frequentSites = document\.querySelector\("#frequent-sites"\)/);
+  assert.match(js, /const localStats = document\.querySelector\("#local-stats"\)/);
+  assert.match(js, /resetTopsitesBlacklistBtn\.style\.display = "block"/);
+  assert.match(js, /statisticsDisabledMsg\.style\.display = "block"/);
+  assert.match(js, /function renderStatistics\(\)/);
+});

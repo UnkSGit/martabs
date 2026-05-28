@@ -34,6 +34,7 @@
             <button class="setup-nav-button is-active" type="button" data-section="folders" data-i18n="foldersSection">Carpetas</button>
             <button class="setup-nav-button" type="button" data-section="appearance" data-i18n="appearanceSection">Apariencia</button>
             <button class="setup-nav-button" type="button" data-section="privacy" data-i18n="privacySection">Privacidad</button>
+            <button class="setup-nav-button" type="button" data-section="statistics" data-i18n="statisticsSection">Estadísticas</button>
             <button class="setup-nav-button" type="button" data-section="tags" data-i18n="tagsSection">Etiquetas</button>
             <button class="setup-nav-button" type="button" data-section="advanced" data-i18n="advancedSection">Avanzado</button>
           </nav>
@@ -109,15 +110,16 @@
                   </span>
                   <select id="language-select">
                     <option value="system" data-i18n="languageSystem">Sistema (Predeterminado)</option>
-                    <option value="es" data-i18n="languageEs">Español</option>
-                    <option value="en" data-i18n="languageEn">Inglés</option>
-                    <option value="pt" data-i18n="languagePt">Portugués</option>
                     <option value="de" data-i18n="languageDe">Alemán</option>
-                    <option value="fr" data-i18n="languageFr">Francés</option>
                     <option value="zh_CN" data-i18n="languageZh">Chino simplificado</option>
-                    <option value="ja" data-i18n="languageJa">Japonés</option>
-                    <option value="it" data-i18n="languageIt">Italiano</option>
                     <option value="ko" data-i18n="languageKo">Coreano</option>
+                    <option value="es" data-i18n="languageEs">Español</option>
+                    <option value="fr" data-i18n="languageFr">Francés</option>
+                    <option value="en" data-i18n="languageEn">Inglés</option>
+                    <option value="it" data-i18n="languageIt">Italiano</option>
+                    <option value="ja" data-i18n="languageJa">Japonés</option>
+                    <option value="pt" data-i18n="languagePt">Portugués</option>
+                    <option value="ru" data-i18n="languageRu">Ruso</option>
                   </select>
                 </label>
 
@@ -169,13 +171,73 @@
                   </span>
                 </label>
 
-                <label class="switch-row" data-i18n-search="searchPreviewCaptureRow" data-search="capturar previews locales imagen captura permisos">
+                <label class="switch-row" data-i18n-search="searchPreviewCaptureRow" data-search="capturar vistas previas locales imagen captura permisos">
                   <input id="preview-capture" type="checkbox">
                   <span>
-                    <strong data-i18n="previewCapture">Capturar previews locales</strong>
+                    <strong data-i18n="previewCapture">Capturar vistas previas locales</strong>
                     <small data-i18n="previewCaptureDesc">Solo para marcadores abiertos desde martabs.</small>
                   </span>
                 </label>
+
+                <label class="switch-row" data-i18n-search="searchFrequentSitesRow" data-search="sitios frecuentes topsites permisos">
+                  <input id="frequent-sites" type="checkbox">
+                  <span>
+                    <strong data-i18n="frequentSites">Sitios frecuentes</strong>
+                    <small data-i18n="frequentSitesDesc">Muestra tus sitios más visitados según recolectó el navegador.</small>
+                    <button type="button" id="reset-topsites-blacklist" class="secondary-button" style="margin-top: 8px; display: none;" data-i18n="resetHiddenTopSites">Restablecer ocultos</button>
+                  </span>
+                  <select id="topsites-limit" style="margin-left: 12px; max-width: 80px;" title="Cantidad máxima">
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+
+                <label class="switch-row" data-i18n-search="searchLocalStatsRow" data-search="estadisticas de uso locales">
+                  <input id="local-stats" type="checkbox">
+                  <span>
+                    <strong data-i18n="localStats">Estadísticas de uso locales</strong>
+                    <small data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</small>
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <section id="section-statistics" class="setup-section" data-section="statistics" data-i18n-search="searchStatisticsRow" data-search="estadisticas uso clics visitas historial json">
+              <div class="section-heading">
+                <h2 data-i18n="statisticsSection">Estadísticas</h2>
+                <p data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</p>
+              </div>
+              
+              <div id="statistics-disabled-msg" style="display: none; padding: 24px; background-color: var(--surface-bg); border-radius: 8px; border: 1px dashed var(--border-color); text-align: center;">
+                <p data-i18n="statsDisabledMsg" style="margin-bottom: 12px; font-size: 13px; color: var(--text-secondary);">Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados.</p>
+                <button type="button" id="go-to-privacy-stats" class="secondary-button" style="margin: 0 auto;" data-i18n="enableInPrivacy">Habilitar en Privacidad</button>
+              </div>
+
+              <div class="settings-stack" id="statistics-content">
+                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+                  <strong data-i18n="mostVisitedBookmarks">Marcadores más usados</strong>
+                  <div id="stats-chart" class="stats-chart" style="width: 100%; display: flex; flex-direction: column; gap: 8px;"></div>
+                </div>
+
+                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+                  <strong data-i18n="localStorageAudit">Uso de almacenamiento local</strong>
+                  <div id="storage-audit" class="storage-audit" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
+                </div>
+
+                <div class="setting-row">
+                  <span>
+                    <strong data-i18n="downloadClickStats" style="display: block;">Descargar historial de clics</strong>
+                  </span>
+                  <button type="button" id="download-stats" class="secondary-button">Descargar JSON</button>
+                </div>
+                
+                <div class="setting-row">
+                  <span>
+                    <strong data-i18n="resetStats" style="display: block;">Restablecer estadísticas</strong>
+                  </span>
+                  <button type="button" id="reset-stats" class="secondary-button danger-button" data-i18n="delete">Borrar</button>
+                </div>
               </div>
             </section>
 

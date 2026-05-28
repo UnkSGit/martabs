@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "frequentSites": {
+    "message": "よくアクセスするサイト"
+  },
+  "frequentSitesDesc": {
+    "message": "よくアクセスするサイトを表示します。"
+  },
+  "statisticsSection": {
+    "message": "統計"
+  },
+  "mostVisitedBookmarks": {
+    "message": "最も使用されたブックマーク"
+  },
+  "localStorageAudit": {
+    "message": "ローカルストレージの使用量"
+  },
+  "downloadClickStats": {
+    "message": "クリック履歴をダウンロード"
+  },
+  "resetStats": {
+    "message": "統計をリセット"
+  },
+  "frequentTag": {
+    "message": "頻繁"
+  },
+  "confirmResetStats": {
+    "message": "使用統計履歴をリセットしますか？"
+  },
+  "visitsCountSingular": {
+    "message": "$ 回の訪問",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ 回の訪問",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "ローカル使用統計"
+  },
+  "localStatsDesc": {
+    "message": "開いた履歴を記録し、最近および最も使用されたものを表示します。プライベートです。"
+  },
+  "searchStatisticsRow": {
+    "message": "統計 使用 クリック 訪問 履歴 json"
+  },
+  "hideSite": {
+    "message": "サイトを非表示"
+  },
+  "topSitesLimit": {
+    "message": "表示される数量"
+  },
+  "languageRu": {
+    "message": "ロシア語"
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
   }
 }

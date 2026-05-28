@@ -644,5 +644,87 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "frequentSites": {
+    "message": "Sites frequentes"
+  },
+  "frequentSitesDesc": {
+    "message": "Mostra seus sites mais visitados."
+  },
+  "statisticsSection": {
+    "message": "Estatísticas"
+  },
+  "mostVisitedBookmarks": {
+    "message": "Favoritos mais usados"
+  },
+  "localStorageAudit": {
+    "message": "Uso de armazenamento local"
+  },
+  "downloadClickStats": {
+    "message": "Baixar histórico de cliques"
+  },
+  "resetStats": {
+    "message": "Redefinir estatísticas"
+  },
+  "frequentTag": {
+    "message": "Frequente"
+  },
+  "confirmResetStats": {
+    "message": "Redefinir o histórico de estatísticas de uso?"
+  },
+  "visitsCountSingular": {
+    "message": "$ visita",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "visitsCountPlural": {
+    "message": "$ visitas",
+    "placeholders": {
+      "count": {
+        "content": ""
+      }
+    }
+  },
+  "localStats": {
+    "message": "Estatísticas de uso locais"
+  },
+  "localStatsDesc": {
+    "message": "Registra aberturas para mostrar recentes e mais usados. Privado."
+  },
+  "searchStatisticsRow": {
+    "message": "estatísticas uso cliques visitas histórico json"
+  },
+  "hideSite": {
+    "message": "Ocultar site"
+  },
+  "topSitesLimit": {
+    "message": "Quantidade visível"
+  },
+  "languageRu": {
+    "message": "Russo"
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
   }
 }

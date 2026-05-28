@@ -39,6 +39,7 @@ let bookmarks = [];
 let currentSettings = null;
 let capturedPreviews = {};
 let pinnedBookmarks = [];
+let topSites = [];
 let hoverTimeout = null;
 let hideTimeout = null;
 let pendingViewFocusFolderId = null;
@@ -294,6 +295,22 @@ function getBookmarkHealth(bookmark) {
 }
 
 async function openBookmarkFromMartabs(bookmark) {
+  if (currentSettings.localStatsEnabled) {
+    try {
+      const data = await api.storage.local.get(STORAGE_KEYS.clickStats);
+      let clickStats = data[STORAGE_KEYS.clickStats] || [];
+      const ninetyDaysAgo = Date.now() - (90 * 24 * 60 * 60 * 1000);
+      clickStats = clickStats.filter(stat => stat.openedAt > ninetyDaysAgo);
+      clickStats.push({
+        bookmarkId: bookmark.id,
+        url: bookmark.url,
+        title: bookmark.title,
+        folderId: bookmark.parentId,
+        openedAt: Date.now()
+      });
+      await api.storage.local.set({ [STORAGE_KEYS.clickStats]: clickStats });
+    } catch (e) { console.error("Error saving click stats", e); }
+  }
   try {
     await api.runtime.sendMessage({
       type: CAPTURE_OPENED_BOOKMARK,
@@ -366,7 +383,30 @@ function renderBookmark(bookmark, rich = false) {
   });
   
   const actionsContainer = el("div", { class: "bookmark-actions" }, [pinBtn, editBtn]);
-  bookmarkElement.append(actionsContainer);
+  
+  if (bookmark.isTopSite) {
+    bookmarkElement.draggable = false;
+    const svgHideDoc = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`, "image/svg+xml");
+    const hideBtn = el("button", { class: "icon-button bookmark-action-btn", title: t(api, "hideSite"), "aria-label": t(api, "hideSite") });
+    hideBtn.appendChild(svgHideDoc.documentElement);
+    hideBtn.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const blacklist = currentSettings.topSitesBlacklist || [];
+      if (!blacklist.includes(bookmark.url)) {
+        blacklist.push(bookmark.url);
+        currentSettings.topSitesBlacklist = blacklist;
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+        topSites = topSites.filter(site => site.url !== bookmark.url);
+        render();
+      }
+    });
+    const topSiteActions = el("div", { class: "bookmark-actions" }, [hideBtn]);
+    bookmarkElement.append(topSiteActions);
+  } else {
+    bookmarkElement.append(actionsContainer);
+  }
+  
 
   bookmarkElement.addEventListener("click", (event) => {
     if (
@@ -384,11 +424,13 @@ function renderBookmark(bookmark, rich = false) {
     openBookmarkFromMartabs(bookmark);
   });
 
-  bookmarkElement.addEventListener("mouseenter", () => {
-    clearTimeout(hoverTimeout);
-    clearTimeout(hideTimeout);
-    hoverTimeout = setTimeout(() => showPreviewCard(bookmark, bookmarkElement), 350);
-  });
+  if (!bookmark.isTopSite) {
+    bookmarkElement.addEventListener("mouseenter", () => {
+      clearTimeout(hoverTimeout);
+      clearTimeout(hideTimeout);
+      hoverTimeout = setTimeout(() => showPreviewCard(bookmark, bookmarkElement), 350);
+    });
+  }
 
   bookmarkElement.addEventListener("mouseleave", () => {
     clearTimeout(hoverTimeout);
@@ -652,6 +694,9 @@ function renderDashboard(items) {
   if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
     folders.unshift([PINNED_FOLDER_KEY, pinnedItems]);
   }
+  if (topSites.length > 0) {
+    folders.unshift(["__martabs_topsites__", topSites]);
+  }
   
   const count = folders.length;
   const masonryWrapper = el("div", { class: "layout-masonry" });
@@ -669,7 +714,8 @@ function renderDashboard(items) {
 
   for (const [folder, items] of folders) {
     const isPinnedFolder = folder === PINNED_FOLDER_KEY;
-    const folderId = isPinnedFolder ? "pinned" : items[0]?.parentId;
+    const isTopSitesFolder = folder === "__martabs_topsites__";
+    const folderId = isPinnedFolder ? "pinned" : (isTopSitesFolder ? "__martabs_topsites__" : items[0]?.parentId);
     const folderSort = isPinnedFolder ? "browser" : getFolderSort(folderId);
     const manualOrder = getFolderManualOrder(folderId);
     const folderBookmarks = isPinnedFolder
@@ -694,7 +740,7 @@ function renderDashboard(items) {
       headerButtons.push(toggleBtn);
     }
 
-    if (currentSettings?.linkHealthEnabled && !isPinnedFolder) {
+    if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
       const progressEl = el("span", { class: "review-progress" });
       const reviewButton = el("button", { class: "review-button", type: "button", text: t(api, "review") });
       reviewButton.addEventListener("click", () => {
@@ -806,6 +852,8 @@ function renderDashboard(items) {
 
     const folderDisplayName = isPinnedFolder
       ? t(api, "pinnedFolderTitle")
+      : isTopSitesFolder
+      ? t(api, "frequentSites")
       : (currentSettings.folderNameOverrides || {})[folderId] || folder;
     const h2 = el("h2", { text: folderDisplayName, title: folderDisplayName });
     
@@ -996,7 +1044,8 @@ function renderBrokenLinks(items, folderName = "") {
 
 function render() {
   const query = searchInput.value;
-  const results = searchBookmarks(bookmarks, query);
+  const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;
+  const results = searchBookmarks(searchableBookmarks, query);
   const monitoredText = bookmarks.length === 1
     ? t(api, "monitoredBookmarksCountSingular", [bookmarks.length])
     : t(api, "monitoredBookmarksCountPlural", [bookmarks.length]);
@@ -1022,6 +1071,26 @@ async function init() {
     getCapturedPreviews(api),
     getStoredValue(api, STORAGE_KEYS.pinnedBookmarks, [])
   ]);
+
+  if (currentSettings.showTopSitesFolder && api.topSites) {
+    try {
+      const sites = await api.topSites.get();
+      const blacklist = currentSettings.topSitesBlacklist || [];
+      topSites = sites
+        .filter(site => !blacklist.includes(site.url))
+        .slice(0, currentSettings.topSitesLimit || 8)
+        .map(site => ({
+          id: "topsite_" + site.url,
+          url: site.url,
+          title: site.title,
+          parentId: "__martabs_topsites__",
+          isTopSite: true
+        }));
+    } catch (e) {
+      console.error("Failed to fetch top sites", e);
+    }
+  }
+
   render();
   searchInput.focus();
 }
@@ -1033,7 +1102,8 @@ searchInput.addEventListener("keydown", (event) => {
     render();
   }
   if (event.key === "Enter") {
-    const [first] = searchBookmarks(bookmarks, searchInput.value);
+    const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;
+    const [first] = searchBookmarks(searchableBookmarks, searchInput.value);
     if (first) location.href = first.url;
   }
 });

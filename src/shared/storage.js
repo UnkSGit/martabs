@@ -17,7 +17,11 @@ const DEFAULT_SETTINGS = {
   bookmarkFolderOverrides: {},
   folderNameOverrides: {},
   customFavicons: {},
-  brokenCustomFavicons: {}
+  brokenCustomFavicons: {},
+  showTopSitesFolder: false,
+  topSitesLimit: 8,
+  topSitesBlacklist: [],
+  localStatsEnabled: false
 };
 
 export const STORAGE_KEYS = {
@@ -27,7 +31,8 @@ export const STORAGE_KEYS = {
   linkHealth: "linkHealth",
   capturedPreviews: "capturedPreviews",
   pendingPreviewCaptures: "pendingPreviewCaptures",
-  pinnedBookmarks: "pinnedBookmarks"
+  pinnedBookmarks: "pinnedBookmarks",
+  clickStats: "clickStats"
 };
 
 export async function getSettings(api) {

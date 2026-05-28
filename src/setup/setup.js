@@ -22,6 +22,17 @@ const showSortButton = document.querySelector("#show-sort-button");
 const linkHealth = document.querySelector("#link-health");
 const previewEnabled = document.querySelector("#preview-enabled");
 const previewCapture = document.querySelector("#preview-capture");
+const frequentSites = document.querySelector("#frequent-sites");
+const topsitesLimit = document.querySelector("#topsites-limit");
+const resetTopsitesBlacklistBtn = document.querySelector("#reset-topsites-blacklist");
+const localStats = document.querySelector("#local-stats");
+const statisticsDisabledMsg = document.querySelector("#statistics-disabled-msg");
+const statisticsContent = document.querySelector("#statistics-content");
+const goToPrivacyStatsBtn = document.querySelector("#go-to-privacy-stats");
+const statsChart = document.querySelector("#stats-chart");
+const storageAudit = document.querySelector("#storage-audit");
+const resetStatsBtn = document.querySelector("#reset-stats");
+const downloadStatsBtn = document.querySelector("#download-stats");
 const defaultModeSelect = document.querySelector("#default-mode-select");
 const defaultSortSelect = document.querySelector("#default-sort-select");
 const themeSelect = document.querySelector("#theme-select");
@@ -34,6 +45,8 @@ const importConfigFile = document.querySelector("#import-config-file");
 const importSummary = document.querySelector("#import-summary");
 let currentSettings = null;
 let currentFolders = [];
+
+const topSitesPermissions = { permissions: ["topSites"] };
 
 const urlPermissions = {
   origins: ["<all_urls>"]
@@ -332,7 +345,7 @@ function getFolderSorts() {
   return folderSorts;
 }
 
-function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
+function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showTopSitesFolder, localStatsEnabled) {
   return {
     ...currentSettings,
     selectedFolderIds: getSelectedFolderIds(),
@@ -344,6 +357,9 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
     linkHealthEnabled: linkHealthEnabled,
     previewEnabled: previewEnabled.checked,
     previewCaptureEnabled: previewCaptureEnabled,
+    showTopSitesFolder: showTopSitesFolder,
+    topSitesLimit: Number(topsitesLimit.value),
+    localStatsEnabled: localStats.checked,
     theme: themeSelect.value,
     language: languageSelect.value,
     defaultFolderMode: defaultModeSelect.value,
@@ -356,6 +372,11 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled) {
 
 function needsUrlPermission(linkHealthRequested, previewCaptureRequested) {
   return linkHealthRequested || previewCaptureRequested;
+}
+
+async function requestTopSitesPermission() {
+  if (!api.permissions?.request) return false;
+  try { return await api.permissions.request(topSitesPermissions); } catch { return false; }
 }
 
 async function requestUrlPermission() {
@@ -406,6 +427,18 @@ async function init() {
   linkHealth.checked = currentSettings.linkHealthEnabled;
   previewEnabled.checked = currentSettings.previewEnabled;
   previewCapture.checked = currentSettings.previewCaptureEnabled;
+  frequentSites.checked = currentSettings.showTopSitesFolder;
+  topsitesLimit.value = settings.topSitesLimit || 8;
+  
+  if (currentSettings.topSitesBlacklist && currentSettings.topSitesBlacklist.length > 0) {
+    resetTopsitesBlacklistBtn.style.display = "block";
+  } else {
+    resetTopsitesBlacklistBtn.style.display = "none";
+  }
+
+  localStats.checked = settings.localStatsEnabled !== false;
+
+  renderStatistics();
   themeSelect.value = currentSettings.theme || "system";
   languageSelect.value = normalizeLanguageCode(currentSettings.language) || "system";
   defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
@@ -610,11 +643,15 @@ saveButton.addEventListener("click", async () => {
 
     const linkHealthRequested = linkHealth.checked;
     const previewCaptureRequested = previewCapture.checked;
+    const frequentSitesRequested = frequentSites.checked;
+    const localStatsRequested = localStats.checked;
     const urlPermissionGranted = needsUrlPermission(linkHealthRequested, previewCaptureRequested)
       ? await requestUrlPermission()
       : false;
     const linkHealthEnabled = linkHealthRequested && urlPermissionGranted;
     const previewCaptureEnabled = previewCaptureRequested && urlPermissionGranted;
+    const topSitesPermissionGranted = frequentSitesRequested ? await requestTopSitesPermission() : false;
+    const showTopSitesFolder = frequentSitesRequested && topSitesPermissionGranted;
 
     if (!needsUrlPermission(linkHealthRequested, previewCaptureRequested)) {
       await removePermission(urlPermissions);
@@ -627,8 +664,12 @@ saveButton.addEventListener("click", async () => {
     if (!previewCaptureEnabled) {
       previewCapture.checked = false;
     }
+    if (!showTopSitesFolder) {
+      frequentSites.checked = false;
+    }
 
-    currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled);
+    currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showTopSitesFolder, localStatsRequested);
+    if (localStatsRequested) renderStatistics();
     await saveSettings(api, currentSettings);
 
     await initI18n(api, currentSettings.language);
@@ -659,6 +700,10 @@ const handleSettingsChange = (e) => {
   }
 };
 document.querySelector(".setup-content").addEventListener("change", handleSettingsChange);
+localStats.addEventListener("change", () => {
+    renderStatistics();
+    markUnsaved();
+});
 document.querySelector(".setup-content").addEventListener("input", handleSettingsChange);
 
 backButton.addEventListener("click", () => {
@@ -676,3 +721,125 @@ init().then(() => {
 }).catch((error) => {
   status.textContent = t(api, "loadError", [error.message]);
 });
+
+
+async function renderStatistics() {
+  if (!statsChart || !storageAudit) return;
+  
+  if (!localStats.checked) {
+    statisticsDisabledMsg.style.display = "block";
+    statisticsContent.style.display = "none";
+    return;
+  } else {
+    statisticsDisabledMsg.style.display = "none";
+    statisticsContent.style.display = "";
+  }
+  
+  statsChart.innerHTML = "";
+  storageAudit.innerHTML = "";
+  const data = await api.storage.local.get(STORAGE_KEYS.clickStats);
+  const clickStats = data[STORAGE_KEYS.clickStats] || [];
+  if (clickStats.length === 0) {
+    statsChart.innerHTML = `<p>${t(api, "emptyResults")}</p>`;
+  } else {
+    const counts = {};
+    const titles = {};
+    const urls = {};
+    clickStats.forEach(stat => {
+      counts[stat.bookmarkId] = (counts[stat.bookmarkId] || 0) + 1;
+      titles[stat.bookmarkId] = stat.title || stat.url || "Unknown";
+      urls[stat.bookmarkId] = stat.url;
+    });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    const maxCount = sorted[0][1];
+    
+    statsChart.innerHTML = `<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">` + 
+      sorted.map(([id, count]) => {
+        const percentage = (count / maxCount) * 100;
+        let domain = "";
+        try { domain = new URL(urls[id]).hostname; } catch(e) {}
+        const faviconUrl = domain ? `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=32` : "";
+        const faviconImg = faviconUrl 
+          ? `<img src="${faviconUrl}" alt="" style="width: 16px; height: 16px; border-radius: 2px;">` 
+          : `<div style="width: 16px; height: 16px; border-radius: 2px; background: var(--border-color);"></div>`;
+        const visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
+
+        return `
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px; width: 140px; min-width: 140px; overflow: hidden;">
+              ${faviconImg}
+              <span style="font-size: 13px; color: var(--text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${titles[id]}">${titles[id]}</span>
+            </div>
+            <div style="width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: right;">
+              ${visitsText || (count + " aperturas")}
+            </div>
+            <div style="flex: 1; height: 14px; display: flex; align-items: center;">
+              <div style="width: ${percentage}%; height: 100%; background-color: var(--accent-color); border-radius: 3px; min-width: 4px;"></div>
+            </div>
+          </div>
+        `;
+      }).join("") + `</div>`;
+  }
+  try {
+    const allStorage = await api.storage.local.get(null);
+    let totalBytes = 0;
+    for (const [key, value] of Object.entries(allStorage)) {
+      const size = new Blob([JSON.stringify(value)]).size;
+      totalBytes += size;
+      storageAudit.innerHTML += `
+        <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--card-bg); border-radius: 6px; border: 1px solid var(--border-color);">
+          <span style="font-size: 13px;">${key}</span>
+          <span style="font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums;">${(size / 1024).toFixed(1)} KB</span>
+        </div>
+      `;
+    }
+    storageAudit.innerHTML += `
+      <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--hover-color); border-radius: 6px; border: 1px solid var(--border-color); font-weight: 500;">
+        <span style="font-size: 13px;">Total</span>
+        <span style="font-size: 13px; font-variant-numeric: tabular-nums;">${(totalBytes / 1024).toFixed(1)} KB</span>
+      </div>
+    `;
+  } catch (e) {
+    storageAudit.innerHTML = `<p>Error loading storage.</p>`;
+  }
+}
+
+if (resetStatsBtn) {
+  resetStatsBtn.addEventListener("click", async () => {
+    if (confirm(t(api, "confirmResetStats"))) {
+      await api.storage.local.set({ [STORAGE_KEYS.clickStats]: [] });
+      renderStatistics();
+    }
+  });
+
+  goToPrivacyStatsBtn.addEventListener("click", () => {
+    const privacyBtn = document.querySelector('.setup-nav-button[data-section="privacy"]');
+    if (privacyBtn) privacyBtn.click();
+  });
+
+  resetTopsitesBlacklistBtn.addEventListener("click", async () => {
+    const nextSettings = { ...currentSettings, topSitesBlacklist: [] };
+    currentSettings = nextSettings;
+    await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
+    resetTopsitesBlacklistBtn.style.display = "none";
+    status.textContent = t(api, "saveSuccess");
+    status.classList.add("visible");
+    setTimeout(() => {
+      status.classList.remove("visible");
+    }, 3000);
+  });
+}
+
+if (downloadStatsBtn) {
+  downloadStatsBtn.addEventListener("click", async () => {
+    const data = await api.storage.local.get(STORAGE_KEYS.clickStats);
+    const clickStats = data[STORAGE_KEYS.clickStats] || [];
+    const blob = new Blob([JSON.stringify(clickStats, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "martabs_click_stats.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+}
