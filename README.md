@@ -135,6 +135,8 @@ docs/                 living documentation
 - `docs/collaboration.md` - how to collaborate across AI tools.
 - `docs/roadmap.md` - pending items and future plans.
 - `docs/firefox-testing-issues.md` - E2E limitations in Firefox.
+- `docs/ai-map.md` - high-level codebase map and rules of care for AI agents.
+- `docs/ai-map-notes.md` - log of gaps and refinements to the AI map.
 
 ## AI Collaboration
 
@@ -142,6 +144,8 @@ This project was developed collaboratively between the author and AI assistants:
 
 - **Antigravity** (Google DeepMind) using Gemini models.
 - **Codex** (OpenAI) using GPT models.
+
+All AI agents working on this repository are required to read the [AI Codebase Map](docs/ai-map.md) before proposing or implementing changes. Gaps or omissions should be logged in the [AI Map Gaps & Notes Log](docs/ai-map-notes.md) to keep it updated.
 
 The documentation in `docs/collaboration.md` describes how to work with your own AI agents without depending on a specific tool. Changes are logged in `docs/task.md`, indicating the tool used.
 

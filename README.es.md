@@ -136,6 +136,8 @@ docs/                 documentacion viva
 - `docs/collaboration.md` - como colaborar entre herramientas.
 - `docs/roadmap.md` - pendientes y planes futuros.
 - `docs/firefox-testing-issues.md` - limitaciones de E2E en Firefox.
+- `docs/ai-map.md` - mapa de codebase de alto nivel y reglas de cuidado para agentes de IA.
+- `docs/ai-map-notes.md` - registro de omisiones y refinamientos del mapa de IA.
 
 ## Colaboracion con IA
 
@@ -143,6 +145,8 @@ Este proyecto fue desarrollado de forma colaborativa entre el autor y asistentes
 
 - **Antigravity** (Google DeepMind) con modelos Gemini.
 - **Codex** (OpenAI) con modelos GPT.
+
+Todos los agentes de IA que trabajen en este repositorio deben leer el [Mapa de Codebase de IA](docs/ai-map.md) antes de proponer o implementar cambios. Las omisiones detectadas deben registrarse en el [Registro de Omisiones del Mapa de IA](docs/ai-map-notes.md) para mantenerlo actualizado.
 
 La documentacion en `docs/collaboration.md` describe como trabajar con agentes de IA propios sin depender de una herramienta especifica. Los cambios se registran en `docs/task.md` indicando la herramienta utilizada.
 
