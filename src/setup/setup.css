@@ -1,10 +1,10 @@
 :root {
   color-scheme: light dark;
-  --bg-gradient: linear-gradient(135deg, #fef3c7 0%, #fce7f3 38%, #e0f2fe 70%, #dcfce7 100%);
-  --surface-bg: rgba(255, 255, 255, 0.29);
+  --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #fef08a 35%, #99f6e4 70%, #bae6fd 100%);
+  --surface-bg: rgba(255, 255, 255, 0.225);
   --surface-strong: #ffffff;
-  --surface-border: rgba(15, 23, 42, 0.1);
-  --text-primary: #0f172a;
+  --surface-border: rgba(255, 255, 255, 0.35);
+  --text-primary: #1e293b;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --primary: #0d9488;
@@ -32,6 +32,17 @@
     --danger-soft: rgba(251, 113, 133, 0.12);
     --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.28);
   }
+  :root:not(.theme-light) .setup-panel {
+    background: var(--surface-strong);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  :root:not(.theme-light) select {
+    background: var(--surface-strong);
+  }
+  :root:not(.theme-light) select:hover {
+    background: var(--surface-strong);
+  }
 }
 
 :root.theme-dark {
@@ -47,6 +58,20 @@
   --primary-soft: rgba(18, 154, 143, 0.16);
   --danger-soft: rgba(251, 113, 133, 0.12);
   --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+:root.theme-dark .setup-panel {
+  background: var(--surface-strong);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root.theme-dark select {
+  background: var(--surface-strong);
+}
+
+:root.theme-dark select:hover {
+  background: var(--surface-strong);
 }
 
 * {
@@ -73,7 +98,9 @@ body {
 .setup-panel {
   width: min(1160px, calc(100vw - 48px));
   margin: 0 auto;
-  background: var(--surface-strong);
+  background: var(--surface-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -399,16 +426,27 @@ select {
   padding: 0 12px;
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-sm);
-  background: var(--surface-strong);
+  background: rgba(255, 255, 255, 0.45);
   color: var(--text-primary);
   font-family: inherit;
   font-size: 13.5px;
   font-weight: 650;
   outline: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  background: rgba(255, 255, 255, 0.65);
 }
 
 select:focus {
   border-color: var(--primary);
+}
+
+option {
+  background: var(--surface-strong);
+  color: var(--text-primary);
 }
 
 button {

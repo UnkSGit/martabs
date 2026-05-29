@@ -46,7 +46,7 @@ test("setup styles include the setup shell and folder list layout", async () => 
   const css = await readFile("src/setup/setup.css", "utf8");
 
   assert.match(css, /\.setup-shell\s*{/);
-  assert.match(css, /--surface-bg:\s*rgba\(255, 255, 255, 0\.29\);/);
+  assert.match(css, /--surface-bg:\s*rgba\(255, 255, 255, 0\.225\);/);
   assert.match(css, /--surface-bg:\s*rgba\(24, 30, 40, 0\.72\);/);
   assert.match(css, /place-items: start center;/);
   assert.match(css, /padding: 50px 24px 24px;/);
