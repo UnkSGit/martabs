@@ -73,6 +73,6 @@ Cuando el usuario busca, martabs conserva el ranking de busqueda para priorizar 
 
 ## Idioma
 
-martabs soporta 9 idiomas: espanol, ingles, portugues, aleman, frances, italiano, coreano, chino simplificado y japones.
+martabs soporta 10 idiomas: espanol, ingles, portugues, aleman, frances, italiano, coreano, chino simplificado, japones y arabe.
 
-El idioma se puede cambiar desde Configuracion > Apariencia. La opcion `Sistema` usa el idioma del navegador. Al elegir un idioma especifico, toda la interfaz se actualiza al guardar sin necesidad de recargar.
+El idioma se puede cambiar desde Configuracion > Apariencia. La opcion `Sistema` usa el idioma del navegador. Al elegir un idioma especifico, toda la interfaz se actualiza al guardar sin necesidad de recargar. En el caso del arabe, la interfaz se adapta dinamicamente al diseno de derecha a izquierda (RTL).

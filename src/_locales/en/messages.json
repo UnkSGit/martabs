@@ -1,102 +1,111 @@
 {
-  "extensionName": {
-    "message": "martabs"
+  "aboutAppName": {
+    "message": "About martabs"
   },
-  "extensionDescription": {
-    "message": "A beautiful, fast, and privacy-first New Tab dashboard to organize and monitor your bookmark folders."
+  "accessibilityDescription": {
+    "message": "Keyboard shortcuts and accessible navigation options."
   },
-  "newtabTitle": {
-    "message": "Home - martabs"
+  "accessibilityHeading": {
+    "message": "Accessibility"
   },
-  "loadingBookmarks": {
-    "message": "Loading bookmarks..."
+  "accessibilitySection": {
+    "message": "Accessibility"
   },
-  "settingsBtn": {
-    "message": "Configure"
+  "advancedDescription": {
+    "message": "Infrequent actions to clear local state."
   },
-  "settingsBtnTitle": {
-    "message": "Configure bookmarks and preferences"
+  "advancedHeading": {
+    "message": "Advanced"
   },
-  "searchPlaceholder": {
-    "message": "Search title, tag, URL or folder..."
+  "advancedSection": {
+    "message": "Advanced"
   },
-  "editModalTitle": {
-    "message": "Edit Bookmark"
+  "allFolders": {
+    "message": "all folders"
   },
-  "editFieldName": {
-    "message": "Name"
+  "appearanceDescription": {
+    "message": "General visual preferences for the dashboard."
   },
-  "editFieldUrl": {
-    "message": "URL"
+  "appearanceHeading": {
+    "message": "Appearance"
   },
-  "editFieldTags": {
-    "message": "Tags (comma-separated)"
+  "appearanceSection": {
+    "message": "Appearance"
   },
-  "editFieldTagsPlaceholder": {
-    "message": "e.g., work, docs, js"
+  "automaticTags": {
+    "message": "Automatic tags"
   },
-  "editFieldFavicon": {
-    "message": "Custom icon (Image URL)"
-  },
-  "editFaviconError": {
-    "message": "The current image could not be loaded."
-  },
-  "delete": {
-    "message": "Delete"
-  },
-  "cancel": {
-    "message": "Cancel"
-  },
-  "save": {
-    "message": "Save"
-  },
-  "emptyResults": {
-    "message": "No results found."
-  },
-  "hide": {
-    "message": "Hide"
-  },
-  "hidePinnedFolder": {
-    "message": "Hide Pinned folder (you can show it again from Settings)"
-  },
-  "review": {
-    "message": "Review"
-  },
-  "reviewing": {
-    "message": "Reviewing..."
-  },
-  "failuresCountSingular": {
-    "message": "$COUNT$ failure",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "failuresCountPlural": {
-    "message": "$COUNT$ failure(s)",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "changeView": {
-    "message": "Change view"
-  },
-  "pinnedFolderTitle": {
-    "message": "Pinned"
+  "automaticTagsDesc": {
+    "message": "Derived from folders, domain, and bookmark data."
   },
   "back": {
     "message": "Back"
   },
-  "deleteAllCount": {
-    "message": "Delete all ($COUNT$)",
+  "backToDashboard": {
+    "message": "Back to dashboard"
+  },
+  "bookmarkEditBtn": {
+    "message": "Edit bookmark"
+  },
+  "bookmarkPinBtn": {
+    "message": "Pin bookmark"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "Unpin bookmark"
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ bookmark(s) to review.",
     "placeholders": {
       "count": {
         "content": "$1"
       }
     }
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ bookmark to review.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "Broken links"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "cancelImport": {
+    "message": "Cancel"
+  },
+  "changeView": {
+    "message": "Change view"
+  },
+  "cleanFolderNames": {
+    "message": "Clean folder names"
+  },
+  "cleanFolderNamesDesc": {
+    "message": "Show short folder names for clarity."
+  },
+  "clearPreviewCache": {
+    "message": "Clear cached previews"
+  },
+  "clearPreviewsError": {
+    "message": "Could not clear preview cache: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "clearPreviewsSuccess": {
+    "message": "Cached previews cleared."
+  },
+  "confirmAndApply": {
+    "message": "Confirm and apply"
+  },
+  "confirmClearPreviews": {
+    "message": "Clear all cached local previews?"
   },
   "confirmDeleteAllFailures": {
     "message": "Delete the $COUNT$ broken bookmarks from \"$FOLDER$\"? This action cannot be undone.",
@@ -108,28 +117,6 @@
         "content": "$2"
       }
     }
-  },
-  "allFolders": {
-    "message": "all folders"
-  },
-  "bookmarksToReviewSingular": {
-    "message": "$COUNT$ bookmark to review.",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "bookmarksToReviewPlural": {
-    "message": "$COUNT$ bookmark(s) to review.",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "noFailuresRegistered": {
-    "message": "No broken links registered."
   },
   "confirmDeleteBookmark": {
     "message": "Delete bookmark \"$TITLE$\"?",
@@ -147,33 +134,11 @@
       }
     }
   },
-  "monitoredBookmarksCountSingular": {
-    "message": "$COUNT$ bookmark monitored",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
+  "confirmResetLocalOrg": {
+    "message": "Reset all local movements and manual sorting? Real browser bookmarks will not be modified."
   },
-  "monitoredBookmarksCountPlural": {
-    "message": "$COUNT$ bookmark(s) monitored",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "setupEmptyStateTitle": {
-    "message": "Configure your folders to get started."
-  },
-  "setupEmptyStateDescription": {
-    "message": "Open Settings and choose one or more folders."
-  },
-  "domainNone": {
-    "message": "No domain"
-  },
-  "noFolder": {
-    "message": "No folder"
+  "confirmResetStats": {
+    "message": "Reset usage statistics history?"
   },
   "dateAdded": {
     "message": "Added: $DATE$",
@@ -182,89 +147,6 @@
         "content": "$1"
       }
     }
-  },
-  "healthUnchecked": {
-    "message": "Unchecked"
-  },
-  "healthBroken": {
-    "message": "Unreachable (Code: $CODE$)",
-    "placeholders": {
-      "code": {
-        "content": "$1"
-      }
-    }
-  },
-  "healthOk": {
-    "message": "Link reachable"
-  },
-  "previewLabelLocal": {
-    "message": "Local capture"
-  },
-  "previewLabelQuick": {
-    "message": "Local quick preview"
-  },
-  "linkHealthBrokenTitle": {
-    "message": "This link did not respond correctly in the last check."
-  },
-  "bookmarkEditBtn": {
-    "message": "Edit bookmark"
-  },
-  "bookmarkPinBtn": {
-    "message": "Pin bookmark"
-  },
-  "bookmarkUnpinBtn": {
-    "message": "Unpin bookmark"
-  },
-  "setupTitle": {
-    "message": "Configure martabs"
-  },
-  "setupHeaderTitle": {
-    "message": "Settings"
-  },
-  "searchSettingsPlaceholder": {
-    "message": "Search settings..."
-  },
-  "saveChanges": {
-    "message": "Save changes"
-  },
-  "foldersSection": {
-    "message": "Folders"
-  },
-  "appearanceSection": {
-    "message": "Appearance"
-  },
-  "privacySection": {
-    "message": "Privacy"
-  },
-  "tagsSection": {
-    "message": "Tags"
-  },
-  "advancedSection": {
-    "message": "Advanced"
-  },
-  "foldersHeading": {
-    "message": "Folders"
-  },
-  "foldersDescription": {
-    "message": "Choose folders, reorder them, and adjust view or sort per folder."
-  },
-  "toggleAllFolders": {
-    "message": "Select / deselect all"
-  },
-  "folderTableHeaderFolder": {
-    "message": "Folder"
-  },
-  "folderTableHeaderView": {
-    "message": "View"
-  },
-  "folderTableHeaderSort": {
-    "message": "Sort"
-  },
-  "appearanceHeading": {
-    "message": "Appearance"
-  },
-  "appearanceDescription": {
-    "message": "General visual preferences for the dashboard."
   },
   "defaultMode": {
     "message": "Default visual mode"
@@ -278,190 +160,61 @@
   "defaultSortDesc": {
     "message": "Applies to folders without a custom sort."
   },
-  "theme": {
-    "message": "Theme"
+  "delete": {
+    "message": "Delete"
   },
-  "themeDesc": {
-    "message": "Respects system settings or forces light/dark mode."
+  "deleteAllCount": {
+    "message": "Delete all ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "showPinnedFolder": {
-    "message": "Show virtual folder for pinned bookmarks"
+  "domainNone": {
+    "message": "No domain"
   },
-  "showPinnedFolderDesc": {
-    "message": "The top folder groups pinned bookmarks together."
+  "downloadClickStats": {
+    "message": "Download click history"
   },
-  "showPreview": {
-    "message": "Show quick preview"
+  "downloadJsonBtn": {
+    "message": "Download JSON"
   },
-  "showPreviewDesc": {
-    "message": "Opens the detail panel on hover."
+  "editFaviconError": {
+    "message": "The current image could not be loaded."
   },
-  "privacyHeading": {
-    "message": "Privacy"
+  "editFieldFavicon": {
+    "message": "Custom icon (Image URL)"
   },
-  "privacyDescription": {
-    "message": "Features that may request optional browser permissions."
+  "editFieldName": {
+    "message": "Name"
   },
-  "linkHealth": {
-    "message": "Link health check"
+  "editFieldTags": {
+    "message": "Tags (comma-separated)"
   },
-  "linkHealthDesc": {
-    "message": "Adds the Review button to each folder and requests network permissions."
+  "editFieldTagsPlaceholder": {
+    "message": "e.g., work, docs, js"
   },
-  "previewCapture": {
-    "message": "Capture local previews"
+  "editFieldUrl": {
+    "message": "URL"
   },
-  "previewCaptureDesc": {
-    "message": "Only for bookmarks opened from martabs."
+  "editModalTitle": {
+    "message": "Edit Bookmark"
   },
-  "tagsHeading": {
-    "message": "Tags"
+  "emptyResults": {
+    "message": "No results found."
   },
-  "tagsDescription": {
-    "message": "Control how martabs generates and displays tags."
+  "enableInPrivacy": {
+    "message": "Enable in Privacy"
   },
-  "automaticTags": {
-    "message": "Automatic tags"
+  "enablePinnedShortcuts": {
+    "message": "Shortcuts for pinned bookmarks"
   },
-  "automaticTagsDesc": {
-    "message": "Derived from folders, domain, and bookmark data."
-  },
-  "manualTags": {
-    "message": "Manual tags"
-  },
-  "manualTagsDesc": {
-    "message": "Allows editing tags from the bookmark UI."
-  },
-  "advancedHeading": {
-    "message": "Advanced"
-  },
-  "advancedDescription": {
-    "message": "Infrequent actions to clear local state."
-  },
-  "resetLocalOrg": {
-    "message": "Reset local organization"
-  },
-  "clearPreviewCache": {
-    "message": "Clear cached previews"
+  "enablePinnedShortcutsDesc": {
+    "message": "Open the first 9 pinned bookmarks. Use Backspace or Delete to clear the shortcut."
   },
   "exportConfig": {
     "message": "Export configuration"
-  },
-  "importConfig": {
-    "message": "Import configuration"
-  },
-  "confirmAndApply": {
-    "message": "Confirm and apply"
-  },
-  "cancelImport": {
-    "message": "Cancel"
-  },
-  "modeDefault": {
-    "message": "Default"
-  },
-  "modeList": {
-    "message": "Full list"
-  },
-  "modeCompact": {
-    "message": "Compact list"
-  },
-  "modeIcons": {
-    "message": "Icon grid"
-  },
-  "modeIconsLarge": {
-    "message": "Icon grid (large)"
-  },
-  "modeQuicklinks": {
-    "message": "Quicklinks"
-  },
-  "sortDefault": {
-    "message": "Default"
-  },
-  "sortBrowser": {
-    "message": "Original order"
-  },
-  "sortManual": {
-    "message": "Manual"
-  },
-  "sortTitleAsc": {
-    "message": "Title A-Z"
-  },
-  "sortDateNewest": {
-    "message": "Newest first"
-  },
-  "sortDomainAsc": {
-    "message": "Domain A-Z"
-  },
-  "sortHealthBrokenFirst": {
-    "message": "Broken first"
-  },
-  "themeSystem": {
-    "message": "System (Automatic)"
-  },
-  "themeLight": {
-    "message": "Light"
-  },
-  "themeDark": {
-    "message": "Dark"
-  },
-  "unsavedChanges": {
-    "message": "Unsaved changes (Click Save)"
-  },
-  "saveSuccess": {
-    "message": "Settings saved."
-  },
-  "saveErrorNoPermissionsHealth": {
-    "message": "Settings saved. Could not activate link checking because the required permission is missing."
-  },
-  "saveErrorNoPermissionsCapture": {
-    "message": "Settings saved. Could not activate preview capture because the required permission is missing."
-  },
-  "saveError": {
-    "message": "Could not save configuration: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "loadError": {
-    "message": "Could not load folders: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "confirmResetLocalOrg": {
-    "message": "Reset all local movements and manual sorting? Real browser bookmarks will not be modified."
-  },
-  "resetLocalOrgSuccess": {
-    "message": "Local organization reset."
-  },
-  "resetLocalOrgError": {
-    "message": "Could not reset local organization: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "confirmClearPreviews": {
-    "message": "Clear all cached local previews?"
-  },
-  "clearPreviewsSuccess": {
-    "message": "Cached previews cleared."
-  },
-  "clearPreviewsError": {
-    "message": "Could not clear preview cache: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "exportSuccess": {
-    "message": "Configuration successfully exported."
   },
   "exportError": {
     "message": "Error exporting: $ERROR$",
@@ -471,11 +224,122 @@
       }
     }
   },
+  "exportSuccess": {
+    "message": "Configuration successfully exported."
+  },
+  "extensionDescription": {
+    "message": "A beautiful, fast, and privacy-first New Tab dashboard to organize and monitor your bookmark folders."
+  },
+  "extensionName": {
+    "message": "martabs"
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ failure(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ failure",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Failures in $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "firefoxBookmarksNotice": {
+    "message": "In Firefox, please use the Ctrl+Shift+O shortcut to manage bookmarks."
+  },
+  "folderTableHeaderFolder": {
+    "message": "Folder"
+  },
+  "folderTableHeaderSort": {
+    "message": "Sort"
+  },
+  "folderTableHeaderView": {
+    "message": "View"
+  },
+  "foldersDescription": {
+    "message": "Choose folders, reorder them, and adjust view or sort per folder."
+  },
+  "foldersHeading": {
+    "message": "Folders"
+  },
+  "foldersSection": {
+    "message": "Folders"
+  },
+  "frequentSites": {
+    "message": "Frequent sites"
+  },
+  "frequentSitesDesc": {
+    "message": "Shows your most visited sites as collected by the browser."
+  },
+  "frequentTag": {
+    "message": "Frequent"
+  },
+  "healthBroken": {
+    "message": "Unreachable (Code: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Link reachable"
+  },
+  "healthUnchecked": {
+    "message": "Unchecked"
+  },
+  "hide": {
+    "message": "Hide"
+  },
+  "hidePinnedFolder": {
+    "message": "Hide Pinned folder (you can show it again from Settings)"
+  },
+  "hideSite": {
+    "message": "Hide site"
+  },
+  "importConfig": {
+    "message": "Import configuration"
+  },
   "importErrorParse": {
     "message": "The configuration file has an invalid format."
   },
+  "importErrorProcess": {
+    "message": "Error processing file: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorSave": {
+    "message": "Error saving: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
   "importErrorVersion": {
     "message": "Unsupported or invalid JSON file version."
+  },
+  "importSaving": {
+    "message": "Saving imported configuration..."
+  },
+  "importSuccess": {
+    "message": "Configuration successfully imported. Reloading shortly..."
   },
   "importSummary": {
     "message": "Mapped $FOLDERS$ folders, $TAGS$ tags, and $PINNED$ pinned bookmarks. Ignored elements: $UNMAPPED$.",
@@ -494,92 +358,62 @@
       }
     }
   },
-  "importErrorProcess": {
-    "message": "Error processing file: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "installedVersion": {
+    "message": "Installed version:"
   },
-  "importSuccess": {
-    "message": "Configuration successfully imported. Reloading shortly..."
+  "keyboardShortcuts": {
+    "message": "Keyboard shortcuts"
   },
-  "importSaving": {
-    "message": "Saving imported configuration..."
+  "language": {
+    "message": "Language"
   },
-  "importErrorSave": {
-    "message": "Error saving: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "languageAr": {
+    "message": "Arabic (Arabic)"
   },
-  "selectFolderWarning": {
-    "message": "Select at least one folder."
+  "languageDe": {
+    "message": "German (German)"
   },
-  "searchFolders": {
-    "message": "folders select monitor view order manual default"
+  "languageDesc": {
+    "message": "Choose the interface language."
   },
-  "searchAppearance": {
-    "message": "appearance theme mode view order pinned preview quick"
+  "languageEn": {
+    "message": "English (English)"
   },
-  "searchModeRow": {
-    "message": "mode visual default list compact icons quicklinks"
+  "languageEs": {
+    "message": "Spanish (Spanish)"
   },
-  "searchSortRow": {
-    "message": "sort default original manual title date domain broken"
+  "languageFr": {
+    "message": "French (French)"
   },
-  "searchThemeRow": {
-    "message": "theme color system light dark"
+  "languageIt": {
+    "message": "Italian (Italian)"
   },
-  "searchPinnedRow": {
-    "message": "pinned favorites virtual folder highlights"
+  "languageJa": {
+    "message": "Japanese (Japanese)"
   },
-  "searchPreviewRow": {
-    "message": "quick view preview tooltip detail mouse"
+  "languageKo": {
+    "message": "Korean (Korean)"
   },
-  "searchPrivacySection": {
-    "message": "privacy permissions links captures network"
+  "languagePt": {
+    "message": "Portuguese (Portuguese)"
   },
-  "searchLinkHealthRow": {
-    "message": "review links broken failures permissions network"
+  "languageRu": {
+    "message": "Russian (Russian)"
   },
-  "searchPreviewCaptureRow": {
-    "message": "capture local previews image capture permissions"
+  "languageSystem": {
+    "message": "System (Default)"
   },
-  "searchTagsSection": {
-    "message": "tags automatic manual"
+  "languageZh": {
+    "message": "Chinese (Chinese)"
   },
-  "searchAutoTagsRow": {
-    "message": "automatic tags domain folder"
+  "linkHealth": {
+    "message": "Link health check"
   },
-  "searchManualTagsRow": {
-    "message": "manual tags edit bookmark"
+  "linkHealthBrokenTitle": {
+    "message": "This link did not respond correctly in the last check."
   },
-  "searchAdvancedSection": {
-    "message": "advanced clean reset previews cache organization"
-  },
-  "searchResetLocalOrgBtn": {
-    "message": "reset local organization movements manual orders"
-  },
-  "searchClearPreviewsBtn": {
-    "message": "clear previews cache captures images"
-  },
-  "searchExportBtn": {
-    "message": "export configuration backup download json"
-  },
-  "searchImportBtn": {
-    "message": "import configuration restore backup json"
-  },
-  "saveBookmarkError": {
-    "message": "Could not save bookmark: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "linkHealthDesc": {
+    "message": "Adds the Review button to each folder and requests network permissions."
   },
   "loadBookmarksError": {
     "message": "Could not load bookmarks: $ERROR$",
@@ -589,107 +423,16 @@
       }
     }
   },
-  "failuresIn": {
-    "message": "Failures in $FOLDER$",
+  "loadError": {
+    "message": "Could not load folders: $ERROR$",
     "placeholders": {
-      "folder": {
+      "error": {
         "content": "$1"
       }
     }
   },
-  "brokenLinksTitle": {
-    "message": "Broken links"
-  },
-  "language": {
-    "message": "Language"
-  },
-  "languageDesc": {
-    "message": "Choose the interface language."
-  },
-  "languageSystem": {
-    "message": "System (Default)"
-  },
-  "languageEs": {
-    "message": "Spanish"
-  },
-  "languageEn": {
-    "message": "English"
-  },
-  "languagePt": {
-    "message": "Portuguese"
-  },
-  "languageDe": {
-    "message": "German"
-  },
-  "languageFr": {
-    "message": "French"
-  },
-  "languageZh": {
-    "message": "Chinese"
-  },
-  "languageJa": {
-    "message": "Japanese"
-  },
-  "languageIt": {
-    "message": "Italian"
-  },
-  "languageKo": {
-    "message": "Korean"
-  },
-  "searchLanguageRow": {
-    "message": "language english spanish system default"
-  },
-  "backToDashboard": {
-    "message": "Back to dashboard"
-  },
-  "unsavedChangesWarning": {
-    "message": "You have unsaved changes. Are you sure you want to exit?"
-  },
-  "frequentSites": {
-    "message": "Frequent sites"
-  },
-  "frequentSitesDesc": {
-    "message": "Shows your most visited sites as collected by the browser."
-  },
-  "resetHiddenTopSites": {
-    "message": "Reset hidden sites"
-  },
-  "statisticsSection": {
-    "message": "Statistics"
-  },
-  "mostVisitedBookmarks": {
-    "message": "Most used bookmarks"
-  },
-  "localStorageAudit": {
-    "message": "Local storage usage"
-  },
-  "downloadClickStats": {
-    "message": "Download click history"
-  },
-  "resetStats": {
-    "message": "Reset statistics"
-  },
-  "frequentTag": {
-    "message": "Frequent"
-  },
-  "confirmResetStats": {
-    "message": "Reset usage statistics history?"
-  },
-  "visitsCountSingular": {
-    "message": "$ visit",
-    "placeholders": {
-      "count": {
-        "content": ""
-      }
-    }
-  },
-  "visitsCountPlural": {
-    "message": "$ visits",
-    "placeholders": {
-      "count": {
-        "content": ""
-      }
-    }
+  "loadingBookmarks": {
+    "message": "Loading bookmarks..."
   },
   "localStats": {
     "message": "Local usage statistics"
@@ -697,34 +440,357 @@
   "localStatsDesc": {
     "message": "Logs opens to show recent and most used. Private."
   },
+  "localStorageAudit": {
+    "message": "Local storage usage"
+  },
+  "manualTags": {
+    "message": "Manual tags"
+  },
+  "manualTagsDesc": {
+    "message": "Allows editing tags from the bookmark UI."
+  },
+  "modeCompact": {
+    "message": "Compact list"
+  },
+  "modeDefault": {
+    "message": "Default"
+  },
+  "modeIcons": {
+    "message": "Icon grid"
+  },
+  "modeIconsLarge": {
+    "message": "Icon grid (large)"
+  },
+  "modeList": {
+    "message": "Full list"
+  },
+  "modeQuicklinks": {
+    "message": "Quicklinks"
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ bookmark(s) monitored",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ bookmark monitored",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "mostVisitedBookmarks": {
+    "message": "Most used bookmarks"
+  },
+  "newtabTitle": {
+    "message": "Home - martabs"
+  },
+  "noFailuresRegistered": {
+    "message": "No broken links registered."
+  },
+  "noFolder": {
+    "message": "No folder"
+  },
+  "openBrowserBookmarks": {
+    "message": "Manage bookmarks"
+  },
+  "pinnedFolderTitle": {
+    "message": "Pinned"
+  },
+  "previewCapture": {
+    "message": "Capture local previews"
+  },
+  "previewCaptureDesc": {
+    "message": "Only for bookmarks opened from martabs."
+  },
+  "previewLabelLocal": {
+    "message": "Local capture"
+  },
+  "previewLabelQuick": {
+    "message": "Local quick preview"
+  },
+  "privacyDescription": {
+    "message": "Features that may request optional browser permissions."
+  },
+  "privacyHeading": {
+    "message": "Privacy"
+  },
+  "privacySection": {
+    "message": "Privacy"
+  },
+  "resetHiddenTopSites": {
+    "message": "Reset hidden sites"
+  },
+  "resetLocalOrg": {
+    "message": "Reset local organization"
+  },
+  "resetLocalOrgError": {
+    "message": "Could not reset local organization: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Local organization reset."
+  },
+  "resetStats": {
+    "message": "Reset statistics"
+  },
+  "review": {
+    "message": "Review"
+  },
+  "reviewing": {
+    "message": "Reviewing..."
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saveBookmarkError": {
+    "message": "Could not save bookmark: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveChanges": {
+    "message": "Save changes"
+  },
+  "saveError": {
+    "message": "Could not save configuration: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Settings saved. Could not activate preview capture because the required permission is missing."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Settings saved. Could not activate link checking because the required permission is missing."
+  },
+  "saveSuccess": {
+    "message": "Settings saved."
+  },
+  "searchAccessibilitySection": {
+    "message": "Accessibility"
+  },
+  "searchAdvancedSection": {
+    "message": "advanced clean reset previews cache organization"
+  },
+  "searchAppearance": {
+    "message": "appearance theme mode view order pinned preview quick"
+  },
+  "searchAutoTagsRow": {
+    "message": "automatic tags domain folder"
+  },
+  "searchCleanFoldersRow": {
+    "message": "Clean names"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "clear previews cache captures images"
+  },
+  "searchExportBtn": {
+    "message": "export configuration backup download json"
+  },
+  "searchFolders": {
+    "message": "folders select monitor view order manual default"
+  },
+  "searchImportBtn": {
+    "message": "import configuration restore backup json"
+  },
+  "searchLanguageRow": {
+    "message": "language english spanish system default"
+  },
+  "searchLinkHealthRow": {
+    "message": "review links broken failures permissions network"
+  },
+  "searchManualTagsRow": {
+    "message": "manual tags edit bookmark"
+  },
+  "searchModeRow": {
+    "message": "mode visual default list compact icons quicklinks"
+  },
+  "searchPinnedRow": {
+    "message": "pinned favorites virtual folder highlights"
+  },
+  "searchPlaceholder": {
+    "message": "Search title, tag, URL or folder..."
+  },
+  "searchPreviewCaptureRow": {
+    "message": "capture local previews image capture permissions"
+  },
+  "searchPreviewRow": {
+    "message": "quick view preview tooltip detail mouse"
+  },
+  "searchPrivacySection": {
+    "message": "privacy permissions links captures network"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "reset local organization movements manual orders"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Search settings..."
+  },
+  "searchShortcutsRow": {
+    "message": "Shortcuts"
+  },
+  "searchSortRow": {
+    "message": "sort default original manual title date domain broken"
+  },
   "searchStatisticsRow": {
     "message": "statistics usage clicks visits history json"
   },
-  "hideSite": {
-    "message": "Hide site"
+  "searchTagsSection": {
+    "message": "tags automatic manual"
   },
-  "topSitesLimit": {
-    "message": "Visible quantity"
+  "searchThemeRow": {
+    "message": "theme color system light dark"
   },
-  "languageRu": {
-    "message": "Russian"
+  "selectFolderWarning": {
+    "message": "Select at least one folder."
   },
-  "statsDisabledMsg": {
-    "message": "Local statistics are disabled. Enable this option in Privacy to see your most used sites."
+  "settingsBtn": {
+    "message": "Configure"
   },
-  "enableInPrivacy": {
-    "message": "Enable in Privacy"
+  "settingsBtnTitle": {
+    "message": "Configure bookmarks and preferences"
   },
-  "showViewButtonTitle": {
-    "message": "Show View button"
+  "setupEmptyStateDescription": {
+    "message": "Open Settings and choose one or more folders."
   },
-  "showViewButtonDesc": {
-    "message": "Shows the button to change the folder's view mode."
+  "setupEmptyStateTitle": {
+    "message": "Configure your folders to get started."
+  },
+  "setupHeaderTitle": {
+    "message": "Settings"
+  },
+  "setupTitle": {
+    "message": "Configure martabs"
+  },
+  "shortcutAlt": {
+    "message": "Alt + 1..9"
+  },
+  "shortcutCtrl": {
+    "message": "Ctrl + 1..9"
+  },
+  "shortcutCtrlShift": {
+    "message": "Ctrl + Shift + 1..9"
+  },
+  "shortcutEsc": {
+    "message": "Clear search or close menu/preview"
+  },
+  "shortcutSearch": {
+    "message": "Focus search bar"
+  },
+  "showPinnedFolder": {
+    "message": "Show virtual folder for pinned bookmarks"
+  },
+  "showPinnedFolderDesc": {
+    "message": "The top folder groups pinned bookmarks together."
+  },
+  "showPreview": {
+    "message": "Show quick preview"
+  },
+  "showPreviewDesc": {
+    "message": "Opens the detail panel on hover."
+  },
+  "showSortButtonDesc": {
+    "message": "Shows the button to sort the bookmarks in the folder."
   },
   "showSortButtonTitle": {
     "message": "Show Sort button"
   },
-  "showSortButtonDesc": {
-    "message": "Shows the button to sort the bookmarks in the folder."
+  "showViewButtonDesc": {
+    "message": "Shows the button to change the folder's view mode."
+  },
+  "showViewButtonTitle": {
+    "message": "Show View button"
+  },
+  "sortBrowser": {
+    "message": "Original order"
+  },
+  "sortDateNewest": {
+    "message": "Newest first"
+  },
+  "sortDefault": {
+    "message": "Default"
+  },
+  "sortDomainAsc": {
+    "message": "Domain A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "Broken first"
+  },
+  "sortManual": {
+    "message": "Manual"
+  },
+  "sortTitleAsc": {
+    "message": "Title A-Z"
+  },
+  "statisticsSection": {
+    "message": "Statistics"
+  },
+  "statsDisabledMsg": {
+    "message": "Local statistics are disabled. Enable this option in Privacy to see your most used sites."
+  },
+  "tagsDescription": {
+    "message": "Control how martabs generates and displays tags."
+  },
+  "tagsHeading": {
+    "message": "Tags"
+  },
+  "tagsSection": {
+    "message": "Tags"
+  },
+  "theme": {
+    "message": "Theme"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "themeDesc": {
+    "message": "Respects system settings or forces light/dark mode."
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeSystem": {
+    "message": "System (Automatic)"
+  },
+  "toggleAllFolders": {
+    "message": "Select / deselect all"
+  },
+  "topSitesLimit": {
+    "message": "Visible quantity"
+  },
+  "unsavedChanges": {
+    "message": "Unsaved changes (Click Save)"
+  },
+  "unsavedChangesWarning": {
+    "message": "You have unsaved changes. Are you sure you want to exit?"
+  },
+  "visitsCountPlural": {
+    "message": "$COUNT$ visits",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "visitsCountSingular": {
+    "message": "$COUNT$ visit",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   }
 }

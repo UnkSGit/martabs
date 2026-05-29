@@ -125,3 +125,17 @@ test("setup handles topSites and localStats UI features", async () => {
   assert.match(js, /statisticsDisabledMsg\.style\.display = "block"/);
   assert.match(js, /function renderStatistics\(\)/);
 });
+
+test("setup styles and scripts do not contain obsolete CSS variables", async () => {
+  const css = await readFile("src/setup/setup.css", "utf8");
+  const js = await readFile("src/setup/setup.js", "utf8");
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const obsoleteVariables = ["--card-bg", "--border-color", "--text-color", "--accent-color", "--hover-color"];
+  for (const variable of obsoleteVariables) {
+    assert.doesNotMatch(css, new RegExp(variable));
+    assert.doesNotMatch(js, new RegExp(variable));
+    assert.doesNotMatch(html, new RegExp(variable));
+  }
+});
+

@@ -26,7 +26,7 @@ test.describe('HU-1: Primer uso (Setup)', () => {
     const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
     await setupPage.goto();
 
-    await expect(page.locator('nav button')).toHaveCount(6); // Carpetas, Apariencia, Privacidad, Estadísticas, Etiquetas, Avanzado
+    await expect(page.locator('nav button')).toHaveCount(7); // Carpetas, Apariencia, Privacidad, Estadísticas, Etiquetas, Accesibilidad, Avanzado
     await expect(page.locator('#section-folders')).toBeVisible();
   });
 

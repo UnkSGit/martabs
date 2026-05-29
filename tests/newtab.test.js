@@ -38,7 +38,7 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.bookmark-edit-btn[,\s]/);
   assert.match(css, /\.bookmark-edit-btn::before\s*{/);
   assert.match(css, /\.edit-modal\s*{/);
-  assert.match(css, /padding-right:\s*76px/);
+  assert.match(css, /padding-inline-end:\s*76px/);
   assert.match(css, /padding:\s*34px;\s*gap:\s*20px;/);
   assert.match(css, /\.edit-actions\s+\.link-action-button/);
   assert.match(css, /\.edit-actions\s+\.danger-button/);

@@ -1,6 +1,6 @@
 {
   "name": "martabs",
-  "version": "0.9.3",
+  "version": "0.9.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,9 @@
     "build": "node scripts/build.mjs",
     "build:chrome": "node scripts/build.mjs chrome",
     "build:firefox": "node scripts/build.mjs firefox",
-    "package": "node scripts/package.mjs"
+    "package": "node scripts/package.mjs",
+    "i18n:check": "node scripts/i18n-maintain.mjs --check",
+    "i18n:maintain": "node scripts/i18n-maintain.mjs --write"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

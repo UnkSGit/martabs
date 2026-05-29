@@ -1,0 +1,796 @@
+{
+  "aboutAppName": {
+    "message": "حول martabs"
+  },
+  "accessibilityDescription": {
+    "message": "اختصارات لوحة المفاتيح وخيارات التنقل."
+  },
+  "accessibilityHeading": {
+    "message": "إمكانية الوصول"
+  },
+  "accessibilitySection": {
+    "message": "إمكانية الوصول"
+  },
+  "advancedDescription": {
+    "message": "إجراءات متقدمة لإدارة البيانات."
+  },
+  "advancedHeading": {
+    "message": "متقدم"
+  },
+  "advancedSection": {
+    "message": "متقدم"
+  },
+  "allFolders": {
+    "message": "جميع المجلدات"
+  },
+  "appearanceDescription": {
+    "message": "تخصيص الواجهة."
+  },
+  "appearanceHeading": {
+    "message": "المظهر"
+  },
+  "appearanceSection": {
+    "message": "المظهر"
+  },
+  "automaticTags": {
+    "message": "علامات تلقائية"
+  },
+  "automaticTagsDesc": {
+    "message": "إنشاء علامات بناءً على المجلد والنطاق."
+  },
+  "back": {
+    "message": "رجوع"
+  },
+  "backToDashboard": {
+    "message": "العودة إلى اللوحة"
+  },
+  "bookmarkEditBtn": {
+    "message": "تعديل"
+  },
+  "bookmarkPinBtn": {
+    "message": "تثبيت"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "إلغاء التثبيت"
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ إشارات للمراجعة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ إشارة للمراجعة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "الروابط المعطلة"
+  },
+  "cancel": {
+    "message": "إلغاء"
+  },
+  "cancelImport": {
+    "message": "إلغاء الاستيراد"
+  },
+  "changeView": {
+    "message": "تغيير العرض"
+  },
+  "cleanFolderNames": {
+    "message": "أسماء مجلدات نظيفة"
+  },
+  "cleanFolderNamesDesc": {
+    "message": "عرض أسماء مجلدات قصيرة للوضوح."
+  },
+  "clearPreviewCache": {
+    "message": "مسح ذاكرة التخزين المؤقت للمعاينة"
+  },
+  "clearPreviewsError": {
+    "message": "حدث خطأ أثناء مسح المعاينات: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "clearPreviewsSuccess": {
+    "message": "تم مسح المعاينات بنجاح."
+  },
+  "confirmAndApply": {
+    "message": "تأكيد وتطبيق"
+  },
+  "confirmClearPreviews": {
+    "message": "هل أنت متأكد من مسح جميع المعاينات؟"
+  },
+  "confirmDeleteAllFailures": {
+    "message": "هل تريد حذف $COUNT$ من الإشارات المرجعية المعطلة من \"$FOLDER$\"؟ لا يمكن التراجع عن هذا الإجراء.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "confirmDeleteBookmark": {
+    "message": "هل تريد إرسال الإشارة المرجعية \"$TITLE$\" إلى سلة المهملات؟",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "هل تريد حذف الإشارة المرجعية \"$TITLE$\" نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmResetLocalOrg": {
+    "message": "هل أنت متأكد من إعادة تعيين جميع التنظيمات؟"
+  },
+  "confirmResetStats": {
+    "message": "هل أنت متأكد من إعادة تعيين الإحصائيات؟"
+  },
+  "dateAdded": {
+    "message": "تاريخ الإضافة: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "defaultMode": {
+    "message": "العرض الافتراضي"
+  },
+  "defaultModeDesc": {
+    "message": "ينطبق على المجلدات الجديدة."
+  },
+  "defaultSort": {
+    "message": "الترتيب الافتراضي"
+  },
+  "defaultSortDesc": {
+    "message": "الترتيب الافتراضي للمجلدات."
+  },
+  "delete": {
+    "message": "حذف"
+  },
+  "deleteAllCount": {
+    "message": "حذف $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "domainNone": {
+    "message": "بدون نطاق"
+  },
+  "downloadClickStats": {
+    "message": "تحميل إحصائيات النقرات"
+  },
+  "downloadJsonBtn": {
+    "message": "تنزيل JSON"
+  },
+  "editFaviconError": {
+    "message": "تنسيق صورة غير صالح"
+  },
+  "editFieldFavicon": {
+    "message": "أيقونة مخصصة (رابط أو Base64)"
+  },
+  "editFieldName": {
+    "message": "الاسم"
+  },
+  "editFieldTags": {
+    "message": "العلامات"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "مفصولة بفواصل"
+  },
+  "editFieldUrl": {
+    "message": "الرابط"
+  },
+  "editModalTitle": {
+    "message": "تعديل الإشارة المرجعية"
+  },
+  "emptyResults": {
+    "message": "لا توجد إشارات مرجعية تطابق بحثك."
+  },
+  "enableInPrivacy": {
+    "message": "تفعيل في الخصوصية"
+  },
+  "enablePinnedShortcuts": {
+    "message": "اختصارات للإشارات المثبتة"
+  },
+  "enablePinnedShortcutsDesc": {
+    "message": "افتح أول 9 إشارات مرجعية مثبتة. استخدم مسافة للخلف أو حذف لمسح الاختصار."
+  },
+  "exportConfig": {
+    "message": "تصدير الإعدادات"
+  },
+  "exportError": {
+    "message": "حدث خطأ أثناء تصدير الإعدادات: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "تم تصدير الإعدادات بنجاح."
+  },
+  "extensionDescription": {
+    "message": "منظم إشارات مرجعية قوي مع لوحة معلومات حديثة."
+  },
+  "extensionName": {
+    "message": "Martabs"
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ أخطاء",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ خطأ",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "أخطاء في $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "firefoxBookmarksNotice": {
+    "message": "في فايرفوكس، يرجى استخدام الاختصار Ctrl+Shift+O لإدارة الإشارات المرجعية."
+  },
+  "folderTableHeaderFolder": {
+    "message": "المجلد"
+  },
+  "folderTableHeaderSort": {
+    "message": "الترتيب"
+  },
+  "folderTableHeaderView": {
+    "message": "العرض"
+  },
+  "foldersDescription": {
+    "message": "حدد المجلدات التي ستظهر في لوحة المعلومات."
+  },
+  "foldersHeading": {
+    "message": "المجلدات"
+  },
+  "foldersSection": {
+    "message": "المجلدات"
+  },
+  "frequentSites": {
+    "message": "المواقع المتكررة"
+  },
+  "frequentSitesDesc": {
+    "message": "إظهار مجلد المواقع المتكررة."
+  },
+  "frequentTag": {
+    "message": "شائع"
+  },
+  "healthBroken": {
+    "message": "رابط معطل (الرمز: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "يعمل بشكل جيد"
+  },
+  "healthUnchecked": {
+    "message": "لم يتم التحقق"
+  },
+  "hide": {
+    "message": "إخفاء"
+  },
+  "hidePinnedFolder": {
+    "message": "إخفاء المجلد المثبت"
+  },
+  "hideSite": {
+    "message": "إخفاء الموقع"
+  },
+  "importConfig": {
+    "message": "استيراد الإعدادات"
+  },
+  "importErrorParse": {
+    "message": "ملف استيراد غير صالح."
+  },
+  "importErrorProcess": {
+    "message": "حدث خطأ أثناء المعالجة: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorSave": {
+    "message": "حدث خطأ أثناء حفظ الاستيراد: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorVersion": {
+    "message": "إصدار غير مدعوم."
+  },
+  "importSaving": {
+    "message": "جاري الحفظ..."
+  },
+  "importSuccess": {
+    "message": "تم استيراد الإعدادات بنجاح."
+  },
+  "importSummary": {
+    "message": "ملخص الاستيراد: تم رسم خريطة $FOLDERS$ من المجلدات، و $TAGS$ من العلامات، و $PINNED$ من الإشارات المرجعية المثبتة. العناصر المتجاهلة: $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "installedVersion": {
+    "message": "الإصدار المثبت:"
+  },
+  "keyboardShortcuts": {
+    "message": "اختصارات لوحة المفاتيح"
+  },
+  "language": {
+    "message": "اللغة"
+  },
+  "languageAr": {
+    "message": "العربية (Arabic)"
+  },
+  "languageDe": {
+    "message": "الألمانية (German)"
+  },
+  "languageDesc": {
+    "message": "تغيير لغة الواجهة."
+  },
+  "languageEn": {
+    "message": "الإنجليزية (English)"
+  },
+  "languageEs": {
+    "message": "الإسبانية (Spanish)"
+  },
+  "languageFr": {
+    "message": "الفرنسية (French)"
+  },
+  "languageIt": {
+    "message": "الإيطالية (Italian)"
+  },
+  "languageJa": {
+    "message": "اليابانية (Japanese)"
+  },
+  "languageKo": {
+    "message": "الكورية (Korean)"
+  },
+  "languagePt": {
+    "message": "البرتغالية (Portuguese)"
+  },
+  "languageRu": {
+    "message": "الروسية (Russian)"
+  },
+  "languageSystem": {
+    "message": "النظام"
+  },
+  "languageZh": {
+    "message": "الصينية (Chinese)"
+  },
+  "linkHealth": {
+    "message": "فحص صحة الروابط"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "رابط معطل محتمل"
+  },
+  "linkHealthDesc": {
+    "message": "يتحقق دوريًا من الروابط المعطلة."
+  },
+  "loadBookmarksError": {
+    "message": "خطأ في تحميل الإشارات المرجعية: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "حدث خطأ أثناء تحميل الإعدادات: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadingBookmarks": {
+    "message": "جاري تحميل الإشارات المرجعية..."
+  },
+  "localStats": {
+    "message": "الإحصائيات المحلية"
+  },
+  "localStatsDesc": {
+    "message": "حفظ الإحصائيات محليًا."
+  },
+  "localStorageAudit": {
+    "message": "تدقيق التخزين المحلي"
+  },
+  "manualTags": {
+    "message": "علامات يدوية"
+  },
+  "manualTagsDesc": {
+    "message": "السماح بإضافة علامات يدوية."
+  },
+  "modeCompact": {
+    "message": "مضغوط"
+  },
+  "modeDefault": {
+    "message": "افتراضي"
+  },
+  "modeIcons": {
+    "message": "أيقونات"
+  },
+  "modeIconsLarge": {
+    "message": "أيقونات كبيرة"
+  },
+  "modeList": {
+    "message": "قائمة"
+  },
+  "modeQuicklinks": {
+    "message": "روابط سريعة"
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ إشارات مراقبة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ إشارة مراقبة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "mostVisitedBookmarks": {
+    "message": "الإشارات الأكثر زيارة"
+  },
+  "newtabTitle": {
+    "message": "لوحة المعلومات - Martabs"
+  },
+  "noFailuresRegistered": {
+    "message": "لم يتم تسجيل أي أخطاء"
+  },
+  "noFolder": {
+    "message": "بدون مجلد"
+  },
+  "openBrowserBookmarks": {
+    "message": "إدارة الإشارات المرجعية"
+  },
+  "pinnedFolderTitle": {
+    "message": "مثبت"
+  },
+  "previewCapture": {
+    "message": "التقاط المعاينة محليًا"
+  },
+  "previewCaptureDesc": {
+    "message": "يحفظ لقطة شاشة مصغرة للإشارة المرجعية."
+  },
+  "previewLabelLocal": {
+    "message": "معاينة محلية"
+  },
+  "previewLabelQuick": {
+    "message": "معاينة سريعة"
+  },
+  "privacyDescription": {
+    "message": "حماية بياناتك."
+  },
+  "privacyHeading": {
+    "message": "الخصوصية"
+  },
+  "privacySection": {
+    "message": "الخصوصية"
+  },
+  "resetHiddenTopSites": {
+    "message": "إعادة تعيين المواقع المخفية"
+  },
+  "resetLocalOrg": {
+    "message": "إعادة تعيين التنظيم المحلي"
+  },
+  "resetLocalOrgError": {
+    "message": "حدث خطأ أثناء إعادة التعيين: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "resetLocalOrgSuccess": {
+    "message": "تمت إعادة تعيين التنظيم المحلي بنجاح."
+  },
+  "resetStats": {
+    "message": "إعادة تعيين الإحصائيات"
+  },
+  "review": {
+    "message": "مراجعة"
+  },
+  "reviewing": {
+    "message": "جاري المراجعة"
+  },
+  "save": {
+    "message": "حفظ"
+  },
+  "saveBookmarkError": {
+    "message": "خطأ في حفظ الإشارة المرجعية: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveChanges": {
+    "message": "حفظ التغييرات"
+  },
+  "saveError": {
+    "message": "حدث خطأ أثناء الحفظ: $ERROR$.",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "أذونات مفقودة لالتقاط المعاينة."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "أذونات مفقودة للتحقق من صحة الروابط."
+  },
+  "saveSuccess": {
+    "message": "تم حفظ الإعدادات بنجاح"
+  },
+  "searchAccessibilitySection": {
+    "message": "إمكانية الوصول"
+  },
+  "searchAdvancedSection": {
+    "message": "بحث في الإعدادات المتقدمة..."
+  },
+  "searchAppearance": {
+    "message": "بحث في المظهر..."
+  },
+  "searchAutoTagsRow": {
+    "message": "علامات تلقائية"
+  },
+  "searchCleanFoldersRow": {
+    "message": "أسماء نظيفة"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "مسح المعاينات"
+  },
+  "searchExportBtn": {
+    "message": "تصدير"
+  },
+  "searchFolders": {
+    "message": "بحث في المجلدات..."
+  },
+  "searchImportBtn": {
+    "message": "استيراد"
+  },
+  "searchLanguageRow": {
+    "message": "اللغة"
+  },
+  "searchLinkHealthRow": {
+    "message": "صحة الروابط"
+  },
+  "searchManualTagsRow": {
+    "message": "علامات يدوية"
+  },
+  "searchModeRow": {
+    "message": "وضع العرض"
+  },
+  "searchPinnedRow": {
+    "message": "المجلد المثبت"
+  },
+  "searchPlaceholder": {
+    "message": "ابحث في الإشارات المرجعية أو اكتب مسار..."
+  },
+  "searchPreviewCaptureRow": {
+    "message": "التقاط المعاينة"
+  },
+  "searchPreviewRow": {
+    "message": "معاينة"
+  },
+  "searchPrivacySection": {
+    "message": "بحث في الخصوصية..."
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "إعادة تعيين التنظيم المحلي"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "البحث في الإعدادات..."
+  },
+  "searchShortcutsRow": {
+    "message": "اختصارات"
+  },
+  "searchSortRow": {
+    "message": "الترتيب"
+  },
+  "searchStatisticsRow": {
+    "message": "بحث في الإحصائيات..."
+  },
+  "searchTagsSection": {
+    "message": "بحث في العلامات..."
+  },
+  "searchThemeRow": {
+    "message": "السمة"
+  },
+  "selectFolderWarning": {
+    "message": "يرجى تحديد مجلد واحد على الأقل."
+  },
+  "settingsBtn": {
+    "message": "الإعدادات"
+  },
+  "settingsBtnTitle": {
+    "message": "فتح الإعدادات"
+  },
+  "setupEmptyStateDescription": {
+    "message": "يرجى تحديد المجلدات التي تريد إظهارها في لوحة المعلومات."
+  },
+  "setupEmptyStateTitle": {
+    "message": "مرحبًا بك في Martabs"
+  },
+  "setupHeaderTitle": {
+    "message": "الإعدادات"
+  },
+  "setupTitle": {
+    "message": "إعدادات Martabs"
+  },
+  "shortcutAlt": {
+    "message": "Alt + 1..9"
+  },
+  "shortcutCtrl": {
+    "message": "Ctrl + 1..9"
+  },
+  "shortcutCtrlShift": {
+    "message": "Ctrl + Shift + 1..9"
+  },
+  "shortcutEsc": {
+    "message": "مسح البحث أو إغلاق القائمة/المعاينة"
+  },
+  "shortcutSearch": {
+    "message": "التركيز على شريط البحث"
+  },
+  "showPinnedFolder": {
+    "message": "إظهار المجلد المثبت"
+  },
+  "showPinnedFolderDesc": {
+    "message": "إظهار المجلد المثبت في الأعلى."
+  },
+  "showPreview": {
+    "message": "إظهار المعاينة"
+  },
+  "showPreviewDesc": {
+    "message": "إظهار معاينة الإشارة عند التمرير."
+  },
+  "showSortButtonDesc": {
+    "message": "إظهار زر الترتيب"
+  },
+  "showSortButtonTitle": {
+    "message": "زر الترتيب"
+  },
+  "showViewButtonDesc": {
+    "message": "إظهار زر العرض"
+  },
+  "showViewButtonTitle": {
+    "message": "زر العرض"
+  },
+  "sortBrowser": {
+    "message": "ترتيب المتصفح"
+  },
+  "sortDateNewest": {
+    "message": "الأحدث"
+  },
+  "sortDefault": {
+    "message": "افتراضي"
+  },
+  "sortDomainAsc": {
+    "message": "النطاق"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "الروابط المعطلة أولاً"
+  },
+  "sortManual": {
+    "message": "ترتيب يدوي"
+  },
+  "sortTitleAsc": {
+    "message": "الاسم (تصاعدي)"
+  },
+  "statisticsSection": {
+    "message": "الإحصائيات"
+  },
+  "statsDisabledMsg": {
+    "message": "الإحصائيات معطلة"
+  },
+  "tagsDescription": {
+    "message": "التحكم في العلامات."
+  },
+  "tagsHeading": {
+    "message": "العلامات"
+  },
+  "tagsSection": {
+    "message": "العلامات"
+  },
+  "theme": {
+    "message": "السمة"
+  },
+  "themeDark": {
+    "message": "داكن"
+  },
+  "themeDesc": {
+    "message": "تفضيلات الألوان."
+  },
+  "themeLight": {
+    "message": "فاتح"
+  },
+  "themeSystem": {
+    "message": "النظام"
+  },
+  "toggleAllFolders": {
+    "message": "تحديد/إلغاء تحديد الكل"
+  },
+  "topSitesLimit": {
+    "message": "حد المواقع المتكررة"
+  },
+  "unsavedChanges": {
+    "message": "تغييرات غير محفوظة"
+  },
+  "unsavedChangesWarning": {
+    "message": "لديك تغييرات غير محفوظة."
+  },
+  "visitsCountPlural": {
+    "message": "زيارات $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "visitsCountSingular": {
+    "message": "زيارة $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  }
+}

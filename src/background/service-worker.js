@@ -16,8 +16,25 @@ import {
 const api = getBrowserApi();
 const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
 const MAX_CAPTURED_PREVIEWS = 20;
-const CAPTURE_DELAY_MS = 1200;
+export let CAPTURE_DELAY_MS = 1440;
+export function setCaptureDelayMs(ms) {
+  CAPTURE_DELAY_MS = ms;
+}
 const PENDING_CAPTURE_TTL_MS = 30000;
+
+function isSameHost(url1, url2) {
+  try {
+    const u1 = new URL(url1);
+    const u2 = new URL(url2);
+    let h1 = u1.hostname.toLowerCase();
+    let h2 = u2.hostname.toLowerCase();
+    if (h1.startsWith("www.")) h1 = h1.slice(4);
+    if (h2.startsWith("www.")) h2 = h2.slice(4);
+    return h1 === h2;
+  } catch {
+    return false;
+  }
+}
 
 let rebuildInProgress = false;
 let rebuildRequested = false;
@@ -60,6 +77,7 @@ async function handleCompletedPreviewCapture(tabId, tab) {
   const pending = pendingPreviewCaptures[String(tabId)];
   if (!pending) return;
 
+  // Clean pending immediately to prevent duplicate runs/clutter
   delete pendingPreviewCaptures[String(tabId)];
   await savePendingPreviewCaptures(api, pendingPreviewCaptures);
 
@@ -67,22 +85,35 @@ async function handleCompletedPreviewCapture(tabId, tab) {
 
   await wait(CAPTURE_DELAY_MS);
 
-  const image = await api.tabs.captureVisibleTab(pending.windowId, {
-    format: "jpeg",
-    quality: 35
-  });
+  try {
+    const currentTab = await api.tabs.get(tabId);
+    if (!currentTab || !currentTab.active || currentTab.windowId !== pending.windowId) {
+      return;
+    }
 
-  if (!image) return;
+    if (!isSameHost(currentTab.url, pending.url)) {
+      return;
+    }
 
-  const previews = await getCapturedPreviews(api);
-  previews[pending.bookmarkId] = {
-    image,
-    url: pending.url,
-    sourceUrl: tab?.url || pending.url,
-    capturedAt: Date.now(),
-    source: "opened-from-martabs"
-  };
-  await saveCapturedPreviews(api, trimCapturedPreviews(previews));
+    const image = await api.tabs.captureVisibleTab(pending.windowId, {
+      format: "jpeg",
+      quality: 35
+    });
+
+    if (!image) return;
+
+    const previews = await getCapturedPreviews(api);
+    previews[pending.bookmarkId] = {
+      image,
+      url: pending.url,
+      sourceUrl: currentTab.url || pending.url,
+      capturedAt: Date.now(),
+      source: "opened-from-martabs"
+    };
+    await saveCapturedPreviews(api, trimCapturedPreviews(previews));
+  } catch (error) {
+    // Fail silently
+  }
 }
 
 async function rebuildIndex() {
@@ -188,9 +219,21 @@ if (api.runtime?.onMessage) {
 if (api.tabs?.onUpdated) {
   api.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status !== "complete") return;
-    handleCompletedPreviewCapture(tabId, tab).catch((error) => {
-      console.error("Opened bookmark preview capture failed", error);
-    });
+    handleCompletedPreviewCapture(tabId, tab).catch(() => {});
+  });
+}
+
+if (api.tabs?.onRemoved) {
+  api.tabs.onRemoved.addListener(async (tabId) => {
+    try {
+      const pendingPreviewCaptures = await getPendingPreviewCaptures(api);
+      if (pendingPreviewCaptures[String(tabId)]) {
+        delete pendingPreviewCaptures[String(tabId)];
+        await savePendingPreviewCaptures(api, pendingPreviewCaptures);
+      }
+    } catch {
+      // Fail silently
+    }
   });
 }
 

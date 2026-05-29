@@ -4,6 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="setupTitle">Configurar martabs</title>
+    <script>
+      // Early theme detection to minimize visual flash of wrong theme
+      (function() {
+        try {
+          chrome.storage.local.get("settings", function(data) {
+            try {
+              const theme = data?.settings?.theme || "system";
+              const root = document.documentElement;
+              if (theme === "dark") {
+                root.classList.add("theme-dark");
+                root.classList.remove("theme-light");
+              } else if (theme === "light") {
+                root.classList.add("theme-light");
+                root.classList.remove("theme-dark");
+              }
+            } catch (e) {}
+          });
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="./setup.css">
   </head>
   <body>
@@ -36,7 +56,13 @@
             <button class="setup-nav-button" type="button" data-section="privacy" data-i18n="privacySection">Privacidad</button>
             <button class="setup-nav-button" type="button" data-section="statistics" data-i18n="statisticsSection">Estadísticas</button>
             <button class="setup-nav-button" type="button" data-section="tags" data-i18n="tagsSection">Etiquetas</button>
+            <button class="setup-nav-button" type="button" data-section="accessibility" data-i18n="accessibilitySection">Accesibilidad</button>
             <button class="setup-nav-button" type="button" data-section="advanced" data-i18n="advancedSection">Avanzado</button>
+            
+            <div class="sidebar-footer">
+              <span class="sidebar-footer-appname">martabs</span>
+              <span class="sidebar-footer-version" dir="ltr" id="sidebar-version">v0.0.0</span>
+            </div>
           </nav>
 
           <div class="setup-content">
@@ -46,7 +72,10 @@
                   <h2 data-i18n="foldersHeading">Carpetas</h2>
                   <p data-i18n="foldersDescription">Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
                 </div>
-                <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
+                  <button type="button" id="open-browser-bookmarks" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="openBrowserBookmarks">Administrar marcadores</button>
+                </div>
               </div>
               <div class="folder-list-header" aria-hidden="true">
                 <span data-i18n="folderTableHeaderFolder">Carpeta</span>
@@ -109,9 +138,10 @@
                     <small data-i18n="languageDesc">Elige el idioma de la interfaz.</small>
                   </span>
                   <select id="language-select">
-                    <option value="system" data-i18n="languageSystem">Sistema (Predeterminado)</option>
+                    <option value="system" data-i18n="languageSystem">Sistema</option>
                     <option value="de" data-i18n="languageDe">Alemán</option>
-                    <option value="zh_CN" data-i18n="languageZh">Chino simplificado</option>
+                    <option value="ar" data-i18n="languageAr">Árabe</option>
+                    <option value="zh_CN" data-i18n="languageZh">Chino</option>
                     <option value="ko" data-i18n="languageKo">Coreano</option>
                     <option value="es" data-i18n="languageEs">Español</option>
                     <option value="fr" data-i18n="languageFr">Francés</option>
@@ -128,6 +158,14 @@
                   <span>
                     <strong data-i18n="showPinnedFolder">Mostrar carpeta virtual de fijados</strong>
                     <small data-i18n="showPinnedFolderDesc">La carpeta superior agrupa los marcadores fijados.</small>
+                  </span>
+                </label>
+
+                <label class="switch-row" data-i18n-search="searchCleanNamesRow" data-search="nombres limpios carpetas simplificar ruta colisiones">
+                  <input id="clean-folder-names" type="checkbox" checked>
+                  <span>
+                    <strong data-i18n="cleanFolderNames">Simplificar nombres de carpetas</strong>
+                    <small data-i18n="cleanFolderNamesDesc">Oculta las rutas largas y muestra solo el nombre final, añadiendo contexto si hay colisión.</small>
                   </span>
                 </label>
 
@@ -209,7 +247,7 @@
                 <p data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</p>
               </div>
               
-              <div id="statistics-disabled-msg" style="display: none; padding: 24px; background-color: var(--surface-bg); border-radius: 8px; border: 1px dashed var(--border-color); text-align: center;">
+              <div id="statistics-disabled-msg" style="display: none; padding: 24px; background-color: var(--surface-bg); border-radius: 8px; border: 1px dashed var(--surface-border); text-align: center;">
                 <p data-i18n="statsDisabledMsg" style="margin-bottom: 12px; font-size: 13px; color: var(--text-secondary);">Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados.</p>
                 <button type="button" id="go-to-privacy-stats" class="secondary-button" style="margin: 0 auto;" data-i18n="enableInPrivacy">Habilitar en Privacidad</button>
               </div>
@@ -229,7 +267,7 @@
                   <span>
                     <strong data-i18n="downloadClickStats" style="display: block;">Descargar historial de clics</strong>
                   </span>
-                  <button type="button" id="download-stats" class="secondary-button">Descargar JSON</button>
+                  <button type="button" id="download-stats" class="secondary-button" data-i18n="downloadJsonBtn">Descargar JSON</button>
                 </div>
                 
                 <div class="setting-row">
@@ -265,6 +303,35 @@
               </div>
             </section>
 
+            <section id="section-accessibility" class="setup-section" data-section="accessibility" data-i18n-search="searchAccessibilitySection" data-search="accesibilidad atajos teclado shortcuts foco accesibility">
+              <div class="section-heading">
+                <h2 data-i18n="accessibilityHeading">Accesibilidad</h2>
+                <p data-i18n="accessibilityDescription">Atajos de teclado y opciones de navegación accesibles.</p>
+              </div>
+              <div class="settings-stack">
+                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                  <strong data-i18n="keyboardShortcuts">Atajos de teclado</strong>
+                  <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; color: var(--text-secondary); font-size: 13px;">
+                    <li><kbd>/</kbd> : <span data-i18n="shortcutSearch">Enfocar barra de búsqueda</span></li>
+                    <li><kbd>Esc</kbd> : <span data-i18n="shortcutEsc">Limpiar búsqueda o cerrar menú/vista previa</span></li>
+                  </ul>
+                </div>
+                <label class="switch-row" data-i18n-search="searchShortcutsRow" data-search="atajos pinned fijados teclado ctrl shift">
+                  <input id="enable-pinned-shortcuts" type="checkbox" checked>
+                  <span>
+                    <strong data-i18n="enablePinnedShortcuts">Atajos para fijados rápidos</strong>
+                    <small data-i18n="enablePinnedShortcutsDesc">Abre rápidamente los primeros 9 marcadores fijados.</small>
+                  </span>
+                  <div style="margin-inline-start: 16px; display: flex; gap: 8px; align-items: center; font-size: 13px;">
+                    <button id="pinned-shortcut-catcher-1" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Alt</button>
+                    <span style="color: var(--text-secondary);">+</span>
+                    <button id="pinned-shortcut-catcher-2" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Ninguno</button>
+                    <span style="color: var(--text-secondary);">+ 1..9</span>
+                  </div>
+                </label>
+              </div>
+            </section>
+
             <section id="section-advanced" class="setup-section" data-section="advanced" data-i18n-search="searchAdvancedSection" data-search="avanzado limpiar restablecer reset previews cache organizacion">
               <div class="section-heading">
                 <h2 data-i18n="advancedHeading">Avanzado</h2>
@@ -290,6 +357,18 @@
                     <button id="import-confirm-btn" type="button" class="primary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="confirmAndApply">Confirmar y aplicar</button>
                     <button id="import-cancel-btn" type="button" class="secondary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="cancelImport">Cancelar</button>
                   </div>
+                </div>
+              </div>
+              
+              <div class="settings-stack" style="margin-top: 24px; border-top: 1px solid var(--surface-border); padding-top: 20px;">
+                <div class="setting-row" data-i18n-search="searchAboutRow" data-search="acerca de version instalada info">
+                  <span>
+                    <strong data-i18n="aboutAppName">Acerca de martabs</strong>
+                    <small>
+                      <span data-i18n="installedVersion">Versión instalada:</span> 
+                      <span id="advanced-version" dir="ltr">0.0.0</span>
+                    </small>
+                  </span>
                 </div>
               </div>
             </section>

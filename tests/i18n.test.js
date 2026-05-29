@@ -2,25 +2,40 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import { localizeHtml, t, initI18n, getMessage, normalizeLanguageCode } from "../src/shared/i18n-helper.js";
+import { getBrowserApi } from "../src/shared/browser-api.js";
+import { createBrowserMock } from "./helpers/browser-mock.js";
 
-test("i18n messages files have matching keys", async () => {
-  const locales = await readdir("src/_locales");
-  const baseJson = JSON.parse(await readFile("src/_locales/es/messages.json", "utf8"));
-  const baseKeys = Object.keys(baseJson).sort();
+import { execSync } from "node:child_process";
 
-  for (const locale of locales) {
-    if (locale === "es") continue;
-    const localeJson = JSON.parse(await readFile(`src/_locales/${locale}/messages.json`, "utf8"));
-    const localeKeys = Object.keys(localeJson).sort();
-    assert.deepStrictEqual(localeKeys, baseKeys, `Las claves de traduccion en ${locale}/messages.json deben ser exactamente iguales a las de es/messages.json.`);
+test("i18n messages files are fully synchronized, formatted, and valid", () => {
+  try {
+    execSync("node scripts/i18n-maintain.mjs --check", { stdio: "pipe" });
+  } catch (err) {
+    const output = err.stdout?.toString() || err.stderr?.toString() || err.message;
+    assert.fail(`i18n audit failed:\n${output}`);
   }
 });
 
-test("i18n message files do not contain mojibake", async () => {
+test("i18n message files do not contain mojibake or misplaced Spanish", async () => {
   const locales = await readdir("src/_locales");
+
   for (const locale of locales) {
-    const text = await readFile(`src/_locales/${locale}/messages.json`, "utf8");
+    const text = await readFile(`src/_locales/${locale}/messages.json`, "utf-8");
     assert.doesNotMatch(text, /Ã|Â|ðŸ/, `El archivo de traduccion ${locale}/messages.json contiene posibles caracteres mojibake.`);
+    
+    // Si no es un idioma latino, no deberia tener tildes ni enies en los mensajes
+    if (!["es", "fr", "it", "pt", "de"].includes(locale) && locale !== "en") {
+        // Ignoramos la palabra "martabs" o la definicion de idiomas que si pueden estar en ingles,
+        // pero validamos que no se hayan colado tildes (áéíóúñ) o signos de apertura hispanos (¿¡).
+        const parsed = JSON.parse(text);
+        for (const [key, value] of Object.entries(parsed)) {
+            // Ignorar el nombre en ingles en la seccion de idiomas
+            if (key.startsWith("language") || key === "extensionName") continue;
+            // Ignorar claves pendientes de traducir [TODO] (ya fallaran en el test de sincronizacion)
+            if (value.message && value.message.startsWith("[TODO]")) continue;
+            assert.doesNotMatch(value.message, /[áéíóúñ¿¡]/i, `La clave '${key}' en ${locale} contiene caracteres latinos/espanoles invalidos.`);
+        }
+    }
   }
 });
 
@@ -56,18 +71,15 @@ test("legacy zh setting is normalized to zh_CN", () => {
 
 test("localizeHtml updates mock DOM elements correctly", () => {
   const translations = {
-    "@@ui_locale": "en_US",
-    "keyText": "Monitored bookmarks",
-    "keyPlaceholder": "Search...",
-    "keyTitle": "Configure Settings",
-    "keySearch": "extra search keywords"
+    "@@ui_locale": { message: "en_US" },
+    "keyText": { message: "Monitored bookmarks" },
+    "keyPlaceholder": { message: "Search..." },
+    "keyTitle": { message: "Configure Settings" },
+    "keySearch": { message: "extra search keywords" }
   };
 
-  const mockApi = {
-    i18n: {
-      getMessage: (key) => translations[key] || ""
-    }
-  };
+  const browserMock = createBrowserMock({ translations });
+  const mockApi = getBrowserApi({ chrome: browserMock });
 
   const textElement = { dataset: { i18n: "keyText" }, textContent: "original" };
   const placeholderElement = { dataset: { i18nPlaceholder: "keyPlaceholder" }, placeholder: "original" };
@@ -101,14 +113,12 @@ test("localizeHtml updates mock DOM elements correctly", () => {
 });
 
 test("t helper returns message or key fallback", () => {
-  const mockApi = {
-    i18n: {
-      getMessage: (key, subs) => {
-        if (key === "test") return `hello ${subs ? subs[0] : ""}`.trim();
-        return "";
-      }
+  const browserMock = createBrowserMock({
+    translations: {
+      test: { message: "hello $1" }
     }
-  };
+  });
+  const mockApi = getBrowserApi({ chrome: browserMock });
 
   assert.strictEqual(t(mockApi, "test", ["world"]), "hello world");
   assert.strictEqual(t(mockApi, "missing"), "missing", "Deberia retornar la clave original si falta la traduccion.");

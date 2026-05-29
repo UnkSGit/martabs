@@ -7,6 +7,7 @@ import { localizeHtml, t, initI18n, normalizeLanguageCode } from "../shared/i18n
 const api = getBrowserApi();
 const folderList = document.querySelector("#folder-list");
 const toggleAllFoldersBtn = document.querySelector("#toggle-all-folders");
+const openBrowserBookmarksBtn = document.querySelector("#open-browser-bookmarks");
 const saveButton = document.querySelector("#save");
 const backButton = document.querySelector("#back-to-dashboard");
 const status = document.querySelector("#status");
@@ -22,6 +23,11 @@ const showSortButton = document.querySelector("#show-sort-button");
 const linkHealth = document.querySelector("#link-health");
 const previewEnabled = document.querySelector("#preview-enabled");
 const previewCapture = document.querySelector("#preview-capture");
+const cleanFolderNames = document.querySelector("#clean-folder-names");
+const enablePinnedShortcuts = document.querySelector("#enable-pinned-shortcuts");
+const pinnedShortcutCatcher1 = document.querySelector("#pinned-shortcut-catcher-1");
+const pinnedShortcutCatcher2 = document.querySelector("#pinned-shortcut-catcher-2");
+let currentShortcutModifiers = ["Alt", ""];
 const frequentSites = document.querySelector("#frequent-sites");
 const topsitesLimit = document.querySelector("#topsites-limit");
 const resetTopsitesBlacklistBtn = document.querySelector("#reset-topsites-blacklist");
@@ -43,6 +49,8 @@ const exportConfigButton = document.querySelector("#export-config");
 const importConfigButton = document.querySelector("#import-config");
 const importConfigFile = document.querySelector("#import-config-file");
 const importSummary = document.querySelector("#import-summary");
+const sidebarVersion = document.querySelector("#sidebar-version");
+const advancedVersion = document.querySelector("#advanced-version");
 let currentSettings = null;
 let currentFolders = [];
 
@@ -360,6 +368,9 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showT
     showTopSitesFolder: showTopSitesFolder,
     topSitesLimit: Number(topsitesLimit.value),
     localStatsEnabled: localStats.checked,
+    cleanFolderNames: cleanFolderNames.checked,
+    enablePinnedShortcuts: enablePinnedShortcuts.checked,
+    pinnedShortcutModifier: currentShortcutModifiers,
     theme: themeSelect.value,
     language: languageSelect.value,
     defaultFolderMode: defaultModeSelect.value,
@@ -414,10 +425,24 @@ function getSuccessMessage(linkHealthRequested, linkHealthEnabled, previewCaptur
 }
 
 async function init() {
-  const [tree, settings] = await Promise.all([api.bookmarks.getTree(), getSettings(api)]);
+  const settings = await getSettings(api);
   currentSettings = settings;
-  await initI18n(api, settings.language);
+
+  // Apply theme immediately to minimize theme visual transition delay
+  themeSelect.value = currentSettings.theme || "system";
+  applyTheme(themeSelect.value);
+
+  // Load tree and i18n concurrently
+  const [tree] = await Promise.all([
+    api.bookmarks.getTree(),
+    initI18n(api, settings.language)
+  ]);
+  
   localizeHtml(api);
+  
+  const version = api.runtime.getManifest().version;
+  if (sidebarVersion) sidebarVersion.textContent = `v${version}`;
+  if (advancedVersion) advancedVersion.textContent = version;
   
   automaticTags.checked = currentSettings.automaticTagsEnabled !== false;
   manualTags.checked = currentSettings.manualTagsEnabled !== false;
@@ -427,6 +452,20 @@ async function init() {
   linkHealth.checked = currentSettings.linkHealthEnabled;
   previewEnabled.checked = currentSettings.previewEnabled;
   previewCapture.checked = currentSettings.previewCaptureEnabled;
+  cleanFolderNames.checked = currentSettings.cleanFolderNames !== false;
+  enablePinnedShortcuts.checked = currentSettings.enablePinnedShortcuts !== false;
+  let mods = currentSettings.pinnedShortcutModifier;
+  if (!Array.isArray(mods)) {
+    mods = mods === "ctrlShift" ? ["Control", "Shift"] 
+           : mods === "ctrl" ? ["Control", ""] 
+           : ["Alt", ""];
+  } else {
+    // legacy migration if they had ["ctrl"]
+    mods = mods.map(m => m === "ctrl" ? "Control" : m === "alt" ? "Alt" : m === "shift" ? "Shift" : (m || ""));
+  }
+  while(mods.length < 2) mods.push("");
+  currentShortcutModifiers = mods.slice(0, 2);
+  updateShortcutCatcherLabel();
   frequentSites.checked = currentSettings.showTopSitesFolder;
   topsitesLimit.value = settings.topSitesLimit || 8;
   
@@ -439,12 +478,9 @@ async function init() {
   localStats.checked = settings.localStatsEnabled !== false;
 
   renderStatistics();
-  themeSelect.value = currentSettings.theme || "system";
   languageSelect.value = normalizeLanguageCode(currentSettings.language) || "system";
   defaultModeSelect.value = currentSettings.defaultFolderMode || "list";
   defaultSortSelect.value = currentSettings.defaultFolderSort || "browser";
-
-  applyTheme(themeSelect.value);
 
   currentFolders = getFolderOptions(tree);
   renderFolders(
@@ -504,6 +540,18 @@ if (toggleAllFoldersBtn) {
       cb.checked = newState;
     });
     saveButton.disabled = false;
+  });
+}
+
+if (openBrowserBookmarksBtn) {
+  openBrowserBookmarksBtn.addEventListener("click", () => {
+    if (navigator.userAgent.includes("Firefox")) {
+      alert(t(api, "firefoxBookmarksNotice"));
+    } else {
+      api.tabs.create({ url: "chrome://bookmarks/" }).catch(err => {
+        console.error("No se pudo abrir el administrador de marcadores:", err);
+      });
+    }
   });
 }
 
@@ -721,6 +769,61 @@ init().then(() => {
   status.textContent = t(api, "loadError", [error.message]);
 });
 
+function formatKeyName(key) {
+  if (!key) return "Ninguno";
+  if (key === " ") return "Space";
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+function updateShortcutCatcherLabel() {
+  if (pinnedShortcutCatcher1) pinnedShortcutCatcher1.textContent = formatKeyName(currentShortcutModifiers[0]);
+  if (pinnedShortcutCatcher2) pinnedShortcutCatcher2.textContent = formatKeyName(currentShortcutModifiers[1]);
+}
+
+let activeCatcherIndex = -1;
+
+function bindCatcher(catcher, index) {
+  if (!catcher) return;
+  catcher.addEventListener("click", () => {
+    activeCatcherIndex = index;
+    catcher.textContent = "Presiona...";
+    catcher.focus();
+  });
+
+  catcher.addEventListener("keydown", (e) => {
+    if (activeCatcherIndex !== index) return;
+    e.preventDefault();
+    if (e.key === "Escape" || e.key === "Enter") {
+      activeCatcherIndex = -1;
+      catcher.blur();
+      return;
+    }
+    if (e.key === "Backspace" || e.key === "Delete") {
+      currentShortcutModifiers[index] = "";
+      updateShortcutCatcherLabel();
+      saveButton.disabled = false;
+      return;
+    }
+
+    currentShortcutModifiers[index] = e.key === "Control" ? "Control" : e.key;
+    updateShortcutCatcherLabel();
+    saveButton.disabled = false;
+    
+    // Auto blur after receiving a valid key
+    activeCatcherIndex = -1;
+    catcher.blur();
+  });
+
+  catcher.addEventListener("blur", () => {
+    if (activeCatcherIndex === index) {
+      activeCatcherIndex = -1;
+      updateShortcutCatcherLabel();
+    }
+  });
+}
+
+bindCatcher(pinnedShortcutCatcher1, 0);
+bindCatcher(pinnedShortcutCatcher2, 1);
 
 async function renderStatistics() {
   if (!statsChart || !storageAudit) return;
@@ -739,7 +842,7 @@ async function renderStatistics() {
   const data = await api.storage.local.get(STORAGE_KEYS.clickStats);
   const clickStats = data[STORAGE_KEYS.clickStats] || [];
   if (clickStats.length === 0) {
-    statsChart.innerHTML = `<p>${t(api, "emptyResults")}</p>`;
+    statsChart.innerHTML = `<p data-i18n="emptyResults">${t(api, "emptyResults")}</p>`;
   } else {
     const counts = {};
     const titles = {};
@@ -752,7 +855,7 @@ async function renderStatistics() {
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10);
     const maxCount = sorted[0][1];
     
-    statsChart.innerHTML = `<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">` + 
+    statsChart.innerHTML = `<div role="list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">` + 
       sorted.map(([id, count]) => {
         const percentage = (count / maxCount) * 100;
         let domain = "";
@@ -760,20 +863,20 @@ async function renderStatistics() {
         const faviconUrl = domain ? `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=32` : "";
         const faviconImg = faviconUrl 
           ? `<img src="${faviconUrl}" alt="" style="width: 16px; height: 16px; border-radius: 2px;">` 
-          : `<div style="width: 16px; height: 16px; border-radius: 2px; background: var(--border-color);"></div>`;
+          : `<div style="width: 16px; height: 16px; border-radius: 2px; background: var(--surface-border);"></div>`;
         const visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
 
         return `
-          <div style="display: flex; align-items: center; gap: 12px;">
+          <div role="listitem" style="display: flex; align-items: center; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 8px; width: 140px; min-width: 140px; overflow: hidden;">
               ${faviconImg}
-              <span style="font-size: 13px; color: var(--text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${titles[id]}">${titles[id]}</span>
+              <span style="font-size: 13px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${titles[id]}">${titles[id]}</span>
             </div>
-            <div style="width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: right;">
+            <div style="width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: end;">
               ${visitsText || (count + " aperturas")}
             </div>
-            <div style="flex: 1; height: 14px; display: flex; align-items: center;">
-              <div style="width: ${percentage}%; height: 100%; background-color: var(--accent-color); border-radius: 3px; min-width: 4px;"></div>
+            <div aria-hidden="true" style="flex: 1; height: 14px; display: flex; align-items: center;">
+              <div style="width: ${percentage}%; height: 100%; background-color: var(--primary); border-radius: 3px; min-width: 4px;"></div>
             </div>
           </div>
         `;
@@ -786,14 +889,14 @@ async function renderStatistics() {
       const size = new Blob([JSON.stringify(value)]).size;
       totalBytes += size;
       storageAudit.innerHTML += `
-        <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--card-bg); border-radius: 6px; border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--surface-strong); border-radius: 6px; border: 1px solid var(--surface-border);">
           <span style="font-size: 13px;">${key}</span>
           <span style="font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums;">${(size / 1024).toFixed(1)} KB</span>
         </div>
       `;
     }
     storageAudit.innerHTML += `
-      <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--hover-color); border-radius: 6px; border: 1px solid var(--border-color); font-weight: 500;">
+      <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--primary-soft); border-radius: 6px; border: 1px solid var(--surface-border); font-weight: 500;">
         <span style="font-size: 13px;">Total</span>
         <span style="font-size: 13px; font-variant-numeric: tabular-nums;">${(totalBytes / 1024).toFixed(1)} KB</span>
       </div>

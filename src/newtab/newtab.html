@@ -4,6 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="newtabTitle">Inicio - martabs</title>
+    <script>
+      // Early theme detection to minimize visual flash of wrong theme
+      (function() {
+        try {
+          chrome.storage.local.get("settings", function(data) {
+            try {
+              const theme = data?.settings?.theme || "system";
+              const root = document.documentElement;
+              if (theme === "dark") {
+                root.classList.add("theme-dark");
+                root.classList.remove("theme-light");
+              } else if (theme === "light") {
+                root.classList.add("theme-light");
+                root.classList.remove("theme-dark");
+              }
+            } catch (e) {}
+          });
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="./newtab.css">
   </head>
   <body>

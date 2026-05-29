@@ -21,7 +21,10 @@ const DEFAULT_SETTINGS = {
   showTopSitesFolder: false,
   topSitesLimit: 8,
   topSitesBlacklist: [],
-  localStatsEnabled: false
+  localStatsEnabled: false,
+  cleanFolderNames: true,
+  enablePinnedShortcuts: true,
+  pinnedShortcutModifier: ["Alt", ""]
 };
 
 export const STORAGE_KEYS = {

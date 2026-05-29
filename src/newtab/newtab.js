@@ -15,6 +15,7 @@ import { el, formatDate } from "../shared/render.js";
 import { applyLinkCheckResult } from "../shared/link-health.js";
 import { localizeHtml, t, initI18n } from "../shared/i18n-helper.js";
 import { mergeTags } from "../shared/tags.js";
+import { getFolderOptions, getDisplayFolderName } from "../shared/bookmarks.js";
 
 const api = getBrowserApi();
 const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
@@ -40,6 +41,7 @@ let currentSettings = null;
 let capturedPreviews = {};
 let pinnedBookmarks = [];
 let topSites = [];
+let currentSelectedFolders = [];
 let hoverTimeout = null;
 let hideTimeout = null;
 let pendingViewFocusFolderId = null;
@@ -354,7 +356,7 @@ function renderBookmark(bookmark, rich = false) {
     ]
   );
 
-  const editBtn = el("button", { class: "bookmark-edit-btn", title: t(api, "bookmarkEditBtn"), type: "button" });
+  const editBtn = el("button", { class: "bookmark-edit-btn", title: t(api, "bookmarkEditBtn"), "aria-label": t(api, "bookmarkEditBtn"), type: "button" });
   
   editBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -363,7 +365,7 @@ function renderBookmark(bookmark, rich = false) {
   });
   
   const isPinned = pinnedBookmarks.includes(bookmark.id);
-  const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), type: "button" });
+  const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), "aria-label": isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), type: "button" });
   
   const svgDoc = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${isPinned ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
     <line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.2V6a3 3 0 0 0-6 0v5.2a2 2 0 0 1-1.11 1.35l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
@@ -481,11 +483,18 @@ function showPreviewCard(bookmark, anchorElement) {
   const cardWidth = 280;
   const cardHeight = previewCard.offsetHeight;
 
-  let left = rect.left + rect.width + 12;
-  if (left + cardWidth > window.innerWidth) {
+  const isRTL = document.documentElement.dir === "rtl";
+  let left;
+
+  if (isRTL) {
     left = rect.left - cardWidth - 12;
+    if (left < 0) left = rect.right + 12;
+    if (left + cardWidth > window.innerWidth) left = window.innerWidth - cardWidth - 12;
+  } else {
+    left = rect.right + 12;
+    if (left + cardWidth > window.innerWidth) left = rect.left - cardWidth - 12;
+    if (left < 0) left = 12;
   }
-  if (left < 0) left = 12;
 
   let top = rect.top + window.scrollY - 10;
   // If card overflows bottom of viewport, adjust it upwards
@@ -728,7 +737,7 @@ function renderDashboard(items) {
     const headerButtons = [];
 
     if (isPinnedFolder) {
-      const toggleBtn = el("button", { class: "review-button", type: "button", title: t(api, "hidePinnedFolder") });
+      const toggleBtn = el("button", { class: "review-button", type: "button", title: t(api, "hidePinnedFolder"), "aria-label": t(api, "hidePinnedFolder") });
       const svgDoc = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align: middle; margin-right: 4px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`, "image/svg+xml");
       toggleBtn.append(svgDoc.documentElement, document.createTextNode(t(api, "hide")));
       toggleBtn.addEventListener("click", async () => {
@@ -742,7 +751,13 @@ function renderDashboard(items) {
 
     if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
       const progressEl = el("span", { class: "review-progress" });
-      const reviewButton = el("button", { class: "review-button", type: "button", text: t(api, "review") });
+      const reviewButton = el("button", { 
+        class: "review-button", 
+        type: "button", 
+        text: t(api, "review"),
+        title: t(api, "review"),
+        "aria-label": t(api, "review")
+      });
       reviewButton.addEventListener("click", () => {
         reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
       });
@@ -759,7 +774,13 @@ function renderDashboard(items) {
       const failuresText = folderBrokenBookmarks.length === 1
         ? t(api, "failuresCountSingular", [folderBrokenBookmarks.length])
         : t(api, "failuresCountPlural", [folderBrokenBookmarks.length]);
-      const viewButton = el("button", { class: "review-button review-button--danger", type: "button", text: failuresText });
+      const viewButton = el("button", { 
+        class: "review-button review-button--danger", 
+        type: "button", 
+        text: failuresText,
+        title: t(api, "review"),
+        "aria-label": failuresText + " " + t(api, "review")
+      });
       viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
@@ -768,7 +789,7 @@ function renderDashboard(items) {
     }
 
     const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
-    const modeBtn = el("button", { class: "review-button", type: "button", title: t(api, "changeView") });
+    const modeBtn = el("button", { class: "review-button", type: "button", title: t(api, "changeView"), "aria-label": t(api, "changeView") });
     modeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`;
     modeBtn.style.padding = "0 6px"; // Make it square-ish
     
@@ -822,7 +843,7 @@ function renderDashboard(items) {
           return `${baseTitle} (${currentModeStr})`;
         };
 
-        const sortBtn = el("button", { class: "review-button", type: "button", title: getSortTooltipText(currentSort) });
+        const sortBtn = el("button", { class: "review-button", type: "button", title: getSortTooltipText(currentSort), "aria-label": getSortTooltipText(currentSort) });
         sortBtn.innerHTML = getSortIcon(currentSort);
         sortBtn.style.padding = "0 6px";
         sortBtn.addEventListener("click", async () => {
@@ -850,12 +871,23 @@ function renderDashboard(items) {
       headerButtons.push(modeBtn);
     }
 
+    let computedName = folder;
+    if (!isPinnedFolder && !isTopSitesFolder) {
+      const folderObj = currentSelectedFolders.find(f => f.id === folderId) || { id: folderId, path: folder, title: folder };
+      computedName = getDisplayFolderName(folderObj, currentSelectedFolders, currentSettings.cleanFolderNames !== false);
+    }
+    
     const folderDisplayName = isPinnedFolder
       ? t(api, "pinnedFolderTitle")
       : isTopSitesFolder
       ? t(api, "frequentSites")
-      : (currentSettings.folderNameOverrides || {})[folderId] || folder;
-    const h2 = el("h2", { text: folderDisplayName, title: folderDisplayName });
+      : (currentSettings.folderNameOverrides || {})[folderId] || computedName;
+    const folderPathTitle = isPinnedFolder 
+      ? t(api, "pinnedFolderTitle") 
+      : isTopSitesFolder 
+      ? t(api, "frequentSites") 
+      : folder;
+    const h2 = el("h2", { text: folderDisplayName, title: folderPathTitle });
     
     if (!isPinnedFolder) {
       h2.addEventListener("dblclick", () => {
@@ -874,7 +906,7 @@ function renderDashboard(items) {
         const newName = h2.textContent.trim();
         if (newName !== folderDisplayName) {
           const overrides = { ...(currentSettings.folderNameOverrides || {}) };
-          if (!newName || newName === folder) {
+          if (!newName || newName === computedName) {
             delete overrides[folderId];
           } else {
             overrides[folderId] = newName;
@@ -1066,11 +1098,19 @@ async function init() {
     content.append(el("p", { class: "empty", text: t(api, "setupEmptyStateDescription") }));
     return;
   }
-  [bookmarks, capturedPreviews, pinnedBookmarks] = await Promise.all([
+  const [tree, index, previews, pinned] = await Promise.all([
+    api.bookmarks.getTree(),
     getBookmarkIndex(api),
     getCapturedPreviews(api),
     getStoredValue(api, STORAGE_KEYS.pinnedBookmarks, [])
   ]);
+  
+  bookmarks = index;
+  capturedPreviews = previews;
+  pinnedBookmarks = pinned;
+  
+  const allFolders = getFolderOptions(tree);
+  currentSelectedFolders = allFolders.filter(f => settings.selectedFolderIds?.includes(f.id));
 
   if (currentSettings.showTopSitesFolder && api.topSites) {
     try {
@@ -1097,14 +1137,88 @@ async function init() {
 
 searchInput.addEventListener("input", render);
 searchInput.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    searchInput.value = "";
-    render();
-  }
   if (event.key === "Enter") {
     const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;
     const [first] = searchBookmarks(searchableBookmarks, searchInput.value);
     if (first) location.href = first.url;
+  }
+});
+
+const pressedKeys = new Set();
+document.addEventListener("keydown", (e) => pressedKeys.add(e.key.toLowerCase()));
+document.addEventListener("keyup", (e) => pressedKeys.delete(e.key.toLowerCase()));
+window.addEventListener("blur", () => pressedKeys.clear());
+
+document.addEventListener("keydown", (event) => {
+  const target = event.target;
+  const isInput = target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable;
+
+  if (event.key === "Escape") {
+    if (editModal.open) {
+      editCancel.click();
+      return;
+    }
+    if (document.activeElement === searchInput) {
+      searchInput.value = "";
+      searchInput.blur();
+      render();
+      return;
+    }
+  }
+
+  if (event.key === "/" && !isInput) {
+    event.preventDefault();
+    searchInput.focus();
+    return;
+  }
+
+  if (currentSettings?.enablePinnedShortcuts !== false) {
+    const keyNumber = parseInt(event.key);
+    if (keyNumber >= 1 && keyNumber <= 9) {
+      const storedMods = currentSettings?.pinnedShortcutModifier;
+      const modifiers = Array.isArray(storedMods) 
+        ? storedMods 
+        : (storedMods === "ctrlShift" ? ["ctrl", "shift"] 
+           : storedMods === "ctrl" ? ["ctrl"] 
+           : ["alt"]); // Default to Alt as requested
+
+      const requiredKeys = modifiers.map(m => {
+        if (m === "ctrl") return "control";
+        return m.toLowerCase();
+      }).filter(m => m);
+
+      const requiresCtrl = requiredKeys.includes("control");
+      const requiresAlt = requiredKeys.includes("alt");
+      const requiresShift = requiredKeys.includes("shift");
+
+      let match = (event.ctrlKey === requiresCtrl) &&
+                  (event.altKey === requiresAlt) &&
+                  (event.shiftKey === requiresShift) &&
+                  !event.metaKey;
+
+      if (match) {
+        for (const k of requiredKeys) {
+          if (k !== "control" && k !== "alt" && k !== "shift") {
+            if (!pressedKeys.has(k)) {
+              match = false;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (match) {
+        event.preventDefault();
+        const index = keyNumber - 1;
+        if (pinnedBookmarks[index]) {
+          const targetBookmarkId = pinnedBookmarks[index];
+          const targetBookmark = bookmarks.find(b => b.id === targetBookmarkId);
+          if (targetBookmark) {
+            location.href = targetBookmark.url;
+          }
+        }
+      }
+    }
   }
 });
 

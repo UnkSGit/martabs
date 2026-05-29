@@ -89,6 +89,11 @@ export function localizeHtml(api, rootElement = document) {
     const langCode = uiLocale.split(/[_-]/)[0].toLowerCase();
     const ownerDocument = rootElement.ownerDocument || document;
     ownerDocument.documentElement.lang = langCode || "es";
+    if (langCode === "ar") {
+      ownerDocument.documentElement.dir = "rtl";
+    } else {
+      ownerDocument.documentElement.dir = "ltr";
+    }
   }
 
   // Traducir texto directo

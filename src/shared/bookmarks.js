@@ -85,3 +85,51 @@ export function buildBookmarkIndex(bookmarkTree, selectedFolderIds, bookmarkFold
   const folderMap = new Map(folderOptions.map(f => [f.id, f.path]));
   return walkBookmarks(bookmarkTree, selectedFolderIds, bookmarkFolderOverrides, folderMap);
 }
+
+export function getDisplayFolderName(folder, allSelectedFolders, isCleanMode) {
+  const path = folder.path || folder.title;
+  if (!isCleanMode || !path) return path;
+
+  const pathParts = path.split(" / ");
+  const leaf = pathParts[pathParts.length - 1];
+
+  if (!allSelectedFolders || allSelectedFolders.length === 0) {
+    return leaf;
+  }
+
+  const collisions = allSelectedFolders.filter(f => {
+    if (f.id === folder.id) return false;
+    const fPath = f.path || f.title;
+    if (!fPath) return false;
+    const fParts = fPath.split(" / ");
+    return fParts[fParts.length - 1] === leaf;
+  });
+
+  if (collisions.length === 0) {
+    return leaf;
+  }
+
+  let levelsToInclude = 1;
+  let isUnique = false;
+
+  while (!isUnique && levelsToInclude < pathParts.length) {
+    levelsToInclude++;
+    const mySubParts = pathParts.slice(-levelsToInclude).reverse();
+    const mySubPath = mySubParts.join(" · ");
+
+    isUnique = true;
+    for (const collision of collisions) {
+      const cPath = collision.path || collision.title;
+      const cParts = cPath.split(" / ");
+      const cSubParts = cParts.slice(-levelsToInclude).reverse();
+      const cSubPath = cSubParts.join(" · ");
+      if (cSubPath === mySubPath) {
+        isUnique = false;
+        break;
+      }
+    }
+  }
+
+  return pathParts.slice(-levelsToInclude).reverse().join(" · ");
+}
+

@@ -1,102 +1,111 @@
 {
-  "extensionName": {
-    "message": "martabs"
+  "aboutAppName": {
+    "message": "martabs 정보"
   },
-  "extensionDescription": {
-    "message": "새 탭에서 북마크 폴더를 정리하고 모니터링할 수 있는 아름답고 빠르며 개인정보 보호를 최우선으로 하는 대시보드."
+  "accessibilityDescription": {
+    "message": "키보드 단축키 및 접근성 탐색 옵션."
   },
-  "newtabTitle": {
-    "message": "홈 - martabs"
+  "accessibilityHeading": {
+    "message": "접근성"
   },
-  "loadingBookmarks": {
-    "message": "북마크를 불러오는 중..."
+  "accessibilitySection": {
+    "message": "접근성"
   },
-  "settingsBtn": {
-    "message": "설정"
+  "advancedDescription": {
+    "message": "로컬 상태를 지우는 드문 작업입니다."
   },
-  "settingsBtnTitle": {
-    "message": "북마크 및 환경설정 구성"
+  "advancedHeading": {
+    "message": "고급"
   },
-  "searchPlaceholder": {
-    "message": "제목, 태그, URL 또는 폴더 검색..."
+  "advancedSection": {
+    "message": "고급"
   },
-  "editModalTitle": {
-    "message": "북마크 편집"
+  "allFolders": {
+    "message": "모든 폴더"
   },
-  "editFieldName": {
-    "message": "이름"
+  "appearanceDescription": {
+    "message": "대시보드의 전반적인 시각적 환경설정."
   },
-  "editFieldUrl": {
-    "message": "URL"
+  "appearanceHeading": {
+    "message": "개인설정"
   },
-  "editFieldTags": {
-    "message": "태그 (쉼표로 구분)"
+  "appearanceSection": {
+    "message": "개인설정"
   },
-  "editFieldTagsPlaceholder": {
-    "message": "예: 업무, 문서, js"
+  "automaticTags": {
+    "message": "자동 태그"
   },
-  "editFieldFavicon": {
-    "message": "사용자 지정 아이콘 (이미지 URL)"
-  },
-  "editFaviconError": {
-    "message": "현재 이미지를 불러올 수 없습니다."
-  },
-  "delete": {
-    "message": "삭제"
-  },
-  "cancel": {
-    "message": "취소"
-  },
-  "save": {
-    "message": "저장"
-  },
-  "emptyResults": {
-    "message": "검색 결과가 없습니다."
-  },
-  "hide": {
-    "message": "숨기기"
-  },
-  "hidePinnedFolder": {
-    "message": "고정 폴더 숨기기 (설정에서 다시 표시할 수 있습니다)"
-  },
-  "review": {
-    "message": "검사"
-  },
-  "reviewing": {
-    "message": "검사 중..."
-  },
-  "failuresCountSingular": {
-    "message": "$COUNT$개 오류",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "failuresCountPlural": {
-    "message": "$COUNT$개 오류",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "changeView": {
-    "message": "보기 변경"
-  },
-  "pinnedFolderTitle": {
-    "message": "고정됨"
+  "automaticTagsDesc": {
+    "message": "폴더, 도메인 및 북마크 데이터에서 자동으로 생성됩니다."
   },
   "back": {
     "message": "뒤로"
   },
-  "deleteAllCount": {
-    "message": "모두 삭제 ($COUNT$)",
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "bookmarkEditBtn": {
+    "message": "북마크 편집"
+  },
+  "bookmarkPinBtn": {
+    "message": "북마크 고정"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "고정 해제"
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
     "placeholders": {
       "count": {
         "content": "$1"
       }
     }
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "손상된 링크"
+  },
+  "cancel": {
+    "message": "취소"
+  },
+  "cancelImport": {
+    "message": "취소"
+  },
+  "changeView": {
+    "message": "보기 변경"
+  },
+  "cleanFolderNames": {
+    "message": "깔끔한 폴더 이름"
+  },
+  "cleanFolderNamesDesc": {
+    "message": "명확성을 위해 짧은 이름을 표시합니다."
+  },
+  "clearPreviewCache": {
+    "message": "캐시된 미리보기 지우기"
+  },
+  "clearPreviewsError": {
+    "message": "미리보기 캐시 삭제 실패: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "clearPreviewsSuccess": {
+    "message": "캐시된 미리보기가 삭제되었습니다."
+  },
+  "confirmAndApply": {
+    "message": "확인 및 적용"
+  },
+  "confirmClearPreviews": {
+    "message": "캐시된 로컬 미리보기를 모두 삭제하시겠습니까?"
   },
   "confirmDeleteAllFailures": {
     "message": "\"$FOLDER$\"에서 $COUNT$개의 손상된 북마크를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
@@ -108,28 +117,6 @@
         "content": "$2"
       }
     }
-  },
-  "allFolders": {
-    "message": "모든 폴더"
-  },
-  "bookmarksToReviewSingular": {
-    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "bookmarksToReviewPlural": {
-    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "noFailuresRegistered": {
-    "message": "등록된 손상된 링크가 없습니다."
   },
   "confirmDeleteBookmark": {
     "message": "북마크 \"$TITLE$\"을(를) 삭제하시겠습니까?",
@@ -147,33 +134,11 @@
       }
     }
   },
-  "monitoredBookmarksCountSingular": {
-    "message": "$COUNT$개 북마크 모니터링 중",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
+  "confirmResetLocalOrg": {
+    "message": "모든 로컬 이동 및 수동 정렬을 초기화하시겠습니까? 브라우저의 실제 북마크는 수정되지 않습니다."
   },
-  "monitoredBookmarksCountPlural": {
-    "message": "$COUNT$개 북마크 모니터링 중",
-    "placeholders": {
-      "count": {
-        "content": "$1"
-      }
-    }
-  },
-  "setupEmptyStateTitle": {
-    "message": "시작하려면 폴더를 설정하세요."
-  },
-  "setupEmptyStateDescription": {
-    "message": "설정을 열고 하나 이상의 폴더를 선택하십시오."
-  },
-  "domainNone": {
-    "message": "도메인 없음"
-  },
-  "noFolder": {
-    "message": "폴더 없음"
+  "confirmResetStats": {
+    "message": "사용 통계 기록을 초기화하시겠습니까?"
   },
   "dateAdded": {
     "message": "추가됨: $DATE$",
@@ -182,89 +147,6 @@
         "content": "$1"
       }
     }
-  },
-  "healthUnchecked": {
-    "message": "검사하지 않음"
-  },
-  "healthBroken": {
-    "message": "연결할 수 없음 (코드: $CODE$)",
-    "placeholders": {
-      "code": {
-        "content": "$1"
-      }
-    }
-  },
-  "healthOk": {
-    "message": "연결 가능한 링크"
-  },
-  "previewLabelLocal": {
-    "message": "로컬 캡처"
-  },
-  "previewLabelQuick": {
-    "message": "로컬 빠른 미리보기"
-  },
-  "linkHealthBrokenTitle": {
-    "message": "이 링크는 마지막 검사에서 정상적으로 응답하지 않았습니다."
-  },
-  "bookmarkEditBtn": {
-    "message": "북마크 편집"
-  },
-  "bookmarkPinBtn": {
-    "message": "북마크 고정"
-  },
-  "bookmarkUnpinBtn": {
-    "message": "고정 해제"
-  },
-  "setupTitle": {
-    "message": "martabs 구성"
-  },
-  "setupHeaderTitle": {
-    "message": "설정"
-  },
-  "searchSettingsPlaceholder": {
-    "message": "설정 검색..."
-  },
-  "saveChanges": {
-    "message": "변경사항 저장"
-  },
-  "foldersSection": {
-    "message": "폴더"
-  },
-  "appearanceSection": {
-    "message": "개인설정"
-  },
-  "privacySection": {
-    "message": "개인정보 보호"
-  },
-  "tagsSection": {
-    "message": "태그"
-  },
-  "advancedSection": {
-    "message": "고급"
-  },
-  "foldersHeading": {
-    "message": "폴더"
-  },
-  "foldersDescription": {
-    "message": "폴더를 선택하고 정렬한 다음, 폴더별 보기 또는 정렬 방법을 조정합니다."
-  },
-  "toggleAllFolders": {
-    "message": "모두 선택 / 해제"
-  },
-  "folderTableHeaderFolder": {
-    "message": "폴더"
-  },
-  "folderTableHeaderView": {
-    "message": "보기"
-  },
-  "folderTableHeaderSort": {
-    "message": "정렬"
-  },
-  "appearanceHeading": {
-    "message": "개인설정"
-  },
-  "appearanceDescription": {
-    "message": "대시보드의 전반적인 시각적 환경설정."
   },
   "defaultMode": {
     "message": "기본 보기 모드"
@@ -278,190 +160,61 @@
   "defaultSortDesc": {
     "message": "정렬 방법이 지정되지 않은 폴더에 적용됩니다."
   },
-  "theme": {
-    "message": "테마"
+  "delete": {
+    "message": "삭제"
   },
-  "themeDesc": {
-    "message": "시스템 설정을 따르거나 라이트/다크 모드를 강제합니다."
+  "deleteAllCount": {
+    "message": "모두 삭제 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "showPinnedFolder": {
-    "message": "고정된 북마크의 가상 폴더 표시"
+  "domainNone": {
+    "message": "도메인 없음"
   },
-  "showPinnedFolderDesc": {
-    "message": "최상단 폴더에 고정된 북마크를 모아서 보여줍니다."
+  "downloadClickStats": {
+    "message": "클릭 기록 다운로드"
   },
-  "showPreview": {
-    "message": "빠른 미리보기 표시"
+  "downloadJsonBtn": {
+    "message": "JSON 다운로드"
   },
-  "showPreviewDesc": {
-    "message": "마우스를 올렸을 때 상세 정보 패널을 엽니다."
+  "editFaviconError": {
+    "message": "현재 이미지를 불러올 수 없습니다."
   },
-  "privacyHeading": {
-    "message": "개인정보 보호"
+  "editFieldFavicon": {
+    "message": "사용자 지정 아이콘 (이미지 URL)"
   },
-  "privacyDescription": {
-    "message": "브라우저의 선택적 권한을 요청할 수 있는 기능입니다."
+  "editFieldName": {
+    "message": "이름"
   },
-  "linkHealth": {
-    "message": "링크 검사"
+  "editFieldTags": {
+    "message": "태그 (쉼표로 구분)"
   },
-  "linkHealthDesc": {
-    "message": "각 폴더 옆에 검사 버튼을 추가하고 네트워크 접근 권한을 요청합니다."
+  "editFieldTagsPlaceholder": {
+    "message": "예: 업무, 문서, js"
   },
-  "previewCapture": {
-    "message": "로컬 미리보기 캡처"
+  "editFieldUrl": {
+    "message": "URL"
   },
-  "previewCaptureDesc": {
-    "message": "martabs에서 연 북마크만 캡처합니다."
+  "editModalTitle": {
+    "message": "북마크 편집"
   },
-  "tagsHeading": {
-    "message": "태그"
+  "emptyResults": {
+    "message": "검색 결과가 없습니다."
   },
-  "tagsDescription": {
-    "message": "martabs가 태그를 생성하고 표시하는 방식을 제어합니다."
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
   },
-  "automaticTags": {
-    "message": "자동 태그"
+  "enablePinnedShortcuts": {
+    "message": "고정된 북마크 단축키"
   },
-  "automaticTagsDesc": {
-    "message": "폴더, 도메인 및 북마크 데이터에서 자동으로 생성됩니다."
-  },
-  "manualTags": {
-    "message": "수동 태그"
-  },
-  "manualTagsDesc": {
-    "message": "북마크 인터페이스에서 태그를 수정할 수 있도록 허용합니다."
-  },
-  "advancedHeading": {
-    "message": "고급"
-  },
-  "advancedDescription": {
-    "message": "로컬 상태를 지우는 드문 작업입니다."
-  },
-  "resetLocalOrg": {
-    "message": "로컬 배치 데이터 초기화"
-  },
-  "clearPreviewCache": {
-    "message": "캐시된 미리보기 지우기"
+  "enablePinnedShortcutsDesc": {
+    "message": "처음 9개의 고정된 북마크를 엽니다. 백스페이스 또는 삭제를 사용하여 단축키를 지웁니다."
   },
   "exportConfig": {
     "message": "설정 내보내기"
-  },
-  "importConfig": {
-    "message": "설정 가져오기"
-  },
-  "confirmAndApply": {
-    "message": "확인 및 적용"
-  },
-  "cancelImport": {
-    "message": "취소"
-  },
-  "modeDefault": {
-    "message": "기본값"
-  },
-  "modeList": {
-    "message": "전체 목록"
-  },
-  "modeCompact": {
-    "message": "압축 목록"
-  },
-  "modeIcons": {
-    "message": "아이콘 그리드"
-  },
-  "modeIconsLarge": {
-    "message": "큰 아이콘 그리드"
-  },
-  "modeQuicklinks": {
-    "message": "퀵링크"
-  },
-  "sortDefault": {
-    "message": "기본값"
-  },
-  "sortBrowser": {
-    "message": "원래 순서"
-  },
-  "sortManual": {
-    "message": "수동 정렬"
-  },
-  "sortTitleAsc": {
-    "message": "제목 A-Z"
-  },
-  "sortDateNewest": {
-    "message": "최신 항목 우선"
-  },
-  "sortDomainAsc": {
-    "message": "도메인 A-Z"
-  },
-  "sortHealthBrokenFirst": {
-    "message": "오류 항목 우선"
-  },
-  "themeSystem": {
-    "message": "시스템 (자동)"
-  },
-  "themeLight": {
-    "message": "라이트"
-  },
-  "themeDark": {
-    "message": "다크"
-  },
-  "unsavedChanges": {
-    "message": "저장되지 않은 변경사항 (저장을 클릭하세요)"
-  },
-  "saveSuccess": {
-    "message": "설정이 저장되었습니다. 새 탭을 열어 martabs를 사용하십시오."
-  },
-  "saveErrorNoPermissionsHealth": {
-    "message": "설정이 저장되었습니다. 권한이 부족하여 링크 검사를 활성화할 수 없었습니다."
-  },
-  "saveErrorNoPermissionsCapture": {
-    "message": "설정이 저장되었습니다. 권한이 부족하여 미리보기 캡처를 활성화할 수 없었습니다."
-  },
-  "saveError": {
-    "message": "설정 저장 실패: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "loadError": {
-    "message": "폴더 로드 실패: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "confirmResetLocalOrg": {
-    "message": "모든 로컬 이동 및 수동 정렬을 초기화하시겠습니까? 브라우저의 실제 북마크는 수정되지 않습니다."
-  },
-  "resetLocalOrgSuccess": {
-    "message": "로컬 배치 데이터가 초기화되었습니다."
-  },
-  "resetLocalOrgError": {
-    "message": "로컬 배치 데이터 초기화 실패: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "confirmClearPreviews": {
-    "message": "캐시된 로컬 미리보기를 모두 삭제하시겠습니까?"
-  },
-  "clearPreviewsSuccess": {
-    "message": "캐시된 미리보기가 삭제되었습니다."
-  },
-  "clearPreviewsError": {
-    "message": "미리보기 캐시 삭제 실패: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
-  },
-  "exportSuccess": {
-    "message": "설정을 성공적으로 내보냈습니다."
   },
   "exportError": {
     "message": "내보내기 오류: $ERROR$",
@@ -471,11 +224,122 @@
       }
     }
   },
+  "exportSuccess": {
+    "message": "설정을 성공적으로 내보냈습니다."
+  },
+  "extensionDescription": {
+    "message": "새 탭에서 북마크 폴더를 정리하고 모니터링할 수 있는 아름답고 빠르며 개인정보 보호를 최우선으로 하는 대시보드."
+  },
+  "extensionName": {
+    "message": "martabs"
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$개 오류",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$개 오류",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "$FOLDER$의 손상된 링크",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "firefoxBookmarksNotice": {
+    "message": "Firefox에서는 Ctrl+Shift+O 단축키를 사용하여 북마크를 관리하세요."
+  },
+  "folderTableHeaderFolder": {
+    "message": "폴더"
+  },
+  "folderTableHeaderSort": {
+    "message": "정렬"
+  },
+  "folderTableHeaderView": {
+    "message": "보기"
+  },
+  "foldersDescription": {
+    "message": "폴더를 선택하고 정렬한 다음, 폴더별 보기 또는 정렬 방법을 조정합니다."
+  },
+  "foldersHeading": {
+    "message": "폴더"
+  },
+  "foldersSection": {
+    "message": "폴더"
+  },
+  "frequentSites": {
+    "message": "자주 방문하는 사이트"
+  },
+  "frequentSitesDesc": {
+    "message": "가장 많이 방문한 사이트를 표시합니다."
+  },
+  "frequentTag": {
+    "message": "자주 방문"
+  },
+  "healthBroken": {
+    "message": "연결할 수 없음 (코드: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "연결 가능한 링크"
+  },
+  "healthUnchecked": {
+    "message": "검사하지 않음"
+  },
+  "hide": {
+    "message": "숨기기"
+  },
+  "hidePinnedFolder": {
+    "message": "고정 폴더 숨기기 (설정에서 다시 표시할 수 있습니다)"
+  },
+  "hideSite": {
+    "message": "사이트 숨기기"
+  },
+  "importConfig": {
+    "message": "설정 가져오기"
+  },
   "importErrorParse": {
     "message": "구성 파일 형식이 올바르지 않습니다."
   },
+  "importErrorProcess": {
+    "message": "파일 처리 오류: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorSave": {
+    "message": "저장 오류: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
   "importErrorVersion": {
     "message": "지원되지 않거나 잘못된 JSON 구성 파일 버전입니다."
+  },
+  "importSaving": {
+    "message": "가져온 설정을 저장하는 중..."
+  },
+  "importSuccess": {
+    "message": "설정을 성공적으로 가져왔습니다. 잠시 후 다시 로드됩니다..."
   },
   "importSummary": {
     "message": "$FOLDERS$ 폴더, $TAGS$ 태그 및 $PINNED$ 고정 북마크가 매핑되었습니다. 무시된 항목: $UNMAPPED$.",
@@ -494,92 +358,62 @@
       }
     }
   },
-  "importErrorProcess": {
-    "message": "파일 처리 오류: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "installedVersion": {
+    "message": "설치된 버전:"
   },
-  "importSuccess": {
-    "message": "설정을 성공적으로 가져왔습니다. 잠시 후 다시 로드됩니다..."
+  "keyboardShortcuts": {
+    "message": "키보드 단축키"
   },
-  "importSaving": {
-    "message": "가져온 설정을 저장하는 중..."
+  "language": {
+    "message": "언어"
   },
-  "importErrorSave": {
-    "message": "저장 오류: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "languageAr": {
+    "message": "Arabic (Arabic)"
   },
-  "selectFolderWarning": {
-    "message": "적어도 하나의 폴더를 선택하십시오."
+  "languageDe": {
+    "message": "독일어 (German)"
   },
-  "searchFolders": {
-    "message": "폴더 선택 모니터링 보기 정렬 수동 기본값"
+  "languageDesc": {
+    "message": "인터페이스 언어를 선택합니다."
   },
-  "searchAppearance": {
-    "message": "개인설정 테마 모드 보기 정렬 고정 미리보기 빠른"
+  "languageEn": {
+    "message": "영어 (English)"
   },
-  "searchModeRow": {
-    "message": "모드 보기 기본값 목록 압축 아이콘 퀵링크"
+  "languageEs": {
+    "message": "스페인어 (Spanish)"
   },
-  "searchSortRow": {
-    "message": "정렬 기본값 원래 순서 수동 제목 날짜 도메인 오류"
+  "languageFr": {
+    "message": "프랑스어 (French)"
   },
-  "searchThemeRow": {
-    "message": "테마 색상 시스템 라이트 다크"
+  "languageIt": {
+    "message": "이탈리아어 (Italian)"
   },
-  "searchPinnedRow": {
-    "message": "고정 즐겨찾기 가상 폴더 하이라이트"
+  "languageJa": {
+    "message": "일본어 (Japanese)"
   },
-  "searchPreviewRow": {
-    "message": "빠른 미리보기 미리보기 툴팁 상세 마우스"
+  "languageKo": {
+    "message": "한국어 (Korean)"
   },
-  "searchPrivacySection": {
-    "message": "개인정보 권한 링크 캡처 네트워크"
+  "languagePt": {
+    "message": "포르투갈어 (Portuguese)"
   },
-  "searchLinkHealthRow": {
-    "message": "링크 검사 오류 권한 네트워크"
+  "languageRu": {
+    "message": "러시아어 (Russian)"
   },
-  "searchPreviewCaptureRow": {
-    "message": "캡처 로컬 미리보기 이미지 캡처 권한"
+  "languageSystem": {
+    "message": "시스템 (기본값)"
   },
-  "searchTagsSection": {
-    "message": "태그 자동 수동"
+  "languageZh": {
+    "message": "중국어 (Chinese)"
   },
-  "searchAutoTagsRow": {
-    "message": "자동 태그 도메인 폴더"
+  "linkHealth": {
+    "message": "링크 검사"
   },
-  "searchManualTagsRow": {
-    "message": "수동 태그 수정 북마크"
+  "linkHealthBrokenTitle": {
+    "message": "이 링크는 마지막 검사에서 정상적으로 응답하지 않았습니다."
   },
-  "searchAdvancedSection": {
-    "message": "고급 정리 초기화 미리보기 캐시 배치"
-  },
-  "searchResetLocalOrgBtn": {
-    "message": "초기화 배치 로컬 이동 수동 정렬"
-  },
-  "searchClearPreviewsBtn": {
-    "message": "정리 미리보기 캐시 캡처 이미지"
-  },
-  "searchExportBtn": {
-    "message": "내보내기 설정 백업 다운로드 json"
-  },
-  "searchImportBtn": {
-    "message": "가져오기 설정 복원 백업 json"
-  },
-  "saveBookmarkError": {
-    "message": "북마크 저장 실패: $ERROR$",
-    "placeholders": {
-      "error": {
-        "content": "$1"
-      }
-    }
+  "linkHealthDesc": {
+    "message": "각 폴더 옆에 검사 버튼을 추가하고 네트워크 접근 권한을 요청합니다."
   },
   "loadBookmarksError": {
     "message": "북마크 로드 실패: $ERROR$",
@@ -589,104 +423,16 @@
       }
     }
   },
-  "failuresIn": {
-    "message": "$FOLDER$의 손상된 링크",
+  "loadError": {
+    "message": "폴더 로드 실패: $ERROR$",
     "placeholders": {
-      "folder": {
+      "error": {
         "content": "$1"
       }
     }
   },
-  "brokenLinksTitle": {
-    "message": "손상된 링크"
-  },
-  "language": {
-    "message": "언어"
-  },
-  "languageDesc": {
-    "message": "인터페이스 언어를 선택합니다."
-  },
-  "languageSystem": {
-    "message": "시스템 (기본값)"
-  },
-  "languageEs": {
-    "message": "스페인어"
-  },
-  "languageEn": {
-    "message": "영어"
-  },
-  "languagePt": {
-    "message": "포르투갈어"
-  },
-  "languageDe": {
-    "message": "독일어"
-  },
-  "languageFr": {
-    "message": "프랑스어"
-  },
-  "languageZh": {
-    "message": "중국어"
-  },
-  "languageJa": {
-    "message": "일본어"
-  },
-  "languageIt": {
-    "message": "이탈리아어"
-  },
-  "languageKo": {
-    "message": "한국어"
-  },
-  "searchLanguageRow": {
-    "message": "언어 영어 스페인어 시스템 기본값"
-  },
-  "backToDashboard": {
-    "message": "Volver al tablero"
-  },
-  "unsavedChangesWarning": {
-    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
-  },
-  "frequentSites": {
-    "message": "자주 방문하는 사이트"
-  },
-  "frequentSitesDesc": {
-    "message": "가장 많이 방문한 사이트를 표시합니다."
-  },
-  "statisticsSection": {
-    "message": "통계"
-  },
-  "mostVisitedBookmarks": {
-    "message": "가장 많이 사용된 북마크"
-  },
-  "localStorageAudit": {
-    "message": "로컬 스토리지 사용량"
-  },
-  "downloadClickStats": {
-    "message": "클릭 기록 다운로드"
-  },
-  "resetStats": {
-    "message": "통계 초기화"
-  },
-  "frequentTag": {
-    "message": "자주 방문"
-  },
-  "confirmResetStats": {
-    "message": "사용 통계 기록을 초기화하시겠습니까?"
-  },
-  "visitsCountSingular": {
-    "message": "$ 회 방문",
-    "placeholders": {
-      "count": {
-        "content": ""
-      }
-    }
-  },
-  "visitsCountPlural": {
-    "message": "$ 회 방문",
-    "placeholders": {
-      "count": {
-        "content": ""
-      }
-    }
+  "loadingBookmarks": {
+    "message": "북마크를 불러오는 중..."
   },
   "localStats": {
     "message": "로컬 사용 통계"
@@ -694,37 +440,357 @@
   "localStatsDesc": {
     "message": "최근 및 가장 많이 사용된 항목을 표시하기 위해 열기 기록을 기록합니다. 비공개입니다."
   },
-  "searchStatisticsRow": {
-    "message": "통계 사용 클릭 방문 기록 json"
+  "localStorageAudit": {
+    "message": "로컬 스토리지 사용량"
   },
-  "hideSite": {
-    "message": "사이트 숨기기"
+  "manualTags": {
+    "message": "수동 태그"
   },
-  "topSitesLimit": {
-    "message": "표시되는 수량"
+  "manualTagsDesc": {
+    "message": "북마크 인터페이스에서 태그를 수정할 수 있도록 허용합니다."
   },
-  "languageRu": {
-    "message": "러시아어"
+  "modeCompact": {
+    "message": "압축 목록"
+  },
+  "modeDefault": {
+    "message": "기본값"
+  },
+  "modeIcons": {
+    "message": "아이콘 그리드"
+  },
+  "modeIconsLarge": {
+    "message": "큰 아이콘 그리드"
+  },
+  "modeList": {
+    "message": "전체 목록"
+  },
+  "modeQuicklinks": {
+    "message": "퀵링크"
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$개 북마크 모니터링 중",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$개 북마크 모니터링 중",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "mostVisitedBookmarks": {
+    "message": "가장 많이 사용된 북마크"
+  },
+  "newtabTitle": {
+    "message": "홈 - martabs"
+  },
+  "noFailuresRegistered": {
+    "message": "등록된 손상된 링크가 없습니다."
+  },
+  "noFolder": {
+    "message": "폴더 없음"
+  },
+  "openBrowserBookmarks": {
+    "message": "북마크 관리"
+  },
+  "pinnedFolderTitle": {
+    "message": "고정됨"
+  },
+  "previewCapture": {
+    "message": "로컬 미리보기 캡처"
+  },
+  "previewCaptureDesc": {
+    "message": "martabs에서 연 북마크만 캡처합니다."
+  },
+  "previewLabelLocal": {
+    "message": "로컬 캡처"
+  },
+  "previewLabelQuick": {
+    "message": "로컬 빠른 미리보기"
+  },
+  "privacyDescription": {
+    "message": "브라우저의 선택적 권한을 요청할 수 있는 기능입니다."
+  },
+  "privacyHeading": {
+    "message": "개인정보 보호"
+  },
+  "privacySection": {
+    "message": "개인정보 보호"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
-  "statsDisabledMsg": {
-    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  "resetLocalOrg": {
+    "message": "로컬 배치 데이터 초기화"
   },
-  "enableInPrivacy": {
-    "message": "Habilitar en Privacidad"
+  "resetLocalOrgError": {
+    "message": "로컬 배치 데이터 초기화 실패: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
   },
-  "showViewButtonTitle": {
-    "message": "Mostrar botón de Vista"
+  "resetLocalOrgSuccess": {
+    "message": "로컬 배치 데이터가 초기화되었습니다."
   },
-  "showViewButtonDesc": {
-    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  "resetStats": {
+    "message": "통계 초기화"
   },
-  "showSortButtonTitle": {
-    "message": "Mostrar botón de Ordenar"
+  "review": {
+    "message": "검사"
+  },
+  "reviewing": {
+    "message": "검사 중..."
+  },
+  "save": {
+    "message": "저장"
+  },
+  "saveBookmarkError": {
+    "message": "북마크 저장 실패: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveChanges": {
+    "message": "변경사항 저장"
+  },
+  "saveError": {
+    "message": "설정 저장 실패: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "설정이 저장되었습니다. 권한이 부족하여 미리보기 캡처를 활성화할 수 없었습니다."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "설정이 저장되었습니다. 권한이 부족하여 링크 검사를 활성화할 수 없었습니다."
+  },
+  "saveSuccess": {
+    "message": "설정이 저장되었습니다. 새 탭을 열어 martabs를 사용하십시오."
+  },
+  "searchAccessibilitySection": {
+    "message": "접근성"
+  },
+  "searchAdvancedSection": {
+    "message": "고급 정리 초기화 미리보기 캐시 배치"
+  },
+  "searchAppearance": {
+    "message": "개인설정 테마 모드 보기 정렬 고정 미리보기 빠른"
+  },
+  "searchAutoTagsRow": {
+    "message": "자동 태그 도메인 폴더"
+  },
+  "searchCleanFoldersRow": {
+    "message": "깔끔한 이름"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "정리 미리보기 캐시 캡처 이미지"
+  },
+  "searchExportBtn": {
+    "message": "내보내기 설정 백업 다운로드 json"
+  },
+  "searchFolders": {
+    "message": "폴더 선택 모니터링 보기 정렬 수동 기본값"
+  },
+  "searchImportBtn": {
+    "message": "가져오기 설정 복원 백업 json"
+  },
+  "searchLanguageRow": {
+    "message": "언어 영어 스페인어 시스템 기본값"
+  },
+  "searchLinkHealthRow": {
+    "message": "링크 검사 오류 권한 네트워크"
+  },
+  "searchManualTagsRow": {
+    "message": "수동 태그 수정 북마크"
+  },
+  "searchModeRow": {
+    "message": "모드 보기 기본값 목록 압축 아이콘 퀵링크"
+  },
+  "searchPinnedRow": {
+    "message": "고정 즐겨찾기 가상 폴더 하이라이트"
+  },
+  "searchPlaceholder": {
+    "message": "제목, 태그, URL 또는 폴더 검색..."
+  },
+  "searchPreviewCaptureRow": {
+    "message": "캡처 로컬 미리보기 이미지 캡처 권한"
+  },
+  "searchPreviewRow": {
+    "message": "빠른 미리보기 미리보기 툴팁 상세 마우스"
+  },
+  "searchPrivacySection": {
+    "message": "개인정보 권한 링크 캡처 네트워크"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "초기화 배치 로컬 이동 수동 정렬"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "설정 검색..."
+  },
+  "searchShortcutsRow": {
+    "message": "단축키"
+  },
+  "searchSortRow": {
+    "message": "정렬 기본값 원래 순서 수동 제목 날짜 도메인 오류"
+  },
+  "searchStatisticsRow": {
+    "message": "통계 사용 클릭 방문 기록 json"
+  },
+  "searchTagsSection": {
+    "message": "태그 자동 수동"
+  },
+  "searchThemeRow": {
+    "message": "테마 색상 시스템 라이트 다크"
+  },
+  "selectFolderWarning": {
+    "message": "적어도 하나의 폴더를 선택하십시오."
+  },
+  "settingsBtn": {
+    "message": "설정"
+  },
+  "settingsBtnTitle": {
+    "message": "북마크 및 환경설정 구성"
+  },
+  "setupEmptyStateDescription": {
+    "message": "설정을 열고 하나 이상의 폴더를 선택하십시오."
+  },
+  "setupEmptyStateTitle": {
+    "message": "시작하려면 폴더를 설정하세요."
+  },
+  "setupHeaderTitle": {
+    "message": "설정"
+  },
+  "setupTitle": {
+    "message": "martabs 구성"
+  },
+  "shortcutAlt": {
+    "message": "Alt + 1..9"
+  },
+  "shortcutCtrl": {
+    "message": "Ctrl + 1..9"
+  },
+  "shortcutCtrlShift": {
+    "message": "Ctrl + Shift + 1..9"
+  },
+  "shortcutEsc": {
+    "message": "검색 지우기 또는 메뉴/미리보기 닫기"
+  },
+  "shortcutSearch": {
+    "message": "검색 창 포커스"
+  },
+  "showPinnedFolder": {
+    "message": "고정된 북마크의 가상 폴더 표시"
+  },
+  "showPinnedFolderDesc": {
+    "message": "최상단 폴더에 고정된 북마크를 모아서 보여줍니다."
+  },
+  "showPreview": {
+    "message": "빠른 미리보기 표시"
+  },
+  "showPreviewDesc": {
+    "message": "마우스를 올렸을 때 상세 정보 패널을 엽니다."
   },
   "showSortButtonDesc": {
-    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
+    "message": "폴더의 북마크를 정렬하는 버튼을 표시합니다."
+  },
+  "showSortButtonTitle": {
+    "message": "정렬 버튼 표시"
+  },
+  "showViewButtonDesc": {
+    "message": "폴더의 보기 모드를 변경하는 버튼을 표시합니다."
+  },
+  "showViewButtonTitle": {
+    "message": "보기 버튼 표시"
+  },
+  "sortBrowser": {
+    "message": "원래 순서"
+  },
+  "sortDateNewest": {
+    "message": "최신 항목 우선"
+  },
+  "sortDefault": {
+    "message": "기본값"
+  },
+  "sortDomainAsc": {
+    "message": "도메인 A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "오류 항목 우선"
+  },
+  "sortManual": {
+    "message": "수동 정렬"
+  },
+  "sortTitleAsc": {
+    "message": "제목 A-Z"
+  },
+  "statisticsSection": {
+    "message": "통계"
+  },
+  "statsDisabledMsg": {
+    "message": "로컬 통계가 비활성화되었습니다. 가장 많이 방문한 사이트를 보려면 개인 정보 보호 설정에서 이 옵션을 활성화하십시오."
+  },
+  "tagsDescription": {
+    "message": "martabs가 태그를 생성하고 표시하는 방식을 제어합니다."
+  },
+  "tagsHeading": {
+    "message": "태그"
+  },
+  "tagsSection": {
+    "message": "태그"
+  },
+  "theme": {
+    "message": "테마"
+  },
+  "themeDark": {
+    "message": "다크"
+  },
+  "themeDesc": {
+    "message": "시스템 설정을 따르거나 라이트/다크 모드를 강제합니다."
+  },
+  "themeLight": {
+    "message": "라이트"
+  },
+  "themeSystem": {
+    "message": "시스템 (자동)"
+  },
+  "toggleAllFolders": {
+    "message": "모두 선택 / 해제"
+  },
+  "topSitesLimit": {
+    "message": "표시되는 수량"
+  },
+  "unsavedChanges": {
+    "message": "저장되지 않은 변경사항 (저장을 클릭하세요)"
+  },
+  "unsavedChangesWarning": {
+    "message": "저장되지 않은 변경 사항이 있습니다. 정말 종료하시겠습니까?"
+  },
+  "visitsCountPlural": {
+    "message": "$COUNT$ 회 방문",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "visitsCountSingular": {
+    "message": "$COUNT$ 회 방문",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   }
 }

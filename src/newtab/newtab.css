@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   /* Light Mode Variables - Pastel background matching start.me colorful gradient */
   --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #fef08a 35%, #99f6e4 70%, #bae6fd 100%);
   --surface-bg: rgba(255, 255, 255, 0.225);
@@ -204,8 +205,8 @@ button svg {
   margin-bottom: 20px;
   max-width: 540px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
   flex-shrink: 0;
 }
 
@@ -218,7 +219,7 @@ button svg {
 
 .search-icon {
   position: absolute;
-  left: 14px;
+  inset-inline-start: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,6 +239,8 @@ button svg {
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 0 16px 0 40px;
+  padding-inline-start: 40px;
+  padding-inline-end: 16px;
   font-family: inherit;
   font-size: 13.5px;
   font-weight: 600;
@@ -399,7 +402,7 @@ button svg {
   font-weight: 700;
   color: var(--text-muted);
   min-width: 28px;
-  text-align: right;
+  text-align: end;
 }
 
 @keyframes view-focus-pulse {
@@ -436,7 +439,7 @@ button svg {
   gap: 10px;
   align-items: center;
   padding: 7px 10px;
-  padding-right: 76px;
+  padding-inline-end: 76px;
   border-radius: var(--radius-sm);
   color: inherit;
   text-decoration: none;
@@ -494,7 +497,7 @@ button svg {
 .health-dot-indicator {
   position: absolute;
   top: -3px;
-  right: -3px;
+  inset-inline-end: -3px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -544,7 +547,7 @@ button svg {
   width: 100%;
   margin: 0 auto;
   padding-bottom: 40px;
-  padding-right: 8px; /* Room for scrollbar */
+  padding-inline-end: 8px; /* Room for scrollbar */
 }
 
 /* Dynamic width constraint for perfect centering */
@@ -569,7 +572,7 @@ button svg {
   overflow-y: auto;
   flex-grow: 1;
   min-height: 0;
-  padding-right: 2px;
+  padding-inline-end: 2px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -898,7 +901,7 @@ button svg {
 
 .preview-local-label {
   position: absolute;
-  right: 12px;
+  inset-inline-end: 12px;
   bottom: 10px;
   color: rgba(255, 255, 255, 0.78);
   font-size: 10px;
@@ -961,7 +964,7 @@ button svg {
 /* Bookmark Actions Container */
 .bookmark-actions {
   position: absolute;
-  right: 8px;
+  inset-inline-end: 8px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -1127,3 +1130,18 @@ button svg {
   50% { opacity: 1; }
   100% { opacity: 0.6; }
 }
+
+
+/* --- Accessibility (a11y) --- */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

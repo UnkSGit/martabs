@@ -1,108 +1,48 @@
 {
-  "editFaviconError": {
-    "message": "Не удалось загрузить текущее изображение."
+  "aboutAppName": {
+    "message": "О martabs"
   },
-  "delete": {
-    "message": "Удалить"
+  "accessibilityDescription": {
+    "message": "Сочетания клавиш и параметры доступной навигации."
   },
-  "cancel": {
-    "message": "Отмена"
+  "accessibilityHeading": {
+    "message": "Специальные возможности"
   },
-  "save": {
-    "message": "Сохранить"
+  "accessibilitySection": {
+    "message": "Специальные возможности"
   },
-  "emptyResults": {
-    "message": "Ничего не найдено."
+  "advancedDescription": {
+    "message": "Редкие действия для очистки локальных данных."
   },
-  "hide": {
-    "message": "Скрыть"
+  "advancedHeading": {
+    "message": "Дополнительно"
   },
-  "hidePinnedFolder": {
-    "message": "Скрыть закрепленную папку (ее можно снова показать в Настройках)"
-  },
-  "review": {
-    "message": "Проверить"
-  },
-  "reviewing": {
-    "message": "Проверка..."
-  },
-  "failuresCountSingular": {
-    "message": "$1 ошибка"
-  },
-  "failuresCountPlural": {
-    "message": "$1 ошибок"
-  },
-  "changeView": {
-    "message": "Изменить вид"
-  },
-  "pinnedFolderTitle": {
-    "message": "Закрепленные"
-  },
-  "back": {
-    "message": "Назад"
-  },
-  "deleteAllCount": {
-    "message": "Удалить все ($1)"
-  },
-  "confirmDeleteAllFailures": {
-    "message": "Удалить $1 неработающих закладок из \"$2\"? Это действие нельзя отменить."
+  "advancedSection": {
+    "message": "Дополнительно"
   },
   "allFolders": {
     "message": "все папки"
   },
-  "bookmarksToReviewSingular": {
-    "message": "$1 закладка для проверки."
+  "appearanceDescription": {
+    "message": "Общие визуальные настройки главной панели."
   },
-  "bookmarksToReviewPlural": {
-    "message": "$1 закладок для проверки."
+  "appearanceHeading": {
+    "message": "Внешний вид"
   },
-  "noFailuresRegistered": {
-    "message": "Неработающие ссылки не зарегистрированы."
+  "appearanceSection": {
+    "message": "Внешний вид"
   },
-  "confirmDeleteBookmark": {
-    "message": "Удалить закладку \"$1\"?"
+  "automaticTags": {
+    "message": "Автоматические теги"
   },
-  "confirmDeleteBookmarkPermanent": {
-    "message": "Удалить закладку \"$1\"? Это действие нельзя отменить."
+  "automaticTagsDesc": {
+    "message": "Создаются из папок, домена и данных закладки."
   },
-  "monitoredBookmarksCountSingular": {
-    "message": "$1 закладка отслеживается"
+  "back": {
+    "message": "Назад"
   },
-  "monitoredBookmarksCountPlural": {
-    "message": "$1 закладок отслеживается"
-  },
-  "setupEmptyStateTitle": {
-    "message": "Настройте папки для начала работы."
-  },
-  "setupEmptyStateDescription": {
-    "message": "Откройте Настройки и выберите одну или несколько папок."
-  },
-  "domainNone": {
-    "message": "Нет домена"
-  },
-  "noFolder": {
-    "message": "Без папки"
-  },
-  "dateAdded": {
-    "message": "Добавлено: $1"
-  },
-  "healthUnchecked": {
-    "message": "Не проверялось"
-  },
-  "healthBroken": {
-    "message": "Недоступно (Код: $1)"
-  },
-  "healthOk": {
-    "message": "Ссылка доступна"
-  },
-  "previewLabelLocal": {
-    "message": "Локальная копия"
-  },
-  "previewLabelQuick": {
-    "message": "Быстрый предпросмотр"
-  },
-  "linkHealthBrokenTitle": {
-    "message": "Эта ссылка не ответила при последней проверке."
+  "backToDashboard": {
+    "message": "Вернуться на панель"
   },
   "bookmarkEditBtn": {
     "message": "Редактировать закладку"
@@ -113,56 +53,100 @@
   "bookmarkUnpinBtn": {
     "message": "Открепить закладку"
   },
-  "setupTitle": {
-    "message": "Настройка martabs"
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ закладок для проверки.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "setupHeaderTitle": {
-    "message": "Настройки"
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ закладка для проверки.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "searchSettingsPlaceholder": {
-    "message": "Поиск настроек..."
+  "brokenLinksTitle": {
+    "message": "Неработающие ссылки"
   },
-  "saveChanges": {
-    "message": "Сохранить изменения"
+  "cancel": {
+    "message": "Отмена"
   },
-  "foldersSection": {
-    "message": "Папки"
+  "cancelImport": {
+    "message": "Отмена"
   },
-  "appearanceSection": {
-    "message": "Внешний вид"
+  "changeView": {
+    "message": "Изменить вид"
   },
-  "privacySection": {
-    "message": "Конфиденциальность"
+  "cleanFolderNames": {
+    "message": "Короткие имена папок"
   },
-  "tagsSection": {
-    "message": "Теги"
+  "cleanFolderNamesDesc": {
+    "message": "Показывать короткие имена для ясности."
   },
-  "advancedSection": {
-    "message": "Дополнительно"
+  "clearPreviewCache": {
+    "message": "Очистить кэш превью"
   },
-  "foldersHeading": {
-    "message": "Папки"
+  "clearPreviewsError": {
+    "message": "Не удалось очистить кэш превью: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
   },
-  "foldersDescription": {
-    "message": "Выберите папки, измените их порядок, настройте вид или сортировку."
+  "clearPreviewsSuccess": {
+    "message": "Кэш превью очищен."
   },
-  "toggleAllFolders": {
-    "message": "Выбрать / отменить все"
+  "confirmAndApply": {
+    "message": "Подтвердить и применить"
   },
-  "folderTableHeaderFolder": {
-    "message": "Папка"
+  "confirmClearPreviews": {
+    "message": "Очистить все сохраненные локальные превью?"
   },
-  "folderTableHeaderView": {
-    "message": "Вид"
+  "confirmDeleteAllFailures": {
+    "message": "Удалить $COUNT$ неработающих закладок из \"$FOLDER$\"? Это действие нельзя отменить.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
   },
-  "folderTableHeaderSort": {
-    "message": "Сортировка"
+  "confirmDeleteBookmark": {
+    "message": "Удалить закладку \"$TITLE$\"?",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
   },
-  "appearanceHeading": {
-    "message": "Внешний вид"
+  "confirmDeleteBookmarkPermanent": {
+    "message": "Удалить закладку \"$TITLE$\"? Это действие нельзя отменить.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
   },
-  "appearanceDescription": {
-    "message": "Общие визуальные настройки главной панели."
+  "confirmResetLocalOrg": {
+    "message": "Сбросить все локальные перемещения и ручную сортировку? Реальные закладки браузера не будут изменены."
+  },
+  "confirmResetStats": {
+    "message": "Сбросить историю статистики использования?"
+  },
+  "dateAdded": {
+    "message": "Добавлено: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
   },
   "defaultMode": {
     "message": "Режим отображения по умолчанию"
@@ -176,11 +160,535 @@
   "defaultSortDesc": {
     "message": "Применяется к папкам без пользовательской сортировки."
   },
-  "theme": {
-    "message": "Тема"
+  "delete": {
+    "message": "Удалить"
   },
-  "themeDesc": {
-    "message": "Использует системные настройки или принудительно включает светлую/темную тему."
+  "deleteAllCount": {
+    "message": "Удалить все ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "domainNone": {
+    "message": "Нет домена"
+  },
+  "downloadClickStats": {
+    "message": "Скачать историю кликов"
+  },
+  "downloadJsonBtn": {
+    "message": "Скачать JSON"
+  },
+  "editFaviconError": {
+    "message": "Не удалось загрузить текущее изображение."
+  },
+  "editFieldFavicon": {
+    "message": "Пользовательский значок (URL-адрес изображения)"
+  },
+  "editFieldName": {
+    "message": "Имя"
+  },
+  "editFieldTags": {
+    "message": "Теги (через запятую)"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "например: работа, документы, js"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editModalTitle": {
+    "message": "Редактировать закладку"
+  },
+  "emptyResults": {
+    "message": "Ничего не найдено."
+  },
+  "enableInPrivacy": {
+    "message": "Включить в Конфиденциальности"
+  },
+  "enablePinnedShortcuts": {
+    "message": "Сочетания для закрепленных закладок"
+  },
+  "enablePinnedShortcutsDesc": {
+    "message": "Откройте первые 9 закрепленных закладок. Используйте Backspace или Delete для очистки сочетания клавиш."
+  },
+  "exportConfig": {
+    "message": "Экспорт конфигурации"
+  },
+  "exportError": {
+    "message": "Ошибка экспорта: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "Конфигурация успешно экспортирована."
+  },
+  "extensionDescription": {
+    "message": "Красивая, быстрая и приватная панель инструментов для организации и отслеживания папок с закладками на новой вкладке."
+  },
+  "extensionName": {
+    "message": "martabs"
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ ошибок",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ ошибка",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Ошибки в $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "firefoxBookmarksNotice": {
+    "message": "В Firefox используйте сочетание клавиш Ctrl+Shift+O для управления закладками."
+  },
+  "folderTableHeaderFolder": {
+    "message": "Папка"
+  },
+  "folderTableHeaderSort": {
+    "message": "Сортировка"
+  },
+  "folderTableHeaderView": {
+    "message": "Вид"
+  },
+  "foldersDescription": {
+    "message": "Выберите папки, измените их порядок, настройте вид или сортировку."
+  },
+  "foldersHeading": {
+    "message": "Папки"
+  },
+  "foldersSection": {
+    "message": "Папки"
+  },
+  "frequentSites": {
+    "message": "Частые сайты"
+  },
+  "frequentSitesDesc": {
+    "message": "Показывает ваши самые посещаемые сайты, собранные браузером."
+  },
+  "frequentTag": {
+    "message": "Частые"
+  },
+  "healthBroken": {
+    "message": "Недоступно (Код: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Ссылка доступна"
+  },
+  "healthUnchecked": {
+    "message": "Не проверялось"
+  },
+  "hide": {
+    "message": "Скрыть"
+  },
+  "hidePinnedFolder": {
+    "message": "Скрыть закрепленную папку (ее можно снова показать в Настройках)"
+  },
+  "hideSite": {
+    "message": "Скрыть сайт"
+  },
+  "importConfig": {
+    "message": "Импорт конфигурации"
+  },
+  "importErrorParse": {
+    "message": "Неверный формат файла конфигурации."
+  },
+  "importErrorProcess": {
+    "message": "Ошибка при обработке файла: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorSave": {
+    "message": "Ошибка сохранения: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorVersion": {
+    "message": "Неподдерживаемая или неверная версия файла JSON."
+  },
+  "importSaving": {
+    "message": "Сохранение импортированной конфигурации..."
+  },
+  "importSuccess": {
+    "message": "Конфигурация успешно импортирована. Страница будет перезагружена..."
+  },
+  "importSummary": {
+    "message": "Сопоставлено: $FOLDERS$ папок, $TAGS$ тегов и $PINNED$ закрепленных закладок. Игнорировано: $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "installedVersion": {
+    "message": "Установленная версия:"
+  },
+  "keyboardShortcuts": {
+    "message": "Сочетания клавиш"
+  },
+  "language": {
+    "message": "Язык"
+  },
+  "languageAr": {
+    "message": "Arabic (Arabic)"
+  },
+  "languageDe": {
+    "message": "Немецкий (German)"
+  },
+  "languageDesc": {
+    "message": "Выберите язык интерфейса."
+  },
+  "languageEn": {
+    "message": "Английский (English)"
+  },
+  "languageEs": {
+    "message": "Испанский (Spanish)"
+  },
+  "languageFr": {
+    "message": "Французский (French)"
+  },
+  "languageIt": {
+    "message": "Итальянский (Italian)"
+  },
+  "languageJa": {
+    "message": "Японский (Japanese)"
+  },
+  "languageKo": {
+    "message": "Корейский (Korean)"
+  },
+  "languagePt": {
+    "message": "Португальский (Portuguese)"
+  },
+  "languageRu": {
+    "message": "Русский (Russian)"
+  },
+  "languageSystem": {
+    "message": "Системный (По умолчанию)"
+  },
+  "languageZh": {
+    "message": "Китайский (Chinese)"
+  },
+  "linkHealth": {
+    "message": "Проверка ссылок"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "Эта ссылка не ответила при последней проверке."
+  },
+  "linkHealthDesc": {
+    "message": "Добавляет кнопку Проверить в каждую папку и требует разрешений сети."
+  },
+  "loadBookmarksError": {
+    "message": "Не удалось загрузить закладки: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "Не удалось загрузить папки: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadingBookmarks": {
+    "message": "Загрузка закладок..."
+  },
+  "localStats": {
+    "message": "Локальная статистика использования"
+  },
+  "localStatsDesc": {
+    "message": "Регистрирует открытия для отображения недавних и самых используемых. Конфиденциально."
+  },
+  "localStorageAudit": {
+    "message": "Использование локального хранилища"
+  },
+  "manualTags": {
+    "message": "Ручные теги"
+  },
+  "manualTagsDesc": {
+    "message": "Позволяет редактировать теги в интерфейсе закладки."
+  },
+  "modeCompact": {
+    "message": "Компактный список"
+  },
+  "modeDefault": {
+    "message": "По умолчанию"
+  },
+  "modeIcons": {
+    "message": "Сетка иконок"
+  },
+  "modeIconsLarge": {
+    "message": "Сетка иконок (крупная)"
+  },
+  "modeList": {
+    "message": "Полный список"
+  },
+  "modeQuicklinks": {
+    "message": "Быстрые ссылки"
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ закладок отслеживается",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ закладка отслеживается",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "mostVisitedBookmarks": {
+    "message": "Часто используемые закладки"
+  },
+  "newtabTitle": {
+    "message": "Начальная страница - martabs"
+  },
+  "noFailuresRegistered": {
+    "message": "Неработающие ссылки не зарегистрированы."
+  },
+  "noFolder": {
+    "message": "Без папки"
+  },
+  "openBrowserBookmarks": {
+    "message": "Управление закладками"
+  },
+  "pinnedFolderTitle": {
+    "message": "Закрепленные"
+  },
+  "previewCapture": {
+    "message": "Создавать локальные превью"
+  },
+  "previewCaptureDesc": {
+    "message": "Только для закладок, открытых из martabs."
+  },
+  "previewLabelLocal": {
+    "message": "Локальная копия"
+  },
+  "previewLabelQuick": {
+    "message": "Быстрый предпросмотр"
+  },
+  "privacyDescription": {
+    "message": "Функции, которые могут запросить дополнительные разрешения браузера."
+  },
+  "privacyHeading": {
+    "message": "Конфиденциальность"
+  },
+  "privacySection": {
+    "message": "Конфиденциальность"
+  },
+  "resetHiddenTopSites": {
+    "message": "Сбросить скрытые сайты"
+  },
+  "resetLocalOrg": {
+    "message": "Сбросить локальную организацию"
+  },
+  "resetLocalOrgError": {
+    "message": "Не удалось сбросить локальную организацию: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Локальная организация сброшена."
+  },
+  "resetStats": {
+    "message": "Сбросить статистику"
+  },
+  "review": {
+    "message": "Проверить"
+  },
+  "reviewing": {
+    "message": "Проверка..."
+  },
+  "save": {
+    "message": "Сохранить"
+  },
+  "saveBookmarkError": {
+    "message": "Не удалось сохранить закладку: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveChanges": {
+    "message": "Сохранить изменения"
+  },
+  "saveError": {
+    "message": "Не удалось сохранить конфигурацию: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Настройки сохранены. Не удалось включить создание превью из-за отсутствия разрешений."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Настройки сохранены. Не удалось включить проверку ссылок из-за отсутствия разрешений."
+  },
+  "saveSuccess": {
+    "message": "Настройки сохранены."
+  },
+  "searchAccessibilitySection": {
+    "message": "Специальные возможности"
+  },
+  "searchAdvancedSection": {
+    "message": "дополнительно очистка сброс превью кэш организация"
+  },
+  "searchAppearance": {
+    "message": "внешний вид тема режим отображения порядок закрепленные превью быстрый"
+  },
+  "searchAutoTagsRow": {
+    "message": "автоматические теги домен папка"
+  },
+  "searchCleanFoldersRow": {
+    "message": "Короткие имена"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "очистить кэш превью снимки изображения"
+  },
+  "searchExportBtn": {
+    "message": "экспорт конфигурации резервная копия скачать json"
+  },
+  "searchFolders": {
+    "message": "папки выбор отслеживание вид порядок вручную по умолчанию"
+  },
+  "searchImportBtn": {
+    "message": "импорт конфигурации восстановление резервная копия json"
+  },
+  "searchLanguageRow": {
+    "message": "язык английский испанский система по умолчанию"
+  },
+  "searchLinkHealthRow": {
+    "message": "проверка ссылок неработающие ошибки разрешения сеть"
+  },
+  "searchManualTagsRow": {
+    "message": "ручные теги редактировать закладку"
+  },
+  "searchModeRow": {
+    "message": "режим отображения вид по умолчанию список компактный иконки ссылки"
+  },
+  "searchPinnedRow": {
+    "message": "закрепленные избранное виртуальная папка важные"
+  },
+  "searchPlaceholder": {
+    "message": "Поиск по названию, тегу, URL или папке..."
+  },
+  "searchPreviewCaptureRow": {
+    "message": "создание локальных превью снимок изображения разрешения"
+  },
+  "searchPreviewRow": {
+    "message": "быстрый вид превью всплывающая подсказка детали мышь"
+  },
+  "searchPrivacySection": {
+    "message": "конфиденциальность разрешения ссылки снимки сеть"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "сброс локальной организации перемещения ручной порядок"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Поиск настроек..."
+  },
+  "searchShortcutsRow": {
+    "message": "Сочетания клавиш"
+  },
+  "searchSortRow": {
+    "message": "сортировка по умолчанию исходный вручную название дата домен неработающие"
+  },
+  "searchStatisticsRow": {
+    "message": "статистика использование клики посещения история json"
+  },
+  "searchTagsSection": {
+    "message": "теги автоматические ручные"
+  },
+  "searchThemeRow": {
+    "message": "тема цвет системная светлая темная"
+  },
+  "selectFolderWarning": {
+    "message": "Выберите хотя бы одну папку."
+  },
+  "settingsBtn": {
+    "message": "Настройки"
+  },
+  "settingsBtnTitle": {
+    "message": "Настроить закладки и параметры"
+  },
+  "setupEmptyStateDescription": {
+    "message": "Откройте Настройки и выберите одну или несколько папок."
+  },
+  "setupEmptyStateTitle": {
+    "message": "Настройте папки для начала работы."
+  },
+  "setupHeaderTitle": {
+    "message": "Настройки"
+  },
+  "setupTitle": {
+    "message": "Настройка martabs"
+  },
+  "shortcutAlt": {
+    "message": "Alt + 1..9"
+  },
+  "shortcutCtrl": {
+    "message": "Ctrl + 1..9"
+  },
+  "shortcutCtrlShift": {
+    "message": "Ctrl + Shift + 1..9"
+  },
+  "shortcutEsc": {
+    "message": "Очистить поиск или закрыть меню/предпросмотр"
+  },
+  "shortcutSearch": {
+    "message": "Фокус на строке поиска"
   },
   "showPinnedFolder": {
     "message": "Показывать виртуальную папку для закрепленных закладок"
@@ -194,98 +702,26 @@
   "showPreviewDesc": {
     "message": "Открывает панель сведений при наведении курсора."
   },
-  "privacyHeading": {
-    "message": "Конфиденциальность"
+  "showSortButtonDesc": {
+    "message": "Отображает кнопку для сортировки закладок в папке."
   },
-  "privacyDescription": {
-    "message": "Функции, которые могут запросить дополнительные разрешения браузера."
+  "showSortButtonTitle": {
+    "message": "Показывать кнопку Сортировка"
   },
-  "linkHealth": {
-    "message": "Проверка ссылок"
+  "showViewButtonDesc": {
+    "message": "Отображает кнопку для изменения режима просмотра папки."
   },
-  "linkHealthDesc": {
-    "message": "Добавляет кнопку Проверить в каждую папку и требует разрешений сети."
-  },
-  "previewCapture": {
-    "message": "Создавать локальные превью"
-  },
-  "previewCaptureDesc": {
-    "message": "Только для закладок, открытых из martabs."
-  },
-  "tagsHeading": {
-    "message": "Теги"
-  },
-  "tagsDescription": {
-    "message": "Управление тем, как martabs создает и отображает теги."
-  },
-  "automaticTags": {
-    "message": "Автоматические теги"
-  },
-  "automaticTagsDesc": {
-    "message": "Создаются из папок, домена и данных закладки."
-  },
-  "manualTags": {
-    "message": "Ручные теги"
-  },
-  "manualTagsDesc": {
-    "message": "Позволяет редактировать теги в интерфейсе закладки."
-  },
-  "advancedHeading": {
-    "message": "Дополнительно"
-  },
-  "advancedDescription": {
-    "message": "Редкие действия для очистки локальных данных."
-  },
-  "resetLocalOrg": {
-    "message": "Сбросить локальную организацию"
-  },
-  "clearPreviewCache": {
-    "message": "Очистить кэш превью"
-  },
-  "exportConfig": {
-    "message": "Экспорт конфигурации"
-  },
-  "importConfig": {
-    "message": "Импорт конфигурации"
-  },
-  "confirmAndApply": {
-    "message": "Подтвердить и применить"
-  },
-  "cancelImport": {
-    "message": "Отмена"
-  },
-  "modeDefault": {
-    "message": "По умолчанию"
-  },
-  "modeList": {
-    "message": "Полный список"
-  },
-  "modeCompact": {
-    "message": "Компактный список"
-  },
-  "modeIcons": {
-    "message": "Сетка иконок"
-  },
-  "modeIconsLarge": {
-    "message": "Сетка иконок (крупная)"
-  },
-  "modeQuicklinks": {
-    "message": "Быстрые ссылки"
-  },
-  "sortDefault": {
-    "message": "По умолчанию"
+  "showViewButtonTitle": {
+    "message": "Показывать кнопку Вид"
   },
   "sortBrowser": {
     "message": "Исходный порядок"
   },
-  "sortManual": {
-    "message": "Вручную"
-  },
-  "sortTitleAsc": {
-    "message": "По названию (А-Я)"
-  },
   "sortDateNewest": {
     "message": "Сначала новые"
+  },
+  "sortDefault": {
+    "message": "По умолчанию"
   },
   "sortDomainAsc": {
     "message": "По домену (А-Я)"
@@ -293,301 +729,68 @@
   "sortHealthBrokenFirst": {
     "message": "Сначала неработающие"
   },
-  "themeSystem": {
-    "message": "Системная (Автоматически)"
-  },
-  "themeLight": {
-    "message": "Светлая"
-  },
-  "themeDark": {
-    "message": "Темная"
-  },
-  "unsavedChanges": {
-    "message": "Несохраненные изменения (Нажмите Сохранить)"
-  },
-  "saveSuccess": {
-    "message": "Настройки сохранены."
-  },
-  "saveErrorNoPermissionsHealth": {
-    "message": "Настройки сохранены. Не удалось включить проверку ссылок из-за отсутствия разрешений."
-  },
-  "saveErrorNoPermissionsCapture": {
-    "message": "Настройки сохранены. Не удалось включить создание превью из-за отсутствия разрешений."
-  },
-  "saveError": {
-    "message": "Не удалось сохранить конфигурацию: $1"
-  },
-  "loadError": {
-    "message": "Не удалось загрузить папки: $1"
-  },
-  "confirmResetLocalOrg": {
-    "message": "Сбросить все локальные перемещения и ручную сортировку? Реальные закладки браузера не будут изменены."
-  },
-  "resetLocalOrgSuccess": {
-    "message": "Локальная организация сброшена."
-  },
-  "resetLocalOrgError": {
-    "message": "Не удалось сбросить локальную организацию: $1"
-  },
-  "confirmClearPreviews": {
-    "message": "Очистить все сохраненные локальные превью?"
-  },
-  "clearPreviewsSuccess": {
-    "message": "Кэш превью очищен."
-  },
-  "clearPreviewsError": {
-    "message": "Не удалось очистить кэш превью: $1"
-  },
-  "exportSuccess": {
-    "message": "Конфигурация успешно экспортирована."
-  },
-  "exportError": {
-    "message": "Ошибка экспорта: $1"
-  },
-  "importErrorParse": {
-    "message": "Неверный формат файла конфигурации."
-  },
-  "importErrorVersion": {
-    "message": "Неподдерживаемая или неверная версия файла JSON."
-  },
-  "importSummary": {
-    "message": "Сопоставлено: $1 папок, $2 тегов и $3 закрепленных закладок. Игнорировано: $4."
-  },
-  "importErrorProcess": {
-    "message": "Ошибка при обработке файла: $1"
-  },
-  "importSuccess": {
-    "message": "Конфигурация успешно импортирована. Страница будет перезагружена..."
-  },
-  "importSaving": {
-    "message": "Сохранение импортированной конфигурации..."
-  },
-  "importErrorSave": {
-    "message": "Ошибка сохранения: $1"
-  },
-  "selectFolderWarning": {
-    "message": "Выберите хотя бы одну папку."
-  },
-  "searchFolders": {
-    "message": "папки выбор отслеживание вид порядок вручную по умолчанию"
-  },
-  "searchAppearance": {
-    "message": "внешний вид тема режим отображения порядок закрепленные превью быстрый"
-  },
-  "searchModeRow": {
-    "message": "режим отображения вид по умолчанию список компактный иконки ссылки"
-  },
-  "searchSortRow": {
-    "message": "сортировка по умолчанию исходный вручную название дата домен неработающие"
-  },
-  "searchThemeRow": {
-    "message": "тема цвет системная светлая темная"
-  },
-  "searchPinnedRow": {
-    "message": "закрепленные избранное виртуальная папка важные"
-  },
-  "searchPreviewRow": {
-    "message": "быстрый вид превью всплывающая подсказка детали мышь"
-  },
-  "searchPrivacySection": {
-    "message": "конфиденциальность разрешения ссылки снимки сеть"
-  },
-  "searchLinkHealthRow": {
-    "message": "проверка ссылок неработающие ошибки разрешения сеть"
-  },
-  "searchPreviewCaptureRow": {
-    "message": "создание локальных превью снимок изображения разрешения"
-  },
-  "searchTagsSection": {
-    "message": "теги автоматические ручные"
-  },
-  "searchAutoTagsRow": {
-    "message": "автоматические теги домен папка"
-  },
-  "searchManualTagsRow": {
-    "message": "ручные теги редактировать закладку"
-  },
-  "searchAdvancedSection": {
-    "message": "дополнительно очистка сброс превью кэш организация"
-  },
-  "searchResetLocalOrgBtn": {
-    "message": "сброс локальной организации перемещения ручной порядок"
-  },
-  "searchClearPreviewsBtn": {
-    "message": "очистить кэш превью снимки изображения"
-  },
-  "searchExportBtn": {
-    "message": "экспорт конфигурации резервная копия скачать json"
-  },
-  "searchImportBtn": {
-    "message": "импорт конфигурации восстановление резервная копия json"
-  },
-  "saveBookmarkError": {
-    "message": "Не удалось сохранить закладку: $1"
-  },
-  "loadBookmarksError": {
-    "message": "Не удалось загрузить закладки: $1"
-  },
-  "failuresIn": {
-    "message": "Ошибки в $1"
-  },
-  "brokenLinksTitle": {
-    "message": "Неработающие ссылки"
-  },
-  "language": {
-    "message": "Язык"
-  },
-  "languageDesc": {
-    "message": "Выберите язык интерфейса."
-  },
-  "languageSystem": {
-    "message": "Системный (По умолчанию)"
-  },
-  "languageEs": {
-    "message": "Испанский (Spanish)"
-  },
-  "languageEn": {
-    "message": "Английский (English)"
-  },
-  "languagePt": {
-    "message": "Португальский (Portuguese)"
-  },
-  "languageDe": {
-    "message": "Немецкий (German)"
-  },
-  "languageFr": {
-    "message": "Французский (French)"
-  },
-  "languageZh": {
-    "message": "Китайский (Chinese)"
-  },
-  "languageJa": {
-    "message": "Японский (Japanese)"
-  },
-  "languageIt": {
-    "message": "Итальянский (Italian)"
-  },
-  "languageKo": {
-    "message": "Корейский (Korean)"
-  },
-  "searchLanguageRow": {
-    "message": "язык английский испанский система по умолчанию"
-  },
-  "backToDashboard": {
-    "message": "Вернуться на панель"
-  },
-  "unsavedChangesWarning": {
-    "message": "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?"
-  },
-  "frequentSites": {
-    "message": "Частые сайты"
-  },
-  "frequentSitesDesc": {
-    "message": "Показывает ваши самые посещаемые сайты, собранные браузером."
-  },
-  "resetHiddenTopSites": {
-    "message": "Сбросить скрытые сайты"
+  "sortManual": {
+    "message": "Вручную"
+  },
+  "sortTitleAsc": {
+    "message": "По названию (А-Я)"
   },
   "statisticsSection": {
     "message": "Статистика"
   },
-  "mostVisitedBookmarks": {
-    "message": "Часто используемые закладки"
+  "statsDisabledMsg": {
+    "message": "Локальная статистика отключена. Включите эту опцию в разделе Конфиденциальность, чтобы видеть ваши самые посещаемые сайты."
   },
-  "localStorageAudit": {
-    "message": "Использование локального хранилища"
+  "tagsDescription": {
+    "message": "Управление тем, как martabs создает и отображает теги."
   },
-  "downloadClickStats": {
-    "message": "Скачать историю кликов"
+  "tagsHeading": {
+    "message": "Теги"
   },
-  "resetStats": {
-    "message": "Сбросить статистику"
+  "tagsSection": {
+    "message": "Теги"
   },
-  "frequentTag": {
-    "message": "Частые"
+  "theme": {
+    "message": "Тема"
   },
-  "confirmResetStats": {
-    "message": "Сбросить историю статистики использования?"
+  "themeDark": {
+    "message": "Темная"
   },
-  "visitsCountSingular": {
-    "message": "$1 посещение"
+  "themeDesc": {
+    "message": "Использует системные настройки или принудительно включает светлую/темную тему."
   },
-  "visitsCountPlural": {
-    "message": "$1 посещений"
+  "themeLight": {
+    "message": "Светлая"
   },
-  "localStats": {
-    "message": "Локальная статистика использования"
+  "themeSystem": {
+    "message": "Системная (Автоматически)"
   },
-  "localStatsDesc": {
-    "message": "Регистрирует открытия для отображения недавних и самых используемых. Конфиденциально."
-  },
-  "searchStatisticsRow": {
-    "message": "статистика использование клики посещения история json"
-  },
-  "hideSite": {
-    "message": "Скрыть сайт"
+  "toggleAllFolders": {
+    "message": "Выбрать / отменить все"
   },
   "topSitesLimit": {
     "message": "Количество видимых"
   },
-  "languageRu": {
-    "message": "Русский (Russian)"
+  "unsavedChanges": {
+    "message": "Несохраненные изменения (Нажмите Сохранить)"
   },
-  "extensionName": {
-    "message": "martabs"
+  "unsavedChangesWarning": {
+    "message": "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?"
   },
-  "extensionDescription": {
-    "message": "Un tablero hermoso, rápido y privado para organizar y monitorear tus carpetas de marcadores en la nueva pestaña."
+  "visitsCountPlural": {
+    "message": "$COUNT$ посещений",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "newtabTitle": {
-    "message": "Inicio - martabs"
-  },
-  "loadingBookmarks": {
-    "message": "Cargando marcadores..."
-  },
-  "settingsBtn": {
-    "message": "Configurar"
-  },
-  "settingsBtnTitle": {
-    "message": "Configurar marcadores y preferencias"
-  },
-  "searchPlaceholder": {
-    "message": "Buscar título, etiqueta, URL o carpeta..."
-  },
-  "editModalTitle": {
-    "message": "Editar Marcador"
-  },
-  "editFieldName": {
-    "message": "Nombre"
-  },
-  "editFieldUrl": {
-    "message": "URL"
-  },
-  "editFieldTags": {
-    "message": "Etiquetas (separadas por comas)"
-  },
-  "editFieldTagsPlaceholder": {
-    "message": "ej: trabajo, docs, js"
-  },
-  "editFieldFavicon": {
-    "message": "Icono personalizado (URL de la imagen)"
-  },
-  "statsDisabledMsg": {
-    "message": "Локальная статистика отключена. Включите эту опцию в разделе Конфиденциальность, чтобы видеть ваши самые посещаемые сайты."
-  },
-  "enableInPrivacy": {
-    "message": "Включить в Конфиденциальности"
-  },
-  "showViewButtonTitle": {
-    "message": "Показывать кнопку Вид"
-  },
-  "showViewButtonDesc": {
-    "message": "Отображает кнопку для изменения режима просмотра папки."
-  },
-  "showSortButtonTitle": {
-    "message": "Показывать кнопку Сортировка"
-  },
-  "showSortButtonDesc": {
-    "message": "Отображает кнопку для сортировки закладок в папке."
+  "visitsCountSingular": {
+    "message": "$COUNT$ посещение",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   }
 }
