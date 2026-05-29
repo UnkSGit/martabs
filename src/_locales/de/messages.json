@@ -23,6 +23,9 @@
   "allFolders": {
     "message": "Alle Ordner"
   },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
+  },
   "appearanceDescription": {
     "message": "Allgemeine visuelle Einstellungen für das Dashboard."
   },
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "Zurück zum Baum"
   },
   "bookmarkEditBtn": {
     "message": "Lesezeichen bearbeiten"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "Vorschauen gelöscht."
+  },
+  "collapseAll": {
+    "message": "Alle einklappen"
   },
   "confirmAndApply": {
     "message": "Bestätigen und anwenden"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "JSON herunterladen"
   },
+  "dragToReorder": {
+    "message": "Ziehen zum Umordnen"
+  },
   "editFaviconError": {
     "message": "Das aktuelle Bild konnte nicht geladen werden."
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "Öffnen Sie die ersten 9 angehefteten Lesezeichen. Verwenden Sie die Rücktaste oder Entf, um die Tastenkombination zu löschen."
+  },
+  "expandCollapse": {
+    "message": "Erweitern / Einklappen"
   },
   "exportConfig": {
     "message": "Konfiguration exportieren"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "Meistgenutzte Lesezeichen"
   },
+  "moveDown": {
+    "message": "Nach unten verschieben"
+  },
+  "moveToBottom": {
+    "message": "Ans Ende verschieben"
+  },
+  "moveToTop": {
+    "message": "An den Anfang verschieben"
+  },
+  "moveUp": {
+    "message": "Nach oben verschieben"
+  },
   "newtabTitle": {
     "message": "Startseite - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "Kein Ordner"
+  },
+  "noFoldersSelected": {
+    "message": "Keine Ordner ausgewählt"
   },
   "openBrowserBookmarks": {
     "message": "Lesezeichen verwalten"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "Datenschutz"
+  },
+  "removeFolder": {
+    "message": "Ordner entfernen"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "ordner auswählen überwachen ansicht sortierung manuell standard"
   },
+  "searchFoldersPlaceholder": {
+    "message": "Ordner filtern..."
+  },
   "searchImportBtn": {
     "message": "importieren konfiguration wiederherstellen backup json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "design farbe system hell dunkel"
   },
+  "selectFolder": {
+    "message": "Ordner auswählen"
+  },
   "selectFolderWarning": {
     "message": "Wählen Sie mindestens einen Ordner aus."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Ziehen zum Umordnen"
+  },
+  "selectedFoldersTitle": {
+    "message": "Tabellenspalten"
   },
   "settingsBtn": {
     "message": "Einrichten"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "Originalreihenfolge"
+  },
+  "sortColumns": {
+    "message": "Spalten sortieren"
   },
   "sortDateNewest": {
     "message": "Neueste zuerst"

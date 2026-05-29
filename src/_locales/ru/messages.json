@@ -21,7 +21,10 @@
     "message": "Дополнительно"
   },
   "allFolders": {
-    "message": "все папки"
+    "message": "Все папки"
+  },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
   },
   "appearanceDescription": {
     "message": "Общие визуальные настройки главной панели."
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Вернуться на панель"
+  },
+  "backToTree": {
+    "message": "Назад к дереву"
   },
   "bookmarkEditBtn": {
     "message": "Редактировать закладку"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "Кэш превью очищен."
+  },
+  "collapseAll": {
+    "message": "Свернуть все"
   },
   "confirmAndApply": {
     "message": "Подтвердить и применить"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "Скачать JSON"
   },
+  "dragToReorder": {
+    "message": "Перетащите для изменения порядка"
+  },
   "editFaviconError": {
     "message": "Не удалось загрузить текущее изображение."
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "Откройте первые 9 закрепленных закладок. Используйте Backspace или Delete для очистки сочетания клавиш."
+  },
+  "expandCollapse": {
+    "message": "Развернуть / Свернуть"
   },
   "exportConfig": {
     "message": "Экспорт конфигурации"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "Часто используемые закладки"
   },
+  "moveDown": {
+    "message": "Переместить вниз"
+  },
+  "moveToBottom": {
+    "message": "В конец списка"
+  },
+  "moveToTop": {
+    "message": "В начало списка"
+  },
+  "moveUp": {
+    "message": "Переместить вверх"
+  },
   "newtabTitle": {
     "message": "Начальная страница - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "Без папки"
+  },
+  "noFoldersSelected": {
+    "message": "Папки не выбраны"
   },
   "openBrowserBookmarks": {
     "message": "Управление закладками"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "Конфиденциальность"
+  },
+  "removeFolder": {
+    "message": "Удалить папку"
   },
   "resetHiddenTopSites": {
     "message": "Сбросить скрытые сайты"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "папки выбор отслеживание вид порядок вручную по умолчанию"
   },
+  "searchFoldersPlaceholder": {
+    "message": "Фильтровать папки..."
+  },
   "searchImportBtn": {
     "message": "импорт конфигурации восстановление резервная копия json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "тема цвет системная светлая темная"
   },
+  "selectFolder": {
+    "message": "Выбрать папку"
+  },
   "selectFolderWarning": {
     "message": "Выберите хотя бы одну папку."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Перетащите для изменения порядка"
+  },
+  "selectedFoldersTitle": {
+    "message": "Колонки на панели"
   },
   "settingsBtn": {
     "message": "Настройки"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "Исходный порядок"
+  },
+  "sortColumns": {
+    "message": "Сортировать колонки"
   },
   "sortDateNewest": {
     "message": "Сначала новые"

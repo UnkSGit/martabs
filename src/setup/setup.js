@@ -5,9 +5,18 @@ import { generateExportData, parseAndRemapImport } from "../shared/sync.js";
 import { localizeHtml, t, initI18n, normalizeLanguageCode } from "../shared/i18n-helper.js";
 
 const api = getBrowserApi();
-const folderList = document.querySelector("#folder-list");
+const folderTreeContainer = document.querySelector("#folder-tree-container");
+const selectedFoldersList = document.querySelector("#selected-folders-list");
+const folderTreeSearchInput = document.querySelector("#folder-tree-search");
 const toggleAllFoldersBtn = document.querySelector("#toggle-all-folders");
+const collapseAllBtn = document.querySelector("#collapse-all-btn");
 const openBrowserBookmarksBtn = document.querySelector("#open-browser-bookmarks");
+const firefoxBookmarksNotice = document.querySelector("#firefox-bookmarks-notice");
+const sortColumnsBtn = document.querySelector("#sort-columns-btn");
+const backToTreeBtn = document.querySelector("#back-to-tree-btn");
+const foldersTreeWrapper = document.querySelector("#folders-tree-wrapper");
+const foldersSortWrapper = document.querySelector("#folders-sort-wrapper");
+const foldersSortActions = document.querySelector("#folders-sort-actions");
 const saveButton = document.querySelector("#save");
 const backButton = document.querySelector("#back-to-dashboard");
 const status = document.querySelector("#status");
@@ -53,6 +62,7 @@ const sidebarVersion = document.querySelector("#sidebar-version");
 const advancedVersion = document.querySelector("#advanced-version");
 let currentSettings = null;
 let currentFolders = [];
+let rawBookmarkTree = null;
 
 const topSitesPermissions = { permissions: ["topSites"] };
 
@@ -80,7 +90,7 @@ function normalizeSearchText(value) {
 
 function getSearchableItems(section) {
   return [
-    ...section.querySelectorAll(".setting-row, .switch-row, .advanced-action, .folder-list label")
+    ...section.querySelectorAll(".setting-row, .switch-row, .advanced-action")
   ];
 }
 
@@ -130,6 +140,17 @@ function showSection(sectionId) {
     section.classList.toggle("is-active", section.dataset.section === sectionId);
   });
 
+  if (sectionId === "folders" && foldersTreeWrapper && foldersSortWrapper) {
+    foldersTreeWrapper.style.display = "flex";
+    foldersSortWrapper.style.display = "none";
+    if (foldersSortActions) foldersSortActions.style.display = "none";
+    if (firefoxBookmarksNotice) firefoxBookmarksNotice.style.display = "none";
+    if (sortColumnsBtn) sortColumnsBtn.style.display = "";
+    if (collapseAllBtn) collapseAllBtn.style.display = "";
+    if (toggleAllFoldersBtn) toggleAllFoldersBtn.style.display = "";
+    if (openBrowserBookmarksBtn) openBrowserBookmarksBtn.style.display = "";
+  }
+
   updateActiveSearchItems(normalizeSearchText(settingsSearch.value));
   syncSetupContentHeight();
 }
@@ -171,123 +192,154 @@ function getSortOptions() {
   ];
 }
 
-function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts = {}) {
-  folderList.innerHTML = "";
-
-  const orderedFolders = [];
-  const unselectedFolders = [];
-
-  for (const folder of folders) {
-    if (!selectedFolderIds.includes(folder.id)) {
-      unselectedFolders.push(folder);
+function renderFolderTree(nodes, selectedFolderIds) {
+  treeContainerClear();
+  
+  function hasSelectedDescendant(node, ids) {
+    if (!node.children) return false;
+    for (const child of node.children) {
+      if (ids.includes(child.id)) return true;
+      if (hasSelectedDescendant(child, ids)) return true;
     }
-  }
-
-  for (const id of selectedFolderIds) {
-    const f = folders.find(f => f.id === id);
-    if (f) orderedFolders.push(f);
+    return false;
   }
   
-  const finalFolders = [...orderedFolders, ...unselectedFolders];
+  function walk(node, parentPath = []) {
+    const isFolderNode = node.children && !node.url;
+    if (!isFolderNode) return null;
 
-  let draggedItem = null;
+    const nextPath = node.title ? [...parentPath, node.title] : parentPath;
+    const hasChildFolders = node.children.some(child => child.children && !child.url);
 
-  for (const folder of finalFolders) {
-    const label = document.createElement("label");
-    label.draggable = true;
-    label.dataset.search = `${folder.path} carpeta vista orden predeterminado manual lista compacta iconos quicklinks`;
-    
-    label.addEventListener("dragstart", function() {
-      draggedItem = this;
-      setTimeout(() => this.classList.add("is-dragging"), 0);
-    });
-
-    label.addEventListener("dragend", function() {
-      draggedItem = null;
-      this.classList.remove("is-dragging");
-      saveButton.disabled = false;
-    });
-
-    label.addEventListener("dragover", function(e) {
-      e.preventDefault();
-      if (draggedItem && this !== draggedItem) {
-        const bounding = this.getBoundingClientRect();
-        const offset = bounding.y + (bounding.height / 2);
-        if (e.clientY - offset > 0) {
-          this.after(draggedItem);
-        } else {
-          this.before(draggedItem);
-        }
+    if (!node.title || node.id === "0") {
+      const fragment = document.createDocumentFragment();
+      for (const child of node.children) {
+        const el = walk(child, nextPath);
+        if (el) fragment.appendChild(el);
       }
-    });
+      return fragment;
+    }
+
+    const nodeEl = document.createElement("div");
+    nodeEl.className = "folder-tree-node";
+    nodeEl.dataset.folderId = node.id;
+
+    const rowEl = document.createElement("div");
+    rowEl.className = "folder-tree-row";
+
+    const isExpandedByDefault = parentPath.length === 0 || hasSelectedDescendant(node, selectedFolderIds);
+
+    const leftEl = document.createElement("div");
+    leftEl.className = "folder-tree-row-left";
+
+    if (hasChildFolders) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "folder-toggle-btn";
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+      btn.setAttribute("aria-label", `${t(api, "expandCollapse")} ${node.title}`);
+      btn.setAttribute("aria-expanded", isExpandedByDefault ? "true" : "false");
+      
+      btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", !expanded ? "true" : "false");
+        childrenEl.classList.toggle("is-collapsed", expanded);
+      });
+      leftEl.appendChild(btn);
+    } else {
+      const spacer = document.createElement("div");
+      spacer.className = "folder-toggle-spacer";
+      leftEl.appendChild(spacer);
+    }
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.value = folder.id;
-    checkbox.checked = selectedFolderIds.includes(folder.id);
+    checkbox.value = node.id;
+    checkbox.checked = selectedFolderIds.includes(node.id);
+    checkbox.id = `folder-cb-${node.id}`;
+    
+    if (checkbox.checked) {
+      rowEl.classList.add("is-selected");
+    }
+    
+    const fullPathString = nextPath.join(" / ");
+    checkbox.setAttribute("aria-label", `${t(api, "selectFolder")} ${fullPathString}`);
 
-    const folderName = document.createElement("span");
-    folderName.className = "folder-name";
+    checkbox.addEventListener("change", () => {
+      rowEl.classList.toggle("is-selected", checkbox.checked);
+      handleCheckboxChange(node.id, checkbox.checked);
+    });
+
+    leftEl.appendChild(checkbox);
+
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "folder-title-text";
     
-    const nameText = document.createElement("span");
-    const overrideName = (currentSettings.folderNameOverrides || {})[folder.id];
-    nameText.textContent = overrideName || folder.path;
-    nameText.title = overrideName || folder.path;
-    
-    nameText.addEventListener("dblclick", () => {
-      nameText.setAttribute("contenteditable", "true");
-      nameText.focus();
+    const overrideName = (currentSettings.folderNameOverrides || {})[node.id];
+    nameSpan.textContent = overrideName || node.title;
+    nameSpan.title = overrideName || node.title;
+
+    nameSpan.addEventListener("dblclick", (e) => {
+      e.stopPropagation();
+      nameSpan.setAttribute("contenteditable", "true");
+      nameSpan.focus();
       const selection = window.getSelection();
       const range = document.createRange();
-      range.selectNodeContents(nameText);
+      range.selectNodeContents(nameSpan);
       selection.removeAllRanges();
       selection.addRange(range);
     });
 
     const saveNewName = () => {
-      if (!nameText.hasAttribute("contenteditable")) return;
-      nameText.removeAttribute("contenteditable");
-      const newName = nameText.textContent.trim();
-      const currentOverride = (currentSettings.folderNameOverrides || {})[folder.id];
-      const displayName = currentOverride || folder.path;
-      
+      if (!nameSpan.hasAttribute("contenteditable")) return;
+      nameSpan.removeAttribute("contenteditable");
+      const newName = nameSpan.textContent.trim();
+      const currentOverride = (currentSettings.folderNameOverrides || {})[node.id];
+      const displayName = currentOverride || node.title;
+
       if (newName !== displayName) {
         const overrides = { ...(currentSettings.folderNameOverrides || {}) };
-        if (!newName || newName === folder.path) {
-          delete overrides[folder.id];
+        if (!newName || newName === node.title) {
+          delete overrides[node.id];
         } else {
-          overrides[folder.id] = newName;
+          overrides[node.id] = newName;
         }
         currentSettings.folderNameOverrides = overrides;
+        saveButton.disabled = false;
         if (typeof status !== "undefined" && status) {
           status.textContent = t(api, "unsavedChanges");
         }
+        const updatedPath = [...nextPath.slice(0, -1), newName || node.title].join(" / ");
+        checkbox.setAttribute("aria-label", `${t(api, "selectFolder")} ${updatedPath}`);
+        renderSelectedFolders();
       } else {
-        nameText.textContent = displayName;
+        nameSpan.textContent = displayName;
       }
     };
 
-    nameText.addEventListener("blur", saveNewName);
-    nameText.addEventListener("keydown", (e) => {
+    nameSpan.addEventListener("blur", saveNewName);
+    nameSpan.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         saveNewName();
-        saveButton.disabled = false;
       } else if (e.key === "Escape") {
-        const overrideName = (currentSettings.folderNameOverrides || {})[folder.id];
-        nameText.textContent = overrideName || folder.path;
-        nameText.removeAttribute("contenteditable");
+        const overrideName = (currentSettings.folderNameOverrides || {})[node.id];
+        nameSpan.textContent = overrideName || node.title;
+        nameSpan.removeAttribute("contenteditable");
       }
     });
 
-    folderName.append(checkbox, nameText);
-    
-    const controlsWrap = document.createElement("div");
-    controlsWrap.className = "folder-controls";
+    leftEl.appendChild(nameSpan);
+    rowEl.appendChild(leftEl);
+
+    // Controles inline (Modo y Orden) que se muestran dinámicamente
+    const inlineControls = document.createElement("div");
+    inlineControls.className = "folder-tree-inline-controls";
 
     const modeSelect = document.createElement("select");
     modeSelect.className = "folder-mode-select";
-    modeSelect.dataset.folderId = folder.id;
+    modeSelect.dataset.folderId = node.id;
+    modeSelect.setAttribute("aria-label", `${t(api, "modeDescription")} - ${overrideName || node.title}`);
     [
       { value: "default", text: t(api, "modeDefault") },
       { value: "list", text: t(api, "modeList") },
@@ -301,55 +353,385 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
       o.textContent = opt.text;
       modeSelect.appendChild(o);
     });
-    modeSelect.value = folderModes[folder.id] || "default";
-    
-    // Stop drag when interacting with select
+    modeSelect.value = (currentSettings.folderModes || {})[node.id] || "default";
     modeSelect.addEventListener("mousedown", (e) => e.stopPropagation());
+    modeSelect.addEventListener("change", () => {
+      const modes = { ...(currentSettings.folderModes || {}) };
+      if (modeSelect.value === "default") {
+        delete modes[node.id];
+      } else {
+        modes[node.id] = modeSelect.value;
+      }
+      currentSettings.folderModes = modes;
+      saveButton.disabled = false;
+      if (typeof status !== "undefined" && status) {
+        status.textContent = t(api, "unsavedChanges");
+      }
+    });
 
     const sortSelect = document.createElement("select");
     sortSelect.className = "folder-sort-select";
-    sortSelect.dataset.folderId = folder.id;
+    sortSelect.dataset.folderId = node.id;
+    sortSelect.setAttribute("aria-label", `${t(api, "sortDescription")} - ${overrideName || node.title}`);
     getSortOptions().forEach(opt => {
       const o = document.createElement("option");
       o.value = opt.value;
       o.textContent = opt.text;
       sortSelect.appendChild(o);
     });
-    sortSelect.value = folderSorts[folder.id] || "default";
+    sortSelect.value = (currentSettings.folderSorts || {})[node.id] || "default";
     sortSelect.addEventListener("mousedown", (e) => e.stopPropagation());
+    sortSelect.addEventListener("change", () => {
+      const sorts = { ...(currentSettings.folderSorts || {}) };
+      if (sortSelect.value === "default") {
+        delete sorts[node.id];
+      } else {
+        sorts[node.id] = sortSelect.value;
+      }
+      currentSettings.folderSorts = sorts;
+      saveButton.disabled = false;
+      if (typeof status !== "undefined" && status) {
+        status.textContent = t(api, "unsavedChanges");
+      }
+    });
 
-    controlsWrap.append(modeSelect, sortSelect);
-    
-    label.append(folderName, controlsWrap);
-    folderList.append(label);
+    inlineControls.append(modeSelect, sortSelect);
+    rowEl.appendChild(inlineControls);
+    nodeEl.appendChild(rowEl);
+
+    let childrenEl = null;
+    if (node.children && node.children.length > 0) {
+      childrenEl = document.createElement("div");
+      childrenEl.className = "folder-tree-children" + (isExpandedByDefault ? "" : " is-collapsed");
+      
+      let childCount = 0;
+      for (const child of node.children) {
+        const el = walk(child, nextPath);
+        if (el) {
+          childrenEl.appendChild(el);
+          childCount++;
+        }
+      }
+      
+      if (childCount > 0) {
+        nodeEl.appendChild(childrenEl);
+      }
+    }
+
+    return nodeEl;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const node of nodes) {
+    const el = walk(node);
+    if (el) fragment.appendChild(el);
+  }
+  folderTreeContainer.appendChild(fragment);
+}
+
+function treeContainerClear() {
+  if (folderTreeContainer) {
+    folderTreeContainer.innerHTML = "";
   }
 }
 
+function handleCheckboxChange(folderId, isChecked) {
+  let selectedIds = [...(currentSettings.selectedFolderIds || [])];
+  if (isChecked) {
+    if (!selectedIds.includes(folderId)) {
+      selectedIds.push(folderId);
+    }
+  } else {
+    selectedIds = selectedIds.filter(id => id !== folderId);
+  }
+  currentSettings.selectedFolderIds = selectedIds;
+  saveButton.disabled = false;
+  if (typeof status !== "undefined" && status) {
+    status.textContent = t(api, "unsavedChanges");
+  }
+  renderSelectedFolders();
+}
+
+function renderSelectedFolders() {
+  if (!selectedFoldersList) return;
+  selectedFoldersList.innerHTML = "";
+
+  const selectedFolderIds = currentSettings.selectedFolderIds || [];
+  
+  if (selectedFolderIds.length === 0) {
+    const emptyMsg = document.createElement("div");
+    emptyMsg.style.padding = "24px 12px";
+    emptyMsg.style.textAlign = "center";
+    emptyMsg.style.color = "var(--text-secondary)";
+    emptyMsg.style.fontSize = "13px";
+    emptyMsg.textContent = t(api, "noFoldersSelected");
+    selectedFoldersList.appendChild(emptyMsg);
+    return;
+  }
+
+  let draggedItem = null;
+
+  selectedFolderIds.forEach(id => {
+    const folder = currentFolders.find(f => f.id === id);
+    if (!folder) return;
+
+    const itemEl = document.createElement("div");
+    itemEl.className = "selected-folder-item";
+    itemEl.draggable = true;
+    itemEl.dataset.folderId = id;
+
+    itemEl.addEventListener("dragstart", function(e) {
+      draggedItem = this;
+      setTimeout(() => this.classList.add("is-dragging"), 0);
+    });
+
+    itemEl.addEventListener("dragend", function() {
+      draggedItem = null;
+      this.classList.remove("is-dragging");
+      
+      const newOrder = [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
+      currentSettings.selectedFolderIds = newOrder;
+      saveButton.disabled = false;
+      if (typeof status !== "undefined" && status) {
+        status.textContent = t(api, "unsavedChanges");
+      }
+    });
+
+    itemEl.addEventListener("dragover", function(e) {
+      e.preventDefault();
+      if (draggedItem && this !== draggedItem) {
+        const bounding = this.getBoundingClientRect();
+        const offset = bounding.y + (bounding.height / 2);
+        if (e.clientY - offset > 0) {
+          this.after(draggedItem);
+        } else {
+          this.before(draggedItem);
+        }
+      }
+    });
+
+    const dragHandle = document.createElement("div");
+    dragHandle.className = "drag-handle";
+    dragHandle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="5" x2="15" y2="5"></line><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="15" y2="17"></line></svg>`;
+    
+    const srSpan = document.createElement("span");
+    srSpan.className = "sr-only";
+    srSpan.textContent = t(api, "dragToReorder");
+    dragHandle.appendChild(srSpan);
+    itemEl.appendChild(dragHandle);
+
+    const infoEl = document.createElement("div");
+    infoEl.className = "selected-folder-info";
+
+    const nameEl = document.createElement("div");
+    nameEl.className = "selected-folder-name";
+    const overrideName = (currentSettings.folderNameOverrides || {})[id];
+    nameEl.textContent = overrideName || folder.title;
+    nameEl.title = overrideName || folder.title;
+
+    const pathEl = document.createElement("div");
+    pathEl.className = "selected-folder-path";
+    const pathParts = folder.path.split(" / ");
+    if (pathParts.length > 1) {
+      pathEl.textContent = pathParts.slice(0, -1).join(" / ");
+      pathEl.title = folder.path;
+    } else {
+      pathEl.textContent = folder.path;
+      pathEl.title = folder.path;
+    }
+
+    infoEl.append(nameEl, pathEl);
+    itemEl.appendChild(infoEl);
+    const orderActions = document.createElement("div");
+    orderActions.className = "item-order-actions";
+
+    const upBtn = document.createElement("button");
+    upBtn.type = "button";
+    upBtn.className = "order-btn up-btn";
+    // "send to top" icon: horizontal bar + chevron up
+    upBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="4" x2="19" y2="4"></line><polyline points="18 11 12 5 6 11"></polyline></svg>`;
+    upBtn.setAttribute("aria-label", `${t(api, "moveToTop")} - ${overrideName || folder.title}`);
+    upBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const firstItem = selectedFoldersList.querySelector(".selected-folder-item");
+      if (firstItem && firstItem !== itemEl) {
+        selectedFoldersList.prepend(itemEl);
+        const newOrder = [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
+        currentSettings.selectedFolderIds = newOrder;
+        saveButton.disabled = false;
+        if (typeof status !== "undefined" && status) {
+          status.textContent = t(api, "unsavedChanges");
+        }
+      }
+    });
+
+    const downBtn = document.createElement("button");
+    downBtn.type = "button";
+    downBtn.className = "order-btn down-btn";
+    // "send to bottom" icon: chevron down + horizontal bar
+    downBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 13 12 19 18 13"></polyline><line x1="5" y1="20" x2="19" y2="20"></line></svg>`;
+    downBtn.setAttribute("aria-label", `${t(api, "moveToBottom")} - ${overrideName || folder.title}`);
+    downBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const lastItem = selectedFoldersList.querySelector(".selected-folder-item:last-child");
+      if (lastItem && lastItem !== itemEl) {
+        selectedFoldersList.append(itemEl);
+        const newOrder = [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
+        currentSettings.selectedFolderIds = newOrder;
+        saveButton.disabled = false;
+        if (typeof status !== "undefined" && status) {
+          status.textContent = t(api, "unsavedChanges");
+        }
+      }
+    });
+
+    orderActions.append(upBtn, downBtn);
+    itemEl.appendChild(orderActions);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "folder-remove-btn";
+    removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+    removeBtn.setAttribute("aria-label", `${t(api, "removeFolder")} ${overrideName || folder.title}`);
+
+    removeBtn.addEventListener("click", () => {
+      const checkbox = document.querySelector(`#folder-cb-${id}`);
+      if (checkbox) {
+        checkbox.checked = false;
+        checkbox.dispatchEvent(new Event("change"));
+      } else {
+        handleCheckboxChange(id, false);
+      }
+    });
+
+    itemEl.appendChild(removeBtn);
+    selectedFoldersList.appendChild(itemEl);
+  });
+}
+
+function applyFolderTreeSearch() {
+  if (!folderTreeSearchInput) return;
+  const query = normalizeSearchText(folderTreeSearchInput.value);
+  const allNodes = document.querySelectorAll("#folder-tree-container .folder-tree-node");
+  const allChildren = document.querySelectorAll("#folder-tree-container .folder-tree-children");
+  const allToggleBtns = document.querySelectorAll("#folder-tree-container .folder-toggle-btn");
+
+  if (!query) {
+    allNodes.forEach(node => {
+      node.style.display = "";
+    });
+    allChildren.forEach(children => {
+      const wasCollapsed = children.getAttribute("data-was-collapsed") === "true";
+      children.classList.toggle("is-collapsed", wasCollapsed);
+      children.removeAttribute("data-was-collapsed");
+      
+      const parentNode = children.closest(".folder-tree-node");
+      if (parentNode) {
+        const toggleBtn = parentNode.querySelector(":scope > .folder-tree-row > .folder-toggle-btn");
+        if (toggleBtn) {
+          toggleBtn.setAttribute("aria-expanded", wasCollapsed ? "false" : "true");
+        }
+      }
+    });
+    return;
+  }
+
+  let hasStoredState = false;
+  for (const children of allChildren) {
+    if (children.hasAttribute("data-was-collapsed")) {
+      hasStoredState = true;
+      break;
+    }
+  }
+  if (!hasStoredState) {
+    allChildren.forEach(children => {
+      const isCollapsed = children.classList.contains("is-collapsed");
+      children.setAttribute("data-was-collapsed", isCollapsed ? "true" : "false");
+    });
+  }
+
+  allNodes.forEach(node => {
+    node.style.display = "none";
+  });
+  allChildren.forEach(children => {
+    children.classList.add("is-collapsed");
+  });
+  allToggleBtns.forEach(btn => {
+    btn.setAttribute("aria-expanded", "false");
+  });
+
+  const matchingRows = [];
+  document.querySelectorAll("#folder-tree-container .folder-tree-row").forEach(row => {
+    const titleTextEl = row.querySelector(".folder-title-text");
+    if (titleTextEl) {
+      const titleText = normalizeSearchText(titleTextEl.textContent);
+      if (titleText.includes(query)) {
+        matchingRows.push(row);
+      }
+    }
+  });
+
+  matchingRows.forEach(row => {
+    let current = row.closest(".folder-tree-node");
+    if (!current) return;
+    
+    current.style.display = "flex";
+    
+    current.querySelectorAll(".folder-tree-node").forEach(childNode => {
+      childNode.style.display = "flex";
+    });
+
+    let parent = current.parentElement.closest(".folder-tree-node");
+    while (parent) {
+      parent.style.display = "flex";
+      
+      const childrenContainer = parent.querySelector(":scope > .folder-tree-children");
+      if (childrenContainer) {
+        childrenContainer.classList.remove("is-collapsed");
+      }
+      const toggleBtn = parent.querySelector(":scope > .folder-tree-row > .folder-toggle-btn");
+      if (toggleBtn) {
+        toggleBtn.setAttribute("aria-expanded", "true");
+      }
+      
+      parent = parent.parentElement.closest(".folder-tree-node");
+    }
+  });
+}
+
+function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts = {}) {
+  if (rawBookmarkTree) {
+    renderFolderTree(rawBookmarkTree, selectedFolderIds);
+  }
+  renderSelectedFolders();
+}
+
 function getSelectedFolderIds() {
-  return [...folderList.querySelectorAll("input:checked")].map((input) => input.value);
+  if (!selectedFoldersList) return [];
+  return [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
 }
 
 function getFolderModes() {
   const folderModes = {};
-
-  folderList.querySelectorAll(".folder-mode-select").forEach(select => {
-    if (select.value !== "default") {
-      folderModes[select.dataset.folderId] = select.value;
+  const selectedIds = getSelectedFolderIds();
+  selectedIds.forEach(id => {
+    const select = document.querySelector(`.folder-mode-select[data-folder-id="${id}"]`);
+    if (select && select.value !== "default") {
+      folderModes[id] = select.value;
     }
   });
-
   return folderModes;
 }
 
 function getFolderSorts() {
   const folderSorts = {};
-
-  folderList.querySelectorAll(".folder-sort-select").forEach(select => {
-    if (select.value !== "default") {
-      folderSorts[select.dataset.folderId] = select.value;
+  const selectedIds = getSelectedFolderIds();
+  selectedIds.forEach(id => {
+    const select = document.querySelector(`.folder-sort-select[data-folder-id="${id}"]`);
+    if (select && select.value !== "default") {
+      folderSorts[id] = select.value;
     }
   });
-
   return folderSorts;
 }
 
@@ -437,6 +819,7 @@ async function init() {
     api.bookmarks.getTree(),
     initI18n(api, settings.language)
   ]);
+  rawBookmarkTree = tree;
   
   localizeHtml(api);
   
@@ -533,25 +916,90 @@ async function clearPreviewCache() {
 
 if (toggleAllFoldersBtn) {
   toggleAllFoldersBtn.addEventListener("click", () => {
-    const checkboxes = folderList.querySelectorAll("input[type='checkbox']");
+    if (!folderTreeContainer) return;
+    const checkboxes = folderTreeContainer.querySelectorAll("input[type='checkbox']");
     const allChecked = [...checkboxes].every(cb => cb.checked);
     const newState = !allChecked;
+    
+    let selectedIds = [...(currentSettings.selectedFolderIds || [])];
     checkboxes.forEach((cb) => {
       cb.checked = newState;
+      if (newState) {
+        if (!selectedIds.includes(cb.value)) {
+          selectedIds.push(cb.value);
+        }
+      } else {
+        selectedIds = selectedIds.filter(id => id !== cb.value);
+      }
     });
+    currentSettings.selectedFolderIds = selectedIds;
     saveButton.disabled = false;
+    if (typeof status !== "undefined" && status) {
+      status.textContent = t(api, "unsavedChanges");
+    }
+    renderSelectedFolders();
   });
+}
+
+if (collapseAllBtn) {
+  collapseAllBtn.addEventListener("click", () => {
+    if (!folderTreeContainer) return;
+    const allChildren = folderTreeContainer.querySelectorAll(".folder-tree-children");
+    allChildren.forEach(children => {
+      children.classList.add("is-collapsed");
+    });
+    const allToggleBtns = folderTreeContainer.querySelectorAll(".folder-toggle-btn");
+    allToggleBtns.forEach(btn => {
+      btn.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+if (folderTreeSearchInput) {
+  folderTreeSearchInput.addEventListener("input", applyFolderTreeSearch);
 }
 
 if (openBrowserBookmarksBtn) {
   openBrowserBookmarksBtn.addEventListener("click", () => {
     if (navigator.userAgent.includes("Firefox")) {
-      alert(t(api, "firefoxBookmarksNotice"));
+      if (firefoxBookmarksNotice) {
+        const isHidden = firefoxBookmarksNotice.style.display === "none" || !firefoxBookmarksNotice.style.display;
+        firefoxBookmarksNotice.style.display = isHidden ? "block" : "none";
+      }
     } else {
       api.tabs.create({ url: "chrome://bookmarks/" }).catch(err => {
         console.error("No se pudo abrir el administrador de marcadores:", err);
       });
     }
+  });
+}
+
+if (sortColumnsBtn && backToTreeBtn && foldersTreeWrapper && foldersSortWrapper) {
+  sortColumnsBtn.addEventListener("click", () => {
+    foldersTreeWrapper.style.display = "none";
+    foldersSortWrapper.style.display = "flex";
+    if (foldersSortActions) foldersSortActions.style.display = "flex";
+    if (firefoxBookmarksNotice) firefoxBookmarksNotice.style.display = "none";
+    
+    // Hide standard folder action buttons
+    sortColumnsBtn.style.display = "none";
+    if (collapseAllBtn) collapseAllBtn.style.display = "none";
+    if (toggleAllFoldersBtn) toggleAllFoldersBtn.style.display = "none";
+    if (openBrowserBookmarksBtn) openBrowserBookmarksBtn.style.display = "none";
+    
+    renderSelectedFolders();
+  });
+  
+  backToTreeBtn.addEventListener("click", () => {
+    foldersTreeWrapper.style.display = "flex";
+    foldersSortWrapper.style.display = "none";
+    if (foldersSortActions) foldersSortActions.style.display = "none";
+    
+    // Show standard folder action buttons
+    sortColumnsBtn.style.display = "";
+    if (collapseAllBtn) collapseAllBtn.style.display = "";
+    if (toggleAllFoldersBtn) toggleAllFoldersBtn.style.display = "";
+    if (openBrowserBookmarksBtn) openBrowserBookmarksBtn.style.display = "";
   });
 }
 

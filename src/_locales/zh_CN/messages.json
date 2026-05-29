@@ -23,6 +23,9 @@
   "allFolders": {
     "message": "所有文件夹"
   },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
+  },
   "appearanceDescription": {
     "message": "仪表板的通用视觉偏好设置。"
   },
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "返回树状视图"
   },
   "bookmarkEditBtn": {
     "message": "编辑书签"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "缓存的预览图已清除。"
+  },
+  "collapseAll": {
+    "message": "全部收起"
   },
   "confirmAndApply": {
     "message": "确认并应用"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "下载 JSON"
   },
+  "dragToReorder": {
+    "message": "拖拽排序"
+  },
   "editFaviconError": {
     "message": "无法加载当前图片。"
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "打开前 9 个固定的书签。使用退格键或删除键清除快捷键。"
+  },
+  "expandCollapse": {
+    "message": "展开 / 收起"
   },
   "exportConfig": {
     "message": "导出配置"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "最常用的书签"
   },
+  "moveDown": {
+    "message": "下移"
+  },
+  "moveToBottom": {
+    "message": "移到最底"
+  },
+  "moveToTop": {
+    "message": "移到最顶"
+  },
+  "moveUp": {
+    "message": "上移"
+  },
   "newtabTitle": {
     "message": "主页 - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "无文件夹"
+  },
+  "noFoldersSelected": {
+    "message": "未选择文件夹"
   },
   "openBrowserBookmarks": {
     "message": "管理书签"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "隐私"
+  },
+  "removeFolder": {
+    "message": "移除文件夹"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "文件夹 选择 监控 视图 排序 手动 默认"
   },
+  "searchFoldersPlaceholder": {
+    "message": "过滤文件夹..."
+  },
   "searchImportBtn": {
     "message": "导入 配置 恢复 备份 json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "主题 颜色 系统 浅色 深色"
   },
+  "selectFolder": {
+    "message": "选择文件夹"
+  },
   "selectFolderWarning": {
     "message": "请至少选择一个文件夹。"
+  },
+  "selectedFoldersSubtitle": {
+    "message": "拖拽排序"
+  },
+  "selectedFoldersTitle": {
+    "message": "仪表盘列"
   },
   "settingsBtn": {
     "message": "配置"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "原始顺序"
+  },
+  "sortColumns": {
+    "message": "对列排序"
   },
   "sortDateNewest": {
     "message": "最新在前"

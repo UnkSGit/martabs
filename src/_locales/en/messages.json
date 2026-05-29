@@ -23,6 +23,9 @@
   "allFolders": {
     "message": "all folders"
   },
+  "allFoldersTitle": {
+    "message": "All folders"
+  },
   "appearanceDescription": {
     "message": "General visual preferences for the dashboard."
   },
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Back to dashboard"
+  },
+  "backToTree": {
+    "message": "Back to tree"
   },
   "bookmarkEditBtn": {
     "message": "Edit bookmark"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "Cached previews cleared."
+  },
+  "collapseAll": {
+    "message": "Collapse all"
   },
   "confirmAndApply": {
     "message": "Confirm and apply"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "Download JSON"
   },
+  "dragToReorder": {
+    "message": "Drag to reorder"
+  },
   "editFaviconError": {
     "message": "The current image could not be loaded."
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "Open the first 9 pinned bookmarks. Use Backspace or Delete to clear the shortcut."
+  },
+  "expandCollapse": {
+    "message": "Expand / Collapse"
   },
   "exportConfig": {
     "message": "Export configuration"
@@ -258,7 +273,7 @@
     }
   },
   "firefoxBookmarksNotice": {
-    "message": "In Firefox, please use the Ctrl+Shift+O shortcut to manage bookmarks."
+    "message": "Firefox does not allow opening the bookmark manager from an extension.\nOpen it manually with Ctrl+Shift+O."
   },
   "folderTableHeaderFolder": {
     "message": "Folder"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "Most used bookmarks"
   },
+  "moveDown": {
+    "message": "Move down"
+  },
+  "moveToBottom": {
+    "message": "Send to bottom"
+  },
+  "moveToTop": {
+    "message": "Send to top"
+  },
+  "moveUp": {
+    "message": "Move up"
+  },
   "newtabTitle": {
     "message": "Home - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "No folder"
+  },
+  "noFoldersSelected": {
+    "message": "No folders selected"
   },
   "openBrowserBookmarks": {
     "message": "Manage bookmarks"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "Privacy"
+  },
+  "removeFolder": {
+    "message": "Remove folder"
   },
   "resetHiddenTopSites": {
     "message": "Reset hidden sites"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "folders select monitor view order manual default"
   },
+  "searchFoldersPlaceholder": {
+    "message": "Filter folders..."
+  },
   "searchImportBtn": {
     "message": "import configuration restore backup json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "theme color system light dark"
   },
+  "selectFolder": {
+    "message": "Select folder"
+  },
   "selectFolderWarning": {
     "message": "Select at least one folder."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Drag to reorder"
+  },
+  "selectedFoldersTitle": {
+    "message": "Dashboard columns"
   },
   "settingsBtn": {
     "message": "Configure"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "Original order"
+  },
+  "sortColumns": {
+    "message": "Order columns"
   },
   "sortDateNewest": {
     "message": "Newest first"

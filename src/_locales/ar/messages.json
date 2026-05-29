@@ -21,7 +21,10 @@
     "message": "متقدم"
   },
   "allFolders": {
-    "message": "جميع المجلدات"
+    "message": "كل المجلدات"
+  },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
   },
   "appearanceDescription": {
     "message": "تخصيص الواجهة."
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "العودة إلى اللوحة"
+  },
+  "backToTree": {
+    "message": "العودة إلى الشجرة"
   },
   "bookmarkEditBtn": {
     "message": "تعديل"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "تم مسح المعاينات بنجاح."
+  },
+  "collapseAll": {
+    "message": "طي الكل"
   },
   "confirmAndApply": {
     "message": "تأكيد وتطبيق"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "تنزيل JSON"
   },
+  "dragToReorder": {
+    "message": "اسحب لإعادة الترتيب"
+  },
   "editFaviconError": {
     "message": "تنسيق صورة غير صالح"
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "افتح أول 9 إشارات مرجعية مثبتة. استخدم مسافة للخلف أو حذف لمسح الاختصار."
+  },
+  "expandCollapse": {
+    "message": "توسيع / طي"
   },
   "exportConfig": {
     "message": "تصدير الإعدادات"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "الإشارات الأكثر زيارة"
   },
+  "moveDown": {
+    "message": "تحريك لأسفل"
+  },
+  "moveToBottom": {
+    "message": "إرسال إلى النهاية"
+  },
+  "moveToTop": {
+    "message": "إرسال إلى البداية"
+  },
+  "moveUp": {
+    "message": "تحريك لأعلى"
+  },
   "newtabTitle": {
     "message": "لوحة المعلومات - Martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "بدون مجلد"
+  },
+  "noFoldersSelected": {
+    "message": "لم يتم اختيار مجلدات"
   },
   "openBrowserBookmarks": {
     "message": "إدارة الإشارات المرجعية"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "الخصوصية"
+  },
+  "removeFolder": {
+    "message": "إزالة المجلد"
   },
   "resetHiddenTopSites": {
     "message": "إعادة تعيين المواقع المخفية"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "بحث في المجلدات..."
   },
+  "searchFoldersPlaceholder": {
+    "message": "تصفية المجلدات..."
+  },
   "searchImportBtn": {
     "message": "استيراد"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "السمة"
   },
+  "selectFolder": {
+    "message": "اختر المجلد"
+  },
   "selectFolderWarning": {
     "message": "يرجى تحديد مجلد واحد على الأقل."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "اسحب لإعادة الترتيب"
+  },
+  "selectedFoldersTitle": {
+    "message": "أعمدة اللوحة"
   },
   "settingsBtn": {
     "message": "الإعدادات"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "ترتيب المتصفح"
+  },
+  "sortColumns": {
+    "message": "ترتيب الأعمدة"
   },
   "sortDateNewest": {
     "message": "الأحدث"

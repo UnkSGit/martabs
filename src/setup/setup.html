@@ -53,17 +53,36 @@
                   <h2 data-i18n="foldersHeading">Carpetas</h2>
                   <p data-i18n="foldersDescription">Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
                 </div>
-                <div style="display: flex; gap: 8px;">
-                  <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
-                  <button type="button" id="open-browser-bookmarks" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="openBrowserBookmarks">Administrar marcadores</button>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" id="sort-columns-btn" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="sortColumns">Ordenar columnas</button>
+                    <button type="button" id="collapse-all-btn" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="collapseAll">Colapsar todas</button>
+                    <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
+                    <button type="button" id="open-browser-bookmarks" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="openBrowserBookmarks">Administrar marcadores</button>
+                  </div>
+                  <div id="firefox-bookmarks-notice" class="firefox-notice-band" data-i18n="firefoxBookmarksNotice"></div>
                 </div>
               </div>
-              <div class="folder-list-header" aria-hidden="true">
-                <span data-i18n="folderTableHeaderFolder">Carpeta</span>
-                <span data-i18n="folderTableHeaderView">Vista</span>
-                <span data-i18n="folderTableHeaderSort">Orden</span>
+              
+              <!-- Vista de Árbol (Por defecto) -->
+              <div id="folders-tree-wrapper">
+                <div class="folder-search-container">
+                  <input id="folder-tree-search" type="search" autocomplete="off" data-i18n-placeholder="searchFoldersPlaceholder" placeholder="Filtrar carpetas...">
+                </div>
+                <div id="folder-tree-container" class="folder-tree" aria-label="Árbol de carpetas de marcadores" role="tree"></div>
               </div>
-              <div id="folder-list" class="folder-list" aria-live="polite"></div>
+
+              <!-- Vista de Ordenación (Alternativa) -->
+              <div id="folders-sort-wrapper" style="display: none;">
+                <div class="sort-pane-header">
+                  <span data-i18n="selectedFoldersTitle" style="font-size: 13px; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">Columnas en tablero</span>
+                  <small data-i18n="selectedFoldersSubtitle" class="pane-subtitle" style="font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px;">Arrastra para ordenar</small>
+                </div>
+                <div id="selected-folders-list" class="selected-folders-list" aria-label="Carpetas seleccionadas" role="list"></div>
+              </div>
+              <div id="folders-sort-actions" style="margin-top: 16px; display: none; justify-content: flex-end;">
+                <button type="button" id="back-to-tree-btn" class="primary-button" style="padding: 8px 16px; font-size: 12px;" data-i18n="backToTree">Volver al árbol</button>
+              </div>
             </section>
 
             <section id="section-appearance" class="setup-section" data-section="appearance" data-i18n-search="searchAppearance" data-search="apariencia tema modo vista orden fijados preview vista rapida">

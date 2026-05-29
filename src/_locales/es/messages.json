@@ -23,6 +23,9 @@
   "allFolders": {
     "message": "todas las carpetas"
   },
+  "allFoldersTitle": {
+    "message": "Todas las carpetas"
+  },
   "appearanceDescription": {
     "message": "Preferencias visuales generales del tablero."
   },
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "Volver al árbol"
   },
   "bookmarkEditBtn": {
     "message": "Editar marcador"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "Vistas previas en caché eliminadas."
+  },
+  "collapseAll": {
+    "message": "Colapsar todas"
   },
   "confirmAndApply": {
     "message": "Confirmar y aplicar"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "Descargar JSON"
   },
+  "dragToReorder": {
+    "message": "Arrastrar para reordenar"
+  },
   "editFaviconError": {
     "message": "La imagen actual no se pudo cargar."
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "Abre los primeros 9 marcadores fijados. Usa Retroceso o Suprimir para borrar el atajo."
+  },
+  "expandCollapse": {
+    "message": "Expandir / Colapsar"
   },
   "exportConfig": {
     "message": "Exportar configuración"
@@ -258,7 +273,7 @@
     }
   },
   "firefoxBookmarksNotice": {
-    "message": "En Firefox, por favor usa el atajo Ctrl+Shift+O para administrar los marcadores."
+    "message": "Firefox no permite abrir el administrador de marcadores desde una extensión.\nAbrilo manualmente con Ctrl+Shift+O."
   },
   "folderTableHeaderFolder": {
     "message": "Carpeta"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "Marcadores más usados"
   },
+  "moveDown": {
+    "message": "Bajar"
+  },
+  "moveToBottom": {
+    "message": "Enviar al final"
+  },
+  "moveToTop": {
+    "message": "Enviar al inicio"
+  },
+  "moveUp": {
+    "message": "Subir"
+  },
   "newtabTitle": {
     "message": "Inicio - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "Sin carpeta"
+  },
+  "noFoldersSelected": {
+    "message": "Ninguna carpeta seleccionada"
   },
   "openBrowserBookmarks": {
     "message": "Administrar Marcadores (Navegador)"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "Privacidad"
+  },
+  "removeFolder": {
+    "message": "Quitar carpeta"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "carpetas seleccionar monitorear vista orden manual predeterminado"
   },
+  "searchFoldersPlaceholder": {
+    "message": "Filtrar carpetas..."
+  },
   "searchImportBtn": {
     "message": "importar configuracion restaurar backup json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "tema color sistema claro oscuro"
   },
+  "selectFolder": {
+    "message": "Seleccionar carpeta"
+  },
   "selectFolderWarning": {
     "message": "Selecciona al menos una carpeta."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Arrastra para ordenar"
+  },
+  "selectedFoldersTitle": {
+    "message": "Columnas en tablero"
   },
   "settingsBtn": {
     "message": "Configurar"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "Orden original"
+  },
+  "sortColumns": {
+    "message": "Ordenar columnas"
   },
   "sortDateNewest": {
     "message": "Más nuevos primero"

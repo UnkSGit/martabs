@@ -23,6 +23,9 @@
   "allFolders": {
     "message": "すべてのフォルダ"
   },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
+  },
   "appearanceDescription": {
     "message": "ダッシュボードの全体的な表示設定。"
   },
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "ツリーに戻る"
   },
   "bookmarkEditBtn": {
     "message": "ブックマークを編集"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "キャッシュされたプレビューがクリアされました。"
+  },
+  "collapseAll": {
+    "message": "すべて折りたたむ"
   },
   "confirmAndApply": {
     "message": "確認して適用"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "JSONをダウンロード"
   },
+  "dragToReorder": {
+    "message": "ドラッグして並べ替え"
+  },
   "editFaviconError": {
     "message": "現在の画像を読み込めませんでした。"
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "最初の9つのピン留めされたブックマークを開きます。バックスペースまたは削除を使用してショートカットをクリアします。"
+  },
+  "expandCollapse": {
+    "message": "展開 / 折りたたみ"
   },
   "exportConfig": {
     "message": "設定をエクスポート"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "最も使用されたブックマーク"
   },
+  "moveDown": {
+    "message": "下に移動"
+  },
+  "moveToBottom": {
+    "message": "最下部に移動"
+  },
+  "moveToTop": {
+    "message": "最上部に移動"
+  },
+  "moveUp": {
+    "message": "上に移動"
+  },
   "newtabTitle": {
     "message": "ホーム - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "フォルダなし"
+  },
+  "noFoldersSelected": {
+    "message": "フォルダが選択されていません"
   },
   "openBrowserBookmarks": {
     "message": "ブックマークを管理"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "プライバシー"
+  },
+  "removeFolder": {
+    "message": "フォルダを削除"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "フォルダ 選択 監視 表示 ソート 手動 デフォルト"
   },
+  "searchFoldersPlaceholder": {
+    "message": "フォルダをフィルター..."
+  },
   "searchImportBtn": {
     "message": "インポート 設定 復元 バックアップ json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "テーマ 色 システム ライト ダーク"
   },
+  "selectFolder": {
+    "message": "フォルダを選択"
+  },
   "selectFolderWarning": {
     "message": "少なくとも1つのフォルダを選択してください。"
+  },
+  "selectedFoldersSubtitle": {
+    "message": "ドラッグして並べ替え"
+  },
+  "selectedFoldersTitle": {
+    "message": "ダッシュボード of 列"
   },
   "settingsBtn": {
     "message": "設定"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "元の順番"
+  },
+  "sortColumns": {
+    "message": "列を並べ替え"
   },
   "sortDateNewest": {
     "message": "新しい順"

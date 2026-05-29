@@ -15,15 +15,15 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     // Navegar a la página de setup para tener contexto de extensión
     await page.goto(`${extensionProtocol}${extensionId}/setup/setup.html`);
     
-    // Esperar que la página cargue completamente (folder-list se puebla)
-    await page.locator('#folder-list').waitFor({ state: 'visible' });
+    // Esperar que la página cargue completamente (folder-tree-container se puebla)
+    await page.locator('#folder-tree-container').waitFor({ state: 'visible' });
     
     // Crear datos de prueba
     testFolder = await createTestFolder(page, 'E2E Backup Folder');
     
     // Recargar para que setup lea el árbol de marcadores actualizado
     await page.reload();
-    await page.locator('#folder-list').waitFor({ state: 'visible' });
+    await page.locator('#folder-tree-container').waitFor({ state: 'visible' });
   });
 
   test.afterEach(async ({ page }) => {
@@ -133,7 +133,7 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     
     // 8. Esperar el reload automático y verificar que se aplicó
     await page.waitForURL(/setup\.html/);
-    await page.locator('#folder-list').waitFor({ state: 'visible' });
+    await page.locator('#folder-tree-container').waitFor({ state: 'visible' });
     const checkbox = setupPage.getFolderCheckbox(testFolder.id);
     await checkbox.waitFor({ state: 'visible' });
     expect(await checkbox.isChecked()).toBeTruthy();
@@ -190,7 +190,7 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     
     // 8. Recargar y comprobar que sigue desmarcada
     await setupPage.goto();
-    await page.locator('#folder-list').waitFor({ state: 'visible' });
+    await page.locator('#folder-tree-container').waitFor({ state: 'visible' });
     const checkbox = setupPage.getFolderCheckbox(testFolder.id);
     await checkbox.waitFor({ state: 'visible' });
     expect(await checkbox.isChecked()).toBeFalsy();

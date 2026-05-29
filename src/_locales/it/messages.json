@@ -21,7 +21,10 @@
     "message": "Avanzate"
   },
   "allFolders": {
-    "message": "tutte le cartelle"
+    "message": "Tutte le cartelle"
+  },
+  "allFoldersTitle": {
+    "message": "[TODO] Todas las carpetas"
   },
   "appearanceDescription": {
     "message": "Preferenze visive generali della dashboard."
@@ -43,6 +46,9 @@
   },
   "backToDashboard": {
     "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "Torna all'albero"
   },
   "bookmarkEditBtn": {
     "message": "Modifica segnalibro"
@@ -100,6 +106,9 @@
   },
   "clearPreviewsSuccess": {
     "message": "Anteprime in cache cancellate."
+  },
+  "collapseAll": {
+    "message": "Comprimi tutto"
   },
   "confirmAndApply": {
     "message": "Conferma e applica"
@@ -180,6 +189,9 @@
   "downloadJsonBtn": {
     "message": "Scarica JSON"
   },
+  "dragToReorder": {
+    "message": "Trascina per riordinare"
+  },
   "editFaviconError": {
     "message": "L'immagine attuale non può essere caricata."
   },
@@ -212,6 +224,9 @@
   },
   "enablePinnedShortcutsDesc": {
     "message": "Apri i primi 9 preferiti aggiunti. Usa Backspace o Canc per cancellare la scorciatoia."
+  },
+  "expandCollapse": {
+    "message": "Espandi / Comprimi"
   },
   "exportConfig": {
     "message": "Esporta configurazione"
@@ -486,6 +501,18 @@
   "mostVisitedBookmarks": {
     "message": "Segnalibri più usati"
   },
+  "moveDown": {
+    "message": "Sposta giù"
+  },
+  "moveToBottom": {
+    "message": "Sposta in fondo"
+  },
+  "moveToTop": {
+    "message": "Sposta in cima"
+  },
+  "moveUp": {
+    "message": "Sposta su"
+  },
   "newtabTitle": {
     "message": "Home - martabs"
   },
@@ -494,6 +521,9 @@
   },
   "noFolder": {
     "message": "Nessuna cartella"
+  },
+  "noFoldersSelected": {
+    "message": "Nessuna cartella selezionata"
   },
   "openBrowserBookmarks": {
     "message": "Gestisci i preferiti"
@@ -521,6 +551,9 @@
   },
   "privacySection": {
     "message": "Privacy"
+  },
+  "removeFolder": {
+    "message": "Rimuovi cartella"
   },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
@@ -603,6 +636,9 @@
   "searchFolders": {
     "message": "cartelle seleziona monitora vista ordinamento manuale predefinito"
   },
+  "searchFoldersPlaceholder": {
+    "message": "Filtra cartelle..."
+  },
   "searchImportBtn": {
     "message": "importa configurazione ripristina backup json"
   },
@@ -654,8 +690,17 @@
   "searchThemeRow": {
     "message": "tema colore sistema chiaro scuro"
   },
+  "selectFolder": {
+    "message": "Seleziona cartella"
+  },
   "selectFolderWarning": {
     "message": "Seleziona almeno una cartella."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Trascina per riordinare"
+  },
+  "selectedFoldersTitle": {
+    "message": "Colonne del pannello"
   },
   "settingsBtn": {
     "message": "Configura"
@@ -716,6 +761,9 @@
   },
   "sortBrowser": {
     "message": "Ordine originale"
+  },
+  "sortColumns": {
+    "message": "Ordina colonne"
   },
   "sortDateNewest": {
     "message": "Più recenti prima"
