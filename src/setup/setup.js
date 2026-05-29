@@ -693,12 +693,23 @@ saveButton.addEventListener("click", async () => {
     const previewCaptureRequested = previewCapture.checked;
     const frequentSitesRequested = frequentSites.checked;
     const localStatsRequested = localStats.checked;
+
+    // Start permission requests concurrently in the synchronous turn of the user gesture.
+    // In Firefox, any await in the event handler ends the user gesture context,
+    // which prevents requesting other optional permissions (like topSites) afterwards.
+    const urlPermissionPromise = needsUrlPermission(linkHealthRequested, previewCaptureRequested)
+      ? requestUrlPermission()
+      : Promise.resolve(false);
+    const topSitesPermissionPromise = frequentSitesRequested
+      ? requestTopSitesPermission()
+      : Promise.resolve(false);
+
     const urlPermissionGranted = needsUrlPermission(linkHealthRequested, previewCaptureRequested)
-      ? await requestUrlPermission()
+      ? await urlPermissionPromise
       : false;
     const linkHealthEnabled = linkHealthRequested && urlPermissionGranted;
     const previewCaptureEnabled = previewCaptureRequested && urlPermissionGranted;
-    const topSitesPermissionGranted = frequentSitesRequested ? await requestTopSitesPermission() : false;
+    const topSitesPermissionGranted = frequentSitesRequested ? await topSitesPermissionPromise : false;
     const showTopSitesFolder = frequentSitesRequested && topSitesPermissionGranted;
 
     if (!needsUrlPermission(linkHealthRequested, previewCaptureRequested)) {
