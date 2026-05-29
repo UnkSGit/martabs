@@ -7,7 +7,7 @@ This high-level architectural map helps AI agents (Gemini/Antigravity, Codex, Cl
 ## Global Rule
 
 > [!IMPORTANT]
-> **Verification First:** This map provides high-level orientation and documents implicit architectural knowledge. However, agents must always validate codebase state using exact grep (`rg`) and reading the actual source files before proposing or editing code. Do not treat this map as a absolute source of truth if it conflicts with the source code.
+> **Verification First:** This map provides high-level orientation and documents implicit architectural knowledge. However, agents must always validate codebase state using exact grep (`rg`) and reading the actual source files before proposing or editing code. Do not treat this map as an absolute source of truth if it conflicts with the source code.
 
 ---
 
