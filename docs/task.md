@@ -188,6 +188,12 @@ Estado: en progreso. Base publica, privacidad, licencia y paquetes generados; fa
 
 ## Registro reciente
 
+Fecha: 2026-05-29
+Herramienta: Antigravity
+Resumen: Preparación v0.9.6. Se resolvieron violaciones de CSP en Manifest V3 extrayendo el script inline de detección de tema de head a un archivo externo unificado `src/shared/theme-init.js` para newtab y setup. Se implementó el efecto de vidrio templado (transparencia y glassmorphism) en la ventana de Configuración (`setup.html`) en modo claro, sincronizando variables de tema y gradientes con el tablero principal. Se estilizaron los menús desplegables (`select`) con fondos translúcidos y hover en modo claro, manteniendo opciones (`option`) opacas sólidas para legibilidad. Se crearon los documentos `docs/ai-map.md` y `docs/ai-map-notes.md` para guiar a los agentes de IA en el desarrollo y se marcó su lectura como obligatoria en los READMEs del proyecto.
+Archivos tocados: `src/newtab/newtab.html`, `src/setup/setup.html`, `src/setup/setup.css`, `src/shared/theme-init.js`, `tests/setup.test.js`, `docs/ai-map.md`, `docs/ai-map-notes.md`, `README.md`, `README.es.md`, `docs/task.md`.
+Verificación: `npm test` (63 tests correctos), `npm run build` y validación visual.
+
 Fecha: 2026-05-26
 Herramienta: Codex
 Resumen: Paso 14 parcial. Se preparo GitHub Pages desde `docs/` con landing y politica de privacidad publica, se agregaron textos de store/reviewer en ingles, se configuro soporte con `martabs.extension@gmail.com`, se agrego licencia GPL-3.0-only y se creo `npm run package` para generar zips finales de Chrome y Firefox en `release/`.
