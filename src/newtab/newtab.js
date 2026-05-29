@@ -16,6 +16,7 @@ import { applyLinkCheckResult } from "../shared/link-health.js";
 import { localizeHtml, t, initI18n } from "../shared/i18n-helper.js";
 import { mergeTags } from "../shared/tags.js";
 import { getFolderOptions, getDisplayFolderName } from "../shared/bookmarks.js";
+import { getWallpaper } from "../shared/db.js";
 
 const api = getBrowserApi();
 const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
@@ -52,14 +53,106 @@ const TIMEOUT_MS = 8000;
 // --- Theme ---
 
 function applyTheme(theme) {
+  let resolvedTheme = theme;
+  if (currentSettings?.customWallpaperEnabled && currentSettings?.customWallpaperSlots?.length > 0) {
+    let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+    if (currentSettings.customWallpaperRotate) {
+      let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
+      if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
+        activeSlot = Number(storedSlot);
+      }
+    }
+    resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+    if (resolvedTheme === "system") {
+      resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+  }
   const root = document.documentElement;
   root.classList.remove("theme-light", "theme-dark");
-  if (theme === "light") {
+  if (resolvedTheme === "light") {
     root.classList.add("theme-light");
-  } else if (theme === "dark") {
+  } else if (resolvedTheme === "dark") {
     root.classList.add("theme-dark");
   }
 }
+
+let customWallpaperUrl = null;
+
+async function applyCustomWallpaper() {
+  const bgEl = document.querySelector("#custom-wallpaper-bg");
+  const overlayEl = document.querySelector("#custom-wallpaper-overlay");
+  
+  if (!bgEl || !overlayEl) return;
+  
+  if (customWallpaperUrl) {
+    URL.revokeObjectURL(customWallpaperUrl);
+    customWallpaperUrl = null;
+  }
+  
+  if (!currentSettings || !currentSettings.customWallpaperEnabled || !currentSettings.customWallpaperSlots || currentSettings.customWallpaperSlots.length === 0) {
+    document.documentElement.classList.remove("has-custom-wallpaper");
+    bgEl.style.backgroundImage = "";
+    bgEl.classList.remove("is-loaded");
+    overlayEl.style.backgroundColor = "";
+    document.documentElement.style.removeProperty("--custom-folder-opacity");
+    document.documentElement.style.removeProperty("--custom-header-opacity");
+    return;
+  }
+  
+  try {
+    let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+    if (currentSettings.customWallpaperRotate) {
+      let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
+      if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
+        activeSlot = Number(storedSlot);
+      } else {
+        const randIndex = Math.floor(Math.random() * currentSettings.customWallpaperSlots.length);
+        activeSlot = currentSettings.customWallpaperSlots[randIndex];
+        sessionStorage.setItem("selectedWallpaperSlot", activeSlot);
+      }
+    }
+    
+    const blob = await getWallpaper(activeSlot);
+    if (blob) {
+      customWallpaperUrl = URL.createObjectURL(blob);
+      bgEl.style.backgroundImage = `url(${customWallpaperUrl})`;
+      bgEl.classList.add("is-loaded");
+      document.documentElement.classList.add("has-custom-wallpaper");
+      
+      const folderOpacity = currentSettings.customWallpaperFolderOpacity ?? 0.45;
+      const headerOpacity = currentSettings.customWallpaperHeaderOpacity ?? 0.45;
+      document.documentElement.style.setProperty("--custom-folder-opacity", folderOpacity);
+      document.documentElement.style.setProperty("--custom-header-opacity", headerOpacity);
+      
+      let resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+      
+      const brightness = currentSettings.customWallpaperBrightness ?? 0.8;
+      const overlayOpacity = Math.max(0, Math.min(0.5, 1.0 - brightness));
+      
+      if (resolvedTheme === "dark") {
+        overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
+      } else {
+        overlayEl.style.backgroundColor = `rgba(255, 255, 255, ${overlayOpacity})`;
+      }
+    } else {
+      document.documentElement.classList.remove("has-custom-wallpaper");
+      bgEl.style.backgroundImage = "";
+      bgEl.classList.remove("is-loaded");
+      overlayEl.style.backgroundColor = "";
+      document.documentElement.style.removeProperty("--custom-folder-opacity");
+      document.documentElement.style.removeProperty("--custom-header-opacity");
+    }
+  } catch (err) {
+    console.error("Failed to load custom wallpaper", err);
+    document.documentElement.classList.remove("has-custom-wallpaper");
+    bgEl.style.backgroundImage = "";
+    bgEl.classList.remove("is-loaded");
+    overlayEl.style.backgroundColor = "";
+    document.documentElement.style.removeProperty("--custom-folder-opacity");
+    document.documentElement.style.removeProperty("--custom-header-opacity");
+  }
+}
+
 
 // --- Link health check (runs in the new tab page) ---
 
@@ -1092,6 +1185,7 @@ async function init() {
   await initI18n(api, settings.language);
   localizeHtml(api);
   applyTheme(settings.theme || "system");
+  await applyCustomWallpaper();
   if (!settings.setupComplete) {
     statusLine.textContent = t(api, "setupEmptyStateTitle");
     content.innerHTML = "";
@@ -1347,9 +1441,11 @@ if (api.storage && api.storage.onChanged) {
           }
           currentSettings = { ...(currentSettings || {}), ...newSettings };
           applyTheme(newSettings.theme || "system");
+          applyCustomWallpaper();
         } else {
           currentSettings = { ...(currentSettings || {}), ...newSettings };
           applyTheme(newSettings.theme || "system");
+          applyCustomWallpaper();
           render();
         }
       }

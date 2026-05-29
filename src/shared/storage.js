@@ -24,7 +24,15 @@ const DEFAULT_SETTINGS = {
   localStatsEnabled: false,
   cleanFolderNames: true,
   enablePinnedShortcuts: true,
-  pinnedShortcutModifier: ["Alt", ""]
+  pinnedShortcutModifier: ["Alt", ""],
+  customWallpaperEnabled: false,
+  customWallpaperSlots: [],
+  customWallpaperActiveSlot: 1,
+  customWallpaperRotate: false,
+  customWallpaperBrightness: 0.8,
+  customWallpaperFolderOpacity: 0.45,
+  customWallpaperHeaderOpacity: 0.45,
+  customWallpaperThemes: {}
 };
 
 export const STORAGE_KEYS = {

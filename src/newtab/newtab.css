@@ -1145,3 +1145,72 @@ button svg {
   }
 }
 
+/* --- Custom Wallpaper styles --- */
+.custom-wallpaper-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  pointer-events: none;
+}
+
+.custom-wallpaper-bg.is-loaded {
+  opacity: 1;
+}
+
+.custom-wallpaper-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Glassmorphism subtle overrides when custom wallpaper is enabled */
+.has-custom-wallpaper .group,
+.has-custom-wallpaper .results-toolbar,
+.has-custom-wallpaper .result {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, var(--custom-folder-opacity, 0.45));
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark.has-custom-wallpaper .group,
+.theme-dark.has-custom-wallpaper .results-toolbar,
+.theme-dark.has-custom-wallpaper .result {
+  background: rgba(24, 30, 40, var(--custom-folder-opacity, 0.45));
+  border-color: rgba(148, 163, 184, 0.22);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+}
+
+.has-custom-wallpaper #status-line,
+.has-custom-wallpaper .topbar button,
+.has-custom-wallpaper #search {
+  background: rgba(255, 255, 255, var(--custom-header-opacity, 0.45));
+  border-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.theme-dark.has-custom-wallpaper #status-line,
+.theme-dark.has-custom-wallpaper .topbar button,
+.theme-dark.has-custom-wallpaper #search {
+  background: rgba(24, 30, 40, var(--custom-header-opacity, 0.45));
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+
+
+

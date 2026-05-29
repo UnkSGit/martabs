@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "Redefinir o histórico de estatísticas de uso?"
   },
+  "customWallpaper": {
+    "message": "Imagem de fundo personalizada"
+  },
+  "customWallpaperActive": {
+    "message": "[TODO] Fondo personalizado activo"
+  },
   "dateAdded": {
     "message": "Adicionado: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "Remover pasta"
   },
+  "removeWallpaper": {
+    "message": "Remover plano de fundo personalizado"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "Revisando..."
+  },
+  "rotateWallpapers": {
+    "message": "[TODO] Rotar fondos al azar"
+  },
+  "rotateWallpapersDesc": {
+    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
   },
   "save": {
     "message": "Salvar"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "Claro"
   },
+  "themeSelectHelperNote": {
+    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+  },
   "themeSystem": {
     "message": "Sistema (Automático)"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "uploadImage": {
+    "message": "[TODO] Subir imagen"
+  },
+  "uploadWallpaperText": {
+    "message": "Arraste uma imagem aqui ou clique para buscar (Máx. 12 MB)"
   },
   "visitsCountPlural": {
     "message": "$COUNT$ visitas",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "[TODO] Brillo de la imagen"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "Personalize o fundo do painel principal da nova guia."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "[TODO] Opacidad de carpetas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+  },
+  "wallpaperFormatError": {
+    "message": "Formato de arquivo inválido. Por favor, envie uma imagem."
+  },
+  "wallpaperGenericError": {
+    "message": "Erro ao carregar a imagem."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "[TODO] Opacidad de cabecera"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de la barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "Plano de fundo"
+  },
+  "wallpaperLegibility": {
+    "message": "Escurecer/clarear fundo"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "Ajuste a intensidade da camada de legibilidade do fundo."
+  },
+  "wallpaperSection": {
+    "message": "Plano de fundo"
+  },
+  "wallpaperSizeError": {
+    "message": "A imagem excede o limite de 12 MB."
+  },
+  "wallpaperTheme": {
+    "message": "Esquema de cores da interface"
+  },
+  "wallpaperThemeDesc": {
+    "message": "Forçar cores claras ou escuras sobre a imagem."
   }
 }

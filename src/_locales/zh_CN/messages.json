@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "重置使用统计历史记录？"
   },
+  "customWallpaper": {
+    "message": "自定义背景图片"
+  },
+  "customWallpaperActive": {
+    "message": "[TODO] Fondo personalizado activo"
+  },
   "dateAdded": {
     "message": "添加日期: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "移除文件夹"
   },
+  "removeWallpaper": {
+    "message": "移除自定义背景"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "正在检查..."
+  },
+  "rotateWallpapers": {
+    "message": "[TODO] Rotar fondos al azar"
+  },
+  "rotateWallpapersDesc": {
+    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
   },
   "save": {
     "message": "保存"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "浅色"
   },
+  "themeSelectHelperNote": {
+    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+  },
   "themeSystem": {
     "message": "系统默认"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "您有未保存的更改。确定要退出吗？"
+  },
+  "uploadImage": {
+    "message": "[TODO] Subir imagen"
+  },
+  "uploadWallpaperText": {
+    "message": "拖放图片至此或点击浏览（最大 12 MB）"
   },
   "visitsCountPlural": {
     "message": "$COUNT$ 次访问",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "[TODO] Brillo de la imagen"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "自定义新标签页仪表板的背景。"
+  },
+  "wallpaperFolderOpacity": {
+    "message": "[TODO] Opacidad de carpetas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+  },
+  "wallpaperFormatError": {
+    "message": "无效的文件格式。请上传图片文件。"
+  },
+  "wallpaperGenericError": {
+    "message": "加载图片时出错。"
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "[TODO] Opacidad de cabecera"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de la barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "壁纸"
+  },
+  "wallpaperLegibility": {
+    "message": "调暗/调亮背景"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "调整背景可读性覆盖层的强度。"
+  },
+  "wallpaperSection": {
+    "message": "壁纸"
+  },
+  "wallpaperSizeError": {
+    "message": "图片大小超过 12 MB 限制。"
+  },
+  "wallpaperTheme": {
+    "message": "界面配色方案"
+  },
+  "wallpaperThemeDesc": {
+    "message": "在图片上强制使用浅色或深色。"
   }
 }

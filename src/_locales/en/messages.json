@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "Reset usage statistics history?"
   },
+  "customWallpaper": {
+    "message": "Custom background image"
+  },
+  "customWallpaperActive": {
+    "message": "Custom wallpaper active"
+  },
   "dateAdded": {
     "message": "Added: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "Remove folder"
   },
+  "removeWallpaper": {
+    "message": "Remove custom background"
+  },
   "resetHiddenTopSites": {
     "message": "Reset hidden sites"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "Reviewing..."
+  },
+  "rotateWallpapers": {
+    "message": "Rotate backgrounds randomly"
+  },
+  "rotateWallpapersDesc": {
+    "message": "Randomly switches between uploaded backgrounds when opening a new tab."
   },
   "save": {
     "message": "Save"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "Light"
   },
+  "themeSelectHelperNote": {
+    "message": "The interface theme is being controlled by the custom wallpaper."
+  },
   "themeSystem": {
     "message": "System (Automatic)"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "You have unsaved changes. Are you sure you want to exit?"
+  },
+  "uploadImage": {
+    "message": "Upload image"
+  },
+  "uploadWallpaperText": {
+    "message": "Drag an image here or click to browse (Max 12 MB)"
   },
   "visitsCountPlural": {
     "message": "$COUNT$ visits",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "Image brightness"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "Adjusts the brightness of the custom background."
+  },
+  "wallpaperDescription": {
+    "message": "Customize the background of your new tab dashboard."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "Folder opacity"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "Modifies the transparency of the folder cards."
+  },
+  "wallpaperFormatError": {
+    "message": "Invalid file format. Please upload an image."
+  },
+  "wallpaperGenericError": {
+    "message": "Error loading the image."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "Header opacity"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "Modifies the transparency of the top bar."
+  },
+  "wallpaperHeading": {
+    "message": "Wallpaper"
+  },
+  "wallpaperLegibility": {
+    "message": "Darken/lighten background"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "Adjust the intensity of the background legibility overlay."
+  },
+  "wallpaperSection": {
+    "message": "Wallpaper"
+  },
+  "wallpaperSizeError": {
+    "message": "The image exceeds the 12 MB limit."
+  },
+  "wallpaperTheme": {
+    "message": "UI color scheme"
+  },
+  "wallpaperThemeDesc": {
+    "message": "Force light or dark colors over the image."
   }
 }

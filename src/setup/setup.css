@@ -884,3 +884,179 @@ button:disabled {
   margin-top: 4px;
 }
 
+/* --- Wallpaper Upload Section --- */
+.wallpaper-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 120px;
+  border: 2px dashed var(--surface-border);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  padding: 16px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  user-select: none;
+}
+
+.wallpaper-dropzone:hover,
+.wallpaper-dropzone.dragover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.wallpaper-preview-img {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--surface-border);
+}
+
+/* --- Wallpaper Slots Grid styling --- */
+.wallpaper-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.wallpaper-slot {
+  position: relative;
+  width: 100%;
+}
+
+.wallpaper-slot-preview {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: 2px dashed var(--surface-border);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallpaper-slot-preview:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.wallpaper-slot-preview.is-active {
+  border: 3px solid var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.wallpaper-slot-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wallpaper-slot-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+.wallpaper-slot-empty svg {
+  stroke: var(--text-secondary);
+  width: 20px;
+  height: 20px;
+}
+
+.wallpaper-slot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wallpaper-slot-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  border-radius: 50% !important;
+  background: rgba(220, 38, 38, 0.9) !important;
+  color: #fff !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+  z-index: 3;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+}
+
+.wallpaper-slot-preview:hover .wallpaper-slot-remove {
+  opacity: 1;
+}
+
+.wallpaper-slot-remove:hover {
+  background: rgb(220, 38, 38) !important;
+  transform: scale(1.1) !important;
+}
+
+.wallpaper-slot-remove svg,
+.wallpaper-slot-remove svg * {
+  width: 10px !important;
+  height: 10px !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-border);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+

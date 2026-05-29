@@ -139,3 +139,45 @@ test("setup styles and scripts do not contain obsolete CSS variables", async () 
   }
 });
 
+test("setup page has custom wallpaper layout and logic", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+  const js = await readFile("src/setup/setup.js", "utf8");
+
+  // HTML checks
+  assert.match(html, /data-section="wallpaper"/);
+  assert.match(html, /id="section-wallpaper"/);
+  assert.match(html, /id="wallpaper-dropzone"/);
+  assert.match(html, /id="wallpaper-file-input"/);
+  assert.match(html, /id="wallpaper-legibility-slider"/);
+  assert.match(html, /id="wallpaper-theme-select"/);
+  
+  // Multi-wallpaper and new controls checks
+  assert.match(html, /id="wallpaper-rotate-checkbox"/);
+  assert.match(html, /id="wallpaper-brightness-slider"/);
+  assert.match(html, /id="wallpaper-folder-opacity-slider"/);
+  assert.match(html, /id="wallpaper-header-opacity-slider"/);
+  assert.match(html, /id="theme-select-helper-note"/);
+
+  // CSS checks
+  assert.match(css, /\.wallpaper-dropzone\s*{/);
+  assert.match(css, /\.wallpaper-preview-img\s*{/);
+  assert.match(css, /\.wallpaper-slots-grid\s*{/);
+  assert.match(css, /\.wallpaper-slot-preview\s*{/);
+
+  // JS checks
+  assert.match(js, /import { saveWallpaper, getWallpaper, deleteWallpaper } from "\.\.\/shared\/db\.js";/);
+  assert.match(js, /customWallpaperEnabled:/);
+  assert.match(js, /customWallpaperLegibility:/);
+  assert.match(js, /customWallpaperTheme:/);
+  assert.match(js, /customWallpaperSlots:/);
+  assert.match(js, /customWallpaperActiveSlot:/);
+  assert.match(js, /customWallpaperRotate:/);
+  assert.match(js, /customWallpaperBrightness:/);
+  assert.match(js, /customWallpaperFolderOpacity:/);
+  assert.match(js, /customWallpaperHeaderOpacity:/);
+  assert.match(js, /processAndSaveImage/);
+  assert.match(js, /loadWallpaperPreview/);
+});
+
+

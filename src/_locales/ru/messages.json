@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "Сбросить историю статистики использования?"
   },
+  "customWallpaper": {
+    "message": "Пользовательские обои"
+  },
+  "customWallpaperActive": {
+    "message": "[TODO] Fondo personalizado activo"
+  },
   "dateAdded": {
     "message": "Добавлено: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "Удалить папку"
   },
+  "removeWallpaper": {
+    "message": "Удалить фоновое изображение"
+  },
   "resetHiddenTopSites": {
     "message": "Сбросить скрытые сайты"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "Проверка..."
+  },
+  "rotateWallpapers": {
+    "message": "[TODO] Rotar fondos al azar"
+  },
+  "rotateWallpapersDesc": {
+    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
   },
   "save": {
     "message": "Сохранить"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "Светлая"
   },
+  "themeSelectHelperNote": {
+    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+  },
   "themeSystem": {
     "message": "Системная (Автоматически)"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?"
+  },
+  "uploadImage": {
+    "message": "[TODO] Subir imagen"
+  },
+  "uploadWallpaperText": {
+    "message": "Перетащите изображение сюда или нажмите для выбора (макс. 12 МБ)"
   },
   "visitsCountPlural": {
     "message": "$COUNT$ посещений",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "[TODO] Brillo de la imagen"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "Настройте фоновое изображение для вашей новой вкладки."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "[TODO] Opacidad de carpetas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+  },
+  "wallpaperFormatError": {
+    "message": "Недопустимый формат файла. Пожалуйста, загрузите изображение."
+  },
+  "wallpaperGenericError": {
+    "message": "Ошибка при загрузке изображения."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "[TODO] Opacidad de cabecera"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de la barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "Обои"
+  },
+  "wallpaperLegibility": {
+    "message": "Затемнить/осветлить фон"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "Настройте интенсивность слоя читаемости фонового изображения."
+  },
+  "wallpaperSection": {
+    "message": "Обои"
+  },
+  "wallpaperSizeError": {
+    "message": "Изображение превышает лимит 12 МБ."
+  },
+  "wallpaperTheme": {
+    "message": "Цветовая схема интерфейса"
+  },
+  "wallpaperThemeDesc": {
+    "message": "Принудительно использовать светлые или темные цвета поверх изображения."
   }
 }

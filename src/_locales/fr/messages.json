@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "Réinitialiser l'historique des statistiques d'utilisation ?"
   },
+  "customWallpaper": {
+    "message": "Image d'arrière-plan personnalisée"
+  },
+  "customWallpaperActive": {
+    "message": "[TODO] Fondo personalizado activo"
+  },
   "dateAdded": {
     "message": "Agregado: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "Supprimer le dossier"
   },
+  "removeWallpaper": {
+    "message": "Supprimer le fond d'écran personnalisé"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "Revisando..."
+  },
+  "rotateWallpapers": {
+    "message": "[TODO] Rotar fondos al azar"
+  },
+  "rotateWallpapersDesc": {
+    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
   },
   "save": {
     "message": "Enregistrer"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "Clair"
   },
+  "themeSelectHelperNote": {
+    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+  },
   "themeSystem": {
     "message": "Système (Automatique)"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "uploadImage": {
+    "message": "[TODO] Subir imagen"
+  },
+  "uploadWallpaperText": {
+    "message": "Faites glisser une image ici ou cliquez pour parcourir (Max 12 Mo)"
   },
   "visitsCountPlural": {
     "message": "$COUNT$ visites",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "[TODO] Brillo de la imagen"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "Personnalisez l'arrière-plan de votre tableau de bord du nouvel onglet."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "[TODO] Opacidad de carpetas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+  },
+  "wallpaperFormatError": {
+    "message": "Format de fichier non valide. Veuillez télécharger une image."
+  },
+  "wallpaperGenericError": {
+    "message": "Erreur lors du chargement de l'image."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "[TODO] Opacidad de cabecera"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de la barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "Fond d'écran"
+  },
+  "wallpaperLegibility": {
+    "message": "Assombrir/éclaircir l'arrière-plan"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "Ajustez l'intensité de la couche de lisibilité de l'arrière-plan."
+  },
+  "wallpaperSection": {
+    "message": "Fond d'écran"
+  },
+  "wallpaperSizeError": {
+    "message": "L'image dépasse la limite de 12 Mo."
+  },
+  "wallpaperTheme": {
+    "message": "Thème de l'interface"
+  },
+  "wallpaperThemeDesc": {
+    "message": "Forcez les couleurs claires ou sombres sur l'image."
   }
 }

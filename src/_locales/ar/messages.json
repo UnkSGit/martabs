@@ -149,6 +149,12 @@
   "confirmResetStats": {
     "message": "هل أنت متأكد من إعادة تعيين الإحصائيات؟"
   },
+  "customWallpaper": {
+    "message": "صورة خلفية مخصصة"
+  },
+  "customWallpaperActive": {
+    "message": "[TODO] Fondo personalizado activo"
+  },
   "dateAdded": {
     "message": "تاريخ الإضافة: $DATE$",
     "placeholders": {
@@ -555,6 +561,9 @@
   "removeFolder": {
     "message": "إزالة المجلد"
   },
+  "removeWallpaper": {
+    "message": "إزالة الخلفية المخصصة"
+  },
   "resetHiddenTopSites": {
     "message": "إعادة تعيين المواقع المخفية"
   },
@@ -580,6 +589,12 @@
   },
   "reviewing": {
     "message": "جاري المراجعة"
+  },
+  "rotateWallpapers": {
+    "message": "[TODO] Rotar fondos al azar"
+  },
+  "rotateWallpapersDesc": {
+    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
   },
   "save": {
     "message": "حفظ"
@@ -810,6 +825,9 @@
   "themeLight": {
     "message": "فاتح"
   },
+  "themeSelectHelperNote": {
+    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+  },
   "themeSystem": {
     "message": "النظام"
   },
@@ -824,6 +842,12 @@
   },
   "unsavedChangesWarning": {
     "message": "لديك تغييرات غير محفوظة."
+  },
+  "uploadImage": {
+    "message": "[TODO] Subir imagen"
+  },
+  "uploadWallpaperText": {
+    "message": "اسحب صورة هنا أو انقر للبحث (بحد أقصى 12 ميجابايت)"
   },
   "visitsCountPlural": {
     "message": "زيارات $COUNT$",
@@ -840,5 +864,53 @@
         "content": "$1"
       }
     }
+  },
+  "wallpaperBrightness": {
+    "message": "[TODO] Brillo de la imagen"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "تخصيص خلفية لوحة التحكم الرئيسية لعلامة التبويب الجديدة."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "[TODO] Opacidad de carpetas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+  },
+  "wallpaperFormatError": {
+    "message": "صيغة الملف غير صالحة. يرجى تحميل صورة."
+  },
+  "wallpaperGenericError": {
+    "message": "حدث خطأ أثناء تحميل الصورة."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "[TODO] Opacidad de cabecera"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "[TODO] Modifica la transparencia de la barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "خلفية الشاشة"
+  },
+  "wallpaperLegibility": {
+    "message": "تعتيم/تفتيح الخلفية"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "ضبط كثافة طبقة وضوح الخلفية."
+  },
+  "wallpaperSection": {
+    "message": "خلفية الشاشة"
+  },
+  "wallpaperSizeError": {
+    "message": "تتجاوز الصورة الحد الأقصى البالغ 12 ميجابايت."
+  },
+  "wallpaperTheme": {
+    "message": "مخطط الألوان للواجهة"
+  },
+  "wallpaperThemeDesc": {
+    "message": "فرض الألوان الفاتحة أو الداكنة على الصورة."
   }
 }
