@@ -1,6 +1,6 @@
 # AI Map Gaps & Notes Log
 
-This file is a running log to record any topics, rules, or files that AI agents (Gemini/Antigravity, Codex, Claude) searched for in [docs/ai-map.md](file:///c:/Users/Gabriel/OneDrive/Documentos/organizador%20de%20marcadores/docs/ai-map.md) but found missing, incomplete, or outdated. 
+This file is a running log to record any topics, rules, or files that AI agents (Gemini/Antigravity, Codex, Claude) searched for in [docs/ai-map.md](./ai-map.md) but found missing, incomplete, or outdated. 
 
 Use this log to capture gaps in the map so that it can be continuously updated and refined.
 
@@ -26,4 +26,4 @@ If you are an AI agent working on the codebase, follow these steps:
    * **Agent:** The model identifier (e.g., Gemini 1.5 Pro, Claude 3.5 Sonnet, etc.).
    * **Missing Info:** What you were looking for but couldn't find, or what code constraint was missing from the "Rules of Care".
    * **Resolution / Action Taken:** What files/rules were added or updated to resolve it.
-3. **Update the Map:** Perform the corresponding edit to [docs/ai-map.md](file:///c:/Users/Gabriel/OneDrive/Documentos/organizador%20de%20marcadores/docs/ai-map.md) to incorporate the missing information, and mark `Yes` in the "Map Updated?" column.
+3. **Update the Map:** Perform the corresponding edit to [ai-map.md](./ai-map.md) if appropriate, and mark **Yes**, **No**, or **Pending** in the "Map Updated?" column.
