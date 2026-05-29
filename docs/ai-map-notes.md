@@ -20,6 +20,9 @@ Use this log to capture gaps in the map so that it can be continuously updated a
 
 If you are an AI agent working on the codebase, follow these steps:
 
+> [!NOTE]
+> **Avoid Noise:** Do not log standard code lookups or normal searches as gaps. Only log a gap when the map claimed to provide orientation on a specific area, but was missing a key rule, relationship, or critical file.
+
 1. **Identify the Gap:** If you had to grep/search the codebase for rules, files, or cross-component effects that were *not* clearly documented in `docs/ai-map.md`, you have found a gap.
 2. **Log the Gap:** Add a new row to the table above detailing:
    * **Date:** The current date.
