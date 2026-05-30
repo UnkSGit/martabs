@@ -215,11 +215,8 @@ if (isCheckMode) {
     globalWarnings.forEach(w => console.warn(`\x1b[33m[Warning] ${w}\x1b[0m`));
     globalErrors.forEach(e => console.error(`\x1b[31m[Error] ${e}\x1b[0m`));
     
-    if (globalErrors.length > 0) {
-      exitWithError(`Audit failed with ${globalErrors.length} error(s). Run "npm run i18n:maintain" to automatically sync/sort translations.`);
-    } else {
-      console.log(`\x1b[33m[i18n Warning] Audit passed with warnings (pending translations). Keep working on the translations!\x1b[0m`);
-    }
+    const totalIssues = globalErrors.length + globalWarnings.length;
+    exitWithError(`Audit failed with ${globalErrors.length} error(s) and ${globalWarnings.length} warning(s). All [TODO] pending translations must be resolved before committing/pushing.`);
   } else {
     console.log(`\x1b[32m[i18n Success] All translations are fully synchronized, sorted, and consistent!\x1b[0m`);
   }

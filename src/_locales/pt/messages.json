@@ -24,7 +24,7 @@
     "message": "Todas as pastas"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "Todas as pastas"
   },
   "appearanceDescription": {
     "message": "Preferências visuais gerais do painel."
@@ -156,7 +156,7 @@
     "message": "Imagem de fundo personalizada"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "Plano de fundo personalizado activo"
   },
   "dateAdded": {
     "message": "Adicionado: $DATE$",
@@ -597,10 +597,10 @@
     "message": "Verificando saúde..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "Alternar planos de fundo aleatoriamente"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "Alterna aleatoriamente entre as imagens de fundo enviadas ao abrir uma nova guia."
   },
   "save": {
     "message": "Salvar"
@@ -832,7 +832,7 @@
     "message": "Claro"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "O tema da interface está sendo controlado pelo plano de fundo personalizado."
   },
   "themeSystem": {
     "message": "Sistema (Automático)"
@@ -850,7 +850,7 @@
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "Enviar imagem"
   },
   "uploadWallpaperText": {
     "message": "Arraste uma imagem aqui ou clique para buscar (Máx. 12 MB)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "Brilho da imagem"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "Ajusta a luminosidade do plano de fundo personalizado."
   },
   "wallpaperDescription": {
     "message": "Personalize o fundo do painel principal da nova guia."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "Opacidade das pastas"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "Modifica a transparência dos cartões das pastas."
   },
   "wallpaperFormatError": {
     "message": "Formato de arquivo inválido. Por favor, envie uma imagem."
@@ -893,10 +893,10 @@
     "message": "Erro ao carregar a imagem."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "Opacidade do cabeçalho"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "Modifica a transparência da barra superior."
   },
   "wallpaperHeading": {
     "message": "Plano de fundo"

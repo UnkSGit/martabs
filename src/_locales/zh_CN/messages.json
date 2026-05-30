@@ -24,7 +24,7 @@
     "message": "所有文件夹"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "所有文件夹"
   },
   "appearanceDescription": {
     "message": "仪表板的通用视觉偏好设置。"
@@ -156,7 +156,7 @@
     "message": "自定义背景图片"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "自定义壁纸已启用"
   },
   "dateAdded": {
     "message": "添加日期: $DATE$",
@@ -597,10 +597,10 @@
     "message": "正在检查健康状况..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "随机轮换壁纸"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "在新标签页打开时，随机切换已上传的壁纸。"
   },
   "save": {
     "message": "保存"
@@ -832,7 +832,7 @@
     "message": "浅色"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "界面主题正由自定义壁纸控制。"
   },
   "themeSystem": {
     "message": "系统默认"
@@ -850,7 +850,7 @@
     "message": "您有未保存的更改。确定要退出吗？"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "上传图片"
   },
   "uploadWallpaperText": {
     "message": "拖放图片至此或点击浏览（最大 12 MB）"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "图片亮度"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "调整自定义背景的亮度。"
   },
   "wallpaperDescription": {
     "message": "自定义新标签页仪表板的背景。"
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "文件夹不透明度"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "修改文件夹卡片的透明度。"
   },
   "wallpaperFormatError": {
     "message": "无效的文件格式。请上传图片文件。"
@@ -893,10 +893,10 @@
     "message": "加载图片时出错。"
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "页眉不透明度"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "修改顶部栏的透明度."
   },
   "wallpaperHeading": {
     "message": "壁纸"

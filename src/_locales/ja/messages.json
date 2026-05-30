@@ -24,7 +24,7 @@
     "message": "すべてのフォルダ"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "すべてのフォルダ"
   },
   "appearanceDescription": {
     "message": "ダッシュボードの全体的な表示設定。"
@@ -156,7 +156,7 @@
     "message": "カスタム背景画像"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "カスタム壁紙が有効"
   },
   "dateAdded": {
     "message": "追加日: $DATE$",
@@ -597,10 +597,10 @@
     "message": "接続状態確認中..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "壁紙をランダムに回転"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "新しいタブを開くたびに、アップロードされた壁紙をランダムに切り替えます。"
   },
   "save": {
     "message": "保存"
@@ -832,7 +832,7 @@
     "message": "ライト"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "インターフェースのテーマはカスタム壁紙によって制御されています。"
   },
   "themeSystem": {
     "message": "システム (自動)"
@@ -850,7 +850,7 @@
     "message": "保存されていない変更があります。本当に終了しますか？"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "画像をアップロード"
   },
   "uploadWallpaperText": {
     "message": "画像をここにドラッグするか、クリックして選択（最大12 MB）"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "画像の明るさ"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "カスタム背景の明るさを調整します。"
   },
   "wallpaperDescription": {
     "message": "新しいタブダッシュボードの背景をカスタマイズします。"
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "フォルダの不透明度"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "フォルダカードの透明度を変更します。"
   },
   "wallpaperFormatError": {
     "message": "無効なファイル形式です。画像をアップロードしてください。"
@@ -893,10 +893,10 @@
     "message": "画像の読み込み中にエラーが発生しました。"
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "ヘッダーの不透明度"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "上部バーの透明度を変更します。"
   },
   "wallpaperHeading": {
     "message": "壁紙"

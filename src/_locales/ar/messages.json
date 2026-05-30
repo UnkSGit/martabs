@@ -24,7 +24,7 @@
     "message": "كل المجلدات"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "جميع المجلدات"
   },
   "appearanceDescription": {
     "message": "تخصيص الواجهة."
@@ -156,7 +156,7 @@
     "message": "صورة خلفية مخصصة"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "خلفية مخصصة نشطة"
   },
   "dateAdded": {
     "message": "تاريخ الإضافة: $DATE$",
@@ -597,10 +597,10 @@
     "message": "جاري فحص الصحة..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "تدوير الخلفيات عشوائيًا"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "تغيير الخلفيات بشكل عشوائي من الصور المرفوعة عند فتح علامة تبويب جديدة."
   },
   "save": {
     "message": "حفظ"
@@ -832,7 +832,7 @@
     "message": "فاتح"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "يتم التحكم في سمة الواجهة بواسطة الخلفية المخصصة."
   },
   "themeSystem": {
     "message": "النظام"
@@ -850,7 +850,7 @@
     "message": "لديك تغييرات غير محفوظة."
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "رفع صورة"
   },
   "uploadWallpaperText": {
     "message": "اسحب صورة هنا أو انقر للبحث (بحد أقصى 12 ميجابايت)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "سطوع الصورة"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "ضبط سطوع الخلفية المخصصة."
   },
   "wallpaperDescription": {
     "message": "تخصيص خلفية لوحة التحكم الرئيسية لعلامة التبويب الجديدة."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "شفافية المجلدات"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "تعديل شفافية بطاقات المجلدات."
   },
   "wallpaperFormatError": {
     "message": "صيغة الملف غير صالحة. يرجى تحميل صورة."
@@ -893,10 +893,10 @@
     "message": "حدث خطأ أثناء تحميل الصورة."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "شفافية الرأس"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "تعديل شفافية الشريط العلوي."
   },
   "wallpaperHeading": {
     "message": "خلفية الشاشة"

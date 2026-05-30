@@ -24,7 +24,7 @@
     "message": "Tous les dossiers"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "Tous les dossiers"
   },
   "appearanceDescription": {
     "message": "Préférences visuelles générales du tableau de bord."
@@ -156,7 +156,7 @@
     "message": "Image d'arrière-plan personnalisée"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "Fond d'écran personnalisé actif"
   },
   "dateAdded": {
     "message": "Agregado: $DATE$",
@@ -597,10 +597,10 @@
     "message": "Vérification de la santé..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "Faire défiler les fonds d'écran de manière aléatoire"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "Change aléatoirement de fond d'écran parmi ceux importés lors de l'ouverture d'un nouvel onglet."
   },
   "save": {
     "message": "Enregistrer"
@@ -832,7 +832,7 @@
     "message": "Clair"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "Le thème de l'interface est contrôlé par le fond d'écran personnalisé."
   },
   "themeSystem": {
     "message": "Système (Automatique)"
@@ -850,7 +850,7 @@
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "Importer une image"
   },
   "uploadWallpaperText": {
     "message": "Faites glisser une image ici ou cliquez pour parcourir (Max 12 Mo)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "Luminosité de l'image"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "Ajuste la luminosité du fond d'écran personnalisé."
   },
   "wallpaperDescription": {
     "message": "Personnalisez l'arrière-plan de votre tableau de bord du nouvel onglet."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "Opacité des dossiers"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "Modifie la transparence des cartes de dossiers."
   },
   "wallpaperFormatError": {
     "message": "Format de fichier non valide. Veuillez télécharger une image."
@@ -893,10 +893,10 @@
     "message": "Erreur lors du chargement de l'image."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "Opacité de l'en-tête"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "Modifie la transparence de la barre supérieure."
   },
   "wallpaperHeading": {
     "message": "Fond d'écran"

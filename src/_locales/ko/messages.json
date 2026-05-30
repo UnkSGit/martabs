@@ -24,7 +24,7 @@
     "message": "모든 폴더"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "모든 폴더"
   },
   "appearanceDescription": {
     "message": "대시보드의 전반적인 시각적 환경설정."
@@ -156,7 +156,7 @@
     "message": "사용자 지정 배경 이미지"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "사용자 지정 배경화면 활성화됨"
   },
   "dateAdded": {
     "message": "추가됨: $DATE$",
@@ -597,10 +597,10 @@
     "message": "상태 검사 중..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "배경화면 무작위 회전"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "새 탭을 열 때마다 업로드된 배경화면을 무작위로 변경합니다."
   },
   "save": {
     "message": "저장"
@@ -832,7 +832,7 @@
     "message": "라이트"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "인터페이스 테마는 사용자 지정 배경화면에 의해 제어됩니다."
   },
   "themeSystem": {
     "message": "시스템 (자동)"
@@ -850,7 +850,7 @@
     "message": "저장되지 않은 변경 사항이 있습니다. 정말 종료하시겠습니까?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "이미지 업로드"
   },
   "uploadWallpaperText": {
     "message": "이미지를 여기에 끌어다 놓거나 클릭하여 찾아보기 (최대 12 MB)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "이미지 밝기"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "사용자 지정 배경화면의 밝기를 조절합니다."
   },
   "wallpaperDescription": {
     "message": "새 탭 대시보드의 배경을 맞춤 설정합니다."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "폴더 투명도"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "폴더 카드의 투명도를 변경합니다."
   },
   "wallpaperFormatError": {
     "message": "올바르지 않은 파일 형식입니다. 이미지를 업로드해 주세요."
@@ -893,10 +893,10 @@
     "message": "이미지를 로드하는 동안 오류가 발생했습니다."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "헤더 투명도"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "상단 바의 투명도를 변경합니다."
   },
   "wallpaperHeading": {
     "message": "배경 화면"

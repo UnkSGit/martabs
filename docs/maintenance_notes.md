@@ -11,6 +11,7 @@ Leer este documento antes de tocar flujos sensibles. Sirve para que Codex y Gemi
 - No capturar navegacion general del usuario.
 - No usar `chrome.bookmarks.move` para orden o movimiento local de martabs.
 - No reintroducir `backdrop-filter` en cards flotantes o modales que se superponen a carpetas.
+- NO se permite subir a GitHub (push) ni publicar lanzamientos (releases) si hay advertencias (Warnings) de traducción pendientes en los ficheros locales (claves que inicien con `[TODO]`). Todas las claves deben estar completamente traducidas.
 
 ## Edicion de marcadores
 

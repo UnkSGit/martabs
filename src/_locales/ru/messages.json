@@ -24,7 +24,7 @@
     "message": "Все папки"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "Все папки"
   },
   "appearanceDescription": {
     "message": "Общие визуальные настройки главной панели."
@@ -156,7 +156,7 @@
     "message": "Пользовательские обои"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "Пользовательские обои активны"
   },
   "dateAdded": {
     "message": "Добавлено: $DATE$",
@@ -597,10 +597,10 @@
     "message": "Проверка состояния..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "Случайная ротация обоев"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "Случайно переключает загруженные обои при открытии новой вкладки."
   },
   "save": {
     "message": "Сохранить"
@@ -832,7 +832,7 @@
     "message": "Светлая"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "Тема интерфейса управляется пользовательскими обоями."
   },
   "themeSystem": {
     "message": "Системная (Автоматически)"
@@ -850,7 +850,7 @@
     "message": "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "Загрузить изображение"
   },
   "uploadWallpaperText": {
     "message": "Перетащите изображение сюда или нажмите для выбора (макс. 12 МБ)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "Яркость изображения"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "Настройка яркости пользовательских обоев."
   },
   "wallpaperDescription": {
     "message": "Настройте фоновое изображение для вашей новой вкладки."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "Прозрачность папок"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "Изменение прозрачности карточек папок."
   },
   "wallpaperFormatError": {
     "message": "Недопустимый формат файла. Пожалуйста, загрузите изображение."
@@ -893,10 +893,10 @@
     "message": "Ошибка при загрузке изображения."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "Прозрачность заголовка"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "Изменение прозрачности верхней панели."
   },
   "wallpaperHeading": {
     "message": "Обои"

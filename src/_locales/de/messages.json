@@ -24,7 +24,7 @@
     "message": "Alle Ordner"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "Alle Ordner"
   },
   "appearanceDescription": {
     "message": "Allgemeine visuelle Einstellungen für das Dashboard."
@@ -156,7 +156,7 @@
     "message": "Benutzerdefiniertes Hintergrundbild"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "Benutzerdefiniertes Hintergrundbild aktiv"
   },
   "dateAdded": {
     "message": "Hinzugefügt: $DATE$",
@@ -597,10 +597,10 @@
     "message": "Gesundheit wird geprüft..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "Hintergrundbilder zufällig rotieren"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "Wechselt beim Öffnen eines neuen Tabs zufällig zwischen den hochgeladenen Hintergrundbildern."
   },
   "save": {
     "message": "Speichern"
@@ -832,7 +832,7 @@
     "message": "Hell"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "Das Interface-Design wird durch das benutzerdefinierte Hintergrundbild gesteuert."
   },
   "themeSystem": {
     "message": "System (Automatisch)"
@@ -850,7 +850,7 @@
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "Bild hochladen"
   },
   "uploadWallpaperText": {
     "message": "Ziehen Sie ein Bild hierher oder klicken Sie, um zu suchen (max. 12 MB)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "Bildhelligkeit"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "Passt die Helligkeit des benutzerdefinierten Hintergrunds an."
   },
   "wallpaperDescription": {
     "message": "Passen Sie den Hintergrund Ihres neuen Tab-Dashboards an."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "Ordner-Deckkraft"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "Ändert die Transparenz der Ordnerkarten."
   },
   "wallpaperFormatError": {
     "message": "Ungültiges Dateiformat. Bitte laden Sie ein Bild hoch."
@@ -893,10 +893,10 @@
     "message": "Fehler beim Laden des Bildes."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "Header-Deckkraft"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "Ändert die Transparenz der oberen Leiste."
   },
   "wallpaperHeading": {
     "message": "Hintergrundbild"

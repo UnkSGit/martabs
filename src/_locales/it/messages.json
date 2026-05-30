@@ -24,7 +24,7 @@
     "message": "Tutte le cartelle"
   },
   "allFoldersTitle": {
-    "message": "[TODO] Todas las carpetas"
+    "message": "Tutte le cartelle"
   },
   "appearanceDescription": {
     "message": "Preferenze visive generali della dashboard."
@@ -156,7 +156,7 @@
     "message": "Immagine di sfondo personalizzata"
   },
   "customWallpaperActive": {
-    "message": "[TODO] Fondo personalizado activo"
+    "message": "Sfondo personalizzato attivo"
   },
   "dateAdded": {
     "message": "Aggiunto il: $DATE$",
@@ -597,10 +597,10 @@
     "message": "Verifica stato in corso..."
   },
   "rotateWallpapers": {
-    "message": "[TODO] Rotar fondos al azar"
+    "message": "Ruota sfondi casualmente"
   },
   "rotateWallpapersDesc": {
-    "message": "[TODO] Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva."
+    "message": "Cambia casualmente tra gli sfondi caricati all'apertura di una nuova scheda."
   },
   "save": {
     "message": "Salva"
@@ -832,7 +832,7 @@
     "message": "Chiaro"
   },
   "themeSelectHelperNote": {
-    "message": "[TODO] El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado."
+    "message": "Il tema dell'interfaccia è controllato dallo sfondo personalizzato."
   },
   "themeSystem": {
     "message": "Sistema (Automatico)"
@@ -850,7 +850,7 @@
     "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   },
   "uploadImage": {
-    "message": "[TODO] Subir imagen"
+    "message": "Carica immagine"
   },
   "uploadWallpaperText": {
     "message": "Trascina un'immagine qui o fai clic per cercare (Max 12 MB)"
@@ -872,19 +872,19 @@
     }
   },
   "wallpaperBrightness": {
-    "message": "[TODO] Brillo de la imagen"
+    "message": "Luminosità immagine"
   },
   "wallpaperBrightnessDesc": {
-    "message": "[TODO] Ajusta la luminosidad del fondo personalizado."
+    "message": "Regola la luminosità dello sfondo personalizzato."
   },
   "wallpaperDescription": {
     "message": "Personalizza lo sfondo della dashboard della tua nuova scheda."
   },
   "wallpaperFolderOpacity": {
-    "message": "[TODO] Opacidad de carpetas"
+    "message": "Opacità cartelle"
   },
   "wallpaperFolderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de las tarjetas de las carpetas."
+    "message": "Modifica la trasparenza delle schede delle cartelle."
   },
   "wallpaperFormatError": {
     "message": "Formato file non valido. Carica un'immagine."
@@ -893,10 +893,10 @@
     "message": "Errore durante il caricamento dell'immagine."
   },
   "wallpaperHeaderOpacity": {
-    "message": "[TODO] Opacidad de cabecera"
+    "message": "Opacità intestazione"
   },
   "wallpaperHeaderOpacityDesc": {
-    "message": "[TODO] Modifica la transparencia de la barra superior."
+    "message": "Modifica la trasparenza della barra superiore."
   },
   "wallpaperHeading": {
     "message": "Sfondo"
