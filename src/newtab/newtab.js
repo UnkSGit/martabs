@@ -827,8 +827,7 @@ function renderDashboard(items) {
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
 
-    const headerActions = [];
-    const headerControls = [];
+    const headerButtons = [];
 
     if (isPinnedFolder) {
       const toggleBtn = el("button", { class: "review-button", type: "button", title: t(api, "hidePinnedFolder"), "aria-label": t(api, "hidePinnedFolder") });
@@ -840,7 +839,7 @@ function renderDashboard(items) {
         currentSettings = newSettings;
         render();
       });
-      headerActions.push(toggleBtn);
+      headerButtons.push(toggleBtn);
     }
 
     if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
@@ -855,7 +854,7 @@ function renderDashboard(items) {
       reviewButton.addEventListener("click", () => {
         reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
       });
-      headerActions.push(progressEl, reviewButton);
+      headerButtons.push(progressEl, reviewButton);
     }
 
     const folderBrokenBookmarks = currentSettings?.linkHealthEnabled
@@ -871,15 +870,15 @@ function renderDashboard(items) {
       const viewButton = el("button", { 
         class: "review-button review-button--danger", 
         type: "button", 
-        title: `${failuresText} - ${t(api, "review")}`,
+        text: failuresText,
+        title: t(api, "review"),
         "aria-label": failuresText + " " + t(api, "review")
       });
-      viewButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg><span>${folderBrokenBookmarks.length}</span>`;
       viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
       });
-      headerActions.push(viewButton);
+      headerButtons.push(viewButton);
     }
 
     const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
@@ -957,12 +956,12 @@ function renderDashboard(items) {
           await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
           render(); // Re-render everything to apply new sorting
         });
-        headerControls.push(sortBtn);
+        headerButtons.push(sortBtn);
       }
     }
     
     if (currentSettings.showViewButton !== false) {
-      headerControls.push(modeBtn);
+      headerButtons.push(modeBtn);
     }
 
     let computedName = folder;
@@ -1025,16 +1024,9 @@ function renderDashboard(items) {
       });
     }
 
-    const headerTopChildren = [h2];
-    if (headerActions.length > 0) {
-      headerTopChildren.push(el("div", { class: "group-header-actions" }, headerActions));
-    }
-
-    const headerChildren = [
-      el("div", { class: "group-header-top" }, headerTopChildren)
-    ];
-    if (headerControls.length > 0) {
-      headerChildren.push(el("div", { class: "group-header-controls" }, headerControls));
+    const headerChildren = [h2];
+    if (headerButtons.length > 0) {
+      headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
     }
 
     const modeClass = mode !== "list" ? ` mode-${mode}` : "";

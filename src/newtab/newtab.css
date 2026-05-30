@@ -314,22 +314,15 @@ button svg {
 
 .group-header {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1.5px solid var(--surface-border);
   padding-bottom: 8px;
   margin-bottom: 12px;
-  gap: 8px;
-}
-
-.group-header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 12px;
 }
 
-/* Groups buttons / badges and aligns them to the right */
+/* Groups Revisar button + progress + fallo badge so they stay adjacent */
 .group-header-actions {
   display: flex;
   align-items: center;
@@ -693,7 +686,6 @@ button svg {
   display: flex;
   gap: 8px;
   align-items: center;
-  justify-content: flex-end;
 }
 
 /* Search results view override */
