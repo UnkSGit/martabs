@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "감지된 모든 오류를 무시하시겠습니까?"
   },
   "confirmResetLocalOrg": {
     "message": "모든 로컬 이동 및 수동 정렬을 초기화하시겠습니까? 브라우저의 실제 북마크는 수정되지 않습니다."
@@ -335,7 +335,7 @@
     "message": "사이트 숨기기"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "모두 무시"
   },
   "importConfig": {
     "message": "설정 가져오기"

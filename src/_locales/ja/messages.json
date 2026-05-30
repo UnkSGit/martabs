@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "検出されたすべてのエラーを無視してもよろしいですか？"
   },
   "confirmResetLocalOrg": {
     "message": "すべてのローカル配置と手動ソートをリセットしますか？ブラウザの実際のブックマークは変更されません。"
@@ -335,7 +335,7 @@
     "message": "サイトを非表示"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "すべて無視"
   },
   "importConfig": {
     "message": "設定をインポート"

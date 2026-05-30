@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "Sei sicuro di voler ignorare tutti gli errori rilevati?"
   },
   "confirmResetLocalOrg": {
     "message": "Ripristinare tutti gli spostamenti locali e gli ordinamenti manuali? I veri segnalibri del browser non verranno modificati."
@@ -335,7 +335,7 @@
     "message": "Nascondi sito"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "Ignora tutti"
   },
   "importConfig": {
     "message": "Importa configurazione"

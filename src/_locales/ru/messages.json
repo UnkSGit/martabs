@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "Вы уверены, что хотите игнорировать все обнаруженные ошибки?"
   },
   "confirmResetLocalOrg": {
     "message": "Сбросить все локальные перемещения и ручную сортировку? Реальные закладки браузера не будут изменены."
@@ -335,7 +335,7 @@
     "message": "Скрыть сайт"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "Игнорировать все"
   },
   "importConfig": {
     "message": "Импорт конфигурации"

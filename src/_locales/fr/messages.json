@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "Êtes-vous sûr de vouloir ignorer toutes les erreurs détectées ?"
   },
   "confirmResetLocalOrg": {
     "message": "Réinitialiser tous les déplacements locaux et le tri manuel ? Les favoris réels du navigateur ne seront pas modifiés."
@@ -335,7 +335,7 @@
     "message": "Masquer le site"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "Tout ignorer"
   },
   "importConfig": {
     "message": "Importer la configuration"

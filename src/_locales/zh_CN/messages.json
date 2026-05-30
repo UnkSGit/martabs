@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "您确定要忽略所有检测到的错误吗？"
   },
   "confirmResetLocalOrg": {
     "message": "确定要重置所有本地移动 and 手动排序吗？此操作不会更改浏览器的实际书签。"
@@ -335,7 +335,7 @@
     "message": "隐藏网站"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "忽略全部"
   },
   "importConfig": {
     "message": "导入配置"

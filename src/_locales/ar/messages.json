@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "هل أنت متأكد من رغبتك في تجاهل جميع الأخطاء المكتشفة؟"
   },
   "confirmResetLocalOrg": {
     "message": "هل أنت متأكد من إعادة تعيين جميع التنظيمات؟"
@@ -335,7 +335,7 @@
     "message": "إخفاء الموقع"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "تجاهل الكل"
   },
   "importConfig": {
     "message": "استيراد الإعدادات"

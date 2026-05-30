@@ -144,7 +144,7 @@
     }
   },
   "confirmIgnoreAll": {
-    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+    "message": "Sind Sie sicher, dass Sie alle erkannten Fehler ignorieren möchten?"
   },
   "confirmResetLocalOrg": {
     "message": "Alle lokalen Verschiebungen und manuellen Sortierungen zurücksetzen? Echte Browser-Lesezeichen werden nicht geändert."
@@ -335,7 +335,7 @@
     "message": "Website ausblenden"
   },
   "ignoreAll": {
-    "message": "[TODO] Ignorar todos"
+    "message": "Alle ignorieren"
   },
   "importConfig": {
     "message": "Konfiguration importieren"
