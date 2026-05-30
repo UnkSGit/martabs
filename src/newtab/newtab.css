@@ -322,11 +322,17 @@ button svg {
   gap: 8px;
 }
 
+.group-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
 /* Groups buttons / badges and aligns them to the right */
 .group-header-actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 6px;
   flex-shrink: 0;
 }
@@ -687,6 +693,7 @@ button svg {
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-content: flex-end;
 }
 
 /* Search results view override */

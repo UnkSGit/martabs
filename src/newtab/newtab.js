@@ -827,7 +827,8 @@ function renderDashboard(items) {
     const isSingle = count === 1;
     const hasMany = folderBookmarks.length > 8;
 
-    const headerButtons = [];
+    const headerActions = [];
+    const headerControls = [];
 
     if (isPinnedFolder) {
       const toggleBtn = el("button", { class: "review-button", type: "button", title: t(api, "hidePinnedFolder"), "aria-label": t(api, "hidePinnedFolder") });
@@ -839,7 +840,7 @@ function renderDashboard(items) {
         currentSettings = newSettings;
         render();
       });
-      headerButtons.push(toggleBtn);
+      headerActions.push(toggleBtn);
     }
 
     if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
@@ -854,7 +855,7 @@ function renderDashboard(items) {
       reviewButton.addEventListener("click", () => {
         reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
       });
-      headerButtons.push(progressEl, reviewButton);
+      headerActions.push(progressEl, reviewButton);
     }
 
     const folderBrokenBookmarks = currentSettings?.linkHealthEnabled
@@ -878,7 +879,7 @@ function renderDashboard(items) {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
       });
-      headerButtons.push(viewButton);
+      headerActions.push(viewButton);
     }
 
     const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
@@ -956,12 +957,12 @@ function renderDashboard(items) {
           await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
           render(); // Re-render everything to apply new sorting
         });
-        headerButtons.push(sortBtn);
+        headerControls.push(sortBtn);
       }
     }
     
     if (currentSettings.showViewButton !== false) {
-      headerButtons.push(modeBtn);
+      headerControls.push(modeBtn);
     }
 
     let computedName = folder;
@@ -1024,9 +1025,16 @@ function renderDashboard(items) {
       });
     }
 
-    const headerChildren = [h2];
-    if (headerButtons.length > 0) {
-      headerChildren.push(el("div", { class: "group-header-actions" }, headerButtons));
+    const headerTopChildren = [h2];
+    if (headerActions.length > 0) {
+      headerTopChildren.push(el("div", { class: "group-header-actions" }, headerActions));
+    }
+
+    const headerChildren = [
+      el("div", { class: "group-header-top" }, headerTopChildren)
+    ];
+    if (headerControls.length > 0) {
+      headerChildren.push(el("div", { class: "group-header-controls" }, headerControls));
     }
 
     const modeClass = mode !== "list" ? ` mode-${mode}` : "";
