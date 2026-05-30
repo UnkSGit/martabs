@@ -60,7 +60,7 @@
     "message": "고정 해제"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
+    "message": "$COUNT$개의 북마크 상태를 검사해야 합니다.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$개의 북마크를 검사해야 합니다.",
+    "message": "$COUNT$개의 북마크 상태를 검사해야 합니다.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "모든 로컬 이동 및 수동 정렬을 초기화하시겠습니까? 브라우저의 실제 북마크는 수정되지 않습니다."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "사이트 숨기기"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "설정 가져오기"
   },
@@ -428,13 +434,13 @@
     "message": "중국어 (Chinese)"
   },
   "linkHealth": {
-    "message": "링크 검사"
+    "message": "링크 상태 검사"
   },
   "linkHealthBrokenTitle": {
     "message": "이 링크는 마지막 검사에서 정상적으로 응답하지 않았습니다."
   },
   "linkHealthDesc": {
-    "message": "각 폴더 옆에 검사 버튼을 추가하고 네트워크 접근 권한을 요청합니다."
+    "message": "각 폴더에 상태 검사 버튼을 추가하여 북마크 상태를 확인합니다."
   },
   "loadBookmarksError": {
     "message": "북마크 로드 실패: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "통계 초기화"
   },
   "review": {
-    "message": "검사"
+    "message": "상태 검사"
   },
   "reviewing": {
-    "message": "검사 중..."
+    "message": "상태 검사 중..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "설정이 저장되었습니다. 권한이 부족하여 미리보기 캡처를 활성화할 수 없었습니다."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "설정이 저장되었습니다. 권한이 부족하여 링크 검사를 활성화할 수 없었습니다."
+    "message": "설정이 저장되었습니다. 권한이 부족하여 링크 상태 검사를 활성화할 수 없었습니다."
   },
   "saveSuccess": {
     "message": "설정이 저장되었습니다. 새 탭을 열어 martabs를 사용하십시오."
@@ -661,7 +667,7 @@
     "message": "언어 영어 스페인어 시스템 기본값"
   },
   "searchLinkHealthRow": {
-    "message": "링크 검사 오류 권한 네트워크"
+    "message": "링크 상태 검사 오류 권한 네트워크"
   },
   "searchManualTagsRow": {
     "message": "수동 태그 수정 북마크"

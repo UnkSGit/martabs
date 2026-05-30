@@ -60,7 +60,7 @@
     "message": "ブックマークの固定を解除"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ 件のブックマークを検査する必要があります。",
+    "message": "$COUNT$ 件のブックマークの接続状態を確認する必要があります。",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ 件のブックマークを検査する必要があります。",
+    "message": "$COUNT$ 件のブックマークの接続状態を確認する必要があります。",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "すべてのローカル配置と手動ソートをリセットしますか？ブラウザの実際のブックマークは変更されません。"
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "サイトを非表示"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "設定をインポート"
   },
@@ -428,13 +434,13 @@
     "message": "中国語 (簡体字) (Chinese)"
   },
   "linkHealth": {
-    "message": "リンク検査"
+    "message": "リンクの接続状態チェック"
   },
   "linkHealthBrokenTitle": {
     "message": "このリンクは最後の検査で正常に返答しませんでした。"
   },
   "linkHealthDesc": {
-    "message": "各フォルダに検査ボタンを追加し、ネットワークアクセス権限をリクエストします。"
+    "message": "各フォルダに接続状態確認ボタンを追加し、ブックマークの状態を確認します。"
   },
   "loadBookmarksError": {
     "message": "ブックマークを読み込めませんでした: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "統計をリセット"
   },
   "review": {
-    "message": "検査"
+    "message": "接続状態確認"
   },
   "reviewing": {
-    "message": "検査中..."
+    "message": "接続状態確認中..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "設定が保存されました。必要な権限が不足しているため、プレビューキャプチャを有効にできませんでした。"
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "設定が保存されました。必要な権限が不足しているため、リンク検査を有効にできませんでした。"
+    "message": "設定が保存されました。必要な権限が不足しているため、リンク接続状態チェックを有効にできませんでした。"
   },
   "saveSuccess": {
     "message": "設定が保存されました。新規タブを開いて martabs を使用してください。"
@@ -661,7 +667,7 @@
     "message": "言語 英語 スペイン語 システム デフォルト"
   },
   "searchLinkHealthRow": {
-    "message": "リンク検査 エラー 権限 ネットワーク"
+    "message": "リンク 接続状態 確認 エラー 権限 ネットワーク"
   },
   "searchManualTagsRow": {
     "message": "手動タグ 編集 ブックマーク"

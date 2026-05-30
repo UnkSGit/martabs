@@ -186,7 +186,8 @@ async function checkUrl(url) {
 
 async function reviewFolderHealth(folderBookmarks, reviewButton, progressEl) {
   reviewButton.disabled = true;
-  reviewButton.textContent = t(api, "reviewing");
+  reviewButton.classList.add("is-reviewing");
+  // reviewButton.textContent = t(api, "reviewing");
   const total = folderBookmarks.length;
 
   const linkHealth = await getLinkHealth(api);
@@ -842,24 +843,26 @@ function renderDashboard(items) {
       headerButtons.push(toggleBtn);
     }
 
-    if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
-      const progressEl = el("span", { class: "review-progress" });
-      const reviewButton = el("button", { 
-        class: "review-button", 
-        type: "button", 
-        text: t(api, "review"),
-        title: t(api, "review"),
-        "aria-label": t(api, "review")
-      });
-      reviewButton.addEventListener("click", () => {
-        reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
-      });
-      headerButtons.push(progressEl, reviewButton);
-    }
-
     const folderBrokenBookmarks = currentSettings?.linkHealthEnabled
       ? folderBookmarks.filter((bookmark) => bookmark.linkHealth && bookmark.linkHealth.consecutiveFailures > 0)
       : [];
+
+    if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
+      if (folderBrokenBookmarks.length === 0) {
+        const progressEl = el("span", { class: "review-progress" });
+        const reviewButton = el("button", { 
+          class: "review-button", 
+          type: "button", 
+          title: t(api, "review"),
+          "aria-label": t(api, "review")
+        });
+        reviewButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H7l2-5 2 10 2-7 1.5 4h3.28"/></svg>`;
+        reviewButton.addEventListener("click", () => {
+          reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
+        });
+        headerButtons.push(progressEl, reviewButton);
+      }
+    }
 
     const mode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
 
@@ -870,10 +873,10 @@ function renderDashboard(items) {
       const viewButton = el("button", { 
         class: "review-button review-button--danger", 
         type: "button", 
-        text: failuresText,
-        title: t(api, "review"),
+        title: `${failuresText} - ${t(api, "review")}`,
         "aria-label": failuresText + " " + t(api, "review")
       });
+      viewButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg><span>${folderBrokenBookmarks.length}</span>`;
       viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
@@ -1123,6 +1126,31 @@ function renderBrokenLinks(items, folderName = "") {
     });
   }
 
+  const ignoreAllButton = items.length > 0
+    ? el("button", { class: "link-action-button", type: "button", text: t(api, "ignoreAll") || "Ignorar todos" })
+    : null;
+
+  if (ignoreAllButton) {
+    ignoreAllButton.addEventListener("click", async () => {
+      const confirmed = window.confirm(
+        t(api, "confirmIgnoreAll") || "¿Seguro que quieres ignorar todos los fallos detectados?"
+      );
+      if (!confirmed) return;
+      const linkHealth = await getLinkHealth(api);
+      for (const bookmark of items) {
+        if (linkHealth[bookmark.id]) {
+          linkHealth[bookmark.id].consecutiveFailures = 0;
+        }
+        const idx = bookmarks.findIndex((b) => b.id === bookmark.id);
+        if (idx !== -1 && bookmarks[idx] && bookmarks[idx].linkHealth) {
+          bookmarks[idx].linkHealth.consecutiveFailures = 0;
+        }
+      }
+      await saveLinkHealth(api, linkHealth);
+      renderBrokenLinks([], folderName);
+    });
+  }
+
   const reviewText = items.length === 1
     ? t(api, "bookmarksToReviewSingular", [items.length])
     : t(api, "bookmarksToReviewPlural", [items.length]);
@@ -1133,7 +1161,7 @@ function renderBrokenLinks(items, folderName = "") {
         el("strong", { text: folderName ? t(api, "failuresIn", [folderName]) : t(api, "brokenLinksTitle") }),
         el("p", { text: reviewText })
       ]),
-      el("div", { class: "results-toolbar-actions" }, [deleteAllButton, backButton].filter(Boolean))
+      el("div", { class: "results-toolbar-actions" }, [ignoreAllButton, deleteAllButton, backButton].filter(Boolean))
     ])
   );
 

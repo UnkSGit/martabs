@@ -60,7 +60,7 @@
     "message": "Sblocca segnalibro"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ segnalibri da controllare.",
+    "message": "$COUNT$ segnalibri da verificare.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ segnalibro da controllare.",
+    "message": "$COUNT$ segnalibro da verificare.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "Ripristinare tutti gli spostamenti locali e gli ordinamenti manuali? I veri segnalibri del browser non verranno modificati."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Nascondi sito"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "Importa configurazione"
   },
@@ -428,13 +434,13 @@
     "message": "Cinese (Chinese)"
   },
   "linkHealth": {
-    "message": "Verifica dei collegamenti"
+    "message": "Verifica dello stato dei link"
   },
   "linkHealthBrokenTitle": {
     "message": "Questo collegamento non ha risposto correttamente all'ultimo controllo."
   },
   "linkHealthDesc": {
-    "message": "Aggiunge il pulsante Controlla a ciascuna cartella e richiede le autorizzazioni di rete."
+    "message": "Aggiunge il pulsante di stato per verificar lo stato dei segnalibri."
   },
   "loadBookmarksError": {
     "message": "Impossibile caricare i segnalibri: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Reimposta statistiche"
   },
   "review": {
-    "message": "Controlla"
+    "message": "Verifica stato"
   },
   "reviewing": {
-    "message": "Controllo..."
+    "message": "Verifica stato in corso..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "Impostazioni salvate. Impossibile attivare la cattura delle anteprime per mancanza di autorizzazione."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Impostazioni salvate. Impossibile attivare la verifica dei collegamenti per mancanza di autorizzazione."
+    "message": "Impostazioni salvate. Impostazione della verifica dello stato dei link non consentita per mancanza di autorizzazioni."
   },
   "saveSuccess": {
     "message": "Impostazioni salvate. Apri una nuova scheda per utilizzare martabs."
@@ -661,7 +667,7 @@
     "message": "lingua inglese spagnolo sistema predefinito"
   },
   "searchLinkHealthRow": {
-    "message": "verifica collegamenti errori autorizzazioni rete"
+    "message": "verifica stato link interrotti errori permessi rete"
   },
   "searchManualTagsRow": {
     "message": "tag manuali modifica segnalibro"

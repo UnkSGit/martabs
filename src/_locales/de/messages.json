@@ -143,6 +143,9 @@
       }
     }
   },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
+  },
   "confirmResetLocalOrg": {
     "message": "Alle lokalen Verschiebungen und manuellen Sortierungen zurücksetzen? Echte Browser-Lesezeichen werden nicht geändert."
   },
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Website ausblenden"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "Konfiguration importieren"
   },
@@ -428,13 +434,13 @@
     "message": "Chinesisch (Chinese)"
   },
   "linkHealth": {
-    "message": "Link-Überprüfung"
+    "message": "Link-Gesundheitsprüfung"
   },
   "linkHealthBrokenTitle": {
     "message": "Dieser Link hat bei der letzten Prüfung nicht korrekt geantwortet."
   },
   "linkHealthDesc": {
-    "message": "Fügt jedem Ordner die Schaltfläche Überprüfen hinzu und fordert Netzwerkberechtigungen an."
+    "message": "Fügt jeder Kategorie eine Schaltfläche hinzu, um den Status der Lesezeichen zu überprüfen."
   },
   "loadBookmarksError": {
     "message": "Lesezeichen konnten nicht geladen werden: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Statistiken zurücksetzen"
   },
   "review": {
-    "message": "Überprüfen"
+    "message": "Gesundheit prüfen"
   },
   "reviewing": {
-    "message": "Überprüfung..."
+    "message": "Gesundheit wird geprüft..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden. Vorschau-Erfassung konnte mangels Berechtigung nicht aktiviert werden."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden. Link-Überprüfung konnte mangels Berechtigung nicht aktiviert werden."
+    "message": "Einstellungen gespeichert. Die Link-Gesundheitsprüfung konnte mangels Berechtigungen nicht aktiviert werden."
   },
   "saveSuccess": {
     "message": "Einstellungen gespeichert. Öffnen Sie einen neuen Tab, um martabs zu verwenden."
@@ -661,7 +667,7 @@
     "message": "sprache englisch spanisch system standard"
   },
   "searchLinkHealthRow": {
-    "message": "überprüfung links fehler berechtigungen netzwerk"
+    "message": "link gesundheitsprüfung fehler berechtigungen netzwerk"
   },
   "searchManualTagsRow": {
     "message": "manuelle tags bearbeiten lesezeichen"

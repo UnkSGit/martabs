@@ -60,7 +60,7 @@
     "message": "Desafixar favorito"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ favoritos para revisar.",
+    "message": "$COUNT$ favoritos para verificar.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ favorito para revisar.",
+    "message": "$COUNT$ favorito para verificar.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "Redefinir todos os movimentos locais e ordenações manuais? Os favoritos reais do navegador não serão modificados."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Ocultar site"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "Importar configuração"
   },
@@ -428,13 +434,13 @@
     "message": "Chinês (Chinese)"
   },
   "linkHealth": {
-    "message": "Verificação de links"
+    "message": "Revisão de saúde dos links"
   },
   "linkHealthBrokenTitle": {
     "message": "Este link não respondeu corretamente na última verificação."
   },
   "linkHealthDesc": {
-    "message": "Adiciona o botão Revisar em cada pasta e solicita permissões de rede."
+    "message": "Adiciona o botão de saúde para verificar o estado dos favoritos."
   },
   "loadBookmarksError": {
     "message": "Não foi possível carregar os favoritos: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Redefinir estatísticas"
   },
   "review": {
-    "message": "Revisar"
+    "message": "Verificar saúde"
   },
   "reviewing": {
-    "message": "Revisando..."
+    "message": "Verificando saúde..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "Configurações salvas. Abra uma nova guia para usar o martabs. Não foi possível ativar a captura de pré-visualizações por falta de permissão."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Configurações salvas. Abra uma nova guia para usar o martabs. Não foi possível ativar a revisão de links por falta de permissão."
+    "message": "Configurações salvas. Não foi possível ativar a revisão de saúde dos links por falta de permissão."
   },
   "saveSuccess": {
     "message": "Configurações salvas. Abra uma nova guia para usar o martabs."
@@ -661,7 +667,7 @@
     "message": "idioma linguagem inglês espanhol sistema padrão"
   },
   "searchLinkHealthRow": {
-    "message": "revisão links quebrados falhas permissões rede"
+    "message": "revisão saúde links quebrados falhas permissões rede"
   },
   "searchManualTagsRow": {
     "message": "etiquetas manuais tags editar favorito"

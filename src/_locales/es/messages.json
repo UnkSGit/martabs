@@ -60,7 +60,7 @@
     "message": "Desfijar marcador"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ marcador(es) para revisar.",
+    "message": "$COUNT$ marcador(es) para verificar.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ marcador para revisar.",
+    "message": "$COUNT$ marcador para verificar.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "¿Restablecer todos los movimientos locales y órdenes manuales? No se modifican los marcadores reales del navegador."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Ocultar sitio"
   },
+  "ignoreAll": {
+    "message": "Ignorar todos"
+  },
   "importConfig": {
     "message": "Importar configuración"
   },
@@ -428,13 +434,13 @@
     "message": "Chino (Chinese)"
   },
   "linkHealth": {
-    "message": "Revisión de enlaces"
+    "message": "Revisión de salud de enlaces"
   },
   "linkHealthBrokenTitle": {
     "message": "Este enlace no respondió correctamente en la última comprobación."
   },
   "linkHealthDesc": {
-    "message": "Agrega el botón Revisar en cada carpeta y pide permisos de red."
+    "message": "Agrega el botón de salud para verificar el estado de los marcadores"
   },
   "loadBookmarksError": {
     "message": "No se pudieron cargar los marcadores: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Restablecer estadísticas"
   },
   "review": {
-    "message": "Revisar"
+    "message": "Comprobar salud"
   },
   "reviewing": {
-    "message": "Revisando..."
+    "message": "Comprobando salud..."
   },
   "rotateWallpapers": {
     "message": "Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "Configuración guardada. No se pudo activar la captura de vistas previas porque falta el permiso necesario."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Configuración guardada. No se pudo activar la revisión de enlaces porque falta el permiso necesario."
+    "message": "Configuración guardada. No se pudo activar la revisión de salud de enlaces porque falta el permiso necesario."
   },
   "saveSuccess": {
     "message": "Configuración guardada."
@@ -661,7 +667,7 @@
     "message": "idioma lenguaje ingles espanol sistema predeterminado"
   },
   "searchLinkHealthRow": {
-    "message": "revision enlaces caidos fallos permisos red"
+    "message": "revisión salud enlaces rotos fallos permisos red"
   },
   "searchManualTagsRow": {
     "message": "etiquetas manuales tags editar marcador"

@@ -60,7 +60,7 @@
     "message": "Unpin bookmark"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ bookmark(s) to review.",
+    "message": "$COUNT$ bookmark(s) to check.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ bookmark to review.",
+    "message": "$COUNT$ bookmark to check.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "Are you sure you want to ignore all detected failures?"
   },
   "confirmResetLocalOrg": {
     "message": "Reset all local movements and manual sorting? Real browser bookmarks will not be modified."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Hide site"
   },
+  "ignoreAll": {
+    "message": "Ignore all"
+  },
   "importConfig": {
     "message": "Import configuration"
   },
@@ -434,7 +440,7 @@
     "message": "This link did not respond correctly in the last check."
   },
   "linkHealthDesc": {
-    "message": "Adds the Review button to each folder and requests network permissions."
+    "message": "Adds the health button to check bookmark status."
   },
   "loadBookmarksError": {
     "message": "Could not load bookmarks: $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Reset statistics"
   },
   "review": {
-    "message": "Review"
+    "message": "Check health"
   },
   "reviewing": {
-    "message": "Reviewing..."
+    "message": "Checking health..."
   },
   "rotateWallpapers": {
     "message": "Rotate backgrounds randomly"
@@ -622,7 +628,7 @@
     "message": "Settings saved. Could not activate preview capture because the required permission is missing."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Settings saved. Could not activate link checking because the required permission is missing."
+    "message": "Settings saved. Link health check could not be enabled due to missing permissions."
   },
   "saveSuccess": {
     "message": "Settings saved."
@@ -661,7 +667,7 @@
     "message": "language english spanish system default"
   },
   "searchLinkHealthRow": {
-    "message": "review links broken failures permissions network"
+    "message": "link health check broken failures permissions network"
   },
   "searchManualTagsRow": {
     "message": "manual tags edit bookmark"

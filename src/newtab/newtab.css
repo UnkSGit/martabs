@@ -319,14 +319,14 @@ button svg {
   border-bottom: 1.5px solid var(--surface-border);
   padding-bottom: 8px;
   margin-bottom: 12px;
-  gap: 12px;
+  gap: 4px;
 }
 
 /* Groups Revisar button + progress + fallo badge so they stay adjacent */
 .group-header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
@@ -358,7 +358,7 @@ button svg {
 /* Review / check button in folder header */
 .review-button {
   height: 24px !important;
-  padding: 0 8px !important;
+  padding: 0 5px !important;
   background: transparent !important;
   color: var(--text-secondary) !important;
   border: 1px solid var(--surface-border) !important;
@@ -381,6 +381,24 @@ button svg {
   opacity: 0.55;
   cursor: default;
   transform: none !important;
+}
+
+.review-button.is-reviewing {
+  opacity: 1 !important;
+}
+
+.review-button.is-reviewing svg {
+  animation: heartbeat 0.8s infinite ease-in-out;
+  transform-origin: center;
+  color: var(--primary) !important;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.18); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.18); }
+  70% { transform: scale(1); }
 }
 
 /* Danger variant - shows broken link count */

@@ -60,7 +60,7 @@
     "message": "Desfijar marcador"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ marcador(es) para revisar.",
+    "message": "$COUNT$ signet(s) à vérifier.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ marcador para revisar.",
+    "message": "$COUNT$ signet à vérifier.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "Réinitialiser tous les déplacements locaux et le tri manuel ? Les favoris réels du navigateur ne seront pas modifiés."
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "Masquer le site"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "Importer la configuration"
   },
@@ -428,13 +434,13 @@
     "message": "Chinois (Chinese)"
   },
   "linkHealth": {
-    "message": "Vérification des liens"
+    "message": "Vérification de la santé des liens"
   },
   "linkHealthBrokenTitle": {
     "message": "Ce lien n'a pas répondu correctement lors de la dernière vérification."
   },
   "linkHealthDesc": {
-    "message": "Ajoute le bouton Vérifier à chaque dossier et demande des autorisations réseau."
+    "message": "Ajoute le bouton de santé pour vérifier l'état des signets."
   },
   "loadBookmarksError": {
     "message": "Impossible de charger les favoris : $ERROR$",
@@ -585,10 +591,10 @@
     "message": "Réinitialiser les statistiques"
   },
   "review": {
-    "message": "Revisar"
+    "message": "Vérifier la santé"
   },
   "reviewing": {
-    "message": "Revisando..."
+    "message": "Vérification de la santé..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "Paramètres enregistrés. Impossible d'activer la capture d'aperçus par manque d'autorisation."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "Paramètres enregistrés. Impossible d'activer la vérification des liens par manque d'autorisation."
+    "message": "Paramètres enregistrés. Impossible d'activer la vérification de la santé des liens par manque d'autorisations."
   },
   "saveSuccess": {
     "message": "Paramètres enregistrés. Ouvrez un nouvel onglet pour utiliser martabs."
@@ -661,7 +667,7 @@
     "message": "langue anglais espagnol système par défaut"
   },
   "searchLinkHealthRow": {
-    "message": "vérification liens erreurs autorisations réseau"
+    "message": "vérification santé liens cassés erreurs autorisations réseau"
   },
   "searchManualTagsRow": {
     "message": "tags manuels modifier favori"

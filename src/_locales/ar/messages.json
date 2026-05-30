@@ -60,7 +60,7 @@
     "message": "إلغاء التثبيت"
   },
   "bookmarksToReviewPlural": {
-    "message": "$COUNT$ إشارات للمراجعة",
+    "message": "$COUNT$ علامة مرجعية للتحقق.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "bookmarksToReviewSingular": {
-    "message": "$COUNT$ إشارة للمراجعة",
+    "message": "$COUNT$ علامة مرجعية للتحقق.",
     "placeholders": {
       "count": {
         "content": "$1"
@@ -142,6 +142,9 @@
         "content": "$1"
       }
     }
+  },
+  "confirmIgnoreAll": {
+    "message": "[TODO] ¿Seguro que quieres ignorar todos los fallos detectados?"
   },
   "confirmResetLocalOrg": {
     "message": "هل أنت متأكد من إعادة تعيين جميع التنظيمات؟"
@@ -331,6 +334,9 @@
   "hideSite": {
     "message": "إخفاء الموقع"
   },
+  "ignoreAll": {
+    "message": "[TODO] Ignorar todos"
+  },
   "importConfig": {
     "message": "استيراد الإعدادات"
   },
@@ -434,7 +440,7 @@
     "message": "رابط معطل محتمل"
   },
   "linkHealthDesc": {
-    "message": "يتحقق دوريًا من الروابط المعطلة."
+    "message": "يضيف زر فحص الصحة للتحقق من حالة العلامات المرجعية."
   },
   "loadBookmarksError": {
     "message": "خطأ في تحميل الإشارات المرجعية: $ERROR$.",
@@ -585,10 +591,10 @@
     "message": "إعادة تعيين الإحصائيات"
   },
   "review": {
-    "message": "مراجعة"
+    "message": "فحص الصحة"
   },
   "reviewing": {
-    "message": "جاري المراجعة"
+    "message": "جاري فحص الصحة..."
   },
   "rotateWallpapers": {
     "message": "[TODO] Rotar fondos al azar"
@@ -622,7 +628,7 @@
     "message": "أذونات مفقودة لالتقاط المعاينة."
   },
   "saveErrorNoPermissionsHealth": {
-    "message": "أذونات مفقودة للتحقق من صحة الروابط."
+    "message": "تم حفظ الإعدادات. تعذر تفعيل فحص صحة الروابط بسبب نقص الأذونات."
   },
   "saveSuccess": {
     "message": "تم حفظ الإعدادات بنجاح"
@@ -661,7 +667,7 @@
     "message": "اللغة"
   },
   "searchLinkHealthRow": {
-    "message": "صحة الروابط"
+    "message": "فحص صحة الروابط أخطاء أذونات شبكة معطلة"
   },
   "searchManualTagsRow": {
     "message": "علامات يدوية"
