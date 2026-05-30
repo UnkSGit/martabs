@@ -314,18 +314,19 @@ button svg {
 
 .group-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   border-bottom: 1.5px solid var(--surface-border);
   padding-bottom: 8px;
   margin-bottom: 12px;
-  gap: 12px;
+  gap: 8px;
 }
 
-/* Groups Revisar button + progress + fallo badge so they stay adjacent */
+/* Groups buttons / badges and aligns them to the right */
 .group-header-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 6px;
   flex-shrink: 0;
 }
