@@ -4,6 +4,8 @@
   "version": "0.9.8",
   "description": "__MSG_extensionDescription__",
   "default_locale": "es",
+  "author": "UnkSGit",
+  "homepage_url": "https://github.com/UnkSGit/martabs",
   "icons": {
     "128": "images/icon-128.png"
   },
