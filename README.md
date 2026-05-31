@@ -154,7 +154,7 @@ docs/                 living documentation, policies, screenshots, and store mat
 
 This project was developed collaboratively between the author and AI assistants:
 
-- **Antigravity** using Gemini 3.5 Pro and Gemini 3.5 Fast.
+- **Antigravity** using Gemini 3.1 Pro and Gemini 3.5 Fast.
 - **Codex** using GPT-5.5.
 
 All AI agents working on this repository are required to read the [AI Codebase Map](docs/ai-map.md) before proposing or implementing changes. Gaps or omissions should be logged in the [AI Map Gaps & Notes Log](docs/ai-map-notes.md) to keep it updated.
