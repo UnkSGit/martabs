@@ -50,6 +50,11 @@ let pendingViewFocusTimer = null;
 
 const TIMEOUT_MS = 8000;
 
+function svgFromTrustedMarkup(markup) {
+  const doc = new DOMParser().parseFromString(markup, "image/svg+xml");
+  return document.importNode(doc.documentElement, true);
+}
+
 // --- Theme ---
 
 function applyTheme(theme) {
@@ -908,7 +913,7 @@ function renderDashboard(items) {
           title: t(api, "review"),
           "aria-label": t(api, "review")
         });
-        reviewButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H7l2-5 2 10 2-7 1.5 4h3.28"/></svg>`;
+        reviewButton.appendChild(svgFromTrustedMarkup(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H7l2-5 2 10 2-7 1.5 4h3.28"/></svg>`));
         reviewButton.addEventListener("click", () => {
           reviewFolderHealth(folderBookmarks, reviewButton, progressEl);
         });
@@ -928,7 +933,10 @@ function renderDashboard(items) {
         title: `${failuresText} - ${t(api, "review")}`,
         "aria-label": failuresText + " " + t(api, "review")
       });
-      viewButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg><span>${folderBrokenBookmarks.length}</span>`;
+      viewButton.append(
+        svgFromTrustedMarkup(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`),
+        el("span", { text: String(folderBrokenBookmarks.length) })
+      );
       viewButton.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrokenLinks(folderBrokenBookmarks, folder);
@@ -938,7 +946,7 @@ function renderDashboard(items) {
 
     const MODES = ["list", "compact", "icons", "icons-large", "quicklinks"];
     const modeBtn = el("button", { class: "review-button", type: "button", title: t(api, "changeView"), "aria-label": t(api, "changeView") });
-    modeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`;
+    modeBtn.appendChild(svgFromTrustedMarkup(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`));
     modeBtn.style.padding = "0 6px"; // Make it square-ish
 
     modeBtn.addEventListener("click", async () => {
@@ -992,7 +1000,7 @@ function renderDashboard(items) {
         };
 
         const sortBtn = el("button", { class: "review-button", type: "button", title: getSortTooltipText(currentSort), "aria-label": getSortTooltipText(currentSort) });
-        sortBtn.innerHTML = getSortIcon(currentSort);
+        sortBtn.appendChild(svgFromTrustedMarkup(getSortIcon(currentSort)));
         sortBtn.style.padding = "0 6px";
         sortBtn.addEventListener("click", async () => {
           const activeSort = currentSettings?.folderSorts?.[folderId] || "browser";

@@ -1,0 +1,994 @@
+{
+  "aboutAppName": {
+    "message": "Sobre o martabs"
+  },
+  "accessibilityDescription": {
+    "message": "Atalhos de teclado e opções de navegação acessíveis."
+  },
+  "accessibilityHeading": {
+    "message": "Acessibilidade"
+  },
+  "accessibilitySection": {
+    "message": "Acessibilidade"
+  },
+  "advancedDescription": {
+    "message": "Ações infrequentes para limpar o estado local."
+  },
+  "advancedHeading": {
+    "message": "Avançado"
+  },
+  "advancedSection": {
+    "message": "Avançado"
+  },
+  "allFolders": {
+    "message": "Todas as pastas"
+  },
+  "allFoldersTitle": {
+    "message": "Todas as pastas"
+  },
+  "animateGradient": {
+    "message": "Animar degradê"
+  },
+  "animateGradientDesc": {
+    "message": "Ativa efeitos de aurora fluida de baixo consumo em segundo plano."
+  },
+  "animateGradientDescShort": {
+    "message": "Efeito Aurora sutil"
+  },
+  "appearanceDescription": {
+    "message": "Preferências visuais gerais do painel."
+  },
+  "appearanceHeading": {
+    "message": "Aparência"
+  },
+  "appearanceSection": {
+    "message": "Aparência"
+  },
+  "automaticTags": {
+    "message": "Etiquetas automáticas"
+  },
+  "automaticTagsDesc": {
+    "message": "Derivadas de pastas, domínio e dados do favorito."
+  },
+  "back": {
+    "message": "Voltar"
+  },
+  "backToDashboard": {
+    "message": "Volver al tablero"
+  },
+  "backToTree": {
+    "message": "Voltar para a árvore"
+  },
+  "bookmarkEditBtn": {
+    "message": "Editar favorito"
+  },
+  "bookmarkPinBtn": {
+    "message": "Fixar favorito"
+  },
+  "bookmarkUnpinBtn": {
+    "message": "Desafixar favorito"
+  },
+  "bookmarksToReviewPlural": {
+    "message": "$COUNT$ favoritos para verificar.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "bookmarksToReviewSingular": {
+    "message": "$COUNT$ favorito para verificar.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "brokenLinksTitle": {
+    "message": "Links com falhas"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "cancelImport": {
+    "message": "Cancelar"
+  },
+  "changeView": {
+    "message": "Alterar visualização"
+  },
+  "cleanFolderNames": {
+    "message": "Nomes de pastas limpos"
+  },
+  "cleanFolderNamesDesc": {
+    "message": "Mostra nomes curtos para maior clareza."
+  },
+  "clearPreviewCache": {
+    "message": "Limpar pré-visualizações em cache"
+  },
+  "clearPreviewsError": {
+    "message": "Não foi possível limpar o cache de pré-visualizações: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "clearPreviewsSuccess": {
+    "message": "Pré-visualizações em cache excluídas."
+  },
+  "collapseAll": {
+    "message": "Recolher todas"
+  },
+  "confirmAndApply": {
+    "message": "Confirmar e aplicar"
+  },
+  "confirmClearPreviews": {
+    "message": "Limpar todas as pré-visualizações locais em cache?"
+  },
+  "confirmDeleteAllFailures": {
+    "message": "Excluir todos os $COUNT$ favoritos com falhas de \"$FOLDER$\"? Esta ação não pode ser desfeita.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "folder": {
+        "content": "$2"
+      }
+    }
+  },
+  "confirmDeleteBookmark": {
+    "message": "Excluir o favorito \"$TITLE$\"?",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmDeleteBookmarkPermanent": {
+    "message": "Excluir o favorito \"$TITLE$\"? Esta ação não pode ser desfeita.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "confirmIgnoreAll": {
+    "message": "Tem certeza de que deseja ignorar todas as falhas detectadas?"
+  },
+  "confirmResetLocalOrg": {
+    "message": "Redefinir todos os movimentos locais e ordenações manuais? Os favoritos reais do navegador não serão modificados."
+  },
+  "confirmResetStats": {
+    "message": "Redefinir o histórico de estatísticas de uso?"
+  },
+  "customGradientDesc": {
+    "message": "Ajuste as cores, tipo e ângulo do degradê."
+  },
+  "customGradientHeading": {
+    "message": "Personalizar"
+  },
+  "customWallpaper": {
+    "message": "Imagem de fundo personalizada"
+  },
+  "customWallpaperActive": {
+    "message": "Plano de fundo personalizado activo"
+  },
+  "dateAdded": {
+    "message": "Adicionado: $DATE$",
+    "placeholders": {
+      "date": {
+        "content": "$1"
+      }
+    }
+  },
+  "defaultMode": {
+    "message": "Modo visual padrão"
+  },
+  "defaultModeDesc": {
+    "message": "Usado quando uma pasta não possui modo próprio."
+  },
+  "defaultSort": {
+    "message": "Ordenação padrão"
+  },
+  "defaultSortDesc": {
+    "message": "Aplica-se a pastas sem ordenação personalizada."
+  },
+  "delete": {
+    "message": "Excluir"
+  },
+  "deleteAllCount": {
+    "message": "Excluir todos ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "domainNone": {
+    "message": "Sem domínio"
+  },
+  "downloadClickStats": {
+    "message": "Baixar histórico de cliques"
+  },
+  "downloadJsonBtn": {
+    "message": "Baixar JSON"
+  },
+  "dragToReorder": {
+    "message": "Arraste para reordenar"
+  },
+  "editFaviconError": {
+    "message": "A imagem atual não pôde ser carregada."
+  },
+  "editFieldFavicon": {
+    "message": "Ícone personalizado (URL da imagem)"
+  },
+  "editFieldName": {
+    "message": "Nome"
+  },
+  "editFieldTags": {
+    "message": "Etiquetas (separadas por vírgulas)"
+  },
+  "editFieldTagsPlaceholder": {
+    "message": "ex: trabalho, docs, js"
+  },
+  "editFieldUrl": {
+    "message": "URL"
+  },
+  "editModalTitle": {
+    "message": "Editar Favorito"
+  },
+  "emptyResults": {
+    "message": "Nenhum resultado encontrado."
+  },
+  "enableInPrivacy": {
+    "message": "Habilitar en Privacidad"
+  },
+  "enablePinnedShortcuts": {
+    "message": "Atalhos para favoritos fixados"
+  },
+  "enablePinnedShortcutsDesc": {
+    "message": "Abra os primeiros 9 favoritos fixados. Use Backspace ou Delete para limpar o atalho."
+  },
+  "expandCollapse": {
+    "message": "Expandir / Recolher"
+  },
+  "exportConfig": {
+    "message": "Exportar configuração"
+  },
+  "exportError": {
+    "message": "Erro ao exportar: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportSuccess": {
+    "message": "Configuração exportada com sucesso."
+  },
+  "extensionDescription": {
+    "message": "Um painel lindo, rápido e privado para organizar e monitorar suas pastas de favoritos na nova guia."
+  },
+  "extensionName": {
+    "message": "martabs"
+  },
+  "failuresCountPlural": {
+    "message": "$COUNT$ falhas",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresCountSingular": {
+    "message": "$COUNT$ falha",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "failuresIn": {
+    "message": "Falhas em $FOLDER$",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
+  },
+  "firefoxBookmarksNotice": {
+    "message": "No Firefox, use o atalho Ctrl+Shift+O para gerenciar favoritos."
+  },
+  "folderTableHeaderFolder": {
+    "message": "Pasta"
+  },
+  "folderTableHeaderSort": {
+    "message": "Ordenação"
+  },
+  "folderTableHeaderView": {
+    "message": "Visualização"
+  },
+  "foldersDescription": {
+    "message": "Escolher pastas, ordená-las e ajustar visualização ou ordenação por pasta."
+  },
+  "foldersHeading": {
+    "message": "Pastas"
+  },
+  "foldersSection": {
+    "message": "Pastas"
+  },
+  "frequentSites": {
+    "message": "Sites frequentes"
+  },
+  "frequentSitesDesc": {
+    "message": "Mostra seus sites mais visitados."
+  },
+  "frequentTag": {
+    "message": "Frequente"
+  },
+  "gradientAngle": {
+    "message": "Ângulo"
+  },
+  "gradientColorEnd": {
+    "message": "Cor final"
+  },
+  "gradientColorStart": {
+    "message": "Cor inicial"
+  },
+  "gradientColors": {
+    "message": "Cores"
+  },
+  "gradientLinear": {
+    "message": "Linear"
+  },
+  "gradientPresetsHeading": {
+    "message": "Selecionar um degradê"
+  },
+  "gradientRadial": {
+    "message": "Radial"
+  },
+  "gradientStyleHeading": {
+    "message": "Estilo"
+  },
+  "gradientType": {
+    "message": "Tipo de degradê"
+  },
+  "healthBroken": {
+    "message": "Inacessível (Código: $CODE$)",
+    "placeholders": {
+      "code": {
+        "content": "$1"
+      }
+    }
+  },
+  "healthOk": {
+    "message": "Link acessível"
+  },
+  "healthUnchecked": {
+    "message": "Não verificado"
+  },
+  "hide": {
+    "message": "Ocultar"
+  },
+  "hidePinnedFolder": {
+    "message": "Ocultar pasta de Fixados (você pode exibir novamente nas Configurações)"
+  },
+  "hideSite": {
+    "message": "Ocultar site"
+  },
+  "ignoreAll": {
+    "message": "Ignorar todos"
+  },
+  "importConfig": {
+    "message": "Importar configuração"
+  },
+  "importErrorParse": {
+    "message": "O arquivo de configuração não possui um formato válido."
+  },
+  "importErrorProcess": {
+    "message": "Erro ao processar o arquivo: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorSave": {
+    "message": "Erro ao salvar: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "importErrorVersion": {
+    "message": "Versão de arquivo JSON não suportada ou inválida."
+  },
+  "importSaving": {
+    "message": "Salvando configuração importada..."
+  },
+  "importSuccess": {
+    "message": "Configuração importada com sucesso. Recarregando em breve..."
+  },
+  "importSummary": {
+    "message": "Mapeadas $FOLDERS$ pastas, $TAGS$ etiquetas e $PINNED$ favoritos fixados. Elementos ignorados: $UNMAPPED$.",
+    "placeholders": {
+      "folders": {
+        "content": "$1"
+      },
+      "tags": {
+        "content": "$2"
+      },
+      "pinned": {
+        "content": "$3"
+      },
+      "unmapped": {
+        "content": "$4"
+      }
+    }
+  },
+  "installedVersion": {
+    "message": "Versão instalada:"
+  },
+  "keyboardShortcuts": {
+    "message": "Atalhos de teclado"
+  },
+  "language": {
+    "message": "Idioma"
+  },
+  "languageAr": {
+    "message": "Arabic (Arabic)"
+  },
+  "languageDe": {
+    "message": "Alemão (German)"
+  },
+  "languageDesc": {
+    "message": "Escolha o idioma da interface."
+  },
+  "languageEn": {
+    "message": "Inglês (English)"
+  },
+  "languageEs": {
+    "message": "Espanhol (Spanish)"
+  },
+  "languageFr": {
+    "message": "Francês (French)"
+  },
+  "languageIt": {
+    "message": "Italiano (Italian)"
+  },
+  "languageJa": {
+    "message": "Japonês (Japanese)"
+  },
+  "languageKo": {
+    "message": "Coreano (Korean)"
+  },
+  "languagePt": {
+    "message": "Português (Portuguese)"
+  },
+  "languageRu": {
+    "message": "Russo (Russian)"
+  },
+  "languageSystem": {
+    "message": "Sistema (Padrão)"
+  },
+  "languageZh": {
+    "message": "Chinês (Chinese)"
+  },
+  "linkHealth": {
+    "message": "Revisão de saúde dos links"
+  },
+  "linkHealthBrokenTitle": {
+    "message": "Este link não respondeu corretamente na última verificação."
+  },
+  "linkHealthDesc": {
+    "message": "Adiciona o botão de saúde para verificar o estado dos favoritos."
+  },
+  "loadBookmarksError": {
+    "message": "Não foi possível carregar os favoritos: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadError": {
+    "message": "Não foi possível carregar as pastas: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "loadingBookmarks": {
+    "message": "Carregando favoritos..."
+  },
+  "localStats": {
+    "message": "Estatísticas de uso locais"
+  },
+  "localStatsDesc": {
+    "message": "Registra aberturas para mostrar recentes e mais usados. Privado."
+  },
+  "localStorageAudit": {
+    "message": "Uso de armazenamento local"
+  },
+  "manualTags": {
+    "message": "Etiquetas manuais"
+  },
+  "manualTagsDesc": {
+    "message": "Permite editar etiquetas na interface de cada favorito."
+  },
+  "modeCompact": {
+    "message": "Lista compacta"
+  },
+  "modeDefault": {
+    "message": "Padrão"
+  },
+  "modeIcons": {
+    "message": "Grade de ícones"
+  },
+  "modeIconsLarge": {
+    "message": "Grade de ícones (grande)"
+  },
+  "modeList": {
+    "message": "Lista completa"
+  },
+  "modeQuicklinks": {
+    "message": "Quicklinks"
+  },
+  "monitoredBookmarksCountPlural": {
+    "message": "$COUNT$ favoritos monitorados",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "monitoredBookmarksCountSingular": {
+    "message": "$COUNT$ favorito monitorado",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "mostVisitedBookmarks": {
+    "message": "Favoritos mais usados"
+  },
+  "moveDown": {
+    "message": "Mover para baixo"
+  },
+  "moveToBottom": {
+    "message": "Enviar para o final"
+  },
+  "moveToTop": {
+    "message": "Enviar para o inicio"
+  },
+  "moveUp": {
+    "message": "Mover para cima"
+  },
+  "newtabTitle": {
+    "message": "Início - martabs"
+  },
+  "noFailuresRegistered": {
+    "message": "Nenhuma falha registrada nos links."
+  },
+  "noFolder": {
+    "message": "Sem pasta"
+  },
+  "noFoldersSelected": {
+    "message": "Nenhuma pasta selecionada"
+  },
+  "openBrowserBookmarks": {
+    "message": "Gerenciar favoritos"
+  },
+  "pinnedFolderTitle": {
+    "message": "Fixados"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmos"
+  },
+  "presetDarkGlass": {
+    "message": "Cristal"
+  },
+  "presetDeepOcean": {
+    "message": "Oceano"
+  },
+  "presetMidnightForest": {
+    "message": "Floresta"
+  },
+  "presetSunsetBreeze": {
+    "message": "Ocaso"
+  },
+  "presetWarmSunrise": {
+    "message": "Aurora"
+  },
+  "previewCapture": {
+    "message": "Capturar pré-visualizações locais"
+  },
+  "previewCaptureDesc": {
+    "message": "Apenas para favoritos abertos a partir do martabs."
+  },
+  "previewLabelLocal": {
+    "message": "Captura local"
+  },
+  "previewLabelQuick": {
+    "message": "Visualização rápida local"
+  },
+  "privacyDescription": {
+    "message": "Recursos que podem solicitar permissões opcionais do navegador."
+  },
+  "privacyHeading": {
+    "message": "Privacidade"
+  },
+  "privacySection": {
+    "message": "Privacidade"
+  },
+  "removeFolder": {
+    "message": "Remover pasta"
+  },
+  "removeWallpaper": {
+    "message": "Remover plano de fundo personalizado"
+  },
+  "resetHiddenTopSites": {
+    "message": "Restablecer ocultos"
+  },
+  "resetLocalOrg": {
+    "message": "Redefinir organização local"
+  },
+  "resetLocalOrgError": {
+    "message": "Não foi possível redefinir a organização local: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "resetLocalOrgSuccess": {
+    "message": "Organização local redefinida."
+  },
+  "resetStats": {
+    "message": "Redefinir estatísticas"
+  },
+  "review": {
+    "message": "Verificar saúde"
+  },
+  "reviewing": {
+    "message": "Verificando saúde..."
+  },
+  "rotateWallpapers": {
+    "message": "Alternar planos de fundo aleatoriamente"
+  },
+  "rotateWallpapersDesc": {
+    "message": "Alterna aleatoriamente entre as imagens de fundo enviadas ao abrir uma nova guia."
+  },
+  "save": {
+    "message": "Salvar"
+  },
+  "saveBookmarkError": {
+    "message": "Não foi possível salvar o favorito: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveChanges": {
+    "message": "Salvar alterações"
+  },
+  "saveError": {
+    "message": "Não foi possível salvar a configuração: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "saveErrorNoPermissionsCapture": {
+    "message": "Configurações salvas. Abra uma nova guia para usar o martabs. Não foi possível ativar a captura de pré-visualizações por falta de permissão."
+  },
+  "saveErrorNoPermissionsHealth": {
+    "message": "Configurações salvas. Não foi possível ativar a revisão de saúde dos links por falta de permissão."
+  },
+  "saveSuccess": {
+    "message": "Configurações salvas. Abra uma nova guia para usar o martabs."
+  },
+  "searchAccessibilitySection": {
+    "message": "Acessibilidade"
+  },
+  "searchAdvancedSection": {
+    "message": "avançado limpar redefinir reset previews cache organização"
+  },
+  "searchAppearance": {
+    "message": "aparência tema modo visualização ordenação fixados preview rápida"
+  },
+  "searchAutoTagsRow": {
+    "message": "etiquetas automáticas tags domínio pasta"
+  },
+  "searchCleanFoldersRow": {
+    "message": "Nomes limpos"
+  },
+  "searchClearPreviewsBtn": {
+    "message": "limpar previews cache capturas imagens"
+  },
+  "searchExportBtn": {
+    "message": "exportar configuração backup baixar json"
+  },
+  "searchFolders": {
+    "message": "pastas selecionar monitorar visualização ordenação manual padrão"
+  },
+  "searchFoldersPlaceholder": {
+    "message": "Filtrar pastas..."
+  },
+  "searchImportBtn": {
+    "message": "importar configuração restaurar backup json"
+  },
+  "searchLanguageRow": {
+    "message": "idioma linguagem inglês espanhol sistema padrão"
+  },
+  "searchLinkHealthRow": {
+    "message": "revisão saúde links quebrados falhas permissões rede"
+  },
+  "searchManualTagsRow": {
+    "message": "etiquetas manuais tags editar favorito"
+  },
+  "searchModeRow": {
+    "message": "modo visual padrão lista compacta ícones quicklinks"
+  },
+  "searchPinnedRow": {
+    "message": "fixados favoritos pasta virtual destaques"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar título, etiqueta, URL ou pasta..."
+  },
+  "searchPreviewCaptureRow": {
+    "message": "capturar visualizações locais imagem captura permissões"
+  },
+  "searchPreviewRow": {
+    "message": "visualização rápida preview tooltip detalhes mouse"
+  },
+  "searchPrivacySection": {
+    "message": "privacidade permissões links capturas rede"
+  },
+  "searchResetLocalOrgBtn": {
+    "message": "redefinir reset organização local movimentos ordenações manuais"
+  },
+  "searchSettingsPlaceholder": {
+    "message": "Buscar configurações..."
+  },
+  "searchShortcutsRow": {
+    "message": "Atalhos"
+  },
+  "searchSortRow": {
+    "message": "ordenação padrão ordem original manual título data domínio falhas"
+  },
+  "searchStatisticsRow": {
+    "message": "estatísticas uso cliques visitas histórico json"
+  },
+  "searchTagsSection": {
+    "message": "etiquetas tags automáticas manuais"
+  },
+  "searchThemeRow": {
+    "message": "tema cor sistema claro escuro"
+  },
+  "selectFolder": {
+    "message": "Selecionar pasta"
+  },
+  "selectFolderWarning": {
+    "message": "Selecione pelo menos uma pasta."
+  },
+  "selectedFoldersSubtitle": {
+    "message": "Arraste para ordenar"
+  },
+  "selectedFoldersTitle": {
+    "message": "Colunas no painel"
+  },
+  "settingsBtn": {
+    "message": "Configurar"
+  },
+  "settingsBtnTitle": {
+    "message": "Configurar favoritos e preferências"
+  },
+  "setupEmptyStateDescription": {
+    "message": "Abra as Configurações e escolha uma ou mais pastas."
+  },
+  "setupEmptyStateTitle": {
+    "message": "Configure suas pastas para começar."
+  },
+  "setupHeaderTitle": {
+    "message": "Configurações"
+  },
+  "setupTitle": {
+    "message": "Configurar martabs"
+  },
+  "shortcutAlt": {
+    "message": "Alt + 1..9"
+  },
+  "shortcutCtrl": {
+    "message": "Ctrl + 1..9"
+  },
+  "shortcutCtrlShift": {
+    "message": "Ctrl + Shift + 1..9"
+  },
+  "shortcutEsc": {
+    "message": "Limpar pesquisa ou fechar menu/visualização"
+  },
+  "shortcutSearch": {
+    "message": "Focar barra de pesquisa"
+  },
+  "showPinnedFolder": {
+    "message": "Mostrar pasta virtual de fixados"
+  },
+  "showPinnedFolderDesc": {
+    "message": "A pasta superior agrupa os favoritos fixados."
+  },
+  "showPreview": {
+    "message": "Mostrar visualização rápida"
+  },
+  "showPreviewDesc": {
+    "message": "Abre o painel de detalhes ao passar o mouse."
+  },
+  "showSortButtonDesc": {
+    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
+  },
+  "showSortButtonTitle": {
+    "message": "Mostrar botón de Ordenar"
+  },
+  "showViewButtonDesc": {
+    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+  },
+  "showViewButtonTitle": {
+    "message": "Mostrar botón de Vista"
+  },
+  "sortBrowser": {
+    "message": "Ordem original"
+  },
+  "sortColumns": {
+    "message": "Ordenar colunas"
+  },
+  "sortDateNewest": {
+    "message": "Mais recentes primeiro"
+  },
+  "sortDefault": {
+    "message": "Padrão"
+  },
+  "sortDomainAsc": {
+    "message": "Domínio A-Z"
+  },
+  "sortHealthBrokenFirst": {
+    "message": "Falhas primeiro"
+  },
+  "sortManual": {
+    "message": "Manual"
+  },
+  "sortTitleAsc": {
+    "message": "Título A-Z"
+  },
+  "statisticsSection": {
+    "message": "Estatísticas"
+  },
+  "statsDisabledMsg": {
+    "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
+  },
+  "tagsDescription": {
+    "message": "Controla como o martabs gera e exibe etiquetas."
+  },
+  "tagsHeading": {
+    "message": "Etiquetas"
+  },
+  "tagsSection": {
+    "message": "Etiquetas"
+  },
+  "theme": {
+    "message": "Tema"
+  },
+  "themeDark": {
+    "message": "Escuro"
+  },
+  "themeDesc": {
+    "message": "Respeita o sistema ou força claro/escuro."
+  },
+  "themeLight": {
+    "message": "Claro"
+  },
+  "themeSelectHelperNote": {
+    "message": "O tema da interface está sendo controlado pelo plano de fundo personalizado."
+  },
+  "themeSystem": {
+    "message": "Sistema (Automático)"
+  },
+  "toggleAllFolders": {
+    "message": "Marcar / desmarcar todas"
+  },
+  "topSitesLimit": {
+    "message": "Quantidade visível"
+  },
+  "unsavedChanges": {
+    "message": "Alterações não salvas (Clique em Salvar)"
+  },
+  "unsavedChangesWarning": {
+    "message": "Tienes cambios sin guardar. ¿Seguro que quieres salir?"
+  },
+  "uploadImage": {
+    "message": "Enviar imagem"
+  },
+  "uploadWallpaperText": {
+    "message": "Arraste uma imagem aqui ou clique para buscar (Máx. 12 MB)"
+  },
+  "visitsCountPlural": {
+    "message": "$COUNT$ visitas",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "visitsCountSingular": {
+    "message": "$COUNT$ visita",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "wallpaperBrightness": {
+    "message": "Brilho da imagem"
+  },
+  "wallpaperBrightnessDesc": {
+    "message": "Ajusta a luminosidade do plano de fundo personalizado."
+  },
+  "wallpaperDescription": {
+    "message": "Personalize o fundo do painel principal da nova guia."
+  },
+  "wallpaperFolderOpacity": {
+    "message": "Opacidade das pastas"
+  },
+  "wallpaperFolderOpacityDesc": {
+    "message": "Modifica a transparência dos cartões das pastas."
+  },
+  "wallpaperFormatError": {
+    "message": "Formato de arquivo inválido. Por favor, envie uma imagem."
+  },
+  "wallpaperGenericError": {
+    "message": "Erro ao carregar a imagem."
+  },
+  "wallpaperHeaderOpacity": {
+    "message": "Opacidade do cabeçalho"
+  },
+  "wallpaperHeaderOpacityDesc": {
+    "message": "Modifica a transparência da barra superior."
+  },
+  "wallpaperHeading": {
+    "message": "Plano de fundo"
+  },
+  "wallpaperLegibility": {
+    "message": "Escurecer/clarear fundo"
+  },
+  "wallpaperLegibilityDesc": {
+    "message": "Ajuste a intensidade da camada de legibilidade do fundo."
+  },
+  "wallpaperSection": {
+    "message": "Plano de fundo"
+  },
+  "wallpaperSizeError": {
+    "message": "A imagem excede o limite de 12 MB."
+  },
+  "wallpaperTheme": {
+    "message": "Esquema de cores da interface"
+  },
+  "wallpaperThemeDesc": {
+    "message": "Forçar cores claras ou escuras sobre a imagem."
+  },
+  "wallpaperType": {
+    "message": "Tipo de plano de fundo"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Degradê"
+  },
+  "wallpaperTypeImage": {
+    "message": "Imagem"
+  },
+  "wallpaperTypeNone": {
+    "message": "Sem fundo"
+  }
+}

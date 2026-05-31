@@ -75,6 +75,27 @@ test("firefox manifest does not inherit chrome-only favicon permission", async (
   assert.ok(!base.optional_permissions?.includes("alarms"), "base manifest should not declare optional alarms");
 });
 
+test("firefox manifest privacy declaration matches supported browser versions", async () => {
+  const firefox = JSON.parse(await readFile("src/manifest.firefox.json", "utf8"));
+  const settings = firefox.browser_specific_settings;
+
+  assert.equal(settings.gecko.strict_min_version, "140.0");
+  assert.deepEqual(settings.gecko.data_collection_permissions, { required: ["none"] });
+  assert.equal(settings.gecko_android.strict_min_version, "142.0");
+});
+
+test("statistics and warning badges avoid dynamic innerHTML that AMO flags", async () => {
+  const setup = await readFile("src/setup/setup.js", "utf8");
+  const newtab = await readFile("src/newtab/newtab.js", "utf8");
+
+  assert.doesNotMatch(setup, /statsChart\.innerHTML\s*=\s*`/);
+  assert.doesNotMatch(setup, /storageAudit\.innerHTML\s*\+=/);
+  assert.doesNotMatch(newtab, /\breviewButton\.innerHTML\s*=/);
+  assert.doesNotMatch(newtab, /\bviewButton\.innerHTML\s*=/);
+  assert.doesNotMatch(newtab, /\bmodeBtn\.innerHTML\s*=/);
+  assert.doesNotMatch(newtab, /\bsortBtn\.innerHTML\s*=/);
+});
+
 test("service worker does not rebuild index on purely visual setting changes", async () => {
   const worker = await readFile("src/background/service-worker.js", "utf8");
 
@@ -86,4 +107,3 @@ test("service worker does not rebuild index on purely visual setting changes", a
   // Make sure it references rebuildAffectingKeys
   assert.match(worker, /rebuildAffectingKeys/);
 });
-

@@ -24,7 +24,7 @@ test("i18n message files do not contain mojibake or misplaced Spanish", async ()
     assert.doesNotMatch(text, /Ã|Â[\u0080-\u00BF]|ðŸ/, `El archivo de traduccion ${locale}/messages.json contiene posibles caracteres mojibake.`);
     
     // Si no es un idioma latino, no deberia tener tildes ni enies en los mensajes
-    if (!["es", "fr", "it", "pt", "de"].includes(locale) && locale !== "en") {
+    if (!["es", "fr", "it", "pt_BR", "pt_PT", "de"].includes(locale) && locale !== "en") {
         // Ignoramos la palabra "martabs" o la definicion de idiomas que si pueden estar en ingles,
         // pero validamos que no se hayan colado tildes (áéíóúñ) o signos de apertura hispanos (¿¡).
         const parsed = JSON.parse(text);
@@ -63,9 +63,11 @@ test("selected CJK locales translate the setup UI instead of falling back to Spa
   }
 });
 
-test("legacy zh setting is normalized to zh_CN", () => {
+test("legacy zh/pt setting is normalized to zh_CN/pt_BR", () => {
   assert.strictEqual(normalizeLanguageCode("zh"), "zh_CN");
   assert.strictEqual(normalizeLanguageCode("zh_CN"), "zh_CN");
+  assert.strictEqual(normalizeLanguageCode("pt"), "pt_BR");
+  assert.strictEqual(normalizeLanguageCode("pt_BR"), "pt_BR");
   assert.strictEqual(normalizeLanguageCode("ja"), "ja");
 });
 

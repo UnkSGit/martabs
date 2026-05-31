@@ -2263,7 +2263,10 @@ async function renderStatistics() {
   const data = await api.storage.local.get(STORAGE_KEYS.clickStats);
   const clickStats = data[STORAGE_KEYS.clickStats] || [];
   if (clickStats.length === 0) {
-    statsChart.innerHTML = `<p data-i18n="emptyResults">${t(api, "emptyResults")}</p>`;
+    const empty = document.createElement("p");
+    empty.dataset.i18n = "emptyResults";
+    empty.textContent = t(api, "emptyResults");
+    statsChart.appendChild(empty);
   } else {
     const counts = {};
     const titles = {};
@@ -2276,32 +2279,59 @@ async function renderStatistics() {
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10);
     const maxCount = sorted[0][1];
     
-    statsChart.innerHTML = `<div role="list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">` + 
-      sorted.map(([id, count]) => {
-        const percentage = (count / maxCount) * 100;
-        let domain = "";
-        try { domain = new URL(urls[id]).hostname; } catch(e) {}
-        const faviconUrl = domain ? `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=32` : "";
-        const faviconImg = faviconUrl 
-          ? `<img src="${faviconUrl}" alt="" style="width: 16px; height: 16px; border-radius: 2px;">` 
-          : `<div style="width: 16px; height: 16px; border-radius: 2px; background: var(--surface-border);"></div>`;
-        const visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
+    const list = document.createElement("div");
+    list.setAttribute("role", "list");
+    list.style.cssText = "display: flex; flex-direction: column; gap: 12px; margin-top: 8px;";
 
-        return `
-          <div role="listitem" style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 8px; width: 140px; min-width: 140px; overflow: hidden;">
-              ${faviconImg}
-              <span style="font-size: 13px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${titles[id]}">${titles[id]}</span>
-            </div>
-            <div style="width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: end;">
-              ${visitsText || (count + " aperturas")}
-            </div>
-            <div aria-hidden="true" style="flex: 1; height: 14px; display: flex; align-items: center;">
-              <div style="width: ${percentage}%; height: 100%; background-color: var(--primary); border-radius: 3px; min-width: 4px;"></div>
-            </div>
-          </div>
-        `;
-      }).join("") + `</div>`;
+    sorted.forEach(([id, count]) => {
+      const percentage = (count / maxCount) * 100;
+      let domain = "";
+      try { domain = new URL(urls[id]).hostname; } catch(e) {}
+      const faviconUrl = domain ? `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=32` : "";
+      const visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
+
+      const item = document.createElement("div");
+      item.setAttribute("role", "listitem");
+      item.style.cssText = "display: flex; align-items: center; gap: 12px;";
+
+      const label = document.createElement("div");
+      label.style.cssText = "display: flex; align-items: center; gap: 8px; width: 140px; min-width: 140px; overflow: hidden;";
+
+      if (faviconUrl) {
+        const img = document.createElement("img");
+        img.src = faviconUrl;
+        img.alt = "";
+        img.style.cssText = "width: 16px; height: 16px; border-radius: 2px;";
+        label.appendChild(img);
+      } else {
+        const fallback = document.createElement("div");
+        fallback.style.cssText = "width: 16px; height: 16px; border-radius: 2px; background: var(--surface-border);";
+        label.appendChild(fallback);
+      }
+
+      const title = document.createElement("span");
+      title.style.cssText = "font-size: 13px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;";
+      title.title = titles[id];
+      title.textContent = titles[id];
+      label.appendChild(title);
+
+      const countEl = document.createElement("div");
+      countEl.style.cssText = "width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: end;";
+      countEl.textContent = visitsText || `${count} aperturas`;
+
+      const barWrap = document.createElement("div");
+      barWrap.setAttribute("aria-hidden", "true");
+      barWrap.style.cssText = "flex: 1; height: 14px; display: flex; align-items: center;";
+
+      const bar = document.createElement("div");
+      bar.style.cssText = `width: ${percentage}%; height: 100%; background-color: var(--primary); border-radius: 3px; min-width: 4px;`;
+      barWrap.appendChild(bar);
+
+      item.append(label, countEl, barWrap);
+      list.appendChild(item);
+    });
+
+    statsChart.appendChild(list);
   }
   try {
     const allStorage = await api.storage.local.get(null);
@@ -2309,21 +2339,38 @@ async function renderStatistics() {
     for (const [key, value] of Object.entries(allStorage)) {
       const size = new Blob([JSON.stringify(value)]).size;
       totalBytes += size;
-      storageAudit.innerHTML += `
-        <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--surface-strong); border-radius: 6px; border: 1px solid var(--surface-border);">
-          <span style="font-size: 13px;">${key}</span>
-          <span style="font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums;">${(size / 1024).toFixed(1)} KB</span>
-        </div>
-      `;
+      const row = document.createElement("div");
+      row.style.cssText = "display: flex; justify-content: space-between; padding: 8px; background-color: var(--surface-strong); border-radius: 6px; border: 1px solid var(--surface-border);";
+
+      const keyEl = document.createElement("span");
+      keyEl.style.cssText = "font-size: 13px;";
+      keyEl.textContent = key;
+
+      const sizeEl = document.createElement("span");
+      sizeEl.style.cssText = "font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums;";
+      sizeEl.textContent = `${(size / 1024).toFixed(1)} KB`;
+
+      row.append(keyEl, sizeEl);
+      storageAudit.appendChild(row);
     }
-    storageAudit.innerHTML += `
-      <div style="display: flex; justify-content: space-between; padding: 8px; background-color: var(--primary-soft); border-radius: 6px; border: 1px solid var(--surface-border); font-weight: 500;">
-        <span style="font-size: 13px;">Total</span>
-        <span style="font-size: 13px; font-variant-numeric: tabular-nums;">${(totalBytes / 1024).toFixed(1)} KB</span>
-      </div>
-    `;
+    const totalRow = document.createElement("div");
+    totalRow.style.cssText = "display: flex; justify-content: space-between; padding: 8px; background-color: var(--primary-soft); border-radius: 6px; border: 1px solid var(--surface-border); font-weight: 500;";
+
+    const totalLabel = document.createElement("span");
+    totalLabel.style.cssText = "font-size: 13px;";
+    totalLabel.textContent = "Total";
+
+    const totalSize = document.createElement("span");
+    totalSize.style.cssText = "font-size: 13px; font-variant-numeric: tabular-nums;";
+    totalSize.textContent = `${(totalBytes / 1024).toFixed(1)} KB`;
+
+    totalRow.append(totalLabel, totalSize);
+    storageAudit.appendChild(totalRow);
   } catch (e) {
-    storageAudit.innerHTML = `<p>Error loading storage.</p>`;
+    storageAudit.textContent = "";
+    const error = document.createElement("p");
+    error.textContent = "Error loading storage.";
+    storageAudit.appendChild(error);
   }
 }
 

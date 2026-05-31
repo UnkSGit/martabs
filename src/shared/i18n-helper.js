@@ -1,7 +1,8 @@
 let customTranslations = null;
 
 const LANGUAGE_ALIASES = {
-  zh: "zh_CN"
+  zh: "zh_CN",
+  pt: "pt_BR"
 };
 
 export function normalizeLanguageCode(language) {
