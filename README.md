@@ -8,6 +8,10 @@ The goal is to easily find bookmarks saved in large folders, featuring instant s
 
 Compatible with Chrome, Edge, Brave, and Firefox.
 
+## Demo Video
+
+![martabs demo](docs/assets/demo/martabs-demo.webm)
+
 ## Screenshots
 
 ![Dashboard in dark mode](docs/assets/store_screenshots/en/1-dashboard-dark.png)

@@ -8,6 +8,10 @@ El objetivo es encontrar rapido marcadores guardados en carpetas grandes, con bu
 
 Compatible con Chrome, Edge, Brave y Firefox.
 
+## Video Demostrativo
+
+![martabs demo](docs/assets/demo/martabs-demo.webm)
+
 ## Capturas
 
 ![Dashboard en modo oscuro](docs/assets/store_screenshots/es/1-dashboard-dark.png)
