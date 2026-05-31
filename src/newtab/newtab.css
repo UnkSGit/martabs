@@ -1177,6 +1177,7 @@ button svg {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .custom-wallpaper-bg.is-loaded {
@@ -1227,6 +1228,78 @@ button svg {
 .theme-dark.has-custom-wallpaper #search {
   background: rgba(24, 30, 40, var(--custom-header-opacity, 0.45));
   border-color: rgba(148, 163, 184, 0.22);
+}
+
+/* Aurora Animation Blobs */
+.aurora-blob {
+  position: absolute;
+  width: 66vw;
+  height: 66vw;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.aurora-blob-1 {
+  background: var(--aurora-color-1, #ff9a9e);
+  top: -20%;
+  left: -10%;
+  animation: aurora-float-1 25s infinite alternate ease-in-out;
+}
+
+.aurora-blob-2 {
+  background: var(--aurora-color-2, #fecfef);
+  bottom: -20%;
+  right: -10%;
+  animation: aurora-float-2 30s infinite alternate ease-in-out;
+}
+
+.aurora-blob-3 {
+  background: var(--aurora-color-3, #0072ff);
+  top: 30%;
+  right: 20%;
+  animation: aurora-float-3 22s infinite alternate ease-in-out;
+  width: 48vw;
+  height: 48vw;
+  opacity: 0.38;
+}
+
+@keyframes aurora-float-1 {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(22%, 14%) rotate(180deg) scale(1.28); }
+  100% { transform: translate(-8%, 24%) rotate(360deg) scale(0.92); }
+}
+
+@keyframes aurora-float-2 {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1.1); }
+  50% { transform: translate(-26%, -18%) rotate(-120deg) scale(0.82); }
+  100% { transform: translate(14%, -10%) rotate(-240deg) scale(1.26); }
+}
+
+@keyframes aurora-float-3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(-18%, 22%) scale(1.22); }
+  100% { transform: translate(20%, -16%) scale(1.04); }
+}
+
+/* Dark mode adjustments to avoid overly bright blobs */
+.theme-dark.has-custom-wallpaper .aurora-blob {
+  mix-blend-mode: plus-lighter;
+  opacity: 0.46;
+}
+
+.theme-light.has-custom-wallpaper .aurora-blob {
+  mix-blend-mode: soft-light;
+  opacity: 0.3;
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none !important;
+  }
 }
 
 

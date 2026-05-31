@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "すべてのフォルダ"
   },
+  "animateGradient": {
+    "message": "グラデーションをアニメーション化"
+  },
+  "animateGradientDesc": {
+    "message": "バックグラウンドで低負荷な流体オーロラエフェクトを有効にします。"
+  },
+  "animateGradientDescShort": {
+    "message": "オーロラ効果（微弱）"
+  },
   "appearanceDescription": {
     "message": "ダッシュボードの全体的な表示設定。"
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "使用統計履歴をリセットしますか？"
+  },
+  "customGradientDesc": {
+    "message": "グラデーションの色、タイプ、角度を調整します。"
+  },
+  "customGradientHeading": {
+    "message": "カスタマイズ"
   },
   "customWallpaper": {
     "message": "カスタム背景画像"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "頻繁"
+  },
+  "gradientAngle": {
+    "message": "角度"
+  },
+  "gradientColorEnd": {
+    "message": "終了色"
+  },
+  "gradientColorStart": {
+    "message": "開始色"
+  },
+  "gradientColors": {
+    "message": "カラー"
+  },
+  "gradientLinear": {
+    "message": "線形"
+  },
+  "gradientPresetsHeading": {
+    "message": "グラデーションを選択"
+  },
+  "gradientRadial": {
+    "message": "放射状"
+  },
+  "gradientStyleHeading": {
+    "message": "スタイル"
+  },
+  "gradientType": {
+    "message": "グラデーションの種類"
   },
   "healthBroken": {
     "message": "アクセス不可 (コード: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "固定済み"
+  },
+  "presetCosmicViolet": {
+    "message": "コズミック"
+  },
+  "presetDarkGlass": {
+    "message": "ガラス"
+  },
+  "presetDeepOcean": {
+    "message": "オーシャン"
+  },
+  "presetMidnightForest": {
+    "message": "フォレスト"
+  },
+  "presetSunsetBreeze": {
+    "message": "サンセット"
+  },
+  "presetWarmSunrise": {
+    "message": "サンライズ"
   },
   "previewCapture": {
     "message": "ローカルプレビューをキャプチャ"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "画像の上に明るい色または暗い色を強制します。"
+  },
+  "wallpaperType": {
+    "message": "背景のタイプ"
+  },
+  "wallpaperTypeGradient": {
+    "message": "グラデーション"
+  },
+  "wallpaperTypeImage": {
+    "message": "画像"
+  },
+  "wallpaperTypeNone": {
+    "message": "背景なし"
   }
 }

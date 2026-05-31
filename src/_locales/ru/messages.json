@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "Все папки"
   },
+  "animateGradient": {
+    "message": "Анимировать градиент"
+  },
+  "animateGradientDesc": {
+    "message": "Активирует легкие и плавные эффекты полярного сияния на фоне."
+  },
+  "animateGradientDescShort": {
+    "message": "Эффект Аврора"
+  },
   "appearanceDescription": {
     "message": "Общие визуальные настройки главной панели."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "Сбросить историю статистики использования?"
+  },
+  "customGradientDesc": {
+    "message": "Настройка цвета, типа и угла градиента."
+  },
+  "customGradientHeading": {
+    "message": "Настроить"
   },
   "customWallpaper": {
     "message": "Пользовательские обои"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Частые"
+  },
+  "gradientAngle": {
+    "message": "Угол"
+  },
+  "gradientColorEnd": {
+    "message": "Конечный цвет"
+  },
+  "gradientColorStart": {
+    "message": "Начальный цвет"
+  },
+  "gradientColors": {
+    "message": "Цвета"
+  },
+  "gradientLinear": {
+    "message": "Линейный"
+  },
+  "gradientPresetsHeading": {
+    "message": "Выберите градиент"
+  },
+  "gradientRadial": {
+    "message": "Радиальный"
+  },
+  "gradientStyleHeading": {
+    "message": "Стиль"
+  },
+  "gradientType": {
+    "message": "Тип градиента"
   },
   "healthBroken": {
     "message": "Недоступно (Код: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Закрепленные"
+  },
+  "presetCosmicViolet": {
+    "message": "Космос"
+  },
+  "presetDarkGlass": {
+    "message": "Стекло"
+  },
+  "presetDeepOcean": {
+    "message": "Океан"
+  },
+  "presetMidnightForest": {
+    "message": "Лес"
+  },
+  "presetSunsetBreeze": {
+    "message": "Закат"
+  },
+  "presetWarmSunrise": {
+    "message": "Рассвет"
   },
   "previewCapture": {
     "message": "Создавать локальные превью"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Принудительно использовать светлые или темные цвета поверх изображения."
+  },
+  "wallpaperType": {
+    "message": "Тип фона"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Градиент"
+  },
+  "wallpaperTypeImage": {
+    "message": "Изображение"
+  },
+  "wallpaperTypeNone": {
+    "message": "Без фона"
   }
 }

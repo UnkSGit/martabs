@@ -9,7 +9,7 @@ import { execSync } from "node:child_process";
 
 test("i18n messages files are fully synchronized, formatted, and valid", () => {
   try {
-    execSync("node scripts/i18n-maintain.mjs --check", { stdio: "pipe" });
+    execSync(`"${process.execPath}" scripts/i18n-maintain.mjs --check`, { stdio: "pipe" });
   } catch (err) {
     const output = err.stdout?.toString() || err.stderr?.toString() || err.message;
     assert.fail(`i18n audit failed:\n${output}`);
@@ -21,7 +21,7 @@ test("i18n message files do not contain mojibake or misplaced Spanish", async ()
 
   for (const locale of locales) {
     const text = await readFile(`src/_locales/${locale}/messages.json`, "utf-8");
-    assert.doesNotMatch(text, /Ã|Â|ðŸ/, `El archivo de traduccion ${locale}/messages.json contiene posibles caracteres mojibake.`);
+    assert.doesNotMatch(text, /Ã|Â[\u0080-\u00BF]|ðŸ/, `El archivo de traduccion ${locale}/messages.json contiene posibles caracteres mojibake.`);
     
     // Si no es un idioma latino, no deberia tener tildes ni enies en los mensajes
     if (!["es", "fr", "it", "pt", "de"].includes(locale) && locale !== "en") {

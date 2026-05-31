@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "모든 폴더"
   },
+  "animateGradient": {
+    "message": "그라데이션 애니메이션"
+  },
+  "animateGradientDesc": {
+    "message": "백그라운드에서 가벼운 유체 오로라 효과를 활성화합니다."
+  },
+  "animateGradientDescShort": {
+    "message": "미세한 오로라 효과"
+  },
   "appearanceDescription": {
     "message": "대시보드의 전반적인 시각적 환경설정."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "사용 통계 기록을 초기화하시겠습니까?"
+  },
+  "customGradientDesc": {
+    "message": "그라디언트 색상, 유형 및 각도를 조절합니다."
+  },
+  "customGradientHeading": {
+    "message": "사용자 정의"
   },
   "customWallpaper": {
     "message": "사용자 지정 배경 이미지"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "자주 방문"
+  },
+  "gradientAngle": {
+    "message": "각도"
+  },
+  "gradientColorEnd": {
+    "message": "끝 색상"
+  },
+  "gradientColorStart": {
+    "message": "시작 색상"
+  },
+  "gradientColors": {
+    "message": "색상"
+  },
+  "gradientLinear": {
+    "message": "선형"
+  },
+  "gradientPresetsHeading": {
+    "message": "그라데이션 선택"
+  },
+  "gradientRadial": {
+    "message": "방사형"
+  },
+  "gradientStyleHeading": {
+    "message": "스타일"
+  },
+  "gradientType": {
+    "message": "그라데이션 유형"
   },
   "healthBroken": {
     "message": "연결할 수 없음 (코드: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "고정됨"
+  },
+  "presetCosmicViolet": {
+    "message": "우주"
+  },
+  "presetDarkGlass": {
+    "message": "유리"
+  },
+  "presetDeepOcean": {
+    "message": "대양"
+  },
+  "presetMidnightForest": {
+    "message": "숲"
+  },
+  "presetSunsetBreeze": {
+    "message": "석양"
+  },
+  "presetWarmSunrise": {
+    "message": "일출"
   },
   "previewCapture": {
     "message": "로컬 미리보기 캡처"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "이미지 위에 밝거나 어두운 색상을 강제로 적용합니다."
+  },
+  "wallpaperType": {
+    "message": "배경 유형"
+  },
+  "wallpaperTypeGradient": {
+    "message": "그라데이션"
+  },
+  "wallpaperTypeImage": {
+    "message": "이미지"
+  },
+  "wallpaperTypeNone": {
+    "message": "배경 없음"
   }
 }

@@ -32,7 +32,16 @@ const DEFAULT_SETTINGS = {
   customWallpaperBrightness: 0.8,
   customWallpaperFolderOpacity: 0.45,
   customWallpaperHeaderOpacity: 0.45,
-  customWallpaperThemes: {}
+  customWallpaperThemes: {},
+  customWallpaperType: "none",
+  customWallpaperGradientConfig: {
+    type: "linear",
+    colorA: "#ff9a9e",
+    colorB: "#fecfef",
+    angle: 135,
+    presetId: "sunset-breeze",
+    animated: false
+  }
 };
 
 export const STORAGE_KEYS = {

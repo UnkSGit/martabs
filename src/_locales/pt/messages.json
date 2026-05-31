@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "Todas as pastas"
   },
+  "animateGradient": {
+    "message": "Animar degradê"
+  },
+  "animateGradientDesc": {
+    "message": "Ativa efeitos de aurora fluida de baixo consumo em segundo plano."
+  },
+  "animateGradientDescShort": {
+    "message": "Efeito Aurora sutil"
+  },
   "appearanceDescription": {
     "message": "Preferências visuais gerais do painel."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "Redefinir o histórico de estatísticas de uso?"
+  },
+  "customGradientDesc": {
+    "message": "Ajuste as cores, tipo e ângulo do degradê."
+  },
+  "customGradientHeading": {
+    "message": "Personalizar"
   },
   "customWallpaper": {
     "message": "Imagem de fundo personalizada"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Frequente"
+  },
+  "gradientAngle": {
+    "message": "Ângulo"
+  },
+  "gradientColorEnd": {
+    "message": "Cor final"
+  },
+  "gradientColorStart": {
+    "message": "Cor inicial"
+  },
+  "gradientColors": {
+    "message": "Cores"
+  },
+  "gradientLinear": {
+    "message": "Linear"
+  },
+  "gradientPresetsHeading": {
+    "message": "Selecionar um degradê"
+  },
+  "gradientRadial": {
+    "message": "Radial"
+  },
+  "gradientStyleHeading": {
+    "message": "Estilo"
+  },
+  "gradientType": {
+    "message": "Tipo de degradê"
   },
   "healthBroken": {
     "message": "Inacessível (Código: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Fixados"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmos"
+  },
+  "presetDarkGlass": {
+    "message": "Cristal"
+  },
+  "presetDeepOcean": {
+    "message": "Oceano"
+  },
+  "presetMidnightForest": {
+    "message": "Floresta"
+  },
+  "presetSunsetBreeze": {
+    "message": "Ocaso"
+  },
+  "presetWarmSunrise": {
+    "message": "Aurora"
   },
   "previewCapture": {
     "message": "Capturar pré-visualizações locais"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Forçar cores claras ou escuras sobre a imagem."
+  },
+  "wallpaperType": {
+    "message": "Tipo de plano de fundo"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Degradê"
+  },
+  "wallpaperTypeImage": {
+    "message": "Imagem"
+  },
+  "wallpaperTypeNone": {
+    "message": "Sem fundo"
   }
 }

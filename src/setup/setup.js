@@ -31,6 +31,20 @@ const wallpaperLegibilityValue = document.querySelector("#wallpaper-legibility-v
 const wallpaperThemeRow = document.querySelector("#wallpaper-theme-row");
 const wallpaperThemeSelect = document.querySelector("#wallpaper-theme-select");
 
+const wallpaperTypeSelect = document.querySelector("#wallpaper-type-select");
+const wallpaperTypeButtons = document.querySelectorAll(".wallpaper-type-option");
+const wallpaperImageContainer = document.querySelector("#wallpaper-image-container");
+const wallpaperGradientContainer = document.querySelector("#wallpaper-gradient-container");
+
+const gradientColorA = document.querySelector("#gradient-color-a");
+const gradientColorB = document.querySelector("#gradient-color-b");
+const gradientPreviewCanvas = document.querySelector("#gradient-preview-canvas");
+const gradientTypeSelect = document.querySelector("#gradient-type-select");
+const gradientAngleRow = document.querySelector("#gradient-angle-row");
+const gradientAngleSlider = document.querySelector("#gradient-angle-slider");
+const gradientAngleValue = document.querySelector("#gradient-angle-value");
+const gradientAnimateCheckbox = document.querySelector("#gradient-animate-checkbox");
+
 // New wallpaper controls selectors
 const wallpaperRotateCheckbox = document.querySelector("#wallpaper-rotate-checkbox");
 const wallpaperBrightnessSlider = document.querySelector("#wallpaper-brightness-slider");
@@ -99,9 +113,13 @@ const urlPermissions = {
 
 function applyTheme(theme) {
   let resolvedTheme = theme;
-  if (currentSettings?.customWallpaperEnabled && currentSettings?.customWallpaperSlots?.length > 0) {
+  const wallpaperType = currentSettings?.customWallpaperType || (currentSettings?.customWallpaperEnabled ? "image" : "none");
+  const isGradient = wallpaperType === "gradient";
+  const hasImage = wallpaperType === "image" && currentSettings?.customWallpaperSlots?.length > 0;
+
+  if (currentSettings?.customWallpaperEnabled && (hasImage || isGradient)) {
     let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
-    if (currentSettings.customWallpaperRotate) {
+    if (wallpaperType === "image" && currentSettings.customWallpaperRotate && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0) {
       let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
       if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
         activeSlot = Number(storedSlot);
@@ -280,7 +298,7 @@ function renderFolderTree(nodes, selectedFolderIds) {
       btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
       btn.setAttribute("aria-label", `${t(api, "expandCollapse")} ${node.title}`);
       btn.setAttribute("aria-expanded", isExpandedByDefault ? "true" : "false");
-      
+
       btn.addEventListener("click", () => {
         const expanded = btn.getAttribute("aria-expanded") === "true";
         btn.setAttribute("aria-expanded", !expanded ? "true" : "false");
@@ -444,7 +462,7 @@ function renderFolderTree(nodes, selectedFolderIds) {
     if (node.children && node.children.length > 0) {
       childrenEl = document.createElement("div");
       childrenEl.className = "folder-tree-children" + (isExpandedByDefault ? "" : " is-collapsed");
-      
+
       let childCount = 0;
       for (const child of node.children) {
         const el = walk(child, nextPath);
@@ -453,7 +471,7 @@ function renderFolderTree(nodes, selectedFolderIds) {
           childCount++;
         }
       }
-      
+
       if (childCount > 0) {
         nodeEl.appendChild(childrenEl);
       }
@@ -529,7 +547,7 @@ function renderSelectedFolders() {
     itemEl.addEventListener("dragend", function() {
       draggedItem = null;
       this.classList.remove("is-dragging");
-      
+
       const newOrder = [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
       currentSettings.selectedFolderIds = newOrder;
       saveButton.disabled = false;
@@ -808,10 +826,19 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showT
     customWallpaperFolderOpacity: wallpaperFolderOpacitySlider ? Number(wallpaperFolderOpacitySlider.value) : 0.45,
     customWallpaperHeaderOpacity: wallpaperHeaderOpacitySlider ? Number(wallpaperHeaderOpacitySlider.value) : 0.45,
     customWallpaperThemes: currentSettings.customWallpaperThemes || {},
+    customWallpaperType: currentSettings.customWallpaperType || (currentSettings.customWallpaperEnabled ? "image" : "none"),
+    customWallpaperGradientConfig: currentSettings.customWallpaperGradientConfig || {
+      type: "linear",
+      colorA: "#ff9a9e",
+      colorB: "#fecfef",
+      angle: 135,
+      presetId: "sunset-breeze",
+      animated: false
+    },
     
     // Legacy support for backward compatibility/tests
     customWallpaperLegibility: wallpaperBrightnessSlider ? 1.0 - Number(wallpaperBrightnessSlider.value) : 0.2,
-    customWallpaperTheme: currentSettings.customWallpaperThemes?.[currentSettings.customWallpaperActiveSlot] || "dark",
+    customWallpaperTheme: currentSettings.customWallpaperThemes?.[currentSettings.customWallpaperActiveSlot || 1] || "dark",
     
     setupComplete: true
   };
@@ -962,6 +989,31 @@ async function init() {
     wallpaperThemeSelect.value = currentSettings.customWallpaperTheme || "system";
   }
 
+  // Sync gradient config controls
+  const gradientConfig = currentSettings.customWallpaperGradientConfig || {
+    type: "linear",
+    colorA: "#ff9a9e",
+    colorB: "#fecfef",
+    angle: 135,
+    presetId: "sunset-breeze",
+    animated: false
+  };
+
+  if (gradientColorA) gradientColorA.value = gradientConfig.colorA || "#ff9a9e";
+  if (gradientColorB) gradientColorB.value = gradientConfig.colorB || "#fecfef";
+  if (gradientTypeSelect) gradientTypeSelect.value = gradientConfig.type || "linear";
+  if (gradientAngleSlider) {
+    gradientAngleSlider.value = gradientConfig.angle ?? 135;
+    if (gradientAngleValue) {
+      gradientAngleValue.textContent = (gradientConfig.angle ?? 135) + "°";
+    }
+  }
+  if (gradientAnimateCheckbox) {
+    gradientAnimateCheckbox.checked = gradientConfig.animated || false;
+  }
+  setGradientAngleAvailability(gradientConfig.type);
+  updateGradientPresetHighlights(gradientConfig.presetId);
+
   await loadWallpaperPreview();
   
   applySettingsSearch();
@@ -998,9 +1050,23 @@ async function loadWallpaperPreview() {
     }
   }
 
-  const hasWallpaper = currentSettings.customWallpaperEnabled && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0;
-  
-  if (hasWallpaper) {
+  // Determine wallpaper type (fallback if undefined)
+  if (!currentSettings.customWallpaperType) {
+    currentSettings.customWallpaperType = currentSettings.customWallpaperEnabled ? "image" : "none";
+  }
+
+  const wallpaperType = currentSettings.customWallpaperType;
+
+  if (wallpaperTypeSelect) {
+    wallpaperTypeSelect.value = wallpaperType;
+  }
+  updateWallpaperTypeButtons(wallpaperType);
+
+  const hasImageWallpaper = wallpaperType === "image" && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0;
+  const isGradientWallpaper = wallpaperType === "gradient";
+  const hasWallpaper = (currentSettings.customWallpaperEnabled && hasImageWallpaper) || isGradientWallpaper;
+
+  if (hasImageWallpaper) {
     for (const slot of currentSettings.customWallpaperSlots) {
       try {
         const blob = await getWallpaper(slot);
@@ -1028,9 +1094,22 @@ async function loadWallpaperPreview() {
         console.error(`Failed to load wallpaper preview for slot ${slot}`, err);
       }
     }
-    
+  }
+
+  // Toggle container visibility
+  if (wallpaperImageContainer) {
+    wallpaperImageContainer.style.display = wallpaperType === "image" ? "grid" : "none";
+  }
+  if (wallpaperGradientContainer) {
+    wallpaperGradientContainer.style.display = wallpaperType === "gradient" ? "grid" : "none";
+  }
+  updateGradientShowcase();
+
+  if (hasWallpaper) {
     // Display our detailed options rows
-    if (document.querySelector("#wallpaper-rotate-row")) document.querySelector("#wallpaper-rotate-row").style.display = "flex";
+    if (document.querySelector("#wallpaper-rotate-row")) {
+      document.querySelector("#wallpaper-rotate-row").style.display = wallpaperType === "image" ? "flex" : "none";
+    }
     if (document.querySelector("#wallpaper-brightness-row")) document.querySelector("#wallpaper-brightness-row").style.display = "flex";
     if (document.querySelector("#wallpaper-folder-opacity-row")) document.querySelector("#wallpaper-folder-opacity-row").style.display = "flex";
     if (document.querySelector("#wallpaper-header-opacity-row")) document.querySelector("#wallpaper-header-opacity-row").style.display = "flex";
@@ -1052,7 +1131,7 @@ async function loadWallpaperPreview() {
     
     // Update setup page theme
     let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
-    if (currentSettings.customWallpaperRotate) {
+    if (wallpaperType === "image" && currentSettings.customWallpaperRotate) {
       let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
       if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
         activeSlot = Number(storedSlot);
@@ -1080,6 +1159,7 @@ async function loadWallpaperPreview() {
   }
   
   updateSlotHighlights();
+  applyLiveSetupPreview();
 }
 
 function updateSlotHighlights() {
@@ -1100,6 +1180,65 @@ function updateSlotHighlights() {
       }
     }
   }
+}
+
+const GRADIENT_PRESETS = {
+  "sunset-breeze": { type: "linear", colorA: "#ff9a9e", colorB: "#fecfef", angle: 135 },
+  "deep-ocean": { type: "linear", colorA: "#00c6ff", colorB: "#0072ff", angle: 135 },
+  "midnight-forest": { type: "linear", colorA: "#11998e", colorB: "#38ef7d", angle: 135 },
+  "cosmic-violet": { type: "linear", colorA: "#7f00ff", colorB: "#e100ff", angle: 135 },
+  "dark-glass": { type: "linear", colorA: "#1f1c2c", colorB: "#928dab", angle: 135 },
+  "warm-sunrise": { type: "linear", colorA: "#f857a6", colorB: "#ff5858", angle: 135 }
+};
+
+function updateGradientPresetHighlights(presetId) {
+  document.querySelectorAll(".gradient-preset-btn").forEach(btn => {
+    if (btn.dataset.preset === presetId) {
+      btn.classList.add("is-active");
+    } else {
+      btn.classList.remove("is-active");
+    }
+  });
+}
+
+function setGradientAngleAvailability(type) {
+  if (!gradientAngleRow) return;
+  const isRadial = type === "radial";
+  gradientAngleRow.classList.toggle("is-hidden", isRadial);
+  if (gradientAngleSlider) {
+    gradientAngleSlider.disabled = isRadial;
+  }
+}
+
+function buildGradientCss({ type = "linear", colorA = "#1f1c2c", colorB = "#928dab", angle = 135 } = {}) {
+  if (type === "radial") {
+    return `radial-gradient(circle at 50% 42%, ${colorA} 0%, ${colorB} 100%)`;
+  }
+  return `linear-gradient(${angle}deg, ${colorA} 0%, ${colorB} 100%)`;
+}
+
+function updateWallpaperTypeButtons(type) {
+  wallpaperTypeButtons.forEach(button => {
+    const isActive = button.dataset.wallpaperType === type;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+function updateGradientShowcase() {
+  if (!gradientPreviewCanvas) return;
+
+  const config = currentSettings.customWallpaperGradientConfig || {};
+  const type = gradientTypeSelect ? gradientTypeSelect.value : (config.type || "linear");
+  const colorA = gradientColorA ? gradientColorA.value : (config.colorA || "#1f1c2c");
+  const colorB = gradientColorB ? gradientColorB.value : (config.colorB || "#928dab");
+  const angle = gradientAngleSlider ? Number(gradientAngleSlider.value) : (config.angle ?? 135);
+  const animated = gradientAnimateCheckbox ? gradientAnimateCheckbox.checked : Boolean(config.animated);
+
+  gradientPreviewCanvas.style.background = buildGradientCss({ type, colorA, colorB, angle });
+  gradientPreviewCanvas.style.setProperty("--preview-gradient-color-a", colorA);
+  gradientPreviewCanvas.style.setProperty("--preview-gradient-color-b", colorB);
+  gradientPreviewCanvas.classList.toggle("is-animated", animated);
 }
 
 function getFirstAvailableSlot() {
@@ -1263,6 +1402,7 @@ document.querySelectorAll(".wallpaper-slot-preview").forEach(preview => {
         updateSlotHighlights();
         const activeTheme = currentSettings.customWallpaperThemes?.[slot] || "dark";
         applyTheme(activeTheme);
+        applyLiveSetupPreview();
       }
     }
   });
@@ -1323,6 +1463,7 @@ if (wallpaperRotateCheckbox) {
     }
     const activeTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
     applyTheme(activeTheme);
+    applyLiveSetupPreview();
   });
 }
 
@@ -1341,6 +1482,7 @@ if (wallpaperBrightnessSlider) {
       wallpaperLegibilityValue.textContent = Math.round(legibility * 200) + "%";
     }
     saveButton.disabled = false;
+    applyLiveSetupPreview();
   });
 }
 
@@ -1351,6 +1493,7 @@ if (wallpaperFolderOpacitySlider) {
       wallpaperFolderOpacityValue.textContent = Math.round(val * 100) + "%";
     }
     saveButton.disabled = false;
+    applyLiveSetupPreview();
   });
 }
 
@@ -1361,6 +1504,7 @@ if (wallpaperHeaderOpacitySlider) {
       wallpaperHeaderOpacityValue.textContent = Math.round(val * 100) + "%";
     }
     saveButton.disabled = false;
+    applyLiveSetupPreview();
   });
 }
 
@@ -1448,7 +1592,262 @@ if (wallpaperThemeSelect) {
       applyTheme(wallpaperThemeSelect.value);
     }
     saveButton.disabled = false;
+    applyLiveSetupPreview();
   });
+}
+
+function handleWallpaperTypeChange(nextType) {
+  if (wallpaperTypeSelect) {
+    wallpaperTypeSelect.value = nextType;
+  }
+  updateWallpaperTypeButtons(nextType);
+
+  currentSettings.customWallpaperType = nextType;
+  if (nextType === "none") {
+      currentSettings.customWallpaperEnabled = false;
+      themeSelect.disabled = false;
+      themeSelectHelperNote.style.display = "none";
+      applyTheme(themeSelect.value);
+  } else if (nextType === "image") {
+      // If image, enable custom wallpaper if we have slots uploaded
+      currentSettings.customWallpaperEnabled = currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0;
+      if (currentSettings.customWallpaperEnabled) {
+        themeSelect.disabled = true;
+        themeSelectHelperNote.style.display = "block";
+        const configSlot = currentSettings.customWallpaperActiveSlot || 1;
+        applyTheme(currentSettings.customWallpaperThemes?.[configSlot] || "dark");
+      } else {
+        themeSelect.disabled = false;
+        themeSelectHelperNote.style.display = "none";
+        applyTheme(themeSelect.value);
+      }
+  } else if (nextType === "gradient") {
+      currentSettings.customWallpaperEnabled = true;
+      themeSelect.disabled = true;
+      themeSelectHelperNote.style.display = "block";
+      const activeTheme = currentSettings.customWallpaperThemes?.[currentSettings.customWallpaperActiveSlot || 1] || "dark";
+      applyTheme(activeTheme);
+  }
+  saveButton.disabled = false;
+  loadWallpaperPreview();
+}
+
+// Wallpaper Type Select change
+if (wallpaperTypeSelect) {
+  wallpaperTypeSelect.addEventListener("change", () => {
+    handleWallpaperTypeChange(wallpaperTypeSelect.value);
+  });
+}
+
+wallpaperTypeButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    handleWallpaperTypeChange(button.dataset.wallpaperType || "none");
+  });
+});
+
+// Preset buttons
+document.querySelectorAll(".gradient-preset-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const presetId = btn.dataset.preset;
+    const config = GRADIENT_PRESETS[presetId];
+    if (config) {
+      if (gradientColorA) gradientColorA.value = config.colorA;
+      if (gradientColorB) gradientColorB.value = config.colorB;
+      if (gradientTypeSelect) {
+        gradientTypeSelect.value = config.type;
+        setGradientAngleAvailability(config.type);
+      }
+      if (gradientAngleSlider) {
+        gradientAngleSlider.value = config.angle;
+        if (gradientAngleValue) gradientAngleValue.textContent = config.angle + "°";
+      }
+
+      currentSettings.customWallpaperGradientConfig = {
+        ...currentSettings.customWallpaperGradientConfig,
+        type: config.type,
+        colorA: config.colorA,
+        colorB: config.colorB,
+        angle: config.angle,
+        presetId: presetId
+      };
+
+      updateGradientPresetHighlights(presetId);
+      updateGradientShowcase();
+      saveButton.disabled = false;
+      applyLiveSetupPreview();
+    }
+  });
+});
+
+// Custom builders inputs change
+const handleCustomGradientChange = () => {
+  const type = gradientTypeSelect ? gradientTypeSelect.value : "linear";
+  const colorA = gradientColorA ? gradientColorA.value : "#ff9a9e";
+  const colorB = gradientColorB ? gradientColorB.value : "#fecfef";
+  const angle = gradientAngleSlider ? Number(gradientAngleSlider.value) : 135;
+  const animated = gradientAnimateCheckbox ? gradientAnimateCheckbox.checked : false;
+
+  setGradientAngleAvailability(type);
+
+  // Determine if it matches any preset
+  let matchedPresetId = "custom";
+  for (const [presetId, preset] of Object.entries(GRADIENT_PRESETS)) {
+    if (preset.type === type &&
+        preset.colorA.toLowerCase() === colorA.toLowerCase() &&
+        preset.colorB.toLowerCase() === colorB.toLowerCase() &&
+        (type === "radial" || preset.angle === angle)) {
+      matchedPresetId = presetId;
+      break;
+    }
+  }
+
+  currentSettings.customWallpaperGradientConfig = {
+    type,
+    colorA,
+    colorB,
+    angle,
+    presetId: matchedPresetId,
+    animated
+  };
+
+  updateGradientPresetHighlights(matchedPresetId);
+  updateGradientShowcase();
+  saveButton.disabled = false;
+  applyLiveSetupPreview();
+};
+
+if (gradientColorA) gradientColorA.addEventListener("input", handleCustomGradientChange);
+if (gradientColorB) gradientColorB.addEventListener("input", handleCustomGradientChange);
+if (gradientTypeSelect) gradientTypeSelect.addEventListener("change", handleCustomGradientChange);
+if (gradientAngleSlider) {
+  gradientAngleSlider.addEventListener("input", () => {
+    if (gradientAngleValue) gradientAngleValue.textContent = gradientAngleSlider.value + "°";
+    handleCustomGradientChange();
+  });
+}
+if (gradientAnimateCheckbox) gradientAnimateCheckbox.addEventListener("change", handleCustomGradientChange);
+
+// Accordion customize toggle
+const gradientCustomizeToggle = document.querySelector("#gradient-customize-toggle");
+const gradientCustomizePanel = document.querySelector("#gradient-customize-panel");
+
+if (gradientCustomizeToggle && gradientCustomizePanel) {
+  gradientCustomizeToggle.addEventListener("click", () => {
+    const isExpanded = gradientCustomizeToggle.classList.toggle("is-expanded");
+    gradientCustomizePanel.style.display = isExpanded ? "flex" : "none";
+  });
+}
+
+function applyLiveSetupPreview() {
+  const bgEl = document.querySelector("#custom-wallpaper-bg");
+  const overlayEl = document.querySelector("#custom-wallpaper-overlay");
+  if (!bgEl || !overlayEl) return;
+
+  const wallpaperType = wallpaperTypeSelect ? wallpaperTypeSelect.value : (currentSettings.customWallpaperType || "none");
+  const hasImage = wallpaperType === "image" && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0;
+  const hasGradient = wallpaperType === "gradient";
+  const hasWallpaper = (wallpaperType === "image" && hasImage) || hasGradient;
+
+  if (!hasWallpaper) {
+    document.documentElement.classList.remove("has-custom-wallpaper");
+    bgEl.style.backgroundImage = "";
+    bgEl.innerHTML = "";
+    bgEl.classList.remove("is-loaded");
+    overlayEl.style.backgroundColor = "";
+    document.documentElement.style.removeProperty("--custom-folder-opacity");
+    document.documentElement.style.removeProperty("--custom-header-opacity");
+    return;
+  }
+
+  // Get current opacity/brightness settings
+  const folderOpacity = wallpaperFolderOpacitySlider ? Number(wallpaperFolderOpacitySlider.value) : (currentSettings.customWallpaperFolderOpacity ?? 0.45);
+  const headerOpacity = wallpaperHeaderOpacitySlider ? Number(wallpaperHeaderOpacitySlider.value) : (currentSettings.customWallpaperHeaderOpacity ?? 0.45);
+  document.documentElement.style.setProperty("--custom-folder-opacity", folderOpacity);
+  document.documentElement.style.setProperty("--custom-header-opacity", headerOpacity);
+
+  const brightness = wallpaperBrightnessSlider ? Number(wallpaperBrightnessSlider.value) : (currentSettings.customWallpaperBrightness ?? 0.8);
+  const overlayOpacity = Math.max(0, Math.min(0.5, 1.0 - brightness));
+
+  let resolvedTheme = "dark";
+
+  if (wallpaperType === "image") {
+    let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+    if (currentSettings.customWallpaperRotate && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0) {
+      let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
+      if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
+        activeSlot = Number(storedSlot);
+      } else {
+        activeSlot = currentSettings.customWallpaperSlots[0];
+      }
+    }
+
+    resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+    if (resolvedTheme === "system") {
+      resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    const objectUrl = customWallpaperObjectUrls[activeSlot];
+    if (objectUrl) {
+      bgEl.style.backgroundImage = `url(${objectUrl})`;
+      bgEl.innerHTML = "";
+      bgEl.classList.add("is-loaded");
+      document.documentElement.classList.add("has-custom-wallpaper");
+    } else {
+      bgEl.style.backgroundImage = "";
+      bgEl.innerHTML = "";
+      bgEl.classList.remove("is-loaded");
+      document.documentElement.classList.remove("has-custom-wallpaper");
+    }
+  } else if (wallpaperType === "gradient") {
+    const activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+    resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+    if (resolvedTheme === "system") {
+      resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    const type = gradientTypeSelect ? gradientTypeSelect.value : "linear";
+    const colorA = gradientColorA ? gradientColorA.value : "#ff9a9e";
+    const colorB = gradientColorB ? gradientColorB.value : "#fecfef";
+    const angle = gradientAngleSlider ? Number(gradientAngleSlider.value) : 135;
+    const animated = gradientAnimateCheckbox ? gradientAnimateCheckbox.checked : false;
+
+    let backgroundStyle = "";
+    if (type === "radial") {
+      backgroundStyle = `radial-gradient(circle, ${colorA} 0%, ${colorB} 100%)`;
+    } else {
+      backgroundStyle = `linear-gradient(${angle}deg, ${colorA} 0%, ${colorB} 100%)`;
+    }
+
+    bgEl.style.backgroundImage = backgroundStyle;
+    bgEl.classList.add("is-loaded");
+    document.documentElement.classList.add("has-custom-wallpaper");
+
+    // Handle Aurora Animation
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (animated && !prefersReducedMotion) {
+      bgEl.style.setProperty("--aurora-color-1", colorA);
+      bgEl.style.setProperty("--aurora-color-2", colorB);
+      bgEl.style.setProperty("--aurora-color-3", `color-mix(in srgb, ${colorA} 35%, ${colorB})`);
+
+      if (!bgEl.querySelector(".aurora-blob")) {
+        bgEl.innerHTML = `
+          <div class="aurora-blob aurora-blob-1"></div>
+          <div class="aurora-blob aurora-blob-2"></div>
+          <div class="aurora-blob aurora-blob-3"></div>
+        `;
+      }
+    } else {
+      bgEl.innerHTML = "";
+    }
+  }
+
+  if (wallpaperType === "gradient") {
+    overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
+  } else if (resolvedTheme === "dark") {
+    overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
+  } else {
+    overlayEl.style.backgroundColor = `rgba(255, 255, 255, ${overlayOpacity})`;
+  }
 }
 
 async function resetLocalOrganization() {

@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "All folders"
   },
+  "animateGradient": {
+    "message": "Animate gradient"
+  },
+  "animateGradientDesc": {
+    "message": "Enables fluid, low-overhead background aurora effects."
+  },
+  "animateGradientDescShort": {
+    "message": "Subtle Aurora effect"
+  },
   "appearanceDescription": {
     "message": "General visual preferences for the dashboard."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "Reset usage statistics history?"
+  },
+  "customGradientDesc": {
+    "message": "Adjust the gradient colors, type, and angle."
+  },
+  "customGradientHeading": {
+    "message": "Customize"
   },
   "customWallpaper": {
     "message": "Custom background image"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Frequent"
+  },
+  "gradientAngle": {
+    "message": "Angle"
+  },
+  "gradientColorEnd": {
+    "message": "End color"
+  },
+  "gradientColorStart": {
+    "message": "Start color"
+  },
+  "gradientColors": {
+    "message": "Colors"
+  },
+  "gradientLinear": {
+    "message": "Linear"
+  },
+  "gradientPresetsHeading": {
+    "message": "Select a gradient"
+  },
+  "gradientRadial": {
+    "message": "Radial"
+  },
+  "gradientStyleHeading": {
+    "message": "Style"
+  },
+  "gradientType": {
+    "message": "Gradient type"
   },
   "healthBroken": {
     "message": "Unreachable (Code: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Pinned"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmic"
+  },
+  "presetDarkGlass": {
+    "message": "Glass"
+  },
+  "presetDeepOcean": {
+    "message": "Ocean"
+  },
+  "presetMidnightForest": {
+    "message": "Forest"
+  },
+  "presetSunsetBreeze": {
+    "message": "Sunset"
+  },
+  "presetWarmSunrise": {
+    "message": "Sunrise"
   },
   "previewCapture": {
     "message": "Capture local previews"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Force light or dark colors over the image."
+  },
+  "wallpaperType": {
+    "message": "Background type"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Gradient"
+  },
+  "wallpaperTypeImage": {
+    "message": "Image"
+  },
+  "wallpaperTypeNone": {
+    "message": "None"
   }
 }

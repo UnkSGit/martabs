@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "所有文件夹"
   },
+  "animateGradient": {
+    "message": "开启动态渐变"
+  },
+  "animateGradientDesc": {
+    "message": "在后台启用低开销的流体极光效果。"
+  },
+  "animateGradientDescShort": {
+    "message": "微弱极光效果"
+  },
   "appearanceDescription": {
     "message": "仪表板的通用视觉偏好设置。"
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "重置使用统计历史记录？"
+  },
+  "customGradientDesc": {
+    "message": "调整渐变的颜色、类型和角度。"
+  },
+  "customGradientHeading": {
+    "message": "自定义"
   },
   "customWallpaper": {
     "message": "自定义背景图片"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "常用"
+  },
+  "gradientAngle": {
+    "message": "角度"
+  },
+  "gradientColorEnd": {
+    "message": "结束颜色"
+  },
+  "gradientColorStart": {
+    "message": "起始颜色"
+  },
+  "gradientColors": {
+    "message": "颜色"
+  },
+  "gradientLinear": {
+    "message": "线性"
+  },
+  "gradientPresetsHeading": {
+    "message": "选择渐变"
+  },
+  "gradientRadial": {
+    "message": "径向"
+  },
+  "gradientStyleHeading": {
+    "message": "样式"
+  },
+  "gradientType": {
+    "message": "渐变类型"
   },
   "healthBroken": {
     "message": "无法访问 (代码: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "已固定"
+  },
+  "presetCosmicViolet": {
+    "message": "宇宙"
+  },
+  "presetDarkGlass": {
+    "message": "玻璃"
+  },
+  "presetDeepOcean": {
+    "message": "海洋"
+  },
+  "presetMidnightForest": {
+    "message": "森林"
+  },
+  "presetSunsetBreeze": {
+    "message": "日落"
+  },
+  "presetWarmSunrise": {
+    "message": "朝阳"
   },
   "previewCapture": {
     "message": "捕获本地预览"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "在图片上强制使用浅色或深色。"
+  },
+  "wallpaperType": {
+    "message": "背景类型"
+  },
+  "wallpaperTypeGradient": {
+    "message": "渐变"
+  },
+  "wallpaperTypeImage": {
+    "message": "图片"
+  },
+  "wallpaperTypeNone": {
+    "message": "无背景"
   }
 }

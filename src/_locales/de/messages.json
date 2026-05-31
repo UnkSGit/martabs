@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "Alle Ordner"
   },
+  "animateGradient": {
+    "message": "Verlauf animieren"
+  },
+  "animateGradientDesc": {
+    "message": "Aktiviert flüssige, ressourcenschonende Aurora-Effekte im Hintergrund."
+  },
+  "animateGradientDescShort": {
+    "message": "Subtiler Aurora-Effekt"
+  },
   "appearanceDescription": {
     "message": "Allgemeine visuelle Einstellungen für das Dashboard."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "Nutzungsstatistiken-Verlauf zurücksetzen?"
+  },
+  "customGradientDesc": {
+    "message": "Farben, Typ und Winkel des Farbverlaufs anpassen."
+  },
+  "customGradientHeading": {
+    "message": "Anpassen"
   },
   "customWallpaper": {
     "message": "Benutzerdefiniertes Hintergrundbild"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Häufig"
+  },
+  "gradientAngle": {
+    "message": "Winkel"
+  },
+  "gradientColorEnd": {
+    "message": "Endfarbe"
+  },
+  "gradientColorStart": {
+    "message": "Startfarbe"
+  },
+  "gradientColors": {
+    "message": "Farben"
+  },
+  "gradientLinear": {
+    "message": "Linear"
+  },
+  "gradientPresetsHeading": {
+    "message": "Verlauf auswählen"
+  },
+  "gradientRadial": {
+    "message": "Radial"
+  },
+  "gradientStyleHeading": {
+    "message": "Stil"
+  },
+  "gradientType": {
+    "message": "Verlaufstyp"
   },
   "healthBroken": {
     "message": "Unerreichbar (Code: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Angeheftet"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmic"
+  },
+  "presetDarkGlass": {
+    "message": "Glass"
+  },
+  "presetDeepOcean": {
+    "message": "Ocean"
+  },
+  "presetMidnightForest": {
+    "message": "Forest"
+  },
+  "presetSunsetBreeze": {
+    "message": "Sunset"
+  },
+  "presetWarmSunrise": {
+    "message": "Sunrise"
   },
   "previewCapture": {
     "message": "Lokale Vorschauen erfassen"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Erzwingen Sie helle oder dunkle Farben über dem Bild."
+  },
+  "wallpaperType": {
+    "message": "Hintergrundtyp"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Verlauf"
+  },
+  "wallpaperTypeImage": {
+    "message": "Bild"
+  },
+  "wallpaperTypeNone": {
+    "message": "Kein Hintergrund"
   }
 }

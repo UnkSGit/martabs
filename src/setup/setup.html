@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./setup.css">
   </head>
   <body>
+    <div id="custom-wallpaper-bg" class="custom-wallpaper-bg"></div>
+    <div id="custom-wallpaper-overlay" class="custom-wallpaper-overlay"></div>
     <main class="setup-shell">
       <section class="setup-panel">
         <header class="setup-header">
@@ -205,99 +207,268 @@
                 <p data-i18n="wallpaperDescription">Personaliza el fondo del tablero principal de tu nueva pestaña.</p>
               </div>
               <div class="settings-stack">
-                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 12px;">
-                  <strong data-i18n="customWallpaper">Imágenes de fondo personalizadas</strong>
-                  
-                  <div class="wallpaper-slots-grid">
-                    <!-- Slot 1 -->
-                    <div class="wallpaper-slot" data-slot="1">
-                      <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-1">
-                        <span class="wallpaper-slot-number">1</span>
-                        <div class="wallpaper-slot-empty">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                          </svg>
-                          <span data-i18n="uploadImage">Subir imagen</span>
-                        </div>
-                        <img class="wallpaper-slot-img" id="wallpaper-slot-img-1" alt="" style="display: none;">
-                        <button type="button" class="wallpaper-slot-remove" data-slot="1" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Slot 2 -->
-                    <div class="wallpaper-slot" data-slot="2">
-                      <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-2">
-                        <span class="wallpaper-slot-number">2</span>
-                        <div class="wallpaper-slot-empty">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                          </svg>
-                          <span data-i18n="uploadImage">Subir imagen</span>
-                        </div>
-                        <img class="wallpaper-slot-img" id="wallpaper-slot-img-2" alt="" style="display: none;">
-                        <button type="button" class="wallpaper-slot-remove" data-slot="2" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Slot 3 -->
-                    <div class="wallpaper-slot" data-slot="3">
-                      <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-3">
-                        <span class="wallpaper-slot-number">3</span>
-                        <div class="wallpaper-slot-empty">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                          </svg>
-                          <span data-i18n="uploadImage">Subir imagen</span>
-                        </div>
-                        <img class="wallpaper-slot-img" id="wallpaper-slot-img-3" alt="" style="display: none;">
-                        <button type="button" class="wallpaper-slot-remove" data-slot="3" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
+                <!-- Selector de tipo de fondo -->
+                <div class="setting-row wallpaper-type-row" id="wallpaper-type-row">
+                  <span>
+                    <strong data-i18n="wallpaperType">Tipo de fondo</strong>
+                  </span>
+                  <div class="wallpaper-type-segment" role="group" aria-label="Tipo de fondo">
+                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="none" data-i18n="wallpaperTypeNone">Sin fondo</button>
+                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="image" data-i18n="wallpaperTypeImage">Imagen</button>
+                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="gradient" data-i18n="wallpaperTypeGradient">Degradado</button>
                   </div>
-
-                  <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;">
-                  <span id="wallpaper-error-message" class="edit-error" style="color: var(--warning-text); font-size: 11px; display: none;"></span>
-
-                  <!-- Hidden legacy elements to ensure tests looking for these specific IDs pass successfully -->
-                  <div style="display: none;">
-                    <div id="wallpaper-dropzone"></div>
-                    <img id="wallpaper-preview-img" class="wallpaper-preview-img" alt="">
-                    <button type="button" id="remove-wallpaper-btn"></button>
-                    <div id="wallpaper-preview-container"></div>
-                    <label id="wallpaper-legibility-row">
-                      <input type="range" id="wallpaper-legibility-slider">
-                      <span id="wallpaper-legibility-value"></span>
-                    </label>
-                    <span id="wallpaper-upload-text"></span>
-                  </div>
+                  <select id="wallpaper-type-select" class="sr-only" aria-hidden="true" tabindex="-1">
+                    <option value="none" data-i18n="wallpaperTypeNone">Sin fondo</option>
+                    <option value="image" data-i18n="wallpaperTypeImage">Imagen</option>
+                    <option value="gradient" data-i18n="wallpaperTypeGradient">Degradado</option>
+                  </select>
                 </div>
 
-                <!-- Checkbox: Rotar fondos al azar -->
-                <label class="switch-row" id="wallpaper-rotate-row" style="display: none;">
-                  <input id="wallpaper-rotate-checkbox" type="checkbox">
-                  <span>
-                    <strong data-i18n="rotateWallpapers">Rotar fondos al azar</strong>
-                    <small data-i18n="rotateWallpapersDesc">Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva.</small>
-                  </span>
-                </label>
+                <!-- Contenedor de Fondos de Imagen -->
+                <div id="wallpaper-image-container" class="settings-stack" style="display: none; padding: 0; border: none; margin: 0; width: 100%; gap: 16px;">
+                  <div class="setting-row" style="flex-direction: column; align-items: stretch; gap: 12px; padding: 0; border: none; margin: 0; width: 100%;">
+                    <strong data-i18n="customWallpaper">Imágenes de fondo personalizadas</strong>
+
+                    <div class="wallpaper-slots-grid">
+                      <!-- Slot 1 -->
+                      <div class="wallpaper-slot" data-slot="1">
+                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-1">
+                          <span class="wallpaper-slot-number">1</span>
+                          <div class="wallpaper-slot-empty">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="12" y1="5" x2="12" y2="19"></line>
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span data-i18n="uploadImage">Subir imagen</span>
+                          </div>
+                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-1" alt="" style="display: none;">
+                          <button type="button" class="wallpaper-slot-remove" data-slot="1" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Slot 2 -->
+                      <div class="wallpaper-slot" data-slot="2">
+                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-2">
+                          <span class="wallpaper-slot-number">2</span>
+                          <div class="wallpaper-slot-empty">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="12" y1="5" x2="12" y2="19"></line>
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span data-i18n="uploadImage">Subir imagen</span>
+                          </div>
+                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-2" alt="" style="display: none;">
+                          <button type="button" class="wallpaper-slot-remove" data-slot="2" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Slot 3 -->
+                      <div class="wallpaper-slot" data-slot="3">
+                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-3">
+                          <span class="wallpaper-slot-number">3</span>
+                          <div class="wallpaper-slot-empty">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="12" y1="5" x2="12" y2="19"></line>
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span data-i18n="uploadImage">Subir imagen</span>
+                          </div>
+                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-3" alt="" style="display: none;">
+                          <button type="button" class="wallpaper-slot-remove" data-slot="3" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;">
+                    <span id="wallpaper-error-message" class="edit-error" style="color: var(--warning-text); font-size: 11px; display: none;"></span>
+
+                    <!-- Hidden legacy elements to ensure tests looking for these specific IDs pass successfully -->
+                    <div style="display: none;">
+                      <div id="wallpaper-dropzone"></div>
+                      <img id="wallpaper-preview-img" class="wallpaper-preview-img" alt="">
+                      <button type="button" id="remove-wallpaper-btn"></button>
+                      <div id="wallpaper-preview-container"></div>
+                      <label id="wallpaper-legibility-row">
+                        <input type="range" id="wallpaper-legibility-slider">
+                        <span id="wallpaper-legibility-value"></span>
+                      </label>
+                      <span id="wallpaper-upload-text"></span>
+                    </div>
+                  </div>
+
+                  <!-- Checkbox: Rotar fondos al azar -->
+                  <label class="switch-row" id="wallpaper-rotate-row" style="display: none;">
+                    <input id="wallpaper-rotate-checkbox" type="checkbox">
+                    <span>
+                      <strong data-i18n="rotateWallpapers">Rotar fondos al azar</strong>
+                      <small data-i18n="rotateWallpapersDesc">Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva.</small>
+                    </span>
+                  </label>
+                </div>
+
+                <!-- Contenedor de Fondos de Degradado -->
+                <div id="wallpaper-gradient-container" class="settings-stack wallpaper-gradient-panel" style="display: none;">
+                  <div class="gradient-showcase">
+                    <div id="gradient-preview-canvas" class="gradient-preview-canvas">
+                      <div class="gradient-preview-aurora gradient-preview-aurora-a"></div>
+                      <div class="gradient-preview-aurora gradient-preview-aurora-b"></div>
+                      <div class="gradient-preview-shell" aria-hidden="true">
+                        <div class="gradient-preview-topbar">
+                          <div class="gradient-preview-brand">
+                            <img class="gradient-preview-logo-img" src="../images/newlogo.png" alt="">
+                            <span class="gradient-preview-status" data-i18n="loadingBookmarks">Cargando marcadores...</span>
+                          </div>
+                          <div class="gradient-preview-settings">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <span data-i18n="settingsBtn">Configurar</span>
+                          </div>
+                        </div>
+                        <div class="gradient-preview-search">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                          </svg>
+                          <span data-i18n="searchPlaceholder">Buscar titulo, etiqueta, URL o carpeta...</span>
+                        </div>
+                        <div class="gradient-preview-cards">
+                          <div class="gradient-preview-folder">
+                            <strong>Barra de favoritos</strong>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                          </div>
+                          <div class="gradient-preview-folder">
+                            <strong>Personales</strong>
+                            <div class="gradient-preview-icon-grid">
+                              <i></i><i></i><i></i><i></i>
+                            </div>
+                          </div>
+                          <div class="gradient-preview-folder">
+                            <strong>Favoritos del dispositivo</strong>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Presets -->
+                  <div class="gradient-presets-section">
+                    <strong data-i18n="gradientPresetsHeading">Seleccionar un degradado</strong>
+                    <div class="gradient-presets-grid">
+                      <button type="button" class="gradient-preset-btn" data-preset="sunset-breeze">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetSunsetBreeze">Sunset Breeze</span>
+                      </button>
+                      <button type="button" class="gradient-preset-btn" data-preset="deep-ocean">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetDeepOcean">Deep Ocean</span>
+                      </button>
+                      <button type="button" class="gradient-preset-btn" data-preset="midnight-forest">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetMidnightForest">Midnight Forest</span>
+                      </button>
+                      <button type="button" class="gradient-preset-btn" data-preset="cosmic-violet">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetCosmicViolet">Cosmic Violet</span>
+                      </button>
+                      <button type="button" class="gradient-preset-btn" data-preset="dark-glass">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetDarkGlass">Dark Glass</span>
+                      </button>
+                      <button type="button" class="gradient-preset-btn" data-preset="warm-sunrise">
+                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);">
+                          <span class="gradient-preset-check">✓</span>
+                        </div>
+                        <span class="gradient-preset-name" data-i18n="presetWarmSunrise">Warm Sunrise</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Acordeón: Personalizar degradado -->
+                  <div class="accordion-toggle" id="gradient-customize-toggle">
+                    <span>
+                      <strong data-i18n="customGradientHeading">Personalizar degradado</strong>
+                      <small data-i18n="customGradientDesc">Ajusta los colores, tipo y ángulo del degradado.</small>
+                    </span>
+                    <span class="accordion-chevron" style="transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <!-- Panel del Acordeón -->
+                  <div id="gradient-customize-panel" class="accordion-panel settings-stack gradient-custom-panel">
+                    <div class="gradient-custom-grid">
+                      <!-- Colores -->
+                      <div class="gradient-control-card" style="flex-direction: row; justify-content: space-between; align-items: center; gap: 16px; min-height: unset; height: fit-content; display: flex; width: 100%;">
+                        <span data-i18n="gradientColors" style="font-weight: 750;">Colores</span>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                          <input type="color" id="gradient-color-a" value="#1f1c2c" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
+                          <input type="color" id="gradient-color-b" value="#928dab" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
+                        </div>
+                      </div>
+
+                      <!-- Estilo (Tipo y Ángulo) -->
+                      <div class="gradient-control-card" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start; min-height: unset; height: fit-content; width: 100%;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                          <span data-i18n="gradientStyleHeading" style="font-weight: 750;">Estilo</span>
+                          <select id="gradient-type-select" style="width: 100px;">
+                            <option value="linear" data-i18n="gradientLinear">Lineal</option>
+                            <option value="radial" data-i18n="gradientRadial">Radial</option>
+                          </select>
+                        </div>
+                        <div id="gradient-angle-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; border: none; margin: 0; background: transparent;">
+                          <span data-i18n="gradientAngle" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Ángulo</span>
+                          <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
+                            <input type="range" id="gradient-angle-slider" min="0" max="360" step="5" value="135" style="flex: 1; height: 6px; margin: 0;">
+                            <span id="gradient-angle-value" style="font-family: monospace; font-size: 12px; min-width: 36px; text-align: end; color: var(--text-secondary);">135°</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Checkbox de animación (Aurora) -->
+                      <label class="gradient-control-card" id="gradient-animate-row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: unset; height: fit-content; width: 100%; user-select: none;">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                          <span data-i18n="animateGradient" style="font-weight: 750;">Animación</span>
+                          <span data-i18n="animateGradientDescShort" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Efecto Aurora sutil</span>
+                        </div>
+                        <input id="gradient-animate-checkbox" type="checkbox" style="margin: 0; cursor: pointer;">
+                      </label>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- Selector de esquema de la interfaz -->
                 <label class="setting-row" id="wallpaper-theme-row" style="display: none;">

@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "جميع المجلدات"
   },
+  "animateGradient": {
+    "message": "تحريك التدرج"
+  },
+  "animateGradientDesc": {
+    "message": "تنشيط تأثيرات الشفق الانسيابي الخفيفة في الخلفية."
+  },
+  "animateGradientDescShort": {
+    "message": "تأثير أورورا خفيف"
+  },
   "appearanceDescription": {
     "message": "تخصيص الواجهة."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "هل أنت متأكد من إعادة تعيين الإحصائيات؟"
+  },
+  "customGradientDesc": {
+    "message": "ضبط الألوان والنوع والزاوية للتحسين."
+  },
+  "customGradientHeading": {
+    "message": "تخصيص"
   },
   "customWallpaper": {
     "message": "صورة خلفية مخصصة"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "شائع"
+  },
+  "gradientAngle": {
+    "message": "الزاوية"
+  },
+  "gradientColorEnd": {
+    "message": "لون النهاية"
+  },
+  "gradientColorStart": {
+    "message": "لون البدء"
+  },
+  "gradientColors": {
+    "message": "الألوان"
+  },
+  "gradientLinear": {
+    "message": "خطي"
+  },
+  "gradientPresetsHeading": {
+    "message": "اختر تدرجًا لونيًا"
+  },
+  "gradientRadial": {
+    "message": "شعاعي"
+  },
+  "gradientStyleHeading": {
+    "message": "النمط"
+  },
+  "gradientType": {
+    "message": "نوع التدرج"
   },
   "healthBroken": {
     "message": "رابط معطل (الرمز: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "مثبت"
+  },
+  "presetCosmicViolet": {
+    "message": "كون"
+  },
+  "presetDarkGlass": {
+    "message": "زجاج"
+  },
+  "presetDeepOcean": {
+    "message": "محيط"
+  },
+  "presetMidnightForest": {
+    "message": "غابة"
+  },
+  "presetSunsetBreeze": {
+    "message": "شفق"
+  },
+  "presetWarmSunrise": {
+    "message": "شروق"
   },
   "previewCapture": {
     "message": "التقاط المعاينة محليًا"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "فرض الألوان الفاتحة أو الداكنة على الصورة."
+  },
+  "wallpaperType": {
+    "message": "نوع الخلفية"
+  },
+  "wallpaperTypeGradient": {
+    "message": "تدرج لوني"
+  },
+  "wallpaperTypeImage": {
+    "message": "صورة"
+  },
+  "wallpaperTypeNone": {
+    "message": "بدون خلفية"
   }
 }

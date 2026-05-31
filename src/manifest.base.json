@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "0.9.7.1",
+  "version": "0.9.8",
   "description": "__MSG_extensionDescription__",
   "default_locale": "es",
   "icons": {
@@ -26,5 +26,11 @@
     "service_worker": "background/service-worker.js",
     "type": "module"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://nonexistent-dummy-url-to-avoid-playwright-bug.invalid/*"],
+      "js": ["shared/dummy.js"]
+    }
+  ],
   "options_page": "setup/setup.html"
 }

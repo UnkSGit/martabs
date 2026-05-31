@@ -54,9 +54,13 @@ const TIMEOUT_MS = 8000;
 
 function applyTheme(theme) {
   let resolvedTheme = theme;
-  if (currentSettings?.customWallpaperEnabled && currentSettings?.customWallpaperSlots?.length > 0) {
+  const wallpaperType = currentSettings?.customWallpaperType || (currentSettings?.customWallpaperEnabled ? "image" : "none");
+  const isGradient = wallpaperType === "gradient";
+  const hasImage = wallpaperType === "image" && currentSettings?.customWallpaperSlots?.length > 0;
+
+  if (currentSettings?.customWallpaperEnabled && (hasImage || isGradient)) {
     let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
-    if (currentSettings.customWallpaperRotate) {
+    if (wallpaperType === "image" && currentSettings.customWallpaperRotate && currentSettings.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0) {
       let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
       if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
         activeSlot = Number(storedSlot);
@@ -81,71 +85,119 @@ let customWallpaperUrl = null;
 async function applyCustomWallpaper() {
   const bgEl = document.querySelector("#custom-wallpaper-bg");
   const overlayEl = document.querySelector("#custom-wallpaper-overlay");
-  
+
   if (!bgEl || !overlayEl) return;
-  
+
   if (customWallpaperUrl) {
     URL.revokeObjectURL(customWallpaperUrl);
     customWallpaperUrl = null;
   }
-  
-  if (!currentSettings || !currentSettings.customWallpaperEnabled || !currentSettings.customWallpaperSlots || currentSettings.customWallpaperSlots.length === 0) {
+
+  const wallpaperType = currentSettings?.customWallpaperType || (currentSettings?.customWallpaperEnabled ? "image" : "none");
+  const hasImage = wallpaperType === "image" && currentSettings?.customWallpaperSlots && currentSettings.customWallpaperSlots.length > 0;
+  const hasGradient = wallpaperType === "gradient";
+  const hasWallpaper = (currentSettings?.customWallpaperEnabled && hasImage) || hasGradient;
+
+  if (!hasWallpaper) {
     document.documentElement.classList.remove("has-custom-wallpaper");
     bgEl.style.backgroundImage = "";
+    bgEl.innerHTML = "";
     bgEl.classList.remove("is-loaded");
     overlayEl.style.backgroundColor = "";
     document.documentElement.style.removeProperty("--custom-folder-opacity");
     document.documentElement.style.removeProperty("--custom-header-opacity");
     return;
   }
-  
+
   try {
-    let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
-    if (currentSettings.customWallpaperRotate) {
-      let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
-      if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
-        activeSlot = Number(storedSlot);
-      } else {
-        const randIndex = Math.floor(Math.random() * currentSettings.customWallpaperSlots.length);
-        activeSlot = currentSettings.customWallpaperSlots[randIndex];
-        sessionStorage.setItem("selectedWallpaperSlot", activeSlot);
+    const folderOpacity = currentSettings.customWallpaperFolderOpacity ?? 0.45;
+    const headerOpacity = currentSettings.customWallpaperHeaderOpacity ?? 0.45;
+    document.documentElement.style.setProperty("--custom-folder-opacity", folderOpacity);
+    document.documentElement.style.setProperty("--custom-header-opacity", headerOpacity);
+
+    const brightness = currentSettings.customWallpaperBrightness ?? 0.8;
+    const overlayOpacity = Math.max(0, Math.min(0.5, 1.0 - brightness));
+    let resolvedTheme = "dark";
+
+    if (wallpaperType === "image") {
+      let activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+      if (currentSettings.customWallpaperRotate) {
+        let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
+        if (storedSlot && currentSettings.customWallpaperSlots.includes(Number(storedSlot))) {
+          activeSlot = Number(storedSlot);
+        } else {
+          const randIndex = Math.floor(Math.random() * currentSettings.customWallpaperSlots.length);
+          activeSlot = currentSettings.customWallpaperSlots[randIndex];
+          sessionStorage.setItem("selectedWallpaperSlot", activeSlot);
+        }
       }
-    }
-    
-    const blob = await getWallpaper(activeSlot);
-    if (blob) {
-      customWallpaperUrl = URL.createObjectURL(blob);
-      bgEl.style.backgroundImage = `url(${customWallpaperUrl})`;
+
+      resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+      const blob = await getWallpaper(activeSlot);
+      if (blob) {
+        customWallpaperUrl = URL.createObjectURL(blob);
+        bgEl.style.backgroundImage = `url(${customWallpaperUrl})`;
+        bgEl.innerHTML = "";
+        bgEl.classList.add("is-loaded");
+        document.documentElement.classList.add("has-custom-wallpaper");
+      } else {
+        throw new Error("Blob is empty");
+      }
+    } else if (wallpaperType === "gradient") {
+      const activeSlot = currentSettings.customWallpaperActiveSlot || 1;
+      resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
+
+      const config = currentSettings.customWallpaperGradientConfig || {
+        type: "linear",
+        colorA: "#ff9a9e",
+        colorB: "#fecfef",
+        angle: 135,
+        presetId: "sunset-breeze",
+        animated: false
+      };
+
+      let backgroundStyle = "";
+      if (config.type === "radial") {
+        backgroundStyle = `radial-gradient(circle, ${config.colorA} 0%, ${config.colorB} 100%)`;
+      } else {
+        backgroundStyle = `linear-gradient(${config.angle}deg, ${config.colorA} 0%, ${config.colorB} 100%)`;
+      }
+
+      bgEl.style.backgroundImage = backgroundStyle;
       bgEl.classList.add("is-loaded");
       document.documentElement.classList.add("has-custom-wallpaper");
-      
-      const folderOpacity = currentSettings.customWallpaperFolderOpacity ?? 0.45;
-      const headerOpacity = currentSettings.customWallpaperHeaderOpacity ?? 0.45;
-      document.documentElement.style.setProperty("--custom-folder-opacity", folderOpacity);
-      document.documentElement.style.setProperty("--custom-header-opacity", headerOpacity);
-      
-      let resolvedTheme = currentSettings.customWallpaperThemes?.[activeSlot] || "dark";
-      
-      const brightness = currentSettings.customWallpaperBrightness ?? 0.8;
-      const overlayOpacity = Math.max(0, Math.min(0.5, 1.0 - brightness));
-      
-      if (resolvedTheme === "dark") {
-        overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
+
+      // Handle Aurora Animation
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (config.animated && !prefersReducedMotion) {
+        bgEl.style.setProperty("--aurora-color-1", config.colorA);
+        bgEl.style.setProperty("--aurora-color-2", config.colorB);
+        bgEl.style.setProperty("--aurora-color-3", `color-mix(in srgb, ${config.colorA} 35%, ${config.colorB})`);
+
+        if (!bgEl.querySelector(".aurora-blob")) {
+          bgEl.innerHTML = `
+            <div class="aurora-blob aurora-blob-1"></div>
+            <div class="aurora-blob aurora-blob-2"></div>
+            <div class="aurora-blob aurora-blob-3"></div>
+          `;
+        }
       } else {
-        overlayEl.style.backgroundColor = `rgba(255, 255, 255, ${overlayOpacity})`;
+        bgEl.innerHTML = "";
       }
+    }
+
+    if (wallpaperType === "gradient") {
+      overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
+    } else if (resolvedTheme === "dark") {
+      overlayEl.style.backgroundColor = `rgba(0, 0, 0, ${overlayOpacity})`;
     } else {
-      document.documentElement.classList.remove("has-custom-wallpaper");
-      bgEl.style.backgroundImage = "";
-      bgEl.classList.remove("is-loaded");
-      overlayEl.style.backgroundColor = "";
-      document.documentElement.style.removeProperty("--custom-folder-opacity");
-      document.documentElement.style.removeProperty("--custom-header-opacity");
+      overlayEl.style.backgroundColor = `rgba(255, 255, 255, ${overlayOpacity})`;
     }
   } catch (err) {
     console.error("Failed to load custom wallpaper", err);
     document.documentElement.classList.remove("has-custom-wallpaper");
     bgEl.style.backgroundImage = "";
+    bgEl.innerHTML = "";
     bgEl.classList.remove("is-loaded");
     overlayEl.style.backgroundColor = "";
     document.documentElement.style.removeProperty("--custom-folder-opacity");
@@ -451,21 +503,21 @@ function renderBookmark(bookmark, rich = false) {
   );
 
   const editBtn = el("button", { class: "bookmark-edit-btn", title: t(api, "bookmarkEditBtn"), "aria-label": t(api, "bookmarkEditBtn"), type: "button" });
-  
+
   editBtn.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
     showEditModal(bookmark);
   });
-  
+
   const isPinned = pinnedBookmarks.includes(bookmark.id);
   const pinBtn = el("button", { class: `bookmark-pin-btn${isPinned ? " is-pinned" : ""}`, title: isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), "aria-label": isPinned ? t(api, "bookmarkUnpinBtn") : t(api, "bookmarkPinBtn"), type: "button" });
-  
+
   const svgDoc = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${isPinned ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
     <line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.2V6a3 3 0 0 0-6 0v5.2a2 2 0 0 1-1.11 1.35l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
   </svg>`, "image/svg+xml");
   pinBtn.appendChild(svgDoc.documentElement);
-  
+
   pinBtn.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -477,9 +529,9 @@ function renderBookmark(bookmark, rich = false) {
     await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, pinnedBookmarks);
     render();
   });
-  
+
   const actionsContainer = el("div", { class: "bookmark-actions" }, [pinBtn, editBtn]);
-  
+
   if (bookmark.isTopSite) {
     bookmarkElement.draggable = false;
     const svgHideDoc = new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`, "image/svg+xml");
@@ -502,7 +554,7 @@ function renderBookmark(bookmark, rich = false) {
   } else {
     bookmarkElement.append(actionsContainer);
   }
-  
+
 
   bookmarkElement.addEventListener("click", (event) => {
     if (
@@ -572,7 +624,7 @@ function showPreviewCard(bookmark, anchorElement) {
   previewCard.append(thumbnailContainer, detailsContainer);
 
   previewCard.hidden = false;
-  
+
   const rect = anchorElement.getBoundingClientRect();
   const cardWidth = 280;
   const cardHeight = previewCard.offsetHeight;
@@ -729,7 +781,7 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
     const draggedId = event.dataTransfer.getData("application/x-martabs-id");
     const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
     console.log("DROP BOOKMARK", bookmark.id, draggedId, draggedSourceFolder);
-    
+
     if (!draggedId || draggedId === bookmark.id) return;
 
     if (draggedSourceFolder !== sourceFolderId) {
@@ -788,19 +840,19 @@ function renderDashboard(items) {
       return rankA - rankB;
     });
   }
-  
+
   const bookmarksById = new Map(items.map((bookmark) => [bookmark.id, bookmark]));
   const pinnedItems = pinnedBookmarks
     .map((id) => bookmarksById.get(id))
     .filter(Boolean);
-  
+
   if (pinnedItems.length > 0 && currentSettings?.showPinnedFolder !== false) {
     folders.unshift([PINNED_FOLDER_KEY, pinnedItems]);
   }
   if (topSites.length > 0) {
     folders.unshift(["__martabs_topsites__", topSites]);
   }
-  
+
   const count = folders.length;
   const masonryWrapper = el("div", { class: "layout-masonry" });
   if (count === 1) {
@@ -850,9 +902,9 @@ function renderDashboard(items) {
     if (currentSettings?.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder) {
       if (folderBrokenBookmarks.length === 0) {
         const progressEl = el("span", { class: "review-progress" });
-        const reviewButton = el("button", { 
-          class: "review-button", 
-          type: "button", 
+        const reviewButton = el("button", {
+          class: "review-button",
+          type: "button",
           title: t(api, "review"),
           "aria-label": t(api, "review")
         });
@@ -870,9 +922,9 @@ function renderDashboard(items) {
       const failuresText = folderBrokenBookmarks.length === 1
         ? t(api, "failuresCountSingular", [folderBrokenBookmarks.length])
         : t(api, "failuresCountPlural", [folderBrokenBookmarks.length]);
-      const viewButton = el("button", { 
-        class: "review-button review-button--danger", 
-        type: "button", 
+      const viewButton = el("button", {
+        class: "review-button review-button--danger",
+        type: "button",
         title: `${failuresText} - ${t(api, "review")}`,
         "aria-label": failuresText + " " + t(api, "review")
       });
@@ -888,31 +940,31 @@ function renderDashboard(items) {
     const modeBtn = el("button", { class: "review-button", type: "button", title: t(api, "changeView"), "aria-label": t(api, "changeView") });
     modeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`;
     modeBtn.style.padding = "0 6px"; // Make it square-ish
-    
+
     modeBtn.addEventListener("click", async () => {
       const currentMode = currentSettings?.folderModes?.[folderId] || currentSettings?.defaultFolderMode || "list";
       const currentIndex = MODES.indexOf(currentMode);
       const nextMode = MODES[(currentIndex + 1) % MODES.length];
-      
+
       const newModes = { ...(currentSettings.folderModes || {}) };
       newModes[folderId] = nextMode;
-      
+
       const nextSettings = {
         ...currentSettings,
         folderModes: newModes
       };
-      
+
       applyFolderModeClass(folderId, nextMode);
       currentSettings = nextSettings;
       scheduleViewFocus(folderId);
-      
+
       await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
     });
-    
+
     if (currentSettings.showSortButton !== false) {
       if (!isPinnedFolder) {
         const currentSort = currentSettings?.folderSorts?.[folderId] || "browser";
-        
+
         const getSortIcon = (sort) => {
           const icons = {
             "browser": `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M11 5h10"></path><path d="M11 9h7"></path><path d="M11 13h4"></path><path d="M3 17l3 3 3-3"></path><path d="M6 18V4"></path></svg>`,
@@ -946,15 +998,15 @@ function renderDashboard(items) {
           const activeSort = currentSettings?.folderSorts?.[folderId] || "browser";
           const currentIndex = SORT_MODES.indexOf(activeSort);
           const nextSort = SORT_MODES[(currentIndex + 1) % SORT_MODES.length];
-          
+
           const newSorts = { ...(currentSettings.folderSorts || {}) };
           newSorts[folderId] = nextSort;
-          
+
           const nextSettings = {
             ...currentSettings,
             folderSorts: newSorts
           };
-          
+
           currentSettings = nextSettings;
           await setStoredValue(api, STORAGE_KEYS.settings, nextSettings);
           render(); // Re-render everything to apply new sorting
@@ -962,7 +1014,7 @@ function renderDashboard(items) {
         headerButtons.push(sortBtn);
       }
     }
-    
+
     if (currentSettings.showViewButton !== false) {
       headerButtons.push(modeBtn);
     }
@@ -972,19 +1024,19 @@ function renderDashboard(items) {
       const folderObj = currentSelectedFolders.find(f => f.id === folderId) || { id: folderId, path: folder, title: folder };
       computedName = getDisplayFolderName(folderObj, currentSelectedFolders, currentSettings.cleanFolderNames !== false);
     }
-    
+
     const folderDisplayName = isPinnedFolder
       ? t(api, "pinnedFolderTitle")
       : isTopSitesFolder
       ? t(api, "frequentSites")
       : (currentSettings.folderNameOverrides || {})[folderId] || computedName;
-    const folderPathTitle = isPinnedFolder 
-      ? t(api, "pinnedFolderTitle") 
-      : isTopSitesFolder 
-      ? t(api, "frequentSites") 
+    const folderPathTitle = isPinnedFolder
+      ? t(api, "pinnedFolderTitle")
+      : isTopSitesFolder
+      ? t(api, "frequentSites")
       : folder;
     const h2 = el("h2", { text: folderDisplayName, title: folderPathTitle });
-    
+
     if (!isPinnedFolder) {
       h2.addEventListener("dblclick", () => {
         h2.setAttribute("contenteditable", "true");
@@ -1041,12 +1093,12 @@ function renderDashboard(items) {
       }
       return bookmarkElement;
     });
-    
+
     const groupElement = el("article", { class: "group", "data-folder-id": folderId }, [
       el("div", { class: "group-header" }, headerChildren),
       el("div", { class: bookmarkListClass }, bookmarkNodes)
     ]);
-    
+
     if (!isPinnedFolder) {
       groupElement.addEventListener("dragover", (event) => {
         event.preventDefault();
@@ -1058,7 +1110,7 @@ function renderDashboard(items) {
       const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
       console.log("DROP GROUP", folderId, draggedId, draggedSourceFolder);
       if (!draggedId || draggedSourceFolder === folderId) return;
-      
+
       currentSettings.bookmarkFolderOverrides = {
         ...(currentSettings.bookmarkFolderOverrides || {}),
         [draggedId]: folderId
@@ -1226,11 +1278,11 @@ async function init() {
     getCapturedPreviews(api),
     getStoredValue(api, STORAGE_KEYS.pinnedBookmarks, [])
   ]);
-  
+
   bookmarks = index;
   capturedPreviews = previews;
   pinnedBookmarks = pinned;
-  
+
   const allFolders = getFolderOptions(tree);
   currentSelectedFolders = allFolders.filter(f => settings.selectedFolderIds?.includes(f.id));
 
@@ -1298,10 +1350,10 @@ document.addEventListener("keydown", (event) => {
     const keyNumber = parseInt(event.key);
     if (keyNumber >= 1 && keyNumber <= 9) {
       const storedMods = currentSettings?.pinnedShortcutModifier;
-      const modifiers = Array.isArray(storedMods) 
-        ? storedMods 
-        : (storedMods === "ctrlShift" ? ["ctrl", "shift"] 
-           : storedMods === "ctrl" ? ["ctrl"] 
+      const modifiers = Array.isArray(storedMods)
+        ? storedMods
+        : (storedMods === "ctrlShift" ? ["ctrl", "shift"]
+           : storedMods === "ctrl" ? ["ctrl"]
            : ["alt"]); // Default to Alt as requested
 
       const requiredKeys = modifiers.map(m => {
@@ -1328,7 +1380,7 @@ document.addEventListener("keydown", (event) => {
           }
         }
       }
-      
+
       if (match) {
         event.preventDefault();
         const index = keyNumber - 1;
@@ -1360,18 +1412,18 @@ function showEditModal(bookmark) {
     editFaviconError.style.display = "none";
   }
   editSave.disabled = false;
-  
+
   const cleanup = () => {
     editCancel.removeEventListener("click", onCancel);
     editDelete.removeEventListener("click", onDelete);
     editForm.removeEventListener("submit", onSubmit);
   };
-  
+
   const onCancel = () => {
     editModal.close();
     cleanup();
   };
-  
+
   const onDelete = async () => {
     if (confirm(t(api, "confirmDeleteBookmarkPermanent", [bookmark.title]))) {
       await api.bookmarks.remove(bookmark.id);
@@ -1382,7 +1434,7 @@ function showEditModal(bookmark) {
       render();
     }
   };
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
     editSave.disabled = true;
@@ -1413,7 +1465,7 @@ function showEditModal(bookmark) {
           changedFavicon = true;
         }
       }
-      
+
       if (changedFavicon) {
         currentSettings.customFavicons = customFavicons;
         if (currentSettings.brokenCustomFavicons) {
@@ -1440,11 +1492,11 @@ function showEditModal(bookmark) {
       editSave.disabled = false;
     }
   };
-  
+
   editCancel.addEventListener("click", onCancel);
   editDelete.addEventListener("click", onDelete);
   editForm.addEventListener("submit", onSubmit);
-  
+
   editModal.showModal();
 }
 

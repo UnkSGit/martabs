@@ -7,10 +7,13 @@
         try {
           let theme = data?.settings?.theme || "system";
           const settings = data?.settings || {};
-          
-          if (settings.customWallpaperEnabled && settings.customWallpaperSlots && settings.customWallpaperSlots.length > 0) {
+
+          const isGradient = settings.customWallpaperType === "gradient";
+          const hasImage = (settings.customWallpaperType === "image" || !settings.customWallpaperType) && settings.customWallpaperSlots && settings.customWallpaperSlots.length > 0;
+
+          if (settings.customWallpaperEnabled && (isGradient || hasImage)) {
             let activeSlot = settings.customWallpaperActiveSlot || 1;
-            if (settings.customWallpaperRotate) {
+            if (!isGradient && settings.customWallpaperRotate && settings.customWallpaperSlots && settings.customWallpaperSlots.length > 0) {
               let storedSlot = sessionStorage.getItem("selectedWallpaperSlot");
               if (storedSlot && settings.customWallpaperSlots.includes(Number(storedSlot))) {
                 activeSlot = Number(storedSlot);
@@ -19,7 +22,7 @@
                 activeSlot = settings.customWallpaperSlots[randIndex];
                 sessionStorage.setItem("selectedWallpaperSlot", activeSlot);
               }
-            } else {
+            } else if (!isGradient) {
               sessionStorage.removeItem("selectedWallpaperSlot");
             }
             theme = settings.customWallpaperThemes?.[activeSlot] || "dark";
@@ -27,7 +30,7 @@
               theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
             }
           }
-          
+
           const root = document.documentElement;
           if (theme === "dark") {
             root.classList.add("theme-dark");

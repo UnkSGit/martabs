@@ -4,7 +4,7 @@
 
 A browser extension that replaces the New Tab page with a local, private bookmark dashboard.
 
-The goal is to easily find bookmarks saved in large folders, featuring instant search, tags, visual modes, local ordering, and link health tools—without relying on external services.
+The goal is to easily find bookmarks saved in large folders, featuring instant search, tags, visual modes, local ordering, customizable backgrounds, local statistics, and link health tools without relying on external services.
 
 Compatible with Chrome, Edge, Brave, and Firefox.
 
@@ -27,10 +27,11 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 ## Features
 
 - New Tab with masonry-style dashboard layout.
-- Monitored folder selection.
+- Monitored folder selection with a hierarchical folder tree and local column ordering.
 - Instant search by title, URL, domain, folder, and tags.
 - Automatic and manual tags.
 - Pinned favorites within their folder and in a virtual top-level folder.
+- Optional frequent-sites folder using the browser Top Sites API.
 - Visual modes per folder: list, compact, icons, large icons, and quicklinks.
 - Visual ordering globally and per folder: original, manual, title, date, domain, or broken-first.
 - Local drag & drop to reorder bookmarks and move them between folders.
@@ -39,8 +40,11 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 - Optional quick-view tooltips on hover.
 - Optional local screenshots triggered when opening bookmarks from martabs.
 - Manual link-health checking per folder.
+- Optional local usage statistics with a private bar chart, reset, and JSON export.
+- Custom wallpaper images with local IndexedDB storage, multiple slots, rotation, brightness, and panel opacity controls.
+- Custom gradient wallpapers with presets, color editor, radial/linear modes, and optional Aurora animation.
 - Theme: light, dark, or system default.
-- Language selector with 9 supported languages: English, Spanish, Portuguese, German, French, Italian, Korean, Simplified Chinese, and Japanese.
+- Language selector with 11 supported languages: English, Spanish, Portuguese, German, French, Italian, Korean, Russian, Arabic, Simplified Chinese, and Japanese.
 - Settings export and import with profile ID remapping.
 - Settings panel with built-in search.
 
@@ -48,16 +52,17 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 
 martabs stores everything locally in the browser. It does not use external services for previews, icons, search, metadata, or synchronization. There is no telemetry or data collection of any kind.
 
-Screenshots are only generated if you actively enable the option and open a bookmark from martabs. Link checking is only triggered by your explicit action.
+Screenshots are only generated if you actively enable the option and open a bookmark from martabs. Link checking is only triggered by your explicit action. Frequent sites are read from the browser only if the user enables that optional folder.
 
 Base permissions:
 
 - `bookmarks`: to read the bookmark tree and save user edits.
-- `storage`: to save local settings, tags, orders, previews, and state.
+- `storage`: to save local settings, tags, orders, previews, wallpapers, statistics, and state.
 - `favicon` (Chrome only): to read native browser favicons.
 
 Optional permissions:
 
+- `topSites`: requested dynamically only if you enable the Frequent Sites folder.
 - Host permissions: requested dynamically only if you enable link health checks or local previews.
 
 When you disable these options from the Settings panel, martabs attempts to revoke the optional permissions.
@@ -105,24 +110,31 @@ E2E Tests (requires Playwright installed):
 npm run test:e2e:chrome    # E2E on Chromium only
 ```
 
+Screenshot specs:
+
+```bash
+npx playwright test e2e/tests/documentation-screenshots.spec.mjs e2e/tests/arabic-screenshots.spec.mjs e2e/tests/store-screenshots.spec.mjs --project=chromium
+```
+
 E2E testing in Firefox has documented limitations. See `docs/firefox-testing-issues.md`.
 
 ## Project Structure
 
-```
+```text
 src/
-  _locales/           translations (en, es, pt, de, fr, it, ko, zh_CN, ja)
+  _locales/           translations (ar, de, en, es, fr, it, ja, ko, pt, ru, zh_CN)
   background/         service worker (re-indexing, local captures)
+  images/             extension and header assets
   newtab/             New Tab dashboard
   setup/              Settings panel
-  shared/             shared helpers (i18n, search, sort, render, storage, sync)
+  shared/             shared helpers (browser API, i18n, search, sort, storage, sync, wallpaper DB)
   manifest.base.json  common manifest
   manifest.chrome.json
   manifest.firefox.json
 tests/                unit tests
-e2e/                  E2E tests using Playwright
-scripts/              build scripts
-docs/                 living documentation
+e2e/                  E2E tests and screenshot generation using Playwright
+scripts/              build, package, and i18n maintenance scripts
+docs/                 living documentation, policies, screenshots, and store materials
 ```
 
 ## Documentation
@@ -142,8 +154,8 @@ docs/                 living documentation
 
 This project was developed collaboratively between the author and AI assistants:
 
-- **Antigravity** (Google DeepMind) using Gemini models.
-- **Codex** (OpenAI) using GPT models.
+- **Antigravity** using Gemini 3.5 Pro and Gemini 3.5 Fast.
+- **Codex** using GPT-5.5.
 
 All AI agents working on this repository are required to read the [AI Codebase Map](docs/ai-map.md) before proposing or implementing changes. Gaps or omissions should be logged in the [AI Map Gaps & Notes Log](docs/ai-map-notes.md) to keep it updated.
 

@@ -158,12 +158,41 @@ test("setup page has custom wallpaper layout and logic", async () => {
   assert.match(html, /id="wallpaper-folder-opacity-slider"/);
   assert.match(html, /id="wallpaper-header-opacity-slider"/);
   assert.match(html, /id="theme-select-helper-note"/);
+  assert.match(html, /id="wallpaper-type-select"/);
+  assert.match(html, /class="wallpaper-type-segment"/);
+  assert.match(html, /id="wallpaper-gradient-container"/);
+  assert.match(html, /class="gradient-showcase"/);
+  assert.match(html, /id="gradient-preview-canvas"/);
+  assert.match(html, /class="gradient-preview-logo-img" src="\.\.\/images\/newlogo\.png"/);
+  assert.match(html, /class="gradient-preview-topbar"/);
+  assert.match(html, /class="gradient-preview-folder"/);
+  assert.match(html, /class="gradient-preview-status" data-i18n="loadingBookmarks"/);
+  assert.match(html, /data-i18n="settingsBtn">Configurar/);
+  assert.match(html, /data-i18n="searchPlaceholder">Buscar titulo, etiqueta, URL o carpeta/);
+  assert.match(html, /class="gradient-preset-btn"/);
+  assert.match(html, /class="gradient-preset-surface"/);
+  assert.match(html, /id="gradient-color-a"/);
+  assert.match(html, /id="gradient-color-b"/);
+  assert.match(html, /id="gradient-type-select"/);
+  assert.match(html, /id="gradient-angle-slider"/);
+  assert.match(html, /id="gradient-animate-checkbox"/);
 
   // CSS checks
   assert.match(css, /\.wallpaper-dropzone\s*{/);
   assert.match(css, /\.wallpaper-preview-img\s*{/);
   assert.match(css, /\.wallpaper-slots-grid\s*{/);
   assert.match(css, /\.wallpaper-slot-preview\s*{/);
+  assert.match(css, /\.wallpaper-type-segment\s*{/);
+  assert.match(css, /\.gradient-showcase\s*{/);
+  assert.match(css, /\.gradient-preview-canvas\s*{/);
+  assert.match(css, /\.gradient-preview-logo-img\s*{/);
+  assert.match(css, /\.gradient-preview-topbar\s*{/);
+  assert.match(css, /\.gradient-preview-folder\s*{/);
+  assert.match(css, /\.gradient-presets-grid\s*{/);
+  assert.match(css, /\.gradient-preset-btn\s*{/);
+  assert.match(css, /\.gradient-preset-surface\s*{/);
+  assert.match(css, /#gradient-angle-row\.is-hidden\s*{/);
+  assert.match(css, /\.theme-dark\.has-custom-wallpaper \.aurora-blob\s*{/);
 
   // JS checks
   assert.match(js, /import { saveWallpaper, getWallpaper, deleteWallpaper } from "\.\.\/shared\/db\.js";/);
@@ -176,6 +205,12 @@ test("setup page has custom wallpaper layout and logic", async () => {
   assert.match(js, /customWallpaperBrightness:/);
   assert.match(js, /customWallpaperFolderOpacity:/);
   assert.match(js, /customWallpaperHeaderOpacity:/);
+  assert.match(js, /customWallpaperType:/);
+  assert.match(js, /customWallpaperGradientConfig:/);
+  assert.match(js, /updateGradientPresetHighlights/);
+  assert.match(js, /setGradientAngleAvailability/);
+  assert.match(js, /wallpaperType === "gradient"/);
+  assert.match(js, /overlayEl\.style\.backgroundColor = `rgba\(0, 0, 0,/);
   assert.match(js, /processAndSaveImage/);
   assert.match(js, /loadWallpaperPreview/);
 });

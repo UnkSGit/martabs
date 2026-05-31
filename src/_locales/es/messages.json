@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "Todas las carpetas"
   },
+  "animateGradient": {
+    "message": "Animar degradado"
+  },
+  "animateGradientDesc": {
+    "message": "Activa efectos de aurora fluida de bajo consumo en segundo plano."
+  },
+  "animateGradientDescShort": {
+    "message": "Efecto Aurora sutil"
+  },
   "appearanceDescription": {
     "message": "Preferencias visuales generales del tablero."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "¿Restablecer el historial de estadísticas de uso?"
+  },
+  "customGradientDesc": {
+    "message": "Ajusta los colores, tipo y ángulo del degradado."
+  },
+  "customGradientHeading": {
+    "message": "Personalizar"
   },
   "customWallpaper": {
     "message": "Imagen de fondo personalizada"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Frecuente"
+  },
+  "gradientAngle": {
+    "message": "Ángulo"
+  },
+  "gradientColorEnd": {
+    "message": "Color final"
+  },
+  "gradientColorStart": {
+    "message": "Color inicial"
+  },
+  "gradientColors": {
+    "message": "Colores"
+  },
+  "gradientLinear": {
+    "message": "Lineal"
+  },
+  "gradientPresetsHeading": {
+    "message": "Seleccionar un degradado"
+  },
+  "gradientRadial": {
+    "message": "Radial"
+  },
+  "gradientStyleHeading": {
+    "message": "Estilo"
+  },
+  "gradientType": {
+    "message": "Tipo de degradado"
   },
   "healthBroken": {
     "message": "Inaccesible (Código: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Fijados"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmos"
+  },
+  "presetDarkGlass": {
+    "message": "Cristal"
+  },
+  "presetDeepOcean": {
+    "message": "Océano"
+  },
+  "presetMidnightForest": {
+    "message": "Bosque"
+  },
+  "presetSunsetBreeze": {
+    "message": "Ocaso"
+  },
+  "presetWarmSunrise": {
+    "message": "Amanecer"
   },
   "previewCapture": {
     "message": "Capturar vistas previas locales"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Forzar colores claros u oscuros sobre la imagen."
+  },
+  "wallpaperType": {
+    "message": "Tipo de fondo"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Degradado"
+  },
+  "wallpaperTypeImage": {
+    "message": "Imagen"
+  },
+  "wallpaperTypeNone": {
+    "message": "Sin fondo"
   }
 }

@@ -168,3 +168,23 @@ test("newtab excludes topSites from review and hover previews", async () => {
   assert.match(js, /if \(currentSettings\?\.linkHealthEnabled && !isPinnedFolder && !isTopSitesFolder\)/);
   assert.match(js, /if \(!bookmark\.isTopSite\) {[^}]*bookmarkElement\.addEventListener\("mouseenter"/);
 });
+
+test("newtab has gradient and aurora background rendering support", async () => {
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+
+  // JS checks
+  assert.match(js, /customWallpaperType/);
+  assert.match(js, /customWallpaperGradientConfig/);
+  assert.match(js, /linear-gradient/);
+  assert.match(js, /radial-gradient/);
+  assert.match(js, /prefers-reduced-motion/);
+  assert.match(js, /aurora-blob/);
+
+  // CSS checks
+  assert.match(css, /\.aurora-blob\s*{/);
+  assert.match(css, /\.aurora-blob-1\s*{/);
+  assert.match(css, /\.aurora-blob-2\s*{/);
+  assert.match(css, /\.aurora-blob-3\s*{/);
+  assert.match(css, /@keyframes aurora-float-1/);
+});

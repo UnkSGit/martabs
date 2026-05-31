@@ -1,6 +1,6 @@
 # Estado actual - martabs
 
-Ultima actualizacion: 2026-05-26.
+Ultima actualizacion: 2026-05-31.
 
 ## Completado
 
@@ -30,7 +30,12 @@ Ultima actualizacion: 2026-05-26.
 - Tests automaticos para busqueda, tags, bookmarks, setup, privacidad, orden, nueva pestana, salud de enlaces e i18n.
 - Exportar e importar configuracion con remapeo robusto por URL/path.
 - Playwright Fase 0 y Fase 1 implementadas para infraestructura, smoke y MVP en Chrome.
-- Paso 12: Internacionalizacion (i18n) completa con selector de idioma (Sistema, Espanol, Ingles, Portugues, Aleman), paridad de claves y tests locales.
+- Paso 12: Internacionalizacion (i18n) completa con selector de idioma y 11 idiomas: Sistema, Espanol, Ingles, Portugues, Aleman, Frances, Italiano, Coreano, Ruso, Arabe, Chino simplificado y Japones.
+- Sitios frecuentes opcionales usando Top Sites del navegador.
+- Estadisticas de uso locales opcionales con grafico, reset y exportacion JSON.
+- Fondos personalizados por imagen con IndexedDB, slots, rotacion, brillo y opacidad de superficies.
+- Fondos por degradado con presets, editor lineal/radial y animacion Aurora opcional.
+- Capturas publicas/documentales regeneradas con Playwright.
 
 ## Comportamiento importante
 
@@ -48,6 +53,17 @@ Ultima actualizacion: 2026-05-26.
 - El drag & drop de marcadores solo representa cambios locales de martabs.
 - Configuracion esta organizada en `Carpetas`, `Apariencia`, `Privacidad`, `Etiquetas` y `Avanzado`.
 - El boton global `Guardar cambios` debe preservar settings internos no visibles en el formulario.
+- La preview del selector de degradados reutiliza textos i18n existentes del tablero real (`loadingBookmarks`, `settingsBtn`, `searchPlaceholder`) y el logo real `src/images/newlogo.png`.
+- El selector claro/oscuro de fondo personalizado cambia la interfaz, no debe alterar la oscuridad del degradado.
+- En degradados radiales, el control de angulo debe ocultarse/deshabilitarse.
+
+## Registro reciente
+
+Fecha: 2026-05-31
+Herramienta: Codex
+Resumen: Cierre de etapa de fondos por degradado y limpieza general. Se mejoro la preview de degradados para parecerse al tablero real con logo, status, boton de configuracion, buscador y mini carpetas; se reutilizaron claves i18n existentes para los textos de la preview. Se corrigio el test i18n para usar `process.execPath` y no depender del `node` global. Se regeneraron capturas de documentacion, arabe y store screenshots con Playwright/Chrome. Se actualizo `README.md` con fondos personalizados, degradados/Aurora, Top Sites, estadisticas locales, 11 idiomas y detalles de colaboracion IA.
+Archivos tocados: `README.md`, `docs/task.md`, `src/setup/setup.html`, `src/setup/setup.css`, `src/setup/setup.js`, `src/newtab/newtab.css`, `src/newtab/newtab.js`, `tests/setup.test.js`, `tests/i18n.test.js`, capturas en `docs/assets/screenshots/*` y `docs/assets/store_screenshots/*`.
+Verificacion: build correcto; `node --test` (65/65); `scripts/i18n-maintain.mjs --check`; Playwright Chromium para `documentation-screenshots`, `arabic-screenshots` y `store-screenshots` (3/3).
 
 ## Pendiente actual
 

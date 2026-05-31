@@ -26,6 +26,15 @@
   "allFoldersTitle": {
     "message": "Tutte le cartelle"
   },
+  "animateGradient": {
+    "message": "Anima gradiente"
+  },
+  "animateGradientDesc": {
+    "message": "Abilita effetti aurora fluidi e a basso consumo in background."
+  },
+  "animateGradientDescShort": {
+    "message": "Effetto Aurora sottile"
+  },
   "appearanceDescription": {
     "message": "Preferenze visive generali della dashboard."
   },
@@ -151,6 +160,12 @@
   },
   "confirmResetStats": {
     "message": "Reimpostare la cronologia delle statistiche di utilizzo?"
+  },
+  "customGradientDesc": {
+    "message": "Regola i colori, il tipo e l'angolazione del gradiente."
+  },
+  "customGradientHeading": {
+    "message": "Personalizza"
   },
   "customWallpaper": {
     "message": "Immagine di sfondo personalizzata"
@@ -310,6 +325,33 @@
   },
   "frequentTag": {
     "message": "Frequente"
+  },
+  "gradientAngle": {
+    "message": "Angolo"
+  },
+  "gradientColorEnd": {
+    "message": "Colore finale"
+  },
+  "gradientColorStart": {
+    "message": "Colore iniziale"
+  },
+  "gradientColors": {
+    "message": "Colori"
+  },
+  "gradientLinear": {
+    "message": "Lineare"
+  },
+  "gradientPresetsHeading": {
+    "message": "Seleziona un gradiente"
+  },
+  "gradientRadial": {
+    "message": "Radiale"
+  },
+  "gradientStyleHeading": {
+    "message": "Stile"
+  },
+  "gradientType": {
+    "message": "Tipo di gradiente"
   },
   "healthBroken": {
     "message": "Non raggiungibile (Codice: $CODE$)",
@@ -542,6 +584,24 @@
   },
   "pinnedFolderTitle": {
     "message": "Fissati"
+  },
+  "presetCosmicViolet": {
+    "message": "Cosmos"
+  },
+  "presetDarkGlass": {
+    "message": "Vetro"
+  },
+  "presetDeepOcean": {
+    "message": "Oceano"
+  },
+  "presetMidnightForest": {
+    "message": "Foresta"
+  },
+  "presetSunsetBreeze": {
+    "message": "Tramonto"
+  },
+  "presetWarmSunrise": {
+    "message": "Alba"
   },
   "previewCapture": {
     "message": "Cattura anteprime locali"
@@ -918,5 +978,17 @@
   },
   "wallpaperThemeDesc": {
     "message": "Forza colori chiari o scuri sull'immagine."
+  },
+  "wallpaperType": {
+    "message": "Tipo di sfondo"
+  },
+  "wallpaperTypeGradient": {
+    "message": "Gradiente"
+  },
+  "wallpaperTypeImage": {
+    "message": "Immagine"
+  },
+  "wallpaperTypeNone": {
+    "message": "Nessuno"
   }
 }
