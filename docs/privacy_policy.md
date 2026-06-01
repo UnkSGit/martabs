@@ -1,6 +1,6 @@
 # martabs Privacy Policy
 
-Effective date: May 26, 2026
+Effective date: May 31, 2026
 
 martabs is a browser extension that replaces the new tab page with a local bookmark dashboard. This policy explains what data the extension uses and how it is handled.
 
@@ -17,6 +17,7 @@ martabs may access and store the following data locally in your browser:
 - Manual tags, pinned bookmarks and custom favicon URLs configured by the user.
 - Optional local preview screenshots, only when the user enables local preview capture and opens a bookmark from martabs.
 - Optional link check results, only when the user enables link review and manually starts a review.
+- Optional top sites (most frequently visited pages), only when the user enables the optional "Frequent Sites" folder.
 
 ## Storage
 
@@ -27,6 +28,7 @@ All extension data is stored locally using the browser extension storage APIs. m
 - `bookmarks`: required to read bookmark folders and to apply bookmark edits requested by the user.
 - `storage`: required to save local settings, tags, ordering, pinned bookmarks, cached previews and link review state.
 - `favicon`: used only on Chrome to display browser-provided favicons.
+- Optional `topSites` permission: requested dynamically only if the user enables the "Frequent Sites" folder, used to fetch and display the user's most frequently visited pages.
 - Optional host permissions: requested only when the user enables link review or local preview capture. These permissions are used to check links or capture previews, and martabs attempts to remove them when both optional features are disabled.
 
 ## Network activity
