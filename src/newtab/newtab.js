@@ -1009,7 +1009,7 @@ function renderDashboard(items) {
             "domain-asc": "sortDomainAsc",
             "health-broken-first": "sortHealthBrokenFirst"
           };
-          const baseTitle = t(api, "sortBookmarks") || "Ordenar marcadores";
+          const baseTitle = t(api, "sortBookmarks", "Ordenar marcadores");
           const currentModeStr = t(api, keyMap[sort]) || sort;
           return `${baseTitle} (${currentModeStr})`;
         };
@@ -1142,7 +1142,7 @@ function renderDashboard(items) {
       const loadMoreBtn = el("button", {
         class: "load-more-btn",
         type: "button",
-        text: t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount]) || `Ver más (${folderBookmarks.length - renderedCount} restantes)`
+        text: t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount], `Ver más (${folderBookmarks.length - renderedCount} restantes)`)
       });
 
       loadMoreContainer = el("div", { class: "load-more-container" }, [loadMoreBtn]);
@@ -1167,7 +1167,7 @@ function renderDashboard(items) {
           if (sentinel) sentinel.remove();
           if (observer) observer.disconnect();
         } else {
-          loadMoreBtn.textContent = t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount]) || `Ver más (${folderBookmarks.length - renderedCount} restantes)`;
+          loadMoreBtn.textContent = t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount], `Ver más (${folderBookmarks.length - renderedCount} restantes)`);
         }
       });
 
@@ -1183,8 +1183,7 @@ function renderDashboard(items) {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               loadMoreContainer.classList.add("visible");
-            } else {
-              loadMoreContainer.classList.remove("visible");
+              observer.disconnect();
             }
           });
         }, {
@@ -1247,7 +1246,7 @@ function renderResults(items) {
     const loadMoreBtn = el("button", {
       class: "load-more-btn",
       type: "button",
-      text: t(api, "showMoreResults") || "Ver más resultados"
+      text: t(api, "showMoreResults", "Ver más resultados")
     });
 
     const loadMoreContainer = el("div", { class: "load-more-container", style: "max-width: 300px; margin: 16px auto;" }, [loadMoreBtn]);
@@ -1309,13 +1308,13 @@ function renderBrokenLinks(items, folderName = "") {
   }
 
   const ignoreAllButton = items.length > 0
-    ? el("button", { class: "link-action-button", type: "button", text: t(api, "ignoreAll") || "Ignorar todos" })
+    ? el("button", { class: "link-action-button", type: "button", text: t(api, "ignoreAll", "Ignorar todos") })
     : null;
 
   if (ignoreAllButton) {
     ignoreAllButton.addEventListener("click", async () => {
       const confirmed = window.confirm(
-        t(api, "confirmIgnoreAll") || "¿Seguro que quieres ignorar todos los fallos detectados?"
+        t(api, "confirmIgnoreAll", "¿Seguro que quieres ignorar todos los fallos detectados?")
       );
       if (!confirmed) return;
       const linkHealth = await getLinkHealth(api);
@@ -1426,7 +1425,7 @@ function renderTabsBar() {
     const allPill = el("button", {
       class: `tab-pill${activeTabId === "all" ? " is-active" : ""}`,
       type: "button",
-      text: t(api, "tabAll") || "Todo"
+      text: t(api, "tabAll", "Todo")
     });
     allPill.addEventListener("click", async () => {
       if (currentSettings.activeTabId !== "all") {

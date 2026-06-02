@@ -90,7 +90,7 @@ export function createBrowserMock(initialState = {}) {
           }
           return message;
         }
-        return key;
+        return "";
       }
     },
     bookmarks: {

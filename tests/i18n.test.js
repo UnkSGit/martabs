@@ -124,6 +124,8 @@ test("t helper returns message or key fallback", () => {
 
   assert.strictEqual(t(mockApi, "test", ["world"]), "hello world");
   assert.strictEqual(t(mockApi, "missing"), "missing", "Deberia retornar la clave original si falta la traduccion.");
+  assert.strictEqual(t(mockApi, "missing", "fallback"), "fallback", "Deberia retornar el fallback directo.");
+  assert.strictEqual(t(mockApi, "missing", ["world"], "fallback $1"), "fallback world", "Deberia retornar el fallback con substituciones.");
 });
 
 test("initI18n loads translations via fetch and custom getMessage handles substitutions and fallback", async () => {

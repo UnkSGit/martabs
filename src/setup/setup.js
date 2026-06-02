@@ -874,7 +874,7 @@ function renderTabs() {
     emptyMsg.style.textAlign = "center";
     emptyMsg.style.color = "var(--text-secondary)";
     emptyMsg.style.fontSize = "13px";
-    emptyMsg.textContent = t(api, "noTabsConfigured") || "No tienes pestañas configuradas. Las carpetas se mostrarán juntas.";
+    emptyMsg.textContent = t(api, "noTabsConfigured", "No tienes pestañas configuradas. Las carpetas se mostrarán juntas.");
     tabsList.appendChild(emptyMsg);
     return;
   }
@@ -1181,7 +1181,7 @@ function renderTabsDropzones() {
     emptyMsg.style.textAlign = "center";
     emptyMsg.style.color = "var(--text-secondary)";
     emptyMsg.style.fontSize = "13px";
-    emptyMsg.textContent = t(api, "noFoldersSelected") || "No has seleccionado carpetas monitoreadas.";
+    emptyMsg.textContent = t(api, "noFoldersSelected", "No has seleccionado carpetas monitoreadas.");
     tabsDropzonesList.appendChild(emptyMsg);
     return;
   }
@@ -1234,7 +1234,7 @@ function renderTabsDropzones() {
       const upBtn = document.createElement("button");
       upBtn.type = "button";
       upBtn.className = "tab-action-btn";
-      upBtn.title = t(api, "moveUp") || "Subir";
+      upBtn.title = t(api, "moveUp", "Subir");
       upBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>`;
       upBtn.disabled = tabIndex === 0;
       upBtn.addEventListener("click", () => {
@@ -1252,7 +1252,7 @@ function renderTabsDropzones() {
       const downBtn = document.createElement("button");
       downBtn.type = "button";
       downBtn.className = "tab-action-btn";
-      downBtn.title = t(api, "moveDown") || "Bajar";
+      downBtn.title = t(api, "moveDown", "Bajar");
       downBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
       downBtn.disabled = tabIndex === tabs.length - 1;
       downBtn.addEventListener("click", () => {
@@ -1270,10 +1270,10 @@ function renderTabsDropzones() {
       const deleteBtn = document.createElement("button");
       deleteBtn.type = "button";
       deleteBtn.className = "tab-action-btn delete";
-      deleteBtn.title = t(api, "delete") || "Eliminar";
+      deleteBtn.title = t(api, "delete", "Eliminar");
       deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
       deleteBtn.addEventListener("click", () => {
-        if (confirm(t(api, "confirmDeleteTab", [tabName]) || `¿Seguro que deseas eliminar la pestaña "${tabName}"?`)) {
+        if (confirm(t(api, "confirmDeleteTab", [tabName], `¿Seguro que deseas eliminar la pestaña "${tabName}"?`))) {
           if (currentSettings.folderTabs) {
             Object.keys(currentSettings.folderTabs).forEach(fid => {
               if (currentSettings.folderTabs[fid] === tabId) {
@@ -1357,7 +1357,7 @@ function renderTabsDropzones() {
     if (assignedFolders.length === 0) {
       const placeholderEl = document.createElement("div");
       placeholderEl.className = "tab-dropzone-placeholder";
-      placeholderEl.textContent = t(api, "dragFoldersHere") || "Arrastra carpetas aquí";
+      placeholderEl.textContent = t(api, "dragFoldersHere", "Arrastra carpetas aquí");
       bodyEl.appendChild(placeholderEl);
     } else {
       assignedFolders.forEach(fid => {
@@ -1389,11 +1389,11 @@ function renderTabsDropzones() {
         const removeBtn = document.createElement("button");
         removeBtn.type = "button";
         removeBtn.className = "assigned-folder-remove-btn";
-        removeBtn.title = t(api, "unassignedTab") || "Quitar de pestaña";
+        removeBtn.title = t(api, "unassignedTab", "Quitar de pestaña");
         removeBtn.innerHTML = "×";
         removeBtn.addEventListener("click", () => {
           if (!tabId) {
-            const msg = t(api, "confirmRemoveFolderSetup", [folderTitle]) || `¿Seguro que deseas dejar de monitorear la carpeta "${folderTitle}"?`;
+            const msg = t(api, "confirmRemoveFolderSetup", [folderTitle], `¿Seguro que deseas dejar de monitorear la carpeta "${folderTitle}"?`);
             if (confirm(msg)) {
               const checkbox = document.querySelector(`#folder-cb-${fid}`);
               if (checkbox) {
@@ -1431,7 +1431,7 @@ function renderTabsDropzones() {
     return cardEl;
   }
 
-  const unassignedCard = createDropzoneCard("", t(api, "foldersUnassigned") || "Carpetas sin pestaña", false);
+  const unassignedCard = createDropzoneCard("", t(api, "foldersUnassigned", "Carpetas sin pestaña"), false);
   tabsDropzonesList.appendChild(unassignedCard);
 
   tabs.forEach(tab => {
@@ -2888,11 +2888,16 @@ saveButton.addEventListener("click", async () => {
     }
 
     currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showTopSitesFolder, localStatsRequested);
-    if (localStatsRequested) renderStatistics();
     await saveSettings(api, currentSettings);
 
     await initI18n(api, currentSettings.language);
     localizeHtml(api);
+
+    updateShortcutCatcherLabel();
+    renderTabs();
+    renderFolderTabMapping();
+    await renderStatistics();
+
     renderFolders(
       currentFolders,
       currentSettings.selectedFolderIds,

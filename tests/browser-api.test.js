@@ -40,7 +40,7 @@ test("synchronous methods return values directly (not Promises)", () => {
   // i18n.getMessage
   const msg = api.i18n.getMessage("extensionName");
   assert.strictEqual(typeof msg, "string");
-  assert.strictEqual(msg, "extensionName"); // since no translations provided, returns key
+  assert.strictEqual(msg, ""); // since no translations provided, returns empty string
   assert.ok(!(msg instanceof Promise));
 });
 

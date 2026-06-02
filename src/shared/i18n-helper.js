@@ -126,6 +126,30 @@ export function localizeHtml(api, rootElement = document) {
 }
 
 // Helper corto para traducciones dinamicas en JS con fallback
-export function t(api, key, substitutions) {
-  return getMessage(api, key, substitutions) || key;
+export function t(api, key, substitutions, fallback) {
+  let actualSubstitutions = substitutions;
+  let actualFallback = fallback;
+
+  if (typeof substitutions === "string" && fallback === undefined) {
+    actualFallback = substitutions;
+    actualSubstitutions = undefined;
+  }
+
+  const msg = getMessage(api, key, actualSubstitutions);
+  if (msg !== undefined && msg !== null && msg !== "") {
+    return msg;
+  }
+
+  if (actualFallback !== undefined) {
+    let result = actualFallback;
+    if (actualSubstitutions) {
+      const subs = Array.isArray(actualSubstitutions) ? actualSubstitutions : [actualSubstitutions];
+      subs.forEach((sub, index) => {
+        result = result.replaceAll(`$${index + 1}`, sub);
+      });
+    }
+    return result;
+  }
+
+  return key;
 }
