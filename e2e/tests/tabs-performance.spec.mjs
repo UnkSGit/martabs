@@ -51,7 +51,7 @@ test.describe('Tabs and Performance Optimization (v0.9.9)', () => {
     await setupPage.selectFolder(folderWork.id);
     
     // Expand the parent folder E2E Work to make the child E2E Personal visible/checkable
-    const parentToggleBtn = page.locator(`.folder-tree-node[data-folder-id="${folderWork.id}"] .folder-toggle-btn`);
+    const parentToggleBtn = page.locator(`#folder-tree-container .folder-tree-node[data-folder-id="${folderWork.id}"] .folder-toggle-btn`);
     if (await parentToggleBtn.isVisible()) {
       await parentToggleBtn.click();
     }
@@ -59,9 +59,9 @@ test.describe('Tabs and Performance Optimization (v0.9.9)', () => {
     await setupPage.selectFolder(folderPersonal.id);
     await setupPage.save();
 
-    // Go to Tabs section
-    await page.locator('nav button[data-section="tabs"]').click();
-    await expect(page.locator('#section-tabs')).toBeVisible();
+    // Go to Dashboard section where Tabs management is located
+    await page.locator('nav button[data-section="dashboard"]').click();
+    await expect(page.locator('#tabs-manager-container')).toBeVisible();
 
     // Add custom tab using Enter keypress
     await page.locator('#new-tab-name').fill('Trabajo');
@@ -171,13 +171,17 @@ test.describe('Tabs and Performance Optimization (v0.9.9)', () => {
     const initialBookmarksCount = await personalGroup.locator('.bookmark').count();
     expect(initialBookmarksCount).toBe(50);
 
+    // Scroll the bookmark list of the folder to the bottom to trigger IntersectionObserver
+    const bookmarkList = personalGroup.locator('.bookmark-list');
+    await bookmarkList.evaluate(el => el.scrollTop = el.scrollHeight);
+
     // The load more button must be visible with correct text (remaining 2)
     const loadMoreBtn = personalGroup.locator('.load-more-btn');
     await expect(loadMoreBtn).toBeVisible();
     await expect(loadMoreBtn).toContainText('2');
 
     // Click "Ver más"
-    await loadMoreBtn.click();
+    await loadMoreBtn.click({ force: true });
 
     // Now all 52 bookmarks must be rendered and button is removed
     const finalBookmarksCount = await personalGroup.locator('.bookmark').count();
@@ -189,12 +193,17 @@ test.describe('Tabs and Performance Optimization (v0.9.9)', () => {
     const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
     await setupPage.goto();
 
-    // Select Work folder
+    // Select both Work and Personal folders
     await setupPage.selectFolder(folderWork.id);
+    const parentToggleBtn = page.locator(`#folder-tree-container .folder-tree-node[data-folder-id="${folderWork.id}"] .folder-toggle-btn`);
+    if (await parentToggleBtn.isVisible()) {
+      await parentToggleBtn.click();
+    }
+    await setupPage.selectFolder(folderPersonal.id);
     await setupPage.save();
 
-    // Go to Tabs section
-    await page.locator('nav button[data-section="tabs"]').click();
+    // Go to Dashboard section
+    await page.locator('nav button[data-section="dashboard"]').click();
 
     // Create a temp tab
     await page.locator('#new-tab-name').fill('TempTab');
@@ -247,12 +256,12 @@ test.describe('Tabs and Performance Optimization (v0.9.9)', () => {
 
     // Go back to setup
     await page.goto(`${extensionProtocol}${extensionId}/setup/setup.html`);
-    await page.locator('nav button[data-section="tabs"]').click();
+    await page.locator('nav button[data-section="dashboard"]').click();
 
     // Let's delete TempTab.
     // Intercept confirm dialogs for deleting a tab
     page.once('dialog', async (dialog) => {
-      expect(dialog.message()).toContain('¿Seguro que deseas eliminar esta pestaña?');
+      expect(dialog.message()).toContain('¿Seguro que deseas eliminar la pestaña');
       await dialog.accept();
     });
     // Click delete btn on TempTab dropzone card

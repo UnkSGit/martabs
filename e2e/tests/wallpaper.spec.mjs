@@ -9,8 +9,8 @@ test.describe('HU: Fondo de pantalla personalizado (v0.9.8)', () => {
   });
 
   test('W-01: Controles de fondo de pantalla están presentes y son accesibles', async ({ page }) => {
-    // Navegar a la sección Fondo de pantalla
-    await page.click('.setup-nav-button[data-section="wallpaper"]');
+    // Navegar a la sección Fondo de pantalla (Apariencia)
+    await page.click('.setup-nav-button[data-section="appearance"]');
 
     // Seleccionar tipo de fondo: Imagen
     await page.selectOption('#wallpaper-type-select', 'image');
@@ -36,8 +36,8 @@ test.describe('HU: Fondo de pantalla personalizado (v0.9.8)', () => {
     await expect(themeSelect).toBeEnabled();
     await expect(helperNote).not.toBeVisible();
 
-    // 2. Ir a Fondo de pantalla y simular la subida de una imagen
-    await page.click('.setup-nav-button[data-section="wallpaper"]');
+    // Ir a Fondo de pantalla (Apariencia) y simular la subida de una imagen
+    await page.click('.setup-nav-button[data-section="appearance"]');
     await page.selectOption('#wallpaper-type-select', 'image');
 
     // Crear un buffer de imagen dummy (1x1 transparente)
@@ -63,8 +63,8 @@ test.describe('HU: Fondo de pantalla personalizado (v0.9.8)', () => {
     await expect(themeSelect).toBeDisabled();
     await expect(helperNote).toBeVisible();
 
-    // 4. Volver a fondo de pantalla y eliminar la imagen
-    await page.click('.setup-nav-button[data-section="wallpaper"]');
+    // Volver a fondo de pantalla (Apariencia) y eliminar la imagen
+    await page.click('.setup-nav-button[data-section="appearance"]');
     const removeBtn = page.locator('.wallpaper-slot-remove[data-slot="1"]');
 
     // Hacer click en el botón quitar
@@ -78,8 +78,8 @@ test.describe('HU: Fondo de pantalla personalizado (v0.9.8)', () => {
   });
 
   test('W-03: Configurar y personalizar un fondo de degradado', async ({ page }) => {
-    // 1. Navegar a Fondo de pantalla y seleccionar Degradado
-    await page.click('.setup-nav-button[data-section="wallpaper"]');
+    // 1. Navegar a Fondo de pantalla (Apariencia) y seleccionar Degradado
+    await page.click('.setup-nav-button[data-section="appearance"]');
     await page.selectOption('#wallpaper-type-select', 'gradient');
 
     // 2. Verificar que la cuadrícula de presets de degradado y el customizer estén visibles

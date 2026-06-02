@@ -19,7 +19,8 @@ export const test = base.extend({
     let userDataDir = '';
     
     if (browserName === 'chromium') {
-      context = await chromium.launchPersistentContext('', {
+      userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'playwright-chromium-'));
+      context = await chromium.launchPersistentContext(userDataDir, {
         headless: false,
         locale: 'es-ES',
         executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined,

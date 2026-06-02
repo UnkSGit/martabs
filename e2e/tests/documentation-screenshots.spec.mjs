@@ -278,7 +278,7 @@ test.describe('Capturas de documentacion', () => {
       await page.locator('#edit-cancel').click();
 
       await page.goto(`${server.origin}/src/setup/setup.html`);
-      await expect(page.locator('#section-folders')).toBeVisible();
+      await expect(page.locator('#section-dashboard')).toBeVisible();
       await page.locator('#settings-search').fill('idioma');
       await screenshot(page, 'settings.png');
     } finally {

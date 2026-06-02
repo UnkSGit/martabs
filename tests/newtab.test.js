@@ -237,6 +237,8 @@ test("newtab contains Fallout Easter Egg implementation", async () => {
   assert.match(css, /\.fallout-terminal-overlay\s*{/);
   assert.match(css, /\.fallout-terminal-line\s*{/);
   assert.match(css, /\.fallout-caret\s*{/);
+  assert.match(css, /#fallout-crt-gate/);
+  assert.match(css, /@keyframes fallout-crt-collapse/);
   assert.match(css, /prefers-reduced-motion/);
 
   // JS checks
@@ -249,6 +251,7 @@ test("newtab contains Fallout Easter Egg implementation", async () => {
   assert.match(js, /document\.body\.classList\.add\("fallout-theme-active"\)/);
   assert.match(js, /document\.body\.classList\.remove\("fallout-theme-active"\)/);
   assert.match(js, /isFalloutEasterEggActive/);
+  assert.match(js, /fallout-crt-gate/);
   assert.match(js, /Escape/);
   assert.match(js, /prefers-reduced-motion/);
   assert.match(js, /easterFalloutVaultOnline/);

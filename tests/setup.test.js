@@ -8,6 +8,11 @@ test("setup page loads setup assets and required controls", async () => {
   assert.match(html, /<html/);
   assert.match(html, /<link rel="stylesheet" href="\.\/setup\.css">/);
   assert.match(html, /class="setup-sidebar"/);
+  assert.match(html, /class="setup-header-brand"/);
+  assert.match(html, /class="setup-logo-img" src="\.\.\/images\/newlogo\.png"/);
+  assert.match(html, /class="setup-sidebar-heading"/);
+  assert.match(html, /class="setup-nav-icon"/);
+  assert.match(html, /class="setup-nav-copy"/);
   assert.match(html, /id="settings-search"/);
   assert.match(html, /type="search"/);
   assert.match(html, /data-i18n-placeholder="searchSettingsPlaceholder"/);
@@ -51,12 +56,22 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /place-items: start center;/);
   assert.match(css, /padding: 50px 24px 24px;/);
   assert.match(css, /\.setup-panel\s*{/);
-  assert.match(css, /width: min\(1160px, calc\(100vw - 48px\)\);/);
+  assert.match(css, /width: min\(1280px, calc\(100vw - 64px\)\);/);
+  assert.match(css, /--setup-panel-bg:/);
+  assert.match(css, /--setup-header-bg:/);
+  assert.match(css, /--setup-sidebar-bg:/);
+  assert.match(css, /--setup-group-bg:/);
+  assert.match(css, /--setup-nav-active-bg:/);
   assert.match(css, /\.setup-search\s*{/);
+  assert.match(css, /\.setup-header-brand\s*{/);
+  assert.match(css, /\.setup-logo-img\s*{/);
   assert.match(css, /\.setup-content\s*{/);
   assert.match(css, /min-height: var\(--setup-content-min-height, 0px\);/);
   assert.match(css, /\.setup-sidebar\s*{/);
+  assert.match(css, /\.setup-sidebar-heading\s*{/);
   assert.match(css, /\.setup-nav-button\s*{/);
+  assert.match(css, /\.setup-nav-icon\s*{/);
+  assert.match(css, /\.setup-nav-copy\s*{/);
   assert.match(css, /\.setup-section\s*{/);
   assert.match(css, /\.setup-section\.is-active\s*{/);
   assert.match(css, /#folders-tree-wrapper[,\s]/);
@@ -64,6 +79,7 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /\.folder-tree[,\s]/);
   assert.match(css, /\.selected-folders-list\s*{/);
   assert.match(css, /\.folder-tree-inline-controls\s*{/);
+  assert.match(css, /\.folder-selection-scope-badge\s*{/);
   assert.doesNotMatch(css, /min-height: calc\(100vh/);
   assert.match(css, /\.setting-row[,\s]/);
   assert.match(css, /\.settings-section-grid\s*{/);
@@ -91,7 +107,7 @@ test("setup script saves selected folders and setup completion", async () => {
   const js = await readFile("src/setup/setup.js", "utf8");
 
   assert.match(js, /import { getBrowserApi } from "\.\.\/shared\/browser-api\.js";/);
-  assert.match(js, /import { getFolderOptions } from "\.\.\/shared\/bookmarks\.js";/);
+  assert.match(js, /getFolderOptions, getFolderSelectionIds, getFolderSelectionScope, getNextFolderSelectionScope/);
   assert.match(js, /import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "\.\.\/shared\/storage\.js";/);
   assert.match(js, /api\.bookmarks\.getTree\(\)/);
   assert.match(js, /function showSection/);
@@ -123,6 +139,16 @@ test("setup script saves selected folders and setup completion", async () => {
   assert.match(js, /language:\s*languageSelect\.value/);
   assert.match(js, /defaultFolderSort:\s*defaultSortSelect\.value/);
   assert.match(js, /folderSorts/);
+  assert.match(js, /folderSelectionScopes/);
+  assert.match(js, /function replaceFolderSelectionScope/);
+  assert.match(js, /className = "folder-selection-scope-badge"/);
+  assert.match(js, /folderTreeExpandedIds/);
+  assert.match(js, /folderTreeCollapsedIds/);
+  assert.match(js, /tabsFolderTreeExpandedIds/);
+  assert.match(js, /tabsFolderTreeCollapsedIds/);
+  assert.match(js, /function captureFolderTreeExpansionState/);
+  assert.match(js, /captureFolderTreeExpansionState\(\);/);
+  assert.match(js, /event\.stopPropagation\(\)/);
   assert.match(js, /\.folder-sort-select/);
   assert.match(js, /resetLocalOrganization/);
   assert.match(js, /bookmarkFolderOverrides:\s*\{\}/);
@@ -244,9 +270,19 @@ test("setup has tabs and mapping support", async () => {
   assert.match(html, /id="tabs-list"/);
   assert.match(html, /id="tabs-folder-tree-container"/);
   assert.match(html, /id="tabs-dropzones-list"/);
+  assert.match(html, /class="settings-group-body tabs-settings-body"/);
+  assert.match(html, /class="tabs-subsection"/);
+  assert.match(html, /class="tabs-subsection tabs-assignment-subsection"/);
+  assert.match(html, /class="tabs-pane-header"/);
+  assert.doesNotMatch(html, /class="tab-creator-form" style=/);
+  assert.doesNotMatch(html, /class="tabs-drag-split-layout" style=/);
 
   // CSS checks
   assert.match(css, /\.tabs-list\s*{/);
+  assert.match(css, /\.tabs-settings-body\s*{/);
+  assert.match(css, /\.tabs-subsection\s*{/);
+  assert.match(css, /\.tab-creator-form\s*{/);
+  assert.match(css, /\.tabs-pane-header\s*{/);
   assert.match(css, /\.tab-item\s*{/);
   assert.match(css, /\.tabs-drag-split-layout\s*{/);
   assert.match(css, /\.tab-dropzone-card\s*{/);

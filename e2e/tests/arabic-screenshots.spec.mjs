@@ -279,10 +279,10 @@ test.describe('Capturas de documentacion', () => {
       await page.locator('#edit-cancel').click();
 
       await page.goto(`${server.origin}/src/setup/setup.html`);
-      await expect(page.locator('#section-folders')).toBeVisible();
+      await expect(page.locator('#section-dashboard')).toBeVisible();
 
       // Take stats screenshot as requested
-      await page.locator('.setup-nav-button[data-section="privacy"]').click();
+      await page.locator('.setup-nav-button[data-section="data"]').click();
       await page.locator('#local-stats').check();
       await page.evaluate(async () => {
         const data = await chrome.storage.local.get('settings');
@@ -292,7 +292,7 @@ test.describe('Capturas de documentacion', () => {
         ]});
       });
       await page.reload();
-      await page.locator('.setup-nav-button[data-section="privacy"]').click();
+      await page.locator('.setup-nav-button[data-section="data"]').click();
       await screenshot(page, 'stats-ar.png');
 
       await page.locator('#settings-search').fill('idioma');

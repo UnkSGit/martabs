@@ -33,6 +33,29 @@ function walkFolders(nodes, path = [], output = []) {
   return output;
 }
 
+function findFolderNode(nodes, folderId) {
+  for (const node of nodes) {
+    if (isFolder(node) && node.id === folderId) return node;
+    if (node.children) {
+      const match = findFolderNode(node.children, folderId);
+      if (match) return match;
+    }
+  }
+  return null;
+}
+
+function getDirectFolderChildren(node) {
+  return (node?.children || []).filter(child => isFolder(child) && !isBookmark(child));
+}
+
+function collectDescendantFolderIds(node, output = []) {
+  for (const child of getDirectFolderChildren(node)) {
+    output.push(child.id);
+    collectDescendantFolderIds(child, output);
+  }
+  return output;
+}
+
 function walkBookmarks(nodes, selectedFolderIds, overrides, folderMap, path = [], parentFolderId = null, output = []) {
   for (const node of nodes) {
     const nextPath = node.title && isFolder(node) ? [...path, node.title] : path;
@@ -80,6 +103,72 @@ export function getFolderOptions(bookmarkTree) {
   return walkFolders(bookmarkTree);
 }
 
+export function getFolderSelectionIds(bookmarkTree, folderId, scope) {
+  const folder = findFolderNode(bookmarkTree, folderId);
+  if (!folder) return [];
+
+  if (scope === "branch") {
+    return [folderId, ...collectDescendantFolderIds(folder)];
+  }
+
+  if (scope === "children") {
+    return [folderId, ...getDirectFolderChildren(folder).map(child => child.id)];
+  }
+
+  if (scope === "self") {
+    return [folderId];
+  }
+
+  return [];
+}
+
+export function getFolderSelectionScope(bookmarkTree, folderId, selectedFolderIds = [], folderSelectionScopes = {}) {
+  const folder = findFolderNode(bookmarkTree, folderId);
+  if (!folder) return "none";
+
+  const directChildren = getDirectFolderChildren(folder);
+  const descendants = collectDescendantFolderIds(folder);
+  const explicitScope = folderSelectionScopes[folderId];
+  if (explicitScope) return explicitScope;
+
+  if (!selectedFolderIds.includes(folderId)) {
+    return "none";
+  }
+
+  if (descendants.length > 0 && descendants.every(id => selectedFolderIds.includes(id))) {
+    return "branch";
+  }
+
+  if (directChildren.length > 0 && directChildren.every(child => selectedFolderIds.includes(child.id))) {
+    return "children";
+  }
+
+  return "self";
+}
+
+export function getNextFolderSelectionScope(bookmarkTree, folderId, selectedFolderIds = [], folderSelectionScopes = {}) {
+  const folder = findFolderNode(bookmarkTree, folderId);
+  if (!folder) return "none";
+
+  const directChildren = getDirectFolderChildren(folder);
+  const descendants = collectDescendantFolderIds(folder);
+  const currentScope = getFolderSelectionScope(bookmarkTree, folderId, selectedFolderIds, folderSelectionScopes);
+
+  if (currentScope === "none") {
+    return descendants.length > 0 ? "branch" : "self";
+  }
+
+  if (currentScope === "branch") {
+    return directChildren.length > 0 ? "children" : "self";
+  }
+
+  if (currentScope === "children") {
+    return "self";
+  }
+
+  return "none";
+}
+
 export function buildBookmarkIndex(bookmarkTree, selectedFolderIds, bookmarkFolderOverrides = {}) {
   const folderOptions = getFolderOptions(bookmarkTree);
   const folderMap = new Map(folderOptions.map(f => [f.id, f.path]));
@@ -115,14 +204,14 @@ export function getDisplayFolderName(folder, allSelectedFolders, isCleanMode) {
   while (!isUnique && levelsToInclude < pathParts.length) {
     levelsToInclude++;
     const mySubParts = pathParts.slice(-levelsToInclude).reverse();
-    const mySubPath = mySubParts.join(" · ");
+    const mySubPath = mySubParts.join(" Â· ");
 
     isUnique = true;
     for (const collision of collisions) {
       const cPath = collision.path || collision.title;
       const cParts = cPath.split(" / ");
       const cSubParts = cParts.slice(-levelsToInclude).reverse();
-      const cSubPath = cSubParts.join(" · ");
+      const cSubPath = cSubParts.join(" Â· ");
       if (cSubPath === mySubPath) {
         isUnique = false;
         break;
@@ -130,6 +219,6 @@ export function getDisplayFolderName(folder, allSelectedFolders, isCleanMode) {
     }
   }
 
-  return pathParts.slice(-levelsToInclude).reverse().join(" · ");
+  return pathParts.slice(-levelsToInclude).reverse().join(" Â· ");
 }
 
