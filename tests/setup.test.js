@@ -296,5 +296,25 @@ test("setup keeps stable control IDs required by setup.js", async () => {
   }
 });
 
+test("setup dashboard groups folder, tab, and default view controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const dashboard = html.slice(
+    html.indexOf('id="section-dashboard"'),
+    html.indexOf('id="section-appearance"')
+  );
+
+  assert.match(dashboard, /id="folder-tree-container"/);
+  assert.match(dashboard, /id="selected-folders-list"/);
+  assert.match(dashboard, /id="tabs-list"/);
+  assert.match(dashboard, /id="tabs-dropzones-list"/);
+  assert.match(dashboard, /id="default-mode-select"/);
+  assert.match(dashboard, /id="default-sort-select"/);
+  assert.match(dashboard, /id="show-pinned-folder"/);
+  assert.match(dashboard, /id="clean-folder-names"/);
+  assert.match(dashboard, /id="show-view-button"/);
+  assert.match(dashboard, /id="show-sort-button"/);
+});
+
 
 

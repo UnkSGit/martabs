@@ -48,54 +48,132 @@
 
           <div class="setup-content">
             <section id="section-dashboard" class="setup-section is-active" data-section="dashboard" data-i18n-search="searchDashboardSection" data-search="tablero carpetas columnas pestañas vista orden fijados">
-              <div class="section-heading" style="display: flex; justify-content: space-between; align-items: flex-end;">
-                <div>
-                  <h2 data-i18n="foldersHeading">Carpetas</h2>
-                  <p data-i18n="foldersDescription">Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</p>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-                  <div style="display: flex; gap: 8px; align-items: center;">
-                    <button type="button" id="sort-columns-btn" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="sortColumns">Ordenar columnas</button>
-                    <button type="button" id="collapse-all-btn" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="collapseAll">Colapsar todas</button>
-                    <button type="button" id="toggle-all-folders" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
-                    <button type="button" id="open-browser-bookmarks" class="secondary-button" style="padding: 6px 12px; height: 32px; font-size: 12px;" data-i18n="openBrowserBookmarks">Administrar marcadores</button>
-                  </div>
-                  <div id="firefox-bookmarks-notice" class="firefox-notice-band" data-i18n="firefoxBookmarksNotice"></div>
-                </div>
-              </div>
-              
-              <!-- Vista de Árbol (Por defecto) -->
-              <div id="folders-tree-wrapper">
-                <div class="folder-search-container">
-                  <input id="folder-tree-search" type="search" autocomplete="off" data-i18n-placeholder="searchFoldersPlaceholder" placeholder="Filtrar carpetas...">
-                </div>
-                <div id="folder-tree-container" class="folder-tree" aria-label="Árbol de carpetas de marcadores" role="tree"></div>
-              </div>
-
-              <!-- Vista de Ordenación (Alternativa) -->
-              <div id="folders-sort-wrapper" style="display: none;">
-                <div class="sort-pane-header">
-                  <span data-i18n="selectedFoldersTitle" style="font-size: 13px; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">Columnas en tablero</span>
-                  <small data-i18n="selectedFoldersSubtitle" class="pane-subtitle" style="font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px;">Arrastra para ordenar</small>
-                </div>
-                <div id="selected-folders-list" class="selected-folders-list" aria-label="Carpetas seleccionadas" role="list"></div>
-              </div>
-              <div id="folders-sort-actions" style="margin-top: 16px; display: none; justify-content: flex-end;">
-                <button type="button" id="back-to-tree-btn" class="primary-button" style="padding: 8px 16px; font-size: 12px;" data-i18n="backToTree">Volver al árbol</button>
-              </div>
-            </section>
-
-            <section id="section-tabs" class="setup-section" data-section="tabs" data-i18n-search="searchTabs" data-search="pestañas asignar columnas organizar grupos">
               <div class="section-heading">
-                <h2 data-i18n="tabsHeading">Pestañas</h2>
-                <p data-i18n="tabsDescription">Organiza las columnas de tus marcadores en pestañas personalizadas.</p>
+                <h2 data-i18n="setupSectionDashboard">Tablero</h2>
+                <p data-i18n="dashboardDescription">Configura las columnas, orden y pestañas del tablero principal.</p>
               </div>
-              <div class="settings-stack">
-                <div class="setting-card">
-                  <div class="card-header">
-                    <h3 data-i18n="newTabHeading">Nueva Pestaña</h3>
+
+              <div class="settings-section-grid">
+                <div class="settings-two-column">
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="foldersHeading">Carpetas</strong>
+                        <small data-i18n="foldersDescription">Elegir carpetas, ordenarlas y ajustar vista u orden por carpeta.</small>
+                      </span>
+                      <div class="settings-group-actions">
+                        <button type="button" id="sort-columns-btn" class="secondary-button compact-action-button" data-i18n="sortColumns">Ordenar columnas</button>
+                        <button type="button" id="collapse-all-btn" class="secondary-button compact-action-button" data-i18n="collapseAll">Colapsar todas</button>
+                        <button type="button" id="toggle-all-folders" class="secondary-button compact-action-button" data-i18n="toggleAllFolders">Marcar / desmarcar todas</button>
+                        <button type="button" id="open-browser-bookmarks" class="secondary-button compact-action-button" data-i18n="openBrowserBookmarks">Administrar marcadores</button>
+                      </div>
+                    </div>
+                    <div class="settings-group-body" style="padding: 18px;">
+                      <div id="firefox-bookmarks-notice" class="firefox-notice-band" data-i18n="firefoxBookmarksNotice" style="margin-bottom: 12px; display: none;"></div>
+                      <!-- Vista de Árbol (Por defecto) -->
+                      <div id="folders-tree-wrapper">
+                        <div class="folder-search-container">
+                          <input id="folder-tree-search" type="search" autocomplete="off" data-i18n-placeholder="searchFoldersPlaceholder" placeholder="Filtrar carpetas...">
+                        </div>
+                        <div id="folder-tree-container" class="folder-tree" aria-label="Árbol de carpetas de marcadores" role="tree"></div>
+                      </div>
+
+                      <!-- Vista de Ordenación (Alternativa) -->
+                      <div id="folders-sort-wrapper" style="display: none;">
+                        <div class="sort-pane-header">
+                          <span data-i18n="selectedFoldersTitle" style="font-size: 13px; font-weight: 800; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">Columnas en tablero</span>
+                          <small data-i18n="selectedFoldersSubtitle" class="pane-subtitle" style="font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px;">Arrastra para ordenar</small>
+                        </div>
+                        <div id="selected-folders-list" class="selected-folders-list" aria-label="Carpetas seleccionadas" role="list"></div>
+                      </div>
+                      <div id="folders-sort-actions" style="margin-top: 16px; display: none; justify-content: flex-end;">
+                        <button type="button" id="back-to-tree-btn" class="primary-button" style="padding: 8px 16px; font-size: 12px;" data-i18n="backToTree">Volver al árbol</button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="card-body">
+
+                  <div class="settings-side-panel">
+                    <div class="settings-group">
+                      <div class="settings-group-header">
+                        <span>
+                          <strong data-i18n="defaultSettingsHeading">Valores por defecto</strong>
+                          <small data-i18n="defaultSettingsDesc">Se aplican donde una carpeta no tiene ajuste propio.</small>
+                        </span>
+                      </div>
+                      <div class="settings-group-body">
+                        <label class="setting-row" data-i18n-search="searchModeRow" data-search="modo visual defecto lista compacta iconos quicklinks">
+                          <span>
+                            <strong data-i18n="defaultMode">Modo visual por defecto</strong>
+                            <small data-i18n="defaultModeDesc">Se usa cuando una carpeta no tiene modo propio.</small>
+                          </span>
+                          <select id="default-mode-select">
+                            <option value="list" data-i18n="modeList">Lista completa (Dominio y tags)</option>
+                            <option value="compact" data-i18n="modeCompact">Lista compacta</option>
+                            <option value="icons" data-i18n="modeIcons">Grilla de iconos</option>
+                            <option value="icons-large" data-i18n="modeIconsLarge">Grilla de iconos (grande)</option>
+                            <option value="quicklinks" data-i18n="modeQuicklinks">Quicklinks</option>
+                          </select>
+                        </label>
+
+                        <label class="setting-row" data-i18n-search="searchSortRow" data-search="orden defecto original manual titulo fecha dominio fallidos">
+                          <span>
+                            <strong data-i18n="defaultSort">Orden por defecto</strong>
+                            <small data-i18n="defaultSortDesc">Se aplica a carpetas sin orden personalizado.</small>
+                          </span>
+                          <select id="default-sort-select">
+                            <option value="browser" data-i18n="sortBrowser">Orden original</option>
+                            <option value="manual" data-i18n="sortManual">Manual</option>
+                            <option value="title-asc" data-i18n="sortTitleAsc">Titulo A-Z</option>
+                            <option value="date-newest" data-i18n="sortDateNewest">Mas nuevos primero</option>
+                            <option value="domain-asc" data-i18n="sortDomainAsc">Dominio A-Z</option>
+                            <option value="health-broken-first" data-i18n="sortHealthBrokenFirst">Fallidos primero</option>
+                          </select>
+                        </label>
+
+                        <label class="switch-row" data-i18n-search="searchPinnedRow" data-search="fijados favoritos carpeta virtual destacados">
+                          <input id="show-pinned-folder" type="checkbox" checked>
+                          <span>
+                            <strong data-i18n="showPinnedFolder">Mostrar carpeta de fijados</strong>
+                            <small data-i18n="showPinnedFolderDesc">La carpeta superior agrupa los marcadores fijados.</small>
+                          </span>
+                        </label>
+
+                        <label class="switch-row" data-i18n-search="searchCleanNamesRow" data-search="nombres limpios carpetas simplificar ruta colisiones">
+                          <input id="clean-folder-names" type="checkbox" checked>
+                          <span>
+                            <strong data-i18n="cleanFolderNames">Simplificar nombres de carpetas</strong>
+                            <small data-i18n="cleanFolderNamesDesc">Oculta las rutas largas y muestra solo el nombre final.</small>
+                          </span>
+                        </label>
+
+                        <label class="switch-row" data-i18n-search="searchViewButtonRow" data-search="boton carpeta vista">
+                          <input id="show-view-button" type="checkbox" checked>
+                          <span>
+                            <strong data-i18n="showViewButton">Mostrar botón de Vista</strong>
+                            <small data-i18n="showViewButtonDesc">Muestra el botón para cambiar el modo de vista.</small>
+                          </span>
+                        </label>
+
+                        <label class="switch-row" data-i18n-search="searchSortButtonRow" data-search="boton carpeta orden">
+                          <input id="show-sort-button" type="checkbox" checked>
+                          <span>
+                            <strong data-i18n="showSortButton">Mostrar botón de Ordenar</strong>
+                            <small data-i18n="showSortButtonDesc">Muestra el botón para ordenar los marcadores.</small>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="tabsHeading">Pestañas</strong>
+                      <small data-i18n="tabsDescription">Organiza las columnas de tus marcadores en pestañas personalizadas.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body" style="padding: 18px;">
                     <div id="tabs-manager-container">
                       <div class="tab-creator-form" style="display: flex; gap: 8px; margin-bottom: 16px;">
                         <input type="text" id="new-tab-name" data-i18n-placeholder="tabNamePlaceholder" placeholder="Nombre de la pestaña..." style="flex: 1; min-width: 0;">
@@ -112,20 +190,13 @@
                         </span>
                       </label>
                     </div>
-                  </div>
-                </div>
 
-                <div class="setting-card tabs-drag-card">
-                  <div class="card-header">
-                    <h3 data-i18n="foldersHeading">Carpetas</h3>
-                  </div>
-                  <div class="card-body">
-                    <div class="tabs-drag-split-layout">
+                    <div class="tabs-drag-split-layout" style="margin-top: 24px; border-top: 1px solid var(--surface-border); padding-top: 24px;">
                       <!-- Left column: monitored folders tree -->
                       <div class="tabs-drag-left-pane">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                           <h4 data-i18n="foldersHeading" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0;">Carpetas</h4>
-                          <button type="button" id="tabs-collapse-all-btn" class="text-button-small" style="font-size: 11px; padding: 2px 6px; cursor: pointer; background: transparent; border: 1px solid var(--surface-border); border-radius: 4px; color: var(--text-secondary); transition: all 0.2s;" data-i18n="collapseAll">Colapsar todas</button>
+                          <button type="button" id="tabs-collapse-all-btn" class="secondary-button compact-action-button" data-i18n="collapseAll">Colapsar todas</button>
                         </div>
                         <p style="margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);" data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</p>
                         <div id="tabs-folder-tree-container" class="folder-tree" role="tree"></div>
@@ -150,35 +221,6 @@
                 <p data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</p>
               </div>
               <div class="settings-stack">
-                <label class="setting-row" data-i18n-search="searchModeRow" data-search="modo visual defecto lista compacta iconos quicklinks">
-                  <span>
-                    <strong data-i18n="defaultMode">Modo visual por defecto</strong>
-                    <small data-i18n="defaultModeDesc">Se usa cuando una carpeta no tiene modo propio.</small>
-                  </span>
-                  <select id="default-mode-select">
-                    <option value="list" data-i18n="modeList">Lista completa (Dominio y tags)</option>
-                    <option value="compact" data-i18n="modeCompact">Lista compacta</option>
-                    <option value="icons" data-i18n="modeIcons">Grilla de iconos</option>
-                    <option value="icons-large" data-i18n="modeIconsLarge">Grilla de iconos (grande)</option>
-                    <option value="quicklinks" data-i18n="modeQuicklinks">Quicklinks</option>
-                  </select>
-                </label>
-
-                <label class="setting-row" data-i18n-search="searchSortRow" data-search="orden defecto original manual titulo fecha dominio fallidos">
-                  <span>
-                    <strong data-i18n="defaultSort">Orden por defecto</strong>
-                    <small data-i18n="defaultSortDesc">Se aplica a carpetas sin orden personalizado.</small>
-                  </span>
-                  <select id="default-sort-select">
-                    <option value="browser" data-i18n="sortBrowser">Orden original</option>
-                    <option value="manual" data-i18n="sortManual">Manual</option>
-                    <option value="title-asc" data-i18n="sortTitleAsc">Titulo A-Z</option>
-                    <option value="date-newest" data-i18n="sortDateNewest">Mas nuevos primero</option>
-                    <option value="domain-asc" data-i18n="sortDomainAsc">Dominio A-Z</option>
-                    <option value="health-broken-first" data-i18n="sortHealthBrokenFirst">Fallidos primero</option>
-                  </select>
-                </label>
-
                 <label class="setting-row" data-i18n-search="searchThemeRow" data-search="tema color sistema claro oscuro">
                   <span>
                     <strong data-i18n="theme">Tema</strong>
@@ -213,38 +255,6 @@
                     <option value="pt_BR" data-i18n="languagePt">Portugués</option>
                     <option value="ru" data-i18n="languageRu">Ruso</option>
                   </select>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchPinnedRow" data-search="fijados favoritos carpeta virtual destacados">
-                  <input id="show-pinned-folder" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="showPinnedFolder">Mostrar carpeta virtual de fijados</strong>
-                    <small data-i18n="showPinnedFolderDesc">La carpeta superior agrupa los marcadores fijados.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchCleanNamesRow" data-search="nombres limpios carpetas simplificar ruta colisiones">
-                  <input id="clean-folder-names" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="cleanFolderNames">Simplificar nombres de carpetas</strong>
-                    <small data-i18n="cleanFolderNamesDesc">Oculta las rutas largas y muestra solo el nombre final, añadiendo contexto si hay colisión.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchViewButtonRow" data-search="boton carpeta vista">
-                  <input id="show-view-button" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="showViewButton">Mostrar botón de Vista</strong>
-                    <small data-i18n="showViewButtonDesc">Muestra el botón para cambiar el modo de vista de la carpeta.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchSortButtonRow" data-search="boton carpeta orden">
-                  <input id="show-sort-button" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="showSortButton">Mostrar botón de Ordenar</strong>
-                    <small data-i18n="showSortButtonDesc">Muestra el botón para ordenar los marcadores de la carpeta.</small>
-                  </span>
                 </label>
 
                 <label class="switch-row" data-i18n-search="searchPreviewRow" data-search="vista rapida preview tooltip detalle mouse">
