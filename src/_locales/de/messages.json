@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Barrierefreiheit"
   },
+  "addTabBtn": {
+    "message": "Tab hinzufügen"
+  },
   "advancedDescription": {
     "message": "Seltene Aktionen zum Löschen des lokalen Status."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Aussehen"
+  },
+  "assignFolderTab": {
+    "message": "Tab zuweisen"
   },
   "automaticTags": {
     "message": "Automatische Tags"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "Möchten Sie die Registerkarte „$TAB$“ wirklich löschen?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "Sind Sie sicher, dass Sie alle erkannten Fehler ignorieren möchten?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "Möchten Sie die Überwachung des Ordners „$FOLDER$“ wirklich beenden?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "Alle lokalen Verschiebungen und manuellen Sortierungen zurücksetzen? Echte Browser-Lesezeichen werden nicht geändert."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "JSON herunterladen"
+  },
+  "dragFoldersHere": {
+    "message": "Ordner hierher ziehen"
   },
   "dragToReorder": {
     "message": "Ziehen zum Umordnen"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Ordner"
   },
+  "foldersUnassigned": {
+    "message": "Ordner ohne Registerkarte"
+  },
   "frequentSites": {
     "message": "Häufig besuchte Seiten"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Ausblenden"
+  },
+  "hideAllTab": {
+    "message": "Registerkarte „Alle“ ausblenden"
+  },
+  "hideAllTabDesc": {
+    "message": "Zeigt nur die von Ihnen erstellten benutzerdefinierten Registerkarten an."
   },
   "hidePinnedFolder": {
     "message": "Angehefteten Ordner ausblenden (kann in den Einstellungen wieder aktiviert werden)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Nach oben verschieben"
   },
+  "newTabHeading": {
+    "message": "Neue Registerkarte"
+  },
   "newtabTitle": {
     "message": "Startseite - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "Keine Ordner ausgewählt"
+  },
+  "noTabsConfigured": {
+    "message": "Keine Tabs konfiguriert. Alle Ordner werden zusammen angezeigt."
   },
   "openBrowserBookmarks": {
     "message": "Lesezeichen verwalten"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Suchleiste fokussieren"
   },
+  "showMoreBookmarks": {
+    "message": "Mehr anzeigen ($COUNT$ verbleibend)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Mehr Ergebnisse anzeigen"
+  },
   "showPinnedFolder": {
     "message": "Virtuellen Ordner für angeheftete Lesezeichen anzeigen"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
   },
+  "tabAll": {
+    "message": "Alle"
+  },
+  "tabNamePlaceholder": {
+    "message": "Tab-Name..."
+  },
+  "tabsDescription": {
+    "message": "Organisiere deine Lesezeichen-Spalten in benutzerdefinierten Tabs."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Ordner hier ablegen, um sie zuzuweisen. Verwenden Sie 'Ohne Registerkarte' zum Entfernen."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Registerkarten und Zuweisungen"
+  },
+  "tabsHeading": {
+    "message": "Registerkarten"
+  },
+  "tabsSection": {
+    "message": "Registerkarten"
+  },
+  "tabsTreeInstructions": {
+    "message": "Ziehen Sie überwachte Ordner auf die Registerkarten rechts, um sie zuzuweisen."
+  },
   "tagsDescription": {
     "message": "Steuert, wie martabs Tags generiert und anzeigt."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Sichtbare Menge"
+  },
+  "unassignedTab": {
+    "message": "Kein Tab (Allgemein)"
   },
   "unsavedChanges": {
     "message": "Ungespeicherte Änderungen (Klicken Sie auf Speichern)"

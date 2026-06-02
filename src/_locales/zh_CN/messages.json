@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "无障碍"
   },
+  "addTabBtn": {
+    "message": "添加标签页"
+  },
   "advancedDescription": {
     "message": "清理本地状态的不常用操作。"
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "外观"
+  },
+  "assignFolderTab": {
+    "message": "分配标签页"
   },
   "automaticTags": {
     "message": "自动标签"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "您确定要删除标签页“$TAB$”吗？",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "您确定要忽略所有检测到的错误吗？"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "您确定要停止监视文件夹“$FOLDER$”吗？",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "确定要重置所有本地移动 and 手动排序吗？此操作不会更改浏览器的实际书签。"
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "下载 JSON"
+  },
+  "dragFoldersHere": {
+    "message": "拖放文件夹至此处"
   },
   "dragToReorder": {
     "message": "拖拽排序"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "文件夹"
   },
+  "foldersUnassigned": {
+    "message": "无标签页的文件夹"
+  },
   "frequentSites": {
     "message": "常用网站"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "隐藏"
+  },
+  "hideAllTab": {
+    "message": "隐藏“全部”标签页"
+  },
+  "hideAllTabDesc": {
+    "message": "仅显示您创建的自定义标签页。"
   },
   "hidePinnedFolder": {
     "message": "隐藏固定文件夹（您可以在设置中重新显示）"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "上移"
   },
+  "newTabHeading": {
+    "message": "新标签页"
+  },
   "newtabTitle": {
     "message": "主页 - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "未选择文件夹"
+  },
+  "noTabsConfigured": {
+    "message": "未配置标签页。所有文件夹将一起显示。"
   },
   "openBrowserBookmarks": {
     "message": "管理书签"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "聚焦搜索栏"
   },
+  "showMoreBookmarks": {
+    "message": "显示更多（剩余 $COUNT$ 个）",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "显示更多结果"
+  },
   "showPinnedFolder": {
     "message": "显示固定书签的虚拟文件夹"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "本地统计信息已禁用。请在隐私设置中启用此选项以查看您最常访问的网站。"
   },
+  "tabAll": {
+    "message": "全部"
+  },
+  "tabNamePlaceholder": {
+    "message": "标签页名称..."
+  },
+  "tabsDescription": {
+    "message": "将您的书签列整理到自定义标签页中。"
+  },
+  "tabsDropzonesInstructions": {
+    "message": "将文件夹拖放到此处进行分配。使用“无标签页”进行移除。"
+  },
+  "tabsDropzonesTitle": {
+    "message": "标签页与分配"
+  },
+  "tabsHeading": {
+    "message": "标签页"
+  },
+  "tabsSection": {
+    "message": "标签页"
+  },
+  "tabsTreeInstructions": {
+    "message": "将受监视的文件夹拖放到右侧的标签页以进行分配。"
+  },
   "tagsDescription": {
     "message": "控制 martabs 生成和显示标签的方式。"
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "可见数量"
+  },
+  "unassignedTab": {
+    "message": "未分配标签页（通用）"
   },
   "unsavedChanges": {
     "message": "有未保存的修改 (点击保存)"

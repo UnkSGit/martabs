@@ -1715,3 +1715,312 @@ input[type="range"]::-webkit-slider-thumb:hover {
     animation: none !important;
   }
 }
+
+/* Tabs settings styling */
+.tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 100px;
+  gap: 6px;
+}
+
+.tab-item-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tab-item-input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 6px;
+  width: 90px;
+  outline: none;
+  border-radius: 100px;
+  text-align: center;
+  transition: background 0.15s ease;
+}
+
+.tab-item-input:focus {
+  background: var(--surface-strong);
+  outline: none;
+}
+
+.tab-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.tab-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transition: all 0.15s ease;
+}
+
+.tab-action-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-primary);
+}
+
+.tab-action-btn.delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.folder-tab-mapping-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.folder-mapping-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+}
+
+.folder-mapping-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.folder-mapping-select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-strong);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+/* Drag and Drop Tabs Layout Styles */
+.tabs-drag-card {
+  width: 100%;
+}
+
+.tabs-drag-split-layout {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.tabs-drag-left-pane {
+  flex: 1;
+  min-width: 0;
+  max-width: 40%;
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+}
+
+#tabs-folder-tree-container {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+}
+
+.tabs-drag-right-pane {
+  flex: 1.5;
+  min-width: 0;
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+}
+
+.pane-title-small {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tabs-dropzones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+}
+
+.tab-dropzone-card {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tab-dropzone-card.is-unassigned {
+  border-style: dashed;
+  background: rgba(148, 163, 184, 0.03);
+}
+
+.tab-dropzone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tab-dropzone-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.tab-dropzone-body {
+  min-height: 56px;
+  border: 2px dashed transparent;
+  border-radius: var(--radius-xs);
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: rgba(148, 163, 184, 0.05);
+  transition: all 0.15s ease;
+}
+
+.tab-dropzone-body.is-dragover {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  border-style: dashed;
+}
+
+.tab-dropzone-placeholder {
+  font-size: 11px;
+  color: var(--text-muted);
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Draggable items in the tree & pills */
+#tabs-folder-tree-container .folder-tree-node[draggable="true"] > .folder-tree-row {
+  cursor: grab;
+}
+
+#tabs-folder-tree-container .folder-tree-node[draggable="true"] > .folder-tree-row:active {
+  cursor: grabbing;
+}
+
+#tabs-folder-tree-container .folder-tree-node.is-draggable-target > .folder-tree-row {
+  background: var(--primary-soft);
+  border-left: 2px solid var(--primary);
+}
+
+#tabs-folder-tree-container .folder-tree-node.is-structural > .folder-tree-row {
+  opacity: 0.65;
+}
+
+#tabs-folder-tree-container .folder-tree-node.is-structural > .folder-tree-row .folder-title-text {
+  font-weight: normal;
+  color: var(--text-muted);
+}
+
+.assigned-folder-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: grab;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.assigned-folder-pill:active {
+  cursor: grabbing;
+  opacity: 0.7;
+}
+
+.assigned-folder-pill:hover {
+  border-color: var(--text-muted);
+  background: var(--surface-bg);
+}
+
+.assigned-folder-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.assigned-folder-remove-btn:hover {
+  background: var(--danger-soft);
+  color: #ef4444;
+}
+
+/* RTL layout adjustment for Arabic */
+html[dir="rtl"] .tabs-drag-split-layout {
+  flex-direction: row-reverse;
+}
+
+

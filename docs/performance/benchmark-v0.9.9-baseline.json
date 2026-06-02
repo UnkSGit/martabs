@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-06-01T19:47:02.264Z",
+  "scenarios": {
+    "A (Baseline: 10 folders x 10 bookmarks = 100 total)": {
+      "domStats": {
+        "nodes": 1325,
+        "groups": 10,
+        "bookmarks": 100
+      },
+      "loadDurationMs": 133,
+      "broadSearchDuration": 75,
+      "searchResultCount": 50,
+      "cleanScroll": {
+        "avgFrame": 25.018750000279397,
+        "worstFrame": 101.29999999701977,
+        "over16": 31,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 800.6000000089407
+      },
+      "interactiveScroll": {
+        "avgFrame": 26.006250000093132,
+        "worstFrame": 109,
+        "over16": 25,
+        "over33": 3,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 832.2000000029802
+      },
+      "wheelScroll": {
+        "avgFrame": 21.664705882177632,
+        "worstFrame": 114.6000000089407,
+        "over16": 8,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 368.29999999701977
+      },
+      "searchScroll": {
+        "avgFrame": 17.536633663395843,
+        "worstFrame": 104.09999999403954,
+        "over16": 53,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1771.2000000029802
+      }
+    },
+    "B (Wide folders: 5 folders x 100 bookmarks = 500 total)": {
+      "domStats": {
+        "nodes": 2900,
+        "groups": 5,
+        "bookmarks": 250
+      },
+      "loadDurationMs": 249,
+      "broadSearchDuration": 81,
+      "searchResultCount": 50,
+      "cleanScroll": {
+        "avgFrame": 22.871999999880792,
+        "worstFrame": 101.3999999910593,
+        "over16": 24,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 571.7999999970198
+      },
+      "interactiveScroll": {
+        "avgFrame": 47.743999999761584,
+        "worstFrame": 101.5,
+        "over16": 22,
+        "over33": 16,
+        "over50": 16,
+        "longTasksCount": 14,
+        "maxLongTask": 68,
+        "duration": 1193.5999999940395
+      },
+      "wheelScroll": {
+        "avgFrame": 27.122222221559948,
+        "worstFrame": 106.29999999701977,
+        "over16": 6,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 244.09999999403954
+      },
+      "searchScroll": {
+        "avgFrame": 17.572277227693267,
+        "worstFrame": 107.5,
+        "over16": 50,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1774.7999999970198
+      }
+    },
+    "C (Many columns: 250 folders x 2 bookmarks = 500 total)": {
+      "domStats": {
+        "nodes": 9805,
+        "groups": 250,
+        "bookmarks": 500
+      },
+      "loadDurationMs": 286,
+      "broadSearchDuration": 85,
+      "searchResultCount": 50,
+      "cleanScroll": {
+        "avgFrame": 29.404950494960982,
+        "worstFrame": 101.8999999910593,
+        "over16": 96,
+        "over33": 12,
+        "over50": 5,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 2969.8999999910593
+      },
+      "interactiveScroll": {
+        "avgFrame": 32.7970297029703,
+        "worstFrame": 117.40000000596046,
+        "over16": 100,
+        "over33": 39,
+        "over50": 2,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 3312.5
+      },
+      "wheelScroll": {
+        "avgFrame": 26.753846153998985,
+        "worstFrame": 114.70000000298023,
+        "over16": 21,
+        "over33": 18,
+        "over50": 2,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1043.4000000059605
+      },
+      "searchScroll": {
+        "avgFrame": 17.561386138643368,
+        "worstFrame": 106.59999999403954,
+        "over16": 49,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1773.7000000029802
+      }
+    },
+    "D (Huge load: 50 folders x 40 bookmarks = 2000 total)": {
+      "domStats": {
+        "nodes": 22905,
+        "groups": 50,
+        "bookmarks": 2000
+      },
+      "loadDurationMs": 703,
+      "broadSearchDuration": 109,
+      "searchResultCount": 50,
+      "cleanScroll": {
+        "avgFrame": 36.69405940588158,
+        "worstFrame": 100.59999999403954,
+        "over16": 101,
+        "over33": 57,
+        "over50": 5,
+        "longTasksCount": 1,
+        "maxLongTask": 54,
+        "duration": 3706.0999999940395
+      },
+      "interactiveScroll": {
+        "avgFrame": 71.20594059417743,
+        "worstFrame": 137.6000000089407,
+        "over16": 101,
+        "over33": 100,
+        "over50": 76,
+        "longTasksCount": 65,
+        "maxLongTask": 103,
+        "duration": 7191.800000011921
+      },
+      "wheelScroll": {
+        "avgFrame": 23.036619718435784,
+        "worstFrame": 157.90000000596046,
+        "over16": 44,
+        "over33": 6,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1635.6000000089407
+      },
+      "searchScroll": {
+        "avgFrame": 17.574257425742573,
+        "worstFrame": 108.20000000298023,
+        "over16": 52,
+        "over33": 1,
+        "over50": 1,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 1775
+      }
+    }
+  }
+}

@@ -17,6 +17,12 @@ const sortColumnsBtn = document.querySelector("#sort-columns-btn");
 const backToTreeBtn = document.querySelector("#back-to-tree-btn");
 const foldersTreeWrapper = document.querySelector("#folders-tree-wrapper");
 const foldersSortWrapper = document.querySelector("#folders-sort-wrapper");
+const tabsList = document.querySelector("#tabs-list");
+const tabsFolderTreeContainer = document.querySelector("#tabs-folder-tree-container");
+const tabsDropzonesList = document.querySelector("#tabs-dropzones-list");
+const newTabNameInput = document.querySelector("#new-tab-name");
+const addTabBtn = document.querySelector("#add-tab-btn");
+const tabsCollapseAllBtn = document.querySelector("#tabs-collapse-all-btn");
 
 const wallpaperDropzone = document.querySelector("#wallpaper-dropzone");
 const wallpaperFileInput = document.querySelector("#wallpaper-file-input");
@@ -68,6 +74,7 @@ const sections = document.querySelectorAll(".setup-section");
 const automaticTags = document.querySelector("#automatic-tags");
 const manualTags = document.querySelector("#manual-tags");
 const showPinnedFolder = document.querySelector("#show-pinned-folder");
+const hideAllTabInput = document.querySelector("#hide-all-tab");
 const showViewButton = document.querySelector("#show-view-button");
 const showSortButton = document.querySelector("#show-sort-button");
 const linkHealth = document.querySelector("#link-health");
@@ -666,6 +673,7 @@ function renderSelectedFolders() {
     itemEl.appendChild(removeBtn);
     selectedFoldersList.appendChild(itemEl);
   });
+  renderFolderTabMapping();
 }
 
 function applyFolderTreeSearch() {
@@ -765,6 +773,563 @@ function renderFolders(folders, selectedFolderIds, folderModes = {}, folderSorts
   renderSelectedFolders();
 }
 
+function renderTabs() {
+  if (!tabsList) return;
+  tabsList.innerHTML = "";
+
+  const tabs = currentSettings.tabs || [];
+
+  if (tabs.length === 0) {
+    const emptyMsg = document.createElement("div");
+    emptyMsg.style.padding = "16px";
+    emptyMsg.style.textAlign = "center";
+    emptyMsg.style.color = "var(--text-secondary)";
+    emptyMsg.style.fontSize = "13px";
+    emptyMsg.textContent = t(api, "noTabsConfigured") || "No tienes pestañas configuradas. Las carpetas se mostrarán juntas.";
+    tabsList.appendChild(emptyMsg);
+    return;
+  }
+
+  tabs.forEach((tab, index) => {
+    const itemEl = document.createElement("div");
+    itemEl.className = "tab-item";
+
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.className = "tab-item-input";
+    nameInput.value = tab.name;
+    nameInput.addEventListener("change", () => {
+      const newName = nameInput.value.trim();
+      if (newName) {
+        tab.name = newName;
+        saveButton.disabled = false;
+        status.textContent = t(api, "unsavedChanges");
+        renderFolderTabMapping(); // Update select options
+      } else {
+        nameInput.value = tab.name; // revert
+      }
+    });
+
+    const actionsEl = document.createElement("div");
+    actionsEl.className = "tab-actions";
+
+    // Up button (moves left)
+    const upBtn = document.createElement("button");
+    upBtn.type = "button";
+    upBtn.className = "tab-action-btn";
+    upBtn.title = t(api, "moveUp") || "Subir";
+    upBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>`;
+    upBtn.disabled = index === 0;
+    upBtn.addEventListener("click", () => {
+      if (index > 0) {
+        const temp = tabs[index];
+        tabs[index] = tabs[index - 1];
+        tabs[index - 1] = temp;
+        saveButton.disabled = false;
+        status.textContent = t(api, "unsavedChanges");
+        renderTabs();
+        renderFolderTabMapping();
+      }
+    });
+
+    // Down button (moves right)
+    const downBtn = document.createElement("button");
+    downBtn.type = "button";
+    downBtn.className = "tab-action-btn";
+    downBtn.title = t(api, "moveDown") || "Bajar";
+    downBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+    downBtn.disabled = index === tabs.length - 1;
+    downBtn.addEventListener("click", () => {
+      if (index < tabs.length - 1) {
+        const temp = tabs[index];
+        tabs[index] = tabs[index + 1];
+        tabs[index + 1] = temp;
+        saveButton.disabled = false;
+        status.textContent = t(api, "unsavedChanges");
+        renderTabs();
+        renderFolderTabMapping();
+      }
+    });
+
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "tab-action-btn delete";
+    deleteBtn.title = t(api, "delete") || "Eliminar";
+    deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+    deleteBtn.addEventListener("click", () => {
+      const tabName = tab.name || "";
+      if (confirm(t(api, "confirmDeleteTab", [tabName]) || `¿Seguro que deseas eliminar la pestaña "${tabName}"?`)) {
+        const tabId = tab.id;
+        if (currentSettings.folderTabs) {
+          Object.keys(currentSettings.folderTabs).forEach(fid => {
+            if (currentSettings.folderTabs[fid] === tabId) {
+              delete currentSettings.folderTabs[fid];
+            }
+          });
+        }
+        if (currentSettings.activeTabId === tabId) {
+          currentSettings.activeTabId = "all";
+        }
+        currentSettings.tabs = tabs.filter(t => t.id !== tabId);
+        saveButton.disabled = false;
+        status.textContent = t(api, "unsavedChanges");
+        renderTabs();
+        renderFolderTabMapping();
+      }
+    });
+
+    actionsEl.appendChild(upBtn);
+    actionsEl.appendChild(downBtn);
+    actionsEl.appendChild(deleteBtn);
+
+    itemEl.appendChild(nameInput);
+    itemEl.appendChild(actionsEl);
+    tabsList.appendChild(itemEl);
+  });
+}
+
+function getMonitoredDescendants(folderId, selectedFolderIds) {
+  const result = [];
+  if (!rawBookmarkTree) return result;
+
+  function findNode(nodes, targetId) {
+    for (const node of nodes) {
+      if (node.id === targetId) return node;
+      if (node.children) {
+        const found = findNode(node.children, targetId);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  const rootNode = findNode(rawBookmarkTree, folderId);
+  if (!rootNode || !rootNode.children) return result;
+
+  function collectMonitored(node) {
+    if (node.children) {
+      for (const child of node.children) {
+        const isFolder = child.children && !child.url;
+        if (isFolder) {
+          if (selectedFolderIds.includes(child.id)) {
+            result.push(child.id);
+          }
+          collectMonitored(child);
+        }
+      }
+    }
+  }
+
+  collectMonitored(rootNode);
+  return result;
+}
+
+function renderFolderTabMapping() {
+  const selectedFolderIds = currentSettings ? (currentSettings.selectedFolderIds || []) : [];
+  if (rawBookmarkTree) {
+    renderTabsFolderTree(rawBookmarkTree, selectedFolderIds);
+  }
+  renderTabsDropzones();
+}
+
+function renderTabsFolderTree(nodes, selectedFolderIds) {
+  if (!tabsFolderTreeContainer) return;
+  tabsFolderTreeContainer.innerHTML = "";
+
+  function hasSelectedDescendant(node, ids) {
+    if (!node.children) return false;
+    for (const child of node.children) {
+      if (ids.includes(child.id)) return true;
+      if (hasSelectedDescendant(child, ids)) return true;
+    }
+    return false;
+  }
+
+  function walk(node, parentPath = []) {
+    const isFolderNode = node.children && !node.url;
+    if (!isFolderNode) return null;
+
+    const nextPath = node.title ? [...parentPath, node.title] : parentPath;
+    const isMonitored = selectedFolderIds.includes(node.id);
+    const hasMonitoredDescendant = hasSelectedDescendant(node, selectedFolderIds);
+
+    if (!isMonitored && !hasMonitoredDescendant) {
+      return null;
+    }
+
+    if (!node.title || node.id === "0") {
+      const fragment = document.createDocumentFragment();
+      for (const child of node.children) {
+        const el = walk(child, nextPath);
+        if (el) fragment.appendChild(el);
+      }
+      return fragment;
+    }
+
+    const nodeEl = document.createElement("div");
+    nodeEl.className = "folder-tree-node";
+    nodeEl.dataset.folderId = node.id;
+    if (!isMonitored) {
+      nodeEl.classList.add("is-structural");
+    }
+
+    const rowEl = document.createElement("div");
+    rowEl.className = "folder-tree-row";
+
+    if (isMonitored) {
+      rowEl.setAttribute("draggable", "true");
+      
+      rowEl.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", node.id);
+        e.dataTransfer.effectAllowed = "move";
+        rowEl.classList.add("is-dragging");
+      });
+
+      rowEl.addEventListener("dragend", () => {
+        rowEl.classList.remove("is-dragging");
+        document.querySelectorAll(".tab-dropzone-body").forEach(body => {
+          body.classList.remove("is-dragover");
+        });
+      });
+    }
+
+    const leftEl = document.createElement("div");
+    leftEl.className = "folder-tree-row-left";
+
+    const hasChildFolders = node.children.some(child => {
+      const isChildFolder = child.children && !child.url;
+      if (!isChildFolder) return false;
+      return selectedFolderIds.includes(child.id) || hasSelectedDescendant(child, selectedFolderIds);
+    });
+
+    if (hasChildFolders) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "folder-toggle-btn";
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+      btn.setAttribute("aria-label", `${t(api, "expandCollapse")} ${node.title}`);
+      btn.setAttribute("aria-expanded", "true");
+
+      btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", !expanded ? "true" : "false");
+        childrenEl.classList.toggle("is-collapsed", expanded);
+      });
+      leftEl.appendChild(btn);
+    } else {
+      const spacer = document.createElement("div");
+      spacer.className = "folder-toggle-spacer";
+      leftEl.appendChild(spacer);
+    }
+
+    const iconEl = document.createElement("span");
+    iconEl.className = "folder-icon";
+    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px; vertical-align: middle; color: ${isMonitored ? "var(--primary)" : "var(--text-muted)"}"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+    leftEl.appendChild(iconEl);
+
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "folder-title-text";
+    const overrideName = (currentSettings.folderNameOverrides || {})[node.id];
+    nameSpan.textContent = overrideName || node.title;
+    nameSpan.title = overrideName || node.title;
+    leftEl.appendChild(nameSpan);
+
+    rowEl.appendChild(leftEl);
+    nodeEl.appendChild(rowEl);
+
+    let childrenEl = null;
+    if (node.children && node.children.length > 0) {
+      childrenEl = document.createElement("div");
+      childrenEl.className = "folder-tree-children";
+
+      let childCount = 0;
+      for (const child of node.children) {
+        const el = walk(child, nextPath);
+        if (el) {
+          childrenEl.appendChild(el);
+          childCount++;
+        }
+      }
+
+      if (childCount > 0) {
+        nodeEl.appendChild(childrenEl);
+      }
+    }
+
+    return nodeEl;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const node of nodes) {
+    const el = walk(node);
+    if (el) fragment.appendChild(el);
+  }
+  tabsFolderTreeContainer.appendChild(fragment);
+}
+
+function renderTabsDropzones() {
+  if (!tabsDropzonesList) return;
+  tabsDropzonesList.innerHTML = "";
+
+  const selectedFolderIds = currentSettings ? (currentSettings.selectedFolderIds || []) : [];
+  if (selectedFolderIds.length === 0) {
+    const emptyMsg = document.createElement("div");
+    emptyMsg.style.padding = "16px";
+    emptyMsg.style.textAlign = "center";
+    emptyMsg.style.color = "var(--text-secondary)";
+    emptyMsg.style.fontSize = "13px";
+    emptyMsg.textContent = t(api, "noFoldersSelected") || "No has seleccionado carpetas monitoreadas.";
+    tabsDropzonesList.appendChild(emptyMsg);
+    return;
+  }
+
+  const tabs = currentSettings ? (currentSettings.tabs || []) : [];
+  const folderTabs = currentSettings ? (currentSettings.folderTabs || {}) : {};
+
+  function createDropzoneCard(tabId, tabName, isDeletable = true) {
+    const cardEl = document.createElement("div");
+    cardEl.className = "tab-dropzone-card";
+    cardEl.dataset.tabId = tabId || "";
+    if (!tabId) {
+      cardEl.classList.add("is-unassigned");
+    }
+
+    const headerEl = document.createElement("div");
+    headerEl.className = "tab-dropzone-header";
+
+    if (!isDeletable) {
+      const titleEl = document.createElement("h5");
+      titleEl.className = "tab-dropzone-title";
+      titleEl.textContent = tabName;
+      headerEl.appendChild(titleEl);
+    } else {
+      const tabIndex = tabs.findIndex(t => t.id === tabId);
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.className = "tab-item-input";
+      nameInput.value = tabName;
+      nameInput.style.fontWeight = "700";
+      nameInput.addEventListener("change", () => {
+        const newName = nameInput.value.trim();
+        if (newName) {
+          const tabObj = tabs.find(t => t.id === tabId);
+          if (tabObj) {
+            tabObj.name = newName;
+            saveButton.disabled = false;
+            status.textContent = t(api, "unsavedChanges");
+            renderTabs();
+          }
+        } else {
+          nameInput.value = tabName;
+        }
+      });
+      headerEl.appendChild(nameInput);
+
+      const actionsEl = document.createElement("div");
+      actionsEl.className = "tab-actions";
+
+      const upBtn = document.createElement("button");
+      upBtn.type = "button";
+      upBtn.className = "tab-action-btn";
+      upBtn.title = t(api, "moveUp") || "Subir";
+      upBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>`;
+      upBtn.disabled = tabIndex === 0;
+      upBtn.addEventListener("click", () => {
+        if (tabIndex > 0) {
+          const temp = tabs[tabIndex];
+          tabs[tabIndex] = tabs[tabIndex - 1];
+          tabs[tabIndex - 1] = temp;
+          saveButton.disabled = false;
+          status.textContent = t(api, "unsavedChanges");
+          renderTabs();
+          renderFolderTabMapping();
+        }
+      });
+
+      const downBtn = document.createElement("button");
+      downBtn.type = "button";
+      downBtn.className = "tab-action-btn";
+      downBtn.title = t(api, "moveDown") || "Bajar";
+      downBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+      downBtn.disabled = tabIndex === tabs.length - 1;
+      downBtn.addEventListener("click", () => {
+        if (tabIndex < tabs.length - 1) {
+          const temp = tabs[tabIndex];
+          tabs[tabIndex] = tabs[tabIndex + 1];
+          tabs[tabIndex + 1] = temp;
+          saveButton.disabled = false;
+          status.textContent = t(api, "unsavedChanges");
+          renderTabs();
+          renderFolderTabMapping();
+        }
+      });
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "tab-action-btn delete";
+      deleteBtn.title = t(api, "delete") || "Eliminar";
+      deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
+      deleteBtn.addEventListener("click", () => {
+        if (confirm(t(api, "confirmDeleteTab", [tabName]) || `¿Seguro que deseas eliminar la pestaña "${tabName}"?`)) {
+          if (currentSettings.folderTabs) {
+            Object.keys(currentSettings.folderTabs).forEach(fid => {
+              if (currentSettings.folderTabs[fid] === tabId) {
+                delete currentSettings.folderTabs[fid];
+              }
+            });
+          }
+          if (currentSettings.activeTabId === tabId) {
+            currentSettings.activeTabId = "all";
+          }
+          currentSettings.tabs = tabs.filter(t => t.id !== tabId);
+          saveButton.disabled = false;
+          status.textContent = t(api, "unsavedChanges");
+          renderTabs();
+          renderFolderTabMapping();
+        }
+      });
+
+      actionsEl.appendChild(upBtn);
+      actionsEl.appendChild(downBtn);
+      actionsEl.appendChild(deleteBtn);
+      headerEl.appendChild(actionsEl);
+    }
+
+    cardEl.appendChild(headerEl);
+
+    const bodyEl = document.createElement("div");
+    bodyEl.className = "tab-dropzone-body";
+    bodyEl.dataset.tabId = tabId || "";
+
+    bodyEl.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      bodyEl.classList.add("is-dragover");
+    });
+
+    bodyEl.addEventListener("dragenter", (e) => {
+      e.preventDefault();
+      bodyEl.classList.add("is-dragover");
+    });
+
+    bodyEl.addEventListener("dragleave", () => {
+      bodyEl.classList.remove("is-dragover");
+    });
+
+    bodyEl.addEventListener("drop", (e) => {
+      e.preventDefault();
+      bodyEl.classList.remove("is-dragover");
+      const folderId = e.dataTransfer.getData("text/plain");
+      if (folderId && selectedFolderIds.includes(folderId)) {
+        if (tabId) {
+          if (!currentSettings.folderTabs) currentSettings.folderTabs = {};
+          currentSettings.folderTabs[folderId] = tabId;
+          
+          // Cascading assignment to monitored children
+          const descendants = getMonitoredDescendants(folderId, selectedFolderIds);
+          descendants.forEach(descId => {
+            currentSettings.folderTabs[descId] = tabId;
+          });
+        } else {
+          if (currentSettings.folderTabs) {
+            delete currentSettings.folderTabs[folderId];
+            
+            // Cascading unassignment for monitored children
+            const descendants = getMonitoredDescendants(folderId, selectedFolderIds);
+            descendants.forEach(descId => {
+              delete currentSettings.folderTabs[descId];
+            });
+          }
+        }
+        saveButton.disabled = false;
+        status.textContent = t(api, "unsavedChanges");
+        renderFolderTabMapping();
+      }
+    });
+
+    const assignedFolders = selectedFolderIds.filter(fid => {
+      const fidTabId = folderTabs[fid] || "";
+      return fidTabId === (tabId || "");
+    });
+
+    if (assignedFolders.length === 0) {
+      const placeholderEl = document.createElement("div");
+      placeholderEl.className = "tab-dropzone-placeholder";
+      placeholderEl.textContent = t(api, "dragFoldersHere") || "Arrastra carpetas aquí";
+      bodyEl.appendChild(placeholderEl);
+    } else {
+      assignedFolders.forEach(fid => {
+        const folder = currentFolders.find(f => f.id === fid);
+        if (!folder) return;
+
+        const overrideName = (currentSettings.folderNameOverrides || {})[fid];
+        const folderTitle = overrideName || folder.title;
+
+        const pillEl = document.createElement("div");
+        pillEl.className = "assigned-folder-pill";
+        pillEl.textContent = folderTitle;
+        pillEl.setAttribute("draggable", "true");
+        pillEl.dataset.folderId = fid;
+
+        pillEl.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("text/plain", fid);
+          e.dataTransfer.effectAllowed = "move";
+          pillEl.style.opacity = "0.5";
+        });
+
+        pillEl.addEventListener("dragend", () => {
+          pillEl.style.opacity = "";
+          document.querySelectorAll(".tab-dropzone-body").forEach(body => {
+            body.classList.remove("is-dragover");
+          });
+        });
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "assigned-folder-remove-btn";
+        removeBtn.title = t(api, "unassignedTab") || "Quitar de pestaña";
+        removeBtn.innerHTML = "×";
+        removeBtn.addEventListener("click", () => {
+          if (!tabId) {
+            const msg = t(api, "confirmRemoveFolderSetup", [folderTitle]) || `¿Seguro que deseas dejar de monitorear la carpeta "${folderTitle}"?`;
+            if (confirm(msg)) {
+              currentSettings.selectedFolderIds = (currentSettings.selectedFolderIds || []).filter(id => id !== fid);
+              if (currentSettings.folderTabs) {
+                delete currentSettings.folderTabs[fid];
+              }
+              saveButton.disabled = false;
+              status.textContent = t(api, "unsavedChanges");
+              renderFolderTabMapping();
+              renderSelectedFolders();
+            }
+          } else {
+            if (currentSettings.folderTabs) {
+              delete currentSettings.folderTabs[fid];
+            }
+            saveButton.disabled = false;
+            status.textContent = t(api, "unsavedChanges");
+            renderFolderTabMapping();
+          }
+        });
+
+        pillEl.appendChild(removeBtn);
+        bodyEl.appendChild(pillEl);
+      });
+    }
+
+    cardEl.appendChild(bodyEl);
+    return cardEl;
+  }
+
+  const unassignedCard = createDropzoneCard("", t(api, "foldersUnassigned") || "Carpetas sin pestaña", false);
+  tabsDropzonesList.appendChild(unassignedCard);
+
+  tabs.forEach(tab => {
+    const card = createDropzoneCard(tab.id, tab.name, true);
+    tabsDropzonesList.appendChild(card);
+  });
+}
+
 function getSelectedFolderIds() {
   if (!selectedFoldersList) return [];
   return [...selectedFoldersList.querySelectorAll(".selected-folder-item")].map(el => el.dataset.folderId);
@@ -801,6 +1366,7 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showT
     automaticTagsEnabled: automaticTags.checked,
     manualTagsEnabled: manualTags.checked,
     showPinnedFolder: showPinnedFolder.checked,
+    hideAllTab: hideAllTabInput ? hideAllTabInput.checked : false,
     showViewButton: showViewButton.checked,
     showSortButton: showSortButton.checked,
     linkHealthEnabled: linkHealthEnabled,
@@ -911,6 +1477,9 @@ async function init() {
   automaticTags.checked = currentSettings.automaticTagsEnabled !== false;
   manualTags.checked = currentSettings.manualTagsEnabled !== false;
   showPinnedFolder.checked = currentSettings.showPinnedFolder !== false;
+  if (hideAllTabInput) {
+    hideAllTabInput.checked = currentSettings.hideAllTab === true;
+  }
   showViewButton.checked = currentSettings.showViewButton !== false;
   showSortButton.checked = currentSettings.showSortButton !== false;
   linkHealth.checked = currentSettings.linkHealthEnabled;
@@ -1016,6 +1585,56 @@ async function init() {
 
   await loadWallpaperPreview();
   
+  // Initialize tabs state in currentSettings
+  if (!currentSettings.tabs) currentSettings.tabs = [];
+  if (!currentSettings.folderTabs) currentSettings.folderTabs = {};
+
+  renderTabs();
+  renderFolderTabMapping();
+
+  if (addTabBtn) {
+    addTabBtn.addEventListener("click", () => {
+      const name = newTabNameInput.value.trim();
+      if (!name) return;
+      
+      const newTab = {
+        id: "tab-" + Date.now() + "-" + Math.random().toString(36).substr(2, 9),
+        name: name
+      };
+      
+      currentSettings.tabs.push(newTab);
+      newTabNameInput.value = "";
+      saveButton.disabled = false;
+      status.textContent = t(api, "unsavedChanges");
+      
+      renderTabs();
+      renderFolderTabMapping();
+    });
+  }
+
+  if (newTabNameInput) {
+    newTabNameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (addTabBtn) addTabBtn.click();
+      }
+    });
+  }
+
+  if (tabsCollapseAllBtn) {
+    tabsCollapseAllBtn.addEventListener("click", () => {
+      if (!tabsFolderTreeContainer) return;
+      const allChildren = tabsFolderTreeContainer.querySelectorAll(".folder-tree-children");
+      allChildren.forEach(children => {
+        children.classList.add("is-collapsed");
+      });
+      const allToggleBtns = tabsFolderTreeContainer.querySelectorAll(".folder-toggle-btn");
+      allToggleBtns.forEach(btn => {
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   applySettingsSearch();
 }
 

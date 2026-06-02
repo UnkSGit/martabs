@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "إمكانية الوصول"
   },
+  "addTabBtn": {
+    "message": "إضافة قسم"
+  },
   "advancedDescription": {
     "message": "إجراءات متقدمة لإدارة البيانات."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "المظهر"
+  },
+  "assignFolderTab": {
+    "message": "تعيين القسم"
   },
   "automaticTags": {
     "message": "علامات تلقائية"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "هل أنت متأكد من أنك تريد حذف علامة التبويب \"$TAB$\"؟",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "هل أنت متأكد من رغبتك في تجاهل جميع الأخطاء المكتشفة؟"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "هل أنت متأكد من أنك تريد إيقاف مراقبة المجلد \"$FOLDER$\"؟",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "هل أنت متأكد من إعادة تعيين جميع التنظيمات؟"
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "تنزيل JSON"
+  },
+  "dragFoldersHere": {
+    "message": "اسحب المجلدات إلى هنا"
   },
   "dragToReorder": {
     "message": "اسحب لإعادة الترتيب"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "المجلدات"
   },
+  "foldersUnassigned": {
+    "message": "مجلدات بدون علامة تبويب"
+  },
   "frequentSites": {
     "message": "المواقع المتكررة"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "إخفاء"
+  },
+  "hideAllTab": {
+    "message": "إخفاء علامة التبويب \"الكل\""
+  },
+  "hideAllTabDesc": {
+    "message": "إظهار علامات التبويب المخصصة فقط التي قمت بإنشائها."
   },
   "hidePinnedFolder": {
     "message": "إخفاء المجلد المثبت"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "تحريك لأعلى"
   },
+  "newTabHeading": {
+    "message": "علامة تبويب جديدة"
+  },
   "newtabTitle": {
     "message": "لوحة المعلومات - Martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "لم يتم اختيار مجلدات"
+  },
+  "noTabsConfigured": {
+    "message": "لم يتم تكوين أي أقسام. سيتم عرض جميع المجلدات معًا."
   },
   "openBrowserBookmarks": {
     "message": "إدارة الإشارات المرجعية"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "التركيز على شريط البحث"
   },
+  "showMoreBookmarks": {
+    "message": "عرض المزيد ($COUNT$ متبقية)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "عرض المزيد من النتائج"
+  },
   "showPinnedFolder": {
     "message": "إظهار المجلد المثبت"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "الإحصائيات معطلة"
   },
+  "tabAll": {
+    "message": "الكل"
+  },
+  "tabNamePlaceholder": {
+    "message": "اسم القسم..."
+  },
+  "tabsDescription": {
+    "message": "تنظيم أعمدة العلامات في تبويبات مخصصة."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "أفلت المجلدات هنا لتعيينها. استخدم 'بدون علامة تبويب' لإزالتها."
+  },
+  "tabsDropzonesTitle": {
+    "message": "علامات التبويب والتعيينات"
+  },
+  "tabsHeading": {
+    "message": "علامات التبويب"
+  },
+  "tabsSection": {
+    "message": "علامات التبويب"
+  },
+  "tabsTreeInstructions": {
+    "message": "اسحب المجلدات المراقبة إلى علامات التبويب على اليمين لتعيينها."
+  },
   "tagsDescription": {
     "message": "التحكم في العلامات."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "حد المواقع المتكررة"
+  },
+  "unassignedTab": {
+    "message": "بدون قسم (عام)"
   },
   "unsavedChanges": {
     "message": "تغييرات غير محفوظة"

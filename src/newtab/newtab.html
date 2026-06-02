@@ -38,8 +38,16 @@
             </svg>
           </div>
           <input id="search" type="search" autocomplete="off" data-i18n-placeholder="searchPlaceholder" placeholder="Buscar titulo, etiqueta, URL o carpeta...">
+          <button id="search-clear" type="button" class="search-clear-btn" style="display: none;" title="Limpiar" aria-label="Limpiar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </label>
       </div>
+
+      <div id="tabs-bar" class="tabs-bar" style="display: none;"></div>
 
       <section id="content" class="content" aria-live="polite"></section>
     </main>

@@ -12,6 +12,7 @@
   --primary-hover: #0f766e;
   --primary-light: rgba(13, 148, 136, 0.15);
   --primary-light-text: #0f766e;
+  --primary-soft: rgba(13, 148, 136, 0.12);
   --success-bg: #dcfce7;
   --success-text: #166534;
   --warning-bg: rgba(254, 226, 226, 0.7);
@@ -48,6 +49,7 @@
     --primary-hover: #14b8a6;
     --primary-light: rgba(18, 154, 143, 0.15);
     --primary-light-text: #14b8a6;
+    --primary-soft: rgba(18, 154, 143, 0.16);
     --success-bg: rgba(34, 197, 94, 0.12);
     --success-text: #86efac;
     --warning-bg: rgba(239, 68, 68, 0.12);
@@ -76,6 +78,7 @@
   --primary-hover: #14b8a6;
   --primary-light: rgba(18, 154, 143, 0.15);
   --primary-light-text: #14b8a6;
+  --primary-soft: rgba(18, 154, 143, 0.16);
   --success-bg: rgba(34, 197, 94, 0.12);
   --success-text: #86efac;
   --warning-bg: rgba(239, 68, 68, 0.12);
@@ -240,7 +243,7 @@ button svg {
   border-radius: var(--radius-md);
   padding: 0 16px 0 40px;
   padding-inline-start: 40px;
-  padding-inline-end: 16px;
+  padding-inline-end: 36px;
   font-family: inherit;
   font-size: 13.5px;
   font-weight: 600;
@@ -250,6 +253,15 @@ button svg {
   outline: none;
   transition: var(--transition);
   backdrop-filter: blur(10px);
+}
+
+#search::-webkit-search-cancel-button,
+#search::-webkit-search-decoration,
+#search::-webkit-search-results-button,
+#search::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
 }
 
 #search::placeholder {
@@ -1302,6 +1314,204 @@ button svg {
   }
 }
 
+/* Tabs bar and pills styling */
+.tabs-bar {
+  --tabs-active-ink: color-mix(in srgb, var(--primary) 88%, #ffffff 12%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  padding: 2px 4px 10px;
+  margin: 4px auto 18px;
+  height: 46px;
+  min-height: 46px;
+  width: min(760px, 100%);
+  max-width: 760px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  scrollbar-width: none;
+}
 
+.tabs-bar::before {
+  content: "";
+  position: absolute;
+  inset-inline: 18px;
+  bottom: 2px;
+  height: 1px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--surface-border) 76%, var(--text-secondary) 24%),
+    transparent
+  );
+  opacity: 0.8;
+  pointer-events: none;
+}
 
+.tabs-bar::-webkit-scrollbar {
+  display: none;
+}
 
+.tab-pill {
+  position: relative;
+  min-width: 0;
+  height: 34px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  padding: 0 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  user-select: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.tab-pill:hover {
+  color: var(--text-primary);
+  background: transparent;
+  border-color: transparent;
+  transform: none;
+}
+
+.tab-pill.is-active {
+  background: transparent;
+  color: var(--text-primary) !important;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.tab-pill.is-active:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-primary) !important;
+}
+
+.tab-pill::after {
+  content: "";
+  position: absolute;
+  inset-inline: 18px;
+  bottom: -9px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--tabs-active-ink);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--tabs-active-ink) 55%, transparent);
+  opacity: 0;
+  transform: scaleX(0.36);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.tab-pill.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Load more button in column footer */
+.load-more-container {
+  display: none;
+  justify-content: center;
+  padding: 8px 16px 12px;
+  width: 100%;
+}
+
+.load-more-container.visible {
+  display: flex;
+}
+
+.load-more-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--primary-soft);
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  justify-content: center;
+}
+
+.load-more-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary-light-text);
+  border-color: var(--primary);
+}
+
+.load-more-btn:active {
+  transform: scale(0.97);
+}
+
+/* Specific theme adjustments for tabs bar */
+:root.theme-dark .tabs-bar {
+  --tabs-active-ink: color-mix(in srgb, var(--primary-hover) 90%, #e5e7eb 10%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) .tabs-bar {
+    --tabs-active-ink: color-mix(in srgb, var(--primary-hover) 90%, #e5e7eb 10%);
+  }
+}
+
+/* Custom wallpaper adaptations for tabs-bar */
+.has-custom-wallpaper .tabs-bar {
+  --tabs-active-ink: color-mix(in srgb, var(--primary) 84%, #ffffff 16%);
+}
+
+.theme-dark.has-custom-wallpaper .tabs-bar {
+  --tabs-active-ink: color-mix(in srgb, var(--primary-hover) 88%, #ffffff 12%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light).has-custom-wallpaper .tabs-bar {
+    --tabs-active-ink: color-mix(in srgb, var(--primary-hover) 88%, #ffffff 12%);
+  }
+}
+
+/* Custom search clear button style */
+.search-clear-btn {
+  position: absolute;
+  inset-inline-end: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: none; /* Controlled by JS */
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  outline: none;
+  z-index: 2;
+}
+
+.search-clear-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.search-clear-btn svg {
+  width: 14px;
+  height: 14px;
+}

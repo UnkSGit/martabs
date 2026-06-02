@@ -1,4 +1,4 @@
-# Documentación Técnica: Versión 0.9.4
+﻿# Documentación Técnica: Versión 0.9.4
 
 Esta versión se ha centrado fuertemente en mejorar la accesibilidad (a11y), añadir soporte completo para el idioma Árabe e idiomas RTL (Right-To-Left), así como la simplificación visual de la interfaz.
 

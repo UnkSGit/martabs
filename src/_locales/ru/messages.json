@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Специальные возможности"
   },
+  "addTabBtn": {
+    "message": "Добавить вкладку"
+  },
   "advancedDescription": {
     "message": "Редкие действия для очистки локальных данных."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Внешний вид"
+  },
+  "assignFolderTab": {
+    "message": "Назначить вкладку"
   },
   "automaticTags": {
     "message": "Автоматические теги"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "Вы действительно хотите удалить вкладку «$TAB$»?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "Вы уверены, что хотите игнорировать все обнаруженные ошибки?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "Вы действительно хотите прекратить отслеживание папки «$FOLDER$»?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "Сбросить все локальные перемещения и ручную сортировку? Реальные закладки браузера не будут изменены."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "Скачать JSON"
+  },
+  "dragFoldersHere": {
+    "message": "Перетащите папки сюда"
   },
   "dragToReorder": {
     "message": "Перетащите для изменения порядка"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Папки"
   },
+  "foldersUnassigned": {
+    "message": "Папки без вкладок"
+  },
   "frequentSites": {
     "message": "Частые сайты"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Скрыть"
+  },
+  "hideAllTab": {
+    "message": "Скрыть вкладку «Все»"
+  },
+  "hideAllTabDesc": {
+    "message": "Показывать только созданные вами вкладки."
   },
   "hidePinnedFolder": {
     "message": "Скрыть закрепленную папку (ее можно снова показать в Настройках)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Переместить вверх"
   },
+  "newTabHeading": {
+    "message": "Новая вкладка"
+  },
   "newtabTitle": {
     "message": "Начальная страница - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "Папки не выбраны"
+  },
+  "noTabsConfigured": {
+    "message": "Вкладки не настроены. Все папки будут показаны вместе."
   },
   "openBrowserBookmarks": {
     "message": "Управление закладками"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Фокус на строке поиска"
   },
+  "showMoreBookmarks": {
+    "message": "Показать еще ($COUNT$ осталось)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Показать больше результатов"
+  },
   "showPinnedFolder": {
     "message": "Показывать виртуальную папку для закрепленных закладок"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Локальная статистика отключена. Включите эту опцию в разделе Конфиденциальность, чтобы видеть ваши самые посещаемые сайты."
   },
+  "tabAll": {
+    "message": "Все"
+  },
+  "tabNamePlaceholder": {
+    "message": "Название вкладки..."
+  },
+  "tabsDescription": {
+    "message": "Организуйте колонки закладок в настраиваемые вкладки."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Перетащите папки сюда для назначения. Используйте 'Без вкладки' для удаления."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Вкладки и назначения"
+  },
+  "tabsHeading": {
+    "message": "Вкладки"
+  },
+  "tabsSection": {
+    "message": "Вкладки"
+  },
+  "tabsTreeInstructions": {
+    "message": "Перетащите отслеживаемые папки на вкладки справа для их назначения."
+  },
   "tagsDescription": {
     "message": "Управление тем, как martabs создает и отображает теги."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Количество видимых"
+  },
+  "unassignedTab": {
+    "message": "Без вкладки (Общая)"
   },
   "unsavedChanges": {
     "message": "Несохраненные изменения (Нажмите Сохранить)"

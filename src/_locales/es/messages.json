@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Accesibilidad"
   },
+  "addTabBtn": {
+    "message": "Añadir pestaña"
+  },
   "advancedDescription": {
     "message": "Acciones poco frecuentes para limpiar estado local."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Apariencia"
+  },
+  "assignFolderTab": {
+    "message": "Asignar pestaña"
   },
   "automaticTags": {
     "message": "Etiquetas automáticas"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "¿Seguro que deseas eliminar la pestaña \"$TAB$\"?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "¿Seguro que quieres ignorar todos los fallos detectados?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "¿Seguro que deseas dejar de monitorear la carpeta \"$FOLDER$\"?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "¿Restablecer todos los movimientos locales y órdenes manuales? No se modifican los marcadores reales del navegador."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "Descargar JSON"
+  },
+  "dragFoldersHere": {
+    "message": "Arrastra carpetas aquí"
   },
   "dragToReorder": {
     "message": "Arrastrar para reordenar"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Carpetas"
   },
+  "foldersUnassigned": {
+    "message": "Carpetas sin pestaña"
+  },
   "frequentSites": {
     "message": "Sitios frecuentes"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Ocultar"
+  },
+  "hideAllTab": {
+    "message": "Ocultar pestaña \"Todos\""
+  },
+  "hideAllTabDesc": {
+    "message": "Muestra solo las pestañas personalizadas creadas por ti."
   },
   "hidePinnedFolder": {
     "message": "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuración)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Subir"
   },
+  "newTabHeading": {
+    "message": "Nueva Pestaña"
+  },
   "newtabTitle": {
     "message": "Inicio - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "Ninguna carpeta seleccionada"
+  },
+  "noTabsConfigured": {
+    "message": "No tienes pestañas configuradas. Las carpetas se mostrarán juntas."
   },
   "openBrowserBookmarks": {
     "message": "Administrar Marcadores (Navegador)"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Enfocar barra de búsqueda"
   },
+  "showMoreBookmarks": {
+    "message": "Ver más ($COUNT$ restantes)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Ver más resultados"
+  },
   "showPinnedFolder": {
     "message": "Mostrar carpeta virtual de fijados"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
   },
+  "tabAll": {
+    "message": "Todo"
+  },
+  "tabNamePlaceholder": {
+    "message": "Nombre de la pestaña..."
+  },
+  "tabsDescription": {
+    "message": "Organiza las columnas de tus marcadores en pestañas personalizadas."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Pestañas y Asignaciones"
+  },
+  "tabsHeading": {
+    "message": "Pestañas"
+  },
+  "tabsSection": {
+    "message": "Pestañas"
+  },
+  "tabsTreeInstructions": {
+    "message": "Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas."
+  },
   "tagsDescription": {
     "message": "Controla cómo martabs genera y muestra tags."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Cantidad visible"
+  },
+  "unassignedTab": {
+    "message": "Sin pestaña (General)"
   },
   "unsavedChanges": {
     "message": "Cambios sin guardar (Haz clic en Guardar)"

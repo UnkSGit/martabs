@@ -35,6 +35,7 @@
         <div class="setup-layout">
           <nav class="setup-sidebar" aria-label="Secciones de configuracion">
             <button class="setup-nav-button is-active" type="button" data-section="folders" data-i18n="foldersSection">Carpetas</button>
+            <button class="setup-nav-button" type="button" data-section="tabs" data-i18n="tabsSection">Pestañas</button>
             <button class="setup-nav-button" type="button" data-section="appearance" data-i18n="appearanceSection">Apariencia</button>
             <button class="setup-nav-button" type="button" data-section="wallpaper" data-i18n="wallpaperSection">Fondo de pantalla</button>
             <button class="setup-nav-button" type="button" data-section="privacy" data-i18n="privacySection">Privacidad</button>
@@ -85,6 +86,65 @@
               </div>
               <div id="folders-sort-actions" style="margin-top: 16px; display: none; justify-content: flex-end;">
                 <button type="button" id="back-to-tree-btn" class="primary-button" style="padding: 8px 16px; font-size: 12px;" data-i18n="backToTree">Volver al árbol</button>
+              </div>
+            </section>
+
+            <section id="section-tabs" class="setup-section" data-section="tabs" data-i18n-search="searchTabs" data-search="pestañas asignar columnas organizar grupos">
+              <div class="section-heading">
+                <h2 data-i18n="tabsHeading">Pestañas</h2>
+                <p data-i18n="tabsDescription">Organiza las columnas de tus marcadores en pestañas personalizadas.</p>
+              </div>
+              <div class="settings-stack">
+                <div class="setting-card">
+                  <div class="card-header">
+                    <h3 data-i18n="newTabHeading">Nueva Pestaña</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="tabs-manager-container">
+                      <div class="tab-creator-form" style="display: flex; gap: 8px; margin-bottom: 16px;">
+                        <input type="text" id="new-tab-name" data-i18n-placeholder="tabNamePlaceholder" placeholder="Nombre de la pestaña..." style="flex: 1; min-width: 0;">
+                        <button type="button" id="add-tab-btn" class="primary-button" data-i18n="addTabBtn">Añadir pestaña</button>
+                      </div>
+                      <div id="tabs-list" class="tabs-list">
+                        <!-- Pestañas renderizadas dinámicamente -->
+                      </div>
+                      <label class="switch-row" style="margin-top: 16px;">
+                        <input id="hide-all-tab" type="checkbox">
+                        <span>
+                          <strong data-i18n="hideAllTab">Ocultar pestaña "Todos"</strong>
+                          <small data-i18n="hideAllTabDesc">Muestra únicamente las pestañas personalizadas creadas por ti.</small>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="setting-card tabs-drag-card">
+                  <div class="card-header">
+                    <h3 data-i18n="foldersHeading">Carpetas</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="tabs-drag-split-layout">
+                      <!-- Left column: monitored folders tree -->
+                      <div class="tabs-drag-left-pane">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                          <h4 data-i18n="foldersHeading" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0;">Carpetas</h4>
+                          <button type="button" id="tabs-collapse-all-btn" class="text-button-small" style="font-size: 11px; padding: 2px 6px; cursor: pointer; background: transparent; border: 1px solid var(--surface-border); border-radius: 4px; color: var(--text-secondary); transition: all 0.2s;" data-i18n="collapseAll">Colapsar todas</button>
+                        </div>
+                        <p style="margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);" data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</p>
+                        <div id="tabs-folder-tree-container" class="folder-tree" role="tree"></div>
+                      </div>
+                      <!-- Right column: tab dropzones list -->
+                      <div class="tabs-drag-right-pane">
+                        <h4 data-i18n="tabsDropzonesTitle" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Pestañas y Asignaciones</h4>
+                        <p style="margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);" data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña.</p>
+                        <div id="tabs-dropzones-list" class="tabs-dropzones-list">
+                          <!-- Tab dropzones rendered dynamically -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 

@@ -188,3 +188,39 @@ test("newtab has gradient and aurora background rendering support", async () => 
   assert.match(css, /\.aurora-blob-3\s*{/);
   assert.match(css, /@keyframes aurora-float-1/);
 });
+
+test("newtab has tabs and pagination support", async () => {
+  const html = await readFile("src/newtab/newtab.html", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+
+  // HTML checks
+  assert.match(html, /id="tabs-bar"/);
+
+  // CSS checks
+  assert.match(css, /\.tabs-bar\s*{/);
+  assert.match(css, /\.tab-pill\s*{/);
+  assert.match(css, /\.load-more-container\s*{/);
+  assert.match(css, /\.load-more-btn\s*{/);
+  assert.match(css, /\.tabs-bar::before\s*{/);
+  assert.match(css, /\.tab-pill::after\s*{/);
+  assert.match(css, /--tabs-active-ink/);
+  assert.match(css, /max-width:\s*760px/);
+  assert.match(css, /height:\s*46px/);
+  assert.match(css, /min-height:\s*46px/);
+  assert.match(css, /align-items:\s*flex-start/);
+  assert.doesNotMatch(css, /\.tab-pill\.is-active\s*{[\s\S]*?background:\s*var\(--primary\)/);
+  assert.match(css, /\.tab-pill\.is-active\s*{[\s\S]*?background:\s*transparent/);
+  assert.match(css, /\.tab-pill\.is-active\s*{[\s\S]*?border-color:\s*transparent/);
+  assert.match(css, /\.tab-pill\.is-active:hover\s*{/);
+
+  // JS checks
+  assert.match(js, /function renderTabsBar\(\)/);
+  assert.match(js, /function renderTabsActiveState\(\)/);
+  assert.match(js, /function resetDashboardScroll\(\)/);
+  assert.match(js, /activeTabId !== "all"/);
+  assert.match(js, /resetDashboardScroll\(\);\s*renderDashboard\(bookmarks\);/);
+  assert.match(js, /maxBookmarksInitial = 50/);
+  assert.match(js, /class: "load-more-btn"/);
+  assert.match(js, /initialLimit = 50/);
+});

@@ -1,4 +1,4 @@
-# Notas obligatorias de mantenimiento
+﻿# Notas obligatorias de mantenimiento
 
 Leer este documento antes de tocar flujos sensibles. Sirve para que Codex y Gemini/Antigravity no repitan errores ya encontrados.
 

@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Accessibility"
   },
+  "addTabBtn": {
+    "message": "Add tab"
+  },
   "advancedDescription": {
     "message": "Infrequent actions to clear local state."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Appearance"
+  },
+  "assignFolderTab": {
+    "message": "Assign tab"
   },
   "automaticTags": {
     "message": "Automatic tags"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "Are you sure you want to delete the tab \"$TAB$\"?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "Are you sure you want to ignore all detected failures?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "Are you sure you want to stop monitoring the folder \"$FOLDER$\"?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "Reset all local movements and manual sorting? Real browser bookmarks will not be modified."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "Download JSON"
+  },
+  "dragFoldersHere": {
+    "message": "Drag folders here"
   },
   "dragToReorder": {
     "message": "Drag to reorder"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Folders"
   },
+  "foldersUnassigned": {
+    "message": "Folders without tab"
+  },
   "frequentSites": {
     "message": "Frequent sites"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Hide"
+  },
+  "hideAllTab": {
+    "message": "Hide \"All\" tab"
+  },
+  "hideAllTabDesc": {
+    "message": "Show only the custom tabs created by you."
   },
   "hidePinnedFolder": {
     "message": "Hide Pinned folder (you can show it again from Settings)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Move up"
   },
+  "newTabHeading": {
+    "message": "New Tab"
+  },
   "newtabTitle": {
     "message": "Home - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "No folders selected"
+  },
+  "noTabsConfigured": {
+    "message": "No tabs configured. All folders will be shown together."
   },
   "openBrowserBookmarks": {
     "message": "Manage bookmarks"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Focus search bar"
   },
+  "showMoreBookmarks": {
+    "message": "Show more ($COUNT$ remaining)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Show more results"
+  },
   "showPinnedFolder": {
     "message": "Show virtual folder for pinned bookmarks"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Local statistics are disabled. Enable this option in Privacy to see your most used sites."
   },
+  "tabAll": {
+    "message": "All"
+  },
+  "tabNamePlaceholder": {
+    "message": "Tab name..."
+  },
+  "tabsDescription": {
+    "message": "Organize your bookmark columns into custom tabs."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Drop folders here to assign them. Use 'Without tab' to remove them."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Tabs and Assignments"
+  },
+  "tabsHeading": {
+    "message": "Tabs"
+  },
+  "tabsSection": {
+    "message": "Tabs"
+  },
+  "tabsTreeInstructions": {
+    "message": "Drag monitored folders onto the tabs on the right to assign them."
+  },
   "tagsDescription": {
     "message": "Control how martabs generates and displays tags."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Visible quantity"
+  },
+  "unassignedTab": {
+    "message": "No tab (General)"
   },
   "unsavedChanges": {
     "message": "Unsaved changes (Click Save)"

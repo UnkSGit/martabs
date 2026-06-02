@@ -41,7 +41,10 @@ const DEFAULT_SETTINGS = {
     angle: 135,
     presetId: "sunset-breeze",
     animated: false
-  }
+  },
+  tabs: [],
+  folderTabs: {},
+  activeTabId: "all"
 };
 
 export const STORAGE_KEYS = {

@@ -155,7 +155,6 @@ function generateBenchmarkData(folderCount, bookmarksPerFolder) {
 
 async function installMockApi(page, data) {
   await page.addInitScript((initialData) => {
-    // Clear localStorage to ensure a clean run
     window.localStorage.removeItem('__martabsMockStorage');
     
     const listeners = [];
@@ -221,6 +220,162 @@ async function installMockApi(page, data) {
   }, data);
 }
 
+// Scroll Benchmark utility using requestAnimationFrame & PerformanceObserver
+// type can be:
+// - 'clean' (scrollTop scroll, no mouse movement)
+// - 'interactive' (scrollTop scroll with parallel mouse movement - stress hover)
+// - 'wheel' (Playwright real mouse.wheel dispatch)
+async function runScrollBenchmark(page, type = 'clean') {
+  if (type === 'interactive') {
+    await page.mouse.move(300, 200);
+  } else if (type === 'wheel') {
+    // Move mouse to center of scroll container
+    const containerBoundingBox = await page.locator('.content').boundingBox();
+    if (containerBoundingBox) {
+      const centerX = containerBoundingBox.x + containerBoundingBox.width / 2;
+      const centerY = containerBoundingBox.y + containerBoundingBox.height / 2;
+      await page.mouse.move(centerX, centerY);
+    } else {
+      await page.mouse.move(300, 200);
+    }
+  } else {
+    await page.mouse.move(0, 0);
+  }
+
+  const scrollPromise = page.evaluate(async (scrollType) => {
+    const container = document.querySelector('.content');
+    if (!container) return null;
+
+    const longTasks = [];
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        longTasks.push(entry.duration);
+      }
+    });
+    observer.observe({ entryTypes: ['longtask'] });
+
+    const frameTimes = [];
+    let lastTime = performance.now();
+    const scrollStep = 20; // Scroll step in pixels for scrollTop method
+    const maxScroll = Math.min(container.scrollHeight - container.clientHeight, 2000);
+
+    if (maxScroll <= 0) {
+      observer.disconnect();
+      return { avgFrame: 0, worstFrame: 0, over16: 0, over33: 0, over50: 0, longTasksCount: 0, maxLongTask: 0, duration: 0 };
+    }
+
+    container.scrollTop = 0;
+    
+    // Settle layout
+    await new Promise(r => setTimeout(r, 100));
+    
+    let running = true;
+    
+    // requestAnimationFrame frame collector
+    function step() {
+      const now = performance.now();
+      const delta = now - lastTime;
+      lastTime = now;
+      if (running) {
+        frameTimes.push(delta);
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step);
+
+    if (scrollType === 'wheel') {
+      // For wheel scroll, we wait until container.scrollTop reaches maxScroll or timeout
+      await new Promise((resolve) => {
+        const checkInterval = setInterval(() => {
+          if (container.scrollTop >= maxScroll) {
+            clearInterval(checkInterval);
+            running = false;
+            resolve();
+          }
+        }, 30);
+        // Fail-safe timeout of 15 seconds
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          running = false;
+          resolve();
+        }, 15000);
+      });
+    } else {
+      // For scrollTop / interactive methods
+      await new Promise((resolve) => {
+        function scrollStepFn() {
+          if (container.scrollTop >= maxScroll) {
+            running = false;
+            resolve();
+          } else {
+            container.scrollTop = Math.min(container.scrollTop + scrollStep, maxScroll);
+            requestAnimationFrame(scrollStepFn);
+          }
+        }
+        requestAnimationFrame(scrollStepFn);
+      });
+    }
+
+    observer.disconnect();
+
+    const totalFrames = frameTimes.length;
+    const averageFrame = totalFrames > 0 ? frameTimes.reduce((a, b) => a + b, 0) / totalFrames : 0;
+    const worstFrame = frameTimes.length > 0 ? Math.max(...frameTimes) : 0;
+    const over16 = frameTimes.filter(t => t > 16.67).length;
+    const over33 = frameTimes.filter(t => t > 33.33).length;
+    const over50 = frameTimes.filter(t => t > 50).length;
+
+    return {
+      avgFrame: averageFrame,
+      worstFrame,
+      over16,
+      over33,
+      over50,
+      longTasksCount: longTasks.length,
+      maxLongTask: longTasks.length > 0 ? Math.max(...longTasks) : 0,
+      duration: frameTimes.reduce((a, b) => a + b, 0)
+    };
+  }, type);
+
+  // If wheel scroll, we trigger wheel ticks from Playwright side in parallel
+  if (type === 'wheel') {
+    const maxScrollHeight = 2000;
+    let currentScroll = 0;
+    const wheelStep = 100;
+    
+    // We send wheel events periodically
+    while (currentScroll < maxScrollHeight) {
+      // Check if container already scrolled to max or page closed
+      const isScrollFinished = await page.evaluate(() => {
+        const container = document.querySelector('.content');
+        if (!container) return true;
+        const maxScroll = Math.min(container.scrollHeight - container.clientHeight, 2000);
+        return container.scrollTop >= maxScroll;
+      });
+      if (isScrollFinished) break;
+
+      await page.mouse.wheel(0, wheelStep);
+      currentScroll += wheelStep;
+      await page.waitForTimeout(40);
+    }
+  }
+
+  // If interactive mode (stress hover), move mouse back and forth during scroll to trigger hover/repaint
+  if (type === 'interactive') {
+    const steps = 30;
+    for (let i = 0; i < steps; i++) {
+      const x = 200 + (i % 2 === 0 ? 500 : 0);
+      const y = 200 + (i * 15) % 400;
+      await page.mouse.move(x, y);
+      await page.waitForTimeout(40);
+    }
+  }
+
+  return await scrollPromise;
+}
+
+const benchmarkResults = {};
+
 test.describe('Performance Benchmark load tests', () => {
   let server;
 
@@ -230,6 +385,23 @@ test.describe('Performance Benchmark load tests', () => {
 
   test.afterAll(async () => {
     await server.close();
+
+    // Save benchmark results to JSON file
+    try {
+      const outputDir = path.join(rootDir, 'docs', 'performance');
+      await fs.mkdir(outputDir, { recursive: true });
+      const outputPath = path.join(outputDir, 'benchmark-v0.9.9-baseline.json');
+      
+      const reportData = {
+        timestamp: new Date().toISOString(),
+        scenarios: benchmarkResults
+      };
+      
+      await fs.writeFile(outputPath, JSON.stringify(reportData, null, 2), 'utf-8');
+      console.log(`\n[Benchmark] Baseline JSON saved to: ${outputPath}\n`);
+    } catch (err) {
+      console.error('Failed to save benchmark JSON:', err);
+    }
   });
 
   const SCENARIOS = [
@@ -241,6 +413,9 @@ test.describe('Performance Benchmark load tests', () => {
 
   for (const scenario of SCENARIOS) {
     test(`Benchmark Scenario ${scenario.name}`, async () => {
+      // Set test timeout to 120 seconds to allow all scrolls to finish
+      test.setTimeout(120000);
+
       const browser = await chromium.launch({
         executablePath: chromePath,
         headless: true,
@@ -256,22 +431,18 @@ test.describe('Performance Benchmark load tests', () => {
       try {
         console.log(`\n--- Running Scenario: ${scenario.name} ---`);
 
-        // Generate data for this benchmark
         const benchmarkData = generateBenchmarkData(scenario.folders, scenario.bookmarksPerFolder);
         await installMockApi(page, benchmarkData);
 
-        // 1. Measure initial load and rendering time
+        // 1. Initial Load
         const startLoadTime = Date.now();
         await page.goto(`${server.origin}/src/newtab/newtab.html`);
-        
-        // Wait for first folder element to render
         await page.locator('.group').first().waitFor();
         const loadDurationMs = Date.now() - startLoadTime;
 
-        // Give it a tiny bit of time to settle layout
         await page.waitForTimeout(500);
 
-        // 2. Measure DOM elements size
+        // DOM node counts
         const domStats = await page.evaluate(() => {
           return {
             nodes: document.getElementsByTagName('*').length,
@@ -280,40 +451,108 @@ test.describe('Performance Benchmark load tests', () => {
           };
         });
 
-        // 3. Measure layout/styling paint metric if supported by browser
-        const perfData = await page.evaluate(() => {
-          const paint = performance.getEntriesByType('paint');
-          const firstMeaningfulPaint = paint.find(entry => entry.name === 'first-contentful-paint');
-          return {
-            fcp: firstMeaningfulPaint ? firstMeaningfulPaint.startTime : null
-          };
-        });
+        // 2. Clean Scroll
+        const cleanScroll = await runScrollBenchmark(page, 'clean');
 
-        // 4. Measure search performance (typing a general query 'Bookmark' matching all, vs a specific 'Bookmark 0 - 0' matching 1)
-        const specificSearchStart = Date.now();
-        await page.locator('#search').fill('Bookmark 0 - 0');
+        // Settle scroll back to top
+        await page.evaluate(() => {
+          const container = document.querySelector('.content');
+          if (container) container.scrollTop = 0;
+        });
+        await page.waitForTimeout(300);
+
+        // 3. Interactive Scroll (stress hover)
+        const interactiveScroll = await runScrollBenchmark(page, 'interactive');
+
+        // Settle back to top
+        await page.evaluate(() => {
+          const container = document.querySelector('.content');
+          if (container) container.scrollTop = 0;
+        });
+        await page.waitForTimeout(300);
+
+        // 4. Wheel Scroll (Real mouse wheel dispatch)
+        const wheelScroll = await runScrollBenchmark(page, 'wheel');
+
+        // Settle back to top
+        await page.evaluate(() => {
+          const container = document.querySelector('.content');
+          if (container) container.scrollTop = 0;
+        });
+        await page.waitForTimeout(300);
+
+        // 5. Search and Search Scroll
+        const broadSearchStart = Date.now();
+        await page.locator('#search').fill('Title Search');
         await page.locator('.result').first().waitFor();
-        const specificSearchDuration = Date.now() - specificSearchStart;
+        
+        // Wait 2 frames to ensure search rendering is fully settled
+        await page.evaluate(() => new Promise(requestAnimationFrame));
+        await page.evaluate(() => new Promise(requestAnimationFrame));
+        
+        const broadSearchDuration = Date.now() - broadSearchStart;
+        const searchResultCount = await page.locator('.result').count();
+
+        await page.waitForTimeout(300);
+        
+        // Scroll inside Search Results
+        const searchScroll = await runScrollBenchmark(page, 'clean');
 
         // Clear search
         await page.locator('#search').fill('');
         await page.locator('.group').first().waitFor();
-        await page.waitForTimeout(300);
+        await page.waitForTimeout(200);
 
-        const broadSearchStart = Date.now();
-        await page.locator('#search').fill('Title Search');
-        await page.locator('.result').first().waitFor();
-        const broadSearchDuration = Date.now() - broadSearchStart;
-
-        console.log(`[Metrics] Load Time (Playwright wait): ${loadDurationMs} ms`);
-        console.log(`[Metrics] First Contentful Paint: ${perfData.fcp ? perfData.fcp.toFixed(1) + ' ms' : 'N/A'}`);
-        console.log(`[Metrics] Total DOM Nodes: ${domStats.nodes}`);
-        console.log(`[Metrics] Rendered Folders: ${domStats.groups}`);
-        console.log(`[Metrics] Rendered Bookmarks: ${domStats.bookmarks}`);
-        console.log(`[Metrics] Specific Search (1 match): ${specificSearchDuration} ms`);
-        console.log(`[Metrics] Broad Search (many matches): ${broadSearchDuration} ms`);
+        // Print visual reports
+        console.log(`DOM nodes: ${domStats.nodes}`);
+        console.log(`load ms: ${loadDurationMs}`);
+        console.log(`broad search ms: ${broadSearchDuration}`);
+        console.log(`Rendered search results: ${searchResultCount}`);
         
-        // Assert basic visibility to pass the test
+        console.log(`[Clean Scroll] scroll duration ms: ${cleanScroll.duration ? cleanScroll.duration.toFixed(1) : 0}`);
+        console.log(`[Clean Scroll] avg frame ms: ${cleanScroll.avgFrame ? cleanScroll.avgFrame.toFixed(2) : 0}`);
+        console.log(`[Clean Scroll] worst frame ms: ${cleanScroll.worstFrame ? cleanScroll.worstFrame.toFixed(2) : 0}`);
+        console.log(`[Clean Scroll] dropped frames estimate: ${cleanScroll.over16} (frames > 16ms)`);
+        console.log(`[Clean Scroll] over 33ms: ${cleanScroll.over33}`);
+        console.log(`[Clean Scroll] over 50ms: ${cleanScroll.over50}`);
+        console.log(`[Clean Scroll] long tasks count: ${cleanScroll.longTasksCount} (max: ${cleanScroll.maxLongTask ? cleanScroll.maxLongTask.toFixed(1) + 'ms' : '0ms'})`);
+
+        console.log(`[Interactive Scroll - stress hover] scroll duration ms: ${interactiveScroll.duration ? interactiveScroll.duration.toFixed(1) : 0}`);
+        console.log(`[Interactive Scroll - stress hover] avg frame ms: ${interactiveScroll.avgFrame ? interactiveScroll.avgFrame.toFixed(2) : 0}`);
+        console.log(`[Interactive Scroll - stress hover] worst frame ms: ${interactiveScroll.worstFrame ? interactiveScroll.worstFrame.toFixed(2) : 0}`);
+        console.log(`[Interactive Scroll - stress hover] dropped frames estimate: ${interactiveScroll.over16} (frames > 16ms)`);
+        console.log(`[Interactive Scroll - stress hover] over 33ms: ${interactiveScroll.over33}`);
+        console.log(`[Interactive Scroll - stress hover] over 50ms: ${interactiveScroll.over50}`);
+        console.log(`[Interactive Scroll - stress hover] long tasks count: ${interactiveScroll.longTasksCount} (max: ${interactiveScroll.maxLongTask ? interactiveScroll.maxLongTask.toFixed(1) + 'ms' : '0ms'})`);
+
+        console.log(`[Wheel Scroll - real input] scroll duration ms: ${wheelScroll.duration ? wheelScroll.duration.toFixed(1) : 0}`);
+        console.log(`[Wheel Scroll - real input] avg frame ms: ${wheelScroll.avgFrame ? wheelScroll.avgFrame.toFixed(2) : 0}`);
+        console.log(`[Wheel Scroll - real input] worst frame ms: ${wheelScroll.worstFrame ? wheelScroll.worstFrame.toFixed(2) : 0}`);
+        console.log(`[Wheel Scroll - real input] dropped frames estimate: ${wheelScroll.over16} (frames > 16ms)`);
+        console.log(`[Wheel Scroll - real input] over 33ms: ${wheelScroll.over33}`);
+        console.log(`[Wheel Scroll - real input] over 50ms: ${wheelScroll.over50}`);
+        console.log(`[Wheel Scroll - real input] long tasks count: ${wheelScroll.longTasksCount} (max: ${wheelScroll.maxLongTask ? wheelScroll.maxLongTask.toFixed(1) + 'ms' : '0ms'})`);
+
+        console.log(`[Search Scroll] scroll duration ms: ${searchScroll.duration ? searchScroll.duration.toFixed(1) : 0}`);
+        console.log(`[Search Scroll] avg frame ms: ${searchScroll.avgFrame ? searchScroll.avgFrame.toFixed(2) : 0}`);
+        console.log(`[Search Scroll] worst frame ms: ${searchScroll.worstFrame ? searchScroll.worstFrame.toFixed(2) : 0}`);
+        console.log(`[Search Scroll] dropped frames estimate: ${searchScroll.over16} (frames > 16ms)`);
+        console.log(`[Search Scroll] over 33ms: ${searchScroll.over33}`);
+        console.log(`[Search Scroll] over 50ms: ${searchScroll.over50}`);
+        console.log(`[Search Scroll] long tasks count: ${searchScroll.longTasksCount} (max: ${searchScroll.maxLongTask ? searchScroll.maxLongTask.toFixed(1) + 'ms' : '0ms'})`);
+
+        // Save metrics in global map
+        benchmarkResults[scenario.name] = {
+          domStats,
+          loadDurationMs,
+          broadSearchDuration,
+          searchResultCount,
+          cleanScroll,
+          interactiveScroll,
+          wheelScroll,
+          searchScroll
+        };
+
         expect(domStats.groups).toBe(scenario.folders);
 
       } finally {

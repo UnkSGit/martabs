@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Accessibilità"
   },
+  "addTabBtn": {
+    "message": "Aggiungi scheda"
+  },
   "advancedDescription": {
     "message": "Azioni non frequenti per reimpostare lo stato locale."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Aspetto"
+  },
+  "assignFolderTab": {
+    "message": "Assegna scheda"
   },
   "automaticTags": {
     "message": "Tag automatici"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "Sei sicuro di voler eliminare la scheda \"$TAB$\"?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "Sei sicuro di voler ignorare tutti gli errori rilevati?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "Sei sicuro di voler interrompere il monitoraggio della cartella \"$FOLDER$\"?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "Ripristinare tutti gli spostamenti locali e gli ordinamenti manuali? I veri segnalibri del browser non verranno modificati."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "Scarica JSON"
+  },
+  "dragFoldersHere": {
+    "message": "Trascina le cartelle qui"
   },
   "dragToReorder": {
     "message": "Trascina per riordinare"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Cartelle"
   },
+  "foldersUnassigned": {
+    "message": "Cartelle senza scheda"
+  },
   "frequentSites": {
     "message": "Siti frequenti"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Nascondi"
+  },
+  "hideAllTab": {
+    "message": "Nascondi la scheda \"Tutto\""
+  },
+  "hideAllTabDesc": {
+    "message": "Mostra solo le schede personalizzate che hai creato."
   },
   "hidePinnedFolder": {
     "message": "Nascondi la cartella Fissati (puoi riattivarla dalle Impostazioni)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Sposta su"
   },
+  "newTabHeading": {
+    "message": "Nuova scheda"
+  },
   "newtabTitle": {
     "message": "Home - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "Nessuna cartella selezionata"
+  },
+  "noTabsConfigured": {
+    "message": "Nessuna scheda configurata. Tutte le cartelle verranno mostrate insieme."
   },
   "openBrowserBookmarks": {
     "message": "Gestisci i preferiti"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Metti a fuoco la barra di ricerca"
   },
+  "showMoreBookmarks": {
+    "message": "Mostra altro ($COUNT$ rimanenti)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Mostra altri risultati"
+  },
   "showPinnedFolder": {
     "message": "Mostra cartella virtuale per i segnalibri fissati"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
   },
+  "tabAll": {
+    "message": "Tutto"
+  },
+  "tabNamePlaceholder": {
+    "message": "Nome della scheda..."
+  },
+  "tabsDescription": {
+    "message": "Organizza le colonne dei tuoi preferiti in schede personalizzate."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Rilascia le cartelle qui per assegnarle. Usa 'Senza scheda' per rimuoverle."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Schede e Assegnazioni"
+  },
+  "tabsHeading": {
+    "message": "Schede"
+  },
+  "tabsSection": {
+    "message": "Schede"
+  },
+  "tabsTreeInstructions": {
+    "message": "Trascina le cartelle monitorate sulle schede a destra per assegnarle."
+  },
   "tagsDescription": {
     "message": "Controlla come martabs genera e visualizza i tag."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Quantità visibile"
+  },
+  "unassignedTab": {
+    "message": "Nessuna scheda (Generale)"
   },
   "unsavedChanges": {
     "message": "Modifiche non salvate (Fai clic su Salva)"

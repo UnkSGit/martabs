@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "アクセシビリティ"
   },
+  "addTabBtn": {
+    "message": "タブを追加"
+  },
   "advancedDescription": {
     "message": "ローカル状態をクリアするための頻度の低い操作。"
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "外観"
+  },
+  "assignFolderTab": {
+    "message": "タブを割り当てる"
   },
   "automaticTags": {
     "message": "自動タグ"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "タブ「$TAB$」を削除してもよろしいですか？",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "検出されたすべてのエラーを無視してもよろしいですか？"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "フォルダ「$FOLDER$」の監視を停止してもよろしいですか？",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "すべてのローカル配置と手動ソートをリセットしますか？ブラウザの実際のブックマークは変更されません。"
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "JSONをダウンロード"
+  },
+  "dragFoldersHere": {
+    "message": "フォルダをここにドラッグ"
   },
   "dragToReorder": {
     "message": "ドラッグして並べ替え"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "フォルダ"
   },
+  "foldersUnassigned": {
+    "message": "タブなしのフォルダ"
+  },
   "frequentSites": {
     "message": "よくアクセスするサイト"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "非表示"
+  },
+  "hideAllTab": {
+    "message": "「すべて」タブを非表示にする"
+  },
+  "hideAllTabDesc": {
+    "message": "作成したカスタムタブのみを表示します。"
   },
   "hidePinnedFolder": {
     "message": "固定フォルダを非表示にする（設定から再表示できます）"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "上に移動"
   },
+  "newTabHeading": {
+    "message": "新しいタブ"
+  },
   "newtabTitle": {
     "message": "ホーム - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "フォルダが選択されていません"
+  },
+  "noTabsConfigured": {
+    "message": "タブが設定されていません。すべてのフォルダが一緒に表示されます。"
   },
   "openBrowserBookmarks": {
     "message": "ブックマークを管理"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "検索バーにフォーカス"
   },
+  "showMoreBookmarks": {
+    "message": "さらに表示（残り $COUNT$ 件）",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "さらに結果を表示"
+  },
   "showPinnedFolder": {
     "message": "固定されたブックマークの仮想フォルダを表示"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "ローカル統計は無効になっています。よくアクセスするサイトを表示するには、プライバシー設定でこのオプションを有効にしてください。"
   },
+  "tabAll": {
+    "message": "すべて"
+  },
+  "tabNamePlaceholder": {
+    "message": "タブ名..."
+  },
+  "tabsDescription": {
+    "message": "ブックマークの列をカスタムタブに整理します。"
+  },
+  "tabsDropzonesInstructions": {
+    "message": "フォルダをここにドロップして割り当てます。「タブなし」を使用して割り当てを解除します。"
+  },
+  "tabsDropzonesTitle": {
+    "message": "タブと割り当て"
+  },
+  "tabsHeading": {
+    "message": "タブ"
+  },
+  "tabsSection": {
+    "message": "タブ"
+  },
+  "tabsTreeInstructions": {
+    "message": "監視対象のフォルダを右側のタブにドラッグ＆ドロップして割り当てます。"
+  },
   "tagsDescription": {
     "message": "martabs がタグを生成して表示する方法を制御します。"
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "表示される数量"
+  },
+  "unassignedTab": {
+    "message": "タブなし（一般）"
   },
   "unsavedChanges": {
     "message": "未保存の変更があります (保存をクリック)"

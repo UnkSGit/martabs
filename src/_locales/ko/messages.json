@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "접근성"
   },
+  "addTabBtn": {
+    "message": "탭 추가"
+  },
   "advancedDescription": {
     "message": "로컬 상태를 지우는 드문 작업입니다."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "개인설정"
+  },
+  "assignFolderTab": {
+    "message": "탭 지정"
   },
   "automaticTags": {
     "message": "자동 태그"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "\"$TAB$\" 탭을 삭제하시겠습니까?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "감지된 모든 오류를 무시하시겠습니까?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "\"$FOLDER$\" 폴더 모니터링을 중단하시겠습니까?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "모든 로컬 이동 및 수동 정렬을 초기화하시겠습니까? 브라우저의 실제 북마크는 수정되지 않습니다."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "JSON 다운로드"
+  },
+  "dragFoldersHere": {
+    "message": "폴더를 여기에 드래그"
   },
   "dragToReorder": {
     "message": "드래그하여 순서 변경"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "폴더"
   },
+  "foldersUnassigned": {
+    "message": "탭 없는 폴더"
+  },
   "frequentSites": {
     "message": "자주 방문하는 사이트"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "숨기기"
+  },
+  "hideAllTab": {
+    "message": "「전체」 탭 숨기기"
+  },
+  "hideAllTabDesc": {
+    "message": "직접 만든 사용자 정의 탭만 표시합니다."
   },
   "hidePinnedFolder": {
     "message": "고정 폴더 숨기기 (설정에서 다시 표시할 수 있습니다)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "위로 이동"
   },
+  "newTabHeading": {
+    "message": "새 탭"
+  },
   "newtabTitle": {
     "message": "홈 - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "선택된 폴더 없음"
+  },
+  "noTabsConfigured": {
+    "message": "설정된 탭이 없습니다. 모든 폴더가 함께 표시됩니다."
   },
   "openBrowserBookmarks": {
     "message": "북마크 관리"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "검색 창 포커스"
   },
+  "showMoreBookmarks": {
+    "message": "더 보기 ($COUNT$개 남음)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "결과 더 보기"
+  },
   "showPinnedFolder": {
     "message": "고정된 북마크의 가상 폴더 표시"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "로컬 통계가 비활성화되었습니다. 가장 많이 방문한 사이트를 보려면 개인 정보 보호 설정에서 이 옵션을 활성화하십시오."
   },
+  "tabAll": {
+    "message": "전체"
+  },
+  "tabNamePlaceholder": {
+    "message": "탭 이름..."
+  },
+  "tabsDescription": {
+    "message": "북마크 열을 맞춤 설정 탭으로 정리합니다."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "폴더를 여기에 드롭하여 할당하세요. 할당을 해제하려면 '탭 없음'을 사용하세요."
+  },
+  "tabsDropzonesTitle": {
+    "message": "탭 및 할당"
+  },
+  "tabsHeading": {
+    "message": "탭"
+  },
+  "tabsSection": {
+    "message": "탭"
+  },
+  "tabsTreeInstructions": {
+    "message": "모니터링 중인 폴더를 오른쪽 탭으로 드래그 앤 드롭하여 할당하세요."
+  },
   "tagsDescription": {
     "message": "martabs가 태그를 생성하고 표시하는 방식을 제어합니다."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "표시되는 수량"
+  },
+  "unassignedTab": {
+    "message": "탭 없음 (일반)"
   },
   "unsavedChanges": {
     "message": "저장되지 않은 변경사항 (저장을 클릭하세요)"

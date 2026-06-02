@@ -22,7 +22,9 @@ const api = getBrowserApi();
 const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
 const statusLine = document.querySelector("#status-line");
 const searchInput = document.querySelector("#search");
+const searchClearBtn = document.querySelector("#search-clear");
 const content = document.querySelector("#content");
+const tabsBar = document.querySelector("#tabs-bar");
 const settingsButton = document.querySelector("#settings");
 const previewCard = document.querySelector("#preview-card");
 const editModal = document.querySelector("#edit-modal");
@@ -828,6 +830,7 @@ function enableBookmarkDragAndDrop(bookmarkElement, bookmark, sourceFolderId, fo
 }
 
 function renderDashboard(items) {
+  sanitizeActiveTabId();
   content.classList.remove("results", "review-results");
   content.innerHTML = "";
 
@@ -856,6 +859,18 @@ function renderDashboard(items) {
   }
   if (topSites.length > 0) {
     folders.unshift(["__martabs_topsites__", topSites]);
+  }
+
+  const activeTabId = currentSettings?.activeTabId || "all";
+  if (activeTabId !== "all") {
+    folders = folders.filter(([folder, folderItems]) => {
+      const isPinnedFolder = folder === PINNED_FOLDER_KEY;
+      const isTopSitesFolder = folder === "__martabs_topsites__";
+      if (isPinnedFolder || isTopSitesFolder) return false;
+      const folderId = folderItems[0]?.parentId;
+      const tabId = currentSettings.folderTabs?.[folderId] || "";
+      return tabId === activeTabId;
+    });
   }
 
   const count = folders.length;
@@ -1094,7 +1109,12 @@ function renderDashboard(items) {
 
     const modeClass = mode !== "list" ? ` mode-${mode}` : "";
     const bookmarkListClass = `bookmark-list${isSingle && hasMany ? " single-grid" : ""}${modeClass}`;
-    const bookmarkNodes = folderBookmarks.map((bookmark) => {
+
+    const maxBookmarksInitial = 50;
+    const hasMore = folderBookmarks.length > maxBookmarksInitial;
+    const initialBookmarks = hasMore ? folderBookmarks.slice(0, maxBookmarksInitial) : folderBookmarks;
+
+    const bookmarkNodes = initialBookmarks.map((bookmark) => {
       const bookmarkElement = renderBookmark(bookmark);
       if (!isPinnedFolder) {
         enableBookmarkDragAndDrop(bookmarkElement, bookmark, folderId, folderBookmarks);
@@ -1102,31 +1122,99 @@ function renderDashboard(items) {
       return bookmarkElement;
     });
 
-    const groupElement = el("article", { class: "group", "data-folder-id": folderId }, [
+    let sentinel = null;
+    if (hasMore) {
+      sentinel = el("div", { class: "scroll-sentinel", style: "height: 1px; width: 100%; flex-shrink: 0;" });
+      bookmarkNodes.push(sentinel);
+    }
+
+    const groupChildren = [
       el("div", { class: "group-header" }, headerChildren),
       el("div", { class: bookmarkListClass }, bookmarkNodes)
-    ]);
+    ];
+
+    let loadMoreContainer = null;
+    let observer = null;
+
+    if (hasMore) {
+      let renderedCount = maxBookmarksInitial;
+
+      const loadMoreBtn = el("button", {
+        class: "load-more-btn",
+        type: "button",
+        text: t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount]) || `Ver más (${folderBookmarks.length - renderedCount} restantes)`
+      });
+
+      loadMoreContainer = el("div", { class: "load-more-container" }, [loadMoreBtn]);
+
+      loadMoreBtn.addEventListener("click", () => {
+        const nextBatch = folderBookmarks.slice(renderedCount, renderedCount + 50);
+        renderedCount += nextBatch.length;
+
+        const bookmarkListEl = groupElement.querySelector(".bookmark-list");
+        if (bookmarkListEl) {
+          nextBatch.forEach(bookmark => {
+            const elB = renderBookmark(bookmark);
+            if (!isPinnedFolder) {
+              enableBookmarkDragAndDrop(elB, bookmark, folderId, folderBookmarks);
+            }
+            bookmarkListEl.insertBefore(elB, sentinel);
+          });
+        }
+
+        if (renderedCount >= folderBookmarks.length) {
+          loadMoreContainer.remove();
+          if (sentinel) sentinel.remove();
+          if (observer) observer.disconnect();
+        } else {
+          loadMoreBtn.textContent = t(api, "showMoreBookmarks", [folderBookmarks.length - renderedCount]) || `Ver más (${folderBookmarks.length - renderedCount} restantes)`;
+        }
+      });
+
+      groupChildren.push(loadMoreContainer);
+    }
+
+    const groupElement = el("article", { class: "group", "data-folder-id": folderId }, groupChildren);
+
+    if (hasMore && sentinel && loadMoreContainer) {
+      const bookmarkListEl = groupElement.querySelector(".bookmark-list");
+      if (bookmarkListEl) {
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              loadMoreContainer.classList.add("visible");
+            } else {
+              loadMoreContainer.classList.remove("visible");
+            }
+          });
+        }, {
+          root: bookmarkListEl,
+          threshold: 0.1
+        });
+        observer.observe(sentinel);
+      }
+    }
 
     if (!isPinnedFolder) {
       groupElement.addEventListener("dragover", (event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
       });
-    groupElement.addEventListener("drop", async (event) => {
-      event.preventDefault();
-      const draggedId = event.dataTransfer.getData("application/x-martabs-id");
-      const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
-      console.log("DROP GROUP", folderId, draggedId, draggedSourceFolder);
-      if (!draggedId || draggedSourceFolder === folderId) return;
+      groupElement.addEventListener("drop", async (event) => {
+        event.preventDefault();
+        const draggedId = event.dataTransfer.getData("application/x-martabs-id");
+        const draggedSourceFolder = event.dataTransfer.getData("application/x-martabs-folder");
+        console.log("DROP GROUP", folderId, draggedId, draggedSourceFolder);
+        if (!draggedId || draggedSourceFolder === folderId) return;
 
-      currentSettings.bookmarkFolderOverrides = {
-        ...(currentSettings.bookmarkFolderOverrides || {}),
-        [draggedId]: folderId
-      };
-      scheduleViewFocus(folderId);
-      await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
-      render();
-    });
+        currentSettings.bookmarkFolderOverrides = {
+          ...(currentSettings.bookmarkFolderOverrides || {}),
+          [draggedId]: folderId
+        };
+        scheduleViewFocus(folderId);
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+        render();
+      });
     }
 
     masonryWrapper.append(groupElement);
@@ -1139,12 +1227,46 @@ function renderResults(items) {
   content.classList.remove("review-results");
   content.classList.add("results");
   content.innerHTML = "";
+
   if (items.length === 0) {
     content.append(el("p", { class: "empty", text: t(api, "emptyResults") }));
     return;
   }
-  for (const bookmark of items) {
+
+  const initialLimit = 50;
+  const hasMore = items.length > initialLimit;
+  const initialBatch = hasMore ? items.slice(0, initialLimit) : items;
+
+  initialBatch.forEach(bookmark => {
     content.append(el("article", { class: "result" }, [renderBookmark(bookmark, true)]));
+  });
+
+  if (hasMore) {
+    let renderedCount = initialLimit;
+
+    const loadMoreBtn = el("button", {
+      class: "load-more-btn",
+      type: "button",
+      text: t(api, "showMoreResults") || "Ver más resultados"
+    });
+
+    const loadMoreContainer = el("div", { class: "load-more-container", style: "max-width: 300px; margin: 16px auto;" }, [loadMoreBtn]);
+
+    loadMoreBtn.addEventListener("click", () => {
+      const nextBatch = items.slice(renderedCount, renderedCount + 50);
+      renderedCount += nextBatch.length;
+
+      nextBatch.forEach(bookmark => {
+        const articleEl = el("article", { class: "result" }, [renderBookmark(bookmark, true)]);
+        content.insertBefore(articleEl, loadMoreContainer);
+      });
+
+      if (renderedCount >= items.length) {
+        loadMoreContainer.remove();
+      }
+    });
+
+    content.append(loadMoreContainer);
   }
 }
 
@@ -1255,7 +1377,121 @@ function renderBrokenLinks(items, folderName = "") {
   }
 }
 
+function sanitizeActiveTabId() {
+  if (!currentSettings) return "all";
+  const tabs = currentSettings.tabs || [];
+  const hideAllTab = currentSettings.hideAllTab === true;
+  let activeTabId = currentSettings.activeTabId || "all";
+
+  if (tabs.length === 0) {
+    currentSettings.activeTabId = "all";
+    return "all";
+  }
+
+  if (hideAllTab && activeTabId === "all") {
+    currentSettings.activeTabId = tabs[0].id;
+    return tabs[0].id;
+  }
+
+  if (activeTabId !== "all") {
+    const tabExists = tabs.some(t => t.id === activeTabId);
+    if (!tabExists) {
+      const fallback = hideAllTab ? tabs[0].id : "all";
+      currentSettings.activeTabId = fallback;
+      return fallback;
+    }
+  }
+
+  return activeTabId;
+}
+
+function renderTabsBar() {
+  if (!tabsBar) return;
+
+  sanitizeActiveTabId();
+  const tabs = currentSettings?.tabs || [];
+  if (tabs.length === 0) {
+    tabsBar.style.display = "none";
+    return;
+  }
+
+  tabsBar.style.display = "flex";
+  tabsBar.innerHTML = "";
+
+  const activeTabId = currentSettings?.activeTabId || "all";
+  const hideAllTab = currentSettings?.hideAllTab === true;
+
+  // "Todo" pill button
+  if (!hideAllTab) {
+    const allPill = el("button", {
+      class: `tab-pill${activeTabId === "all" ? " is-active" : ""}`,
+      type: "button",
+      text: t(api, "tabAll") || "Todo"
+    });
+    allPill.addEventListener("click", async () => {
+      if (currentSettings.activeTabId !== "all") {
+        currentSettings.activeTabId = "all";
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+        renderTabsActiveState();
+        resetDashboardScroll();
+        renderDashboard(bookmarks);
+      }
+    });
+    tabsBar.appendChild(allPill);
+  }
+
+  // Custom tab pills
+  tabs.forEach(tab => {
+    const pill = el("button", {
+      class: `tab-pill${activeTabId === tab.id ? " is-active" : ""}`,
+      type: "button",
+      text: tab.name
+    });
+    pill.addEventListener("click", async () => {
+      if (currentSettings.activeTabId !== tab.id) {
+        currentSettings.activeTabId = tab.id;
+        await setStoredValue(api, STORAGE_KEYS.settings, currentSettings);
+        renderTabsActiveState();
+        resetDashboardScroll();
+        renderDashboard(bookmarks);
+      }
+    });
+    tabsBar.appendChild(pill);
+  });
+}
+
+function renderTabsActiveState() {
+  if (!tabsBar) return;
+  sanitizeActiveTabId();
+  const activeTabId = currentSettings?.activeTabId || "all";
+  const pills = tabsBar.querySelectorAll(".tab-pill");
+  const tabs = currentSettings?.tabs || [];
+  const hideAllTab = currentSettings?.hideAllTab === true;
+
+  pills.forEach((pill, idx) => {
+    const expectedId = hideAllTab ? (tabs[idx]?.id || "") : (idx === 0 ? "all" : (tabs[idx - 1]?.id || ""));
+    if (expectedId === activeTabId) {
+      pill.classList.add("is-active");
+    } else {
+      pill.classList.remove("is-active");
+    }
+  });
+}
+
+function resetDashboardScroll() {
+  if (content) {
+    content.scrollTop = 0;
+  }
+}
+
+function updateSearchClearVisibility() {
+  if (searchClearBtn) {
+    searchClearBtn.style.display = searchInput.value ? "flex" : "none";
+  }
+}
+
 function render() {
+  updateSearchClearVisibility();
   const query = searchInput.value;
   const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;
   const results = searchBookmarks(searchableBookmarks, query);
@@ -1263,8 +1499,13 @@ function render() {
     ? t(api, "monitoredBookmarksCountSingular", [bookmarks.length])
     : t(api, "monitoredBookmarksCountPlural", [bookmarks.length]);
   statusLine.textContent = monitoredText;
-  if (query.trim()) renderResults(results);
-  else renderDashboard(bookmarks);
+  if (query.trim()) {
+    if (tabsBar) tabsBar.style.display = "none";
+    renderResults(results);
+  } else {
+    renderTabsBar();
+    renderDashboard(bookmarks);
+  }
 }
 
 async function init() {
@@ -1318,6 +1559,13 @@ async function init() {
 }
 
 searchInput.addEventListener("input", render);
+if (searchClearBtn) {
+  searchClearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    searchInput.focus();
+    render();
+  });
+}
 searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;

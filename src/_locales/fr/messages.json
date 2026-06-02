@@ -11,6 +11,9 @@
   "accessibilitySection": {
     "message": "Accessibilité"
   },
+  "addTabBtn": {
+    "message": "Ajouter un onglet"
+  },
   "advancedDescription": {
     "message": "Actions peu fréquentes pour réinitialiser l'état local."
   },
@@ -43,6 +46,9 @@
   },
   "appearanceSection": {
     "message": "Apparence"
+  },
+  "assignFolderTab": {
+    "message": "Assigner un onglet"
   },
   "automaticTags": {
     "message": "Tags automatiques"
@@ -152,8 +158,24 @@
       }
     }
   },
+  "confirmDeleteTab": {
+    "message": "Êtes-vous sûr de vouloir supprimer l'onglet « $TAB$ » ?",
+    "placeholders": {
+      "tab": {
+        "content": "$1"
+      }
+    }
+  },
   "confirmIgnoreAll": {
     "message": "Êtes-vous sûr de vouloir ignorer toutes les erreurs détectées ?"
+  },
+  "confirmRemoveFolderSetup": {
+    "message": "Êtes-vous sûr de vouloir arrêter de surveiller le dossier « $FOLDER$ » ?",
+    "placeholders": {
+      "folder": {
+        "content": "$1"
+      }
+    }
   },
   "confirmResetLocalOrg": {
     "message": "Réinitialiser tous les déplacements locaux et le tri manuel ? Les favoris réels du navigateur ne seront pas modifiés."
@@ -212,6 +234,9 @@
   },
   "downloadJsonBtn": {
     "message": "Télécharger JSON"
+  },
+  "dragFoldersHere": {
+    "message": "Glissez les dossiers ici"
   },
   "dragToReorder": {
     "message": "Faire glisser pour réordonner"
@@ -317,6 +342,9 @@
   "foldersSection": {
     "message": "Dossiers"
   },
+  "foldersUnassigned": {
+    "message": "Dossiers sans onglet"
+  },
   "frequentSites": {
     "message": "Sites fréquents"
   },
@@ -369,6 +397,12 @@
   },
   "hide": {
     "message": "Ocultar"
+  },
+  "hideAllTab": {
+    "message": "Masquer l'onglet \"Tout\""
+  },
+  "hideAllTabDesc": {
+    "message": "Affiche uniquement les onglets personnalisés que vous avez créés."
   },
   "hidePinnedFolder": {
     "message": "Ocultar carpeta de Fijados (puedes volver a mostrarla desde Configuración)"
@@ -567,6 +601,9 @@
   "moveUp": {
     "message": "Déplacer vers le haut"
   },
+  "newTabHeading": {
+    "message": "Nouvel onglet"
+  },
   "newtabTitle": {
     "message": "Accueil - martabs"
   },
@@ -578,6 +615,9 @@
   },
   "noFoldersSelected": {
     "message": "Aucun dossier sélectionné"
+  },
+  "noTabsConfigured": {
+    "message": "Aucun onglet configuré. Tous les dossiers seront affichés ensemble."
   },
   "openBrowserBookmarks": {
     "message": "Gérer les favoris"
@@ -816,6 +856,17 @@
   "shortcutSearch": {
     "message": "Mettre le focus sur la barre de recherche"
   },
+  "showMoreBookmarks": {
+    "message": "Afficher plus ($COUNT$ restants)",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "showMoreResults": {
+    "message": "Afficher plus de résultats"
+  },
   "showPinnedFolder": {
     "message": "Afficher le dossier virtuel pour les favoris épinglés"
   },
@@ -870,6 +921,30 @@
   "statsDisabledMsg": {
     "message": "Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados."
   },
+  "tabAll": {
+    "message": "Tout"
+  },
+  "tabNamePlaceholder": {
+    "message": "Nom de l'onglet..."
+  },
+  "tabsDescription": {
+    "message": "Organisez les colonnes de vos favoris dans des onglets personnalisés."
+  },
+  "tabsDropzonesInstructions": {
+    "message": "Déposez les dossiers ici pour les assigner. Utilisez 'Sans onglet' pour les retirer."
+  },
+  "tabsDropzonesTitle": {
+    "message": "Onglets et Assignations"
+  },
+  "tabsHeading": {
+    "message": "Onglets"
+  },
+  "tabsSection": {
+    "message": "Onglets"
+  },
+  "tabsTreeInstructions": {
+    "message": "Glissez les dossiers surveillés sur les onglets à droite pour les assigner."
+  },
   "tagsDescription": {
     "message": "Contrôle comment martabs génère et affiche les tags."
   },
@@ -902,6 +977,9 @@
   },
   "topSitesLimit": {
     "message": "Quantité visible"
+  },
+  "unassignedTab": {
+    "message": "Aucun onglet (Général)"
   },
   "unsavedChanges": {
     "message": "Modifications non enregistrées (Cliquez sur Enregistrer)"

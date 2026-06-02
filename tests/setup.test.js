@@ -215,4 +215,35 @@ test("setup page has custom wallpaper layout and logic", async () => {
   assert.match(js, /loadWallpaperPreview/);
 });
 
+test("setup has tabs and mapping support", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+  const js = await readFile("src/setup/setup.js", "utf8");
+
+  // HTML checks
+  assert.match(html, /data-section="tabs"/);
+  assert.match(html, /id="section-tabs"/);
+  assert.match(html, /id="tabs-manager-container"/);
+  assert.match(html, /id="tabs-list"/);
+  assert.match(html, /id="tabs-folder-tree-container"/);
+  assert.match(html, /id="tabs-dropzones-list"/);
+
+  // CSS checks
+  assert.match(css, /\.tabs-list\s*{/);
+  assert.match(css, /\.tab-item\s*{/);
+  assert.match(css, /\.tabs-drag-split-layout\s*{/);
+  assert.match(css, /\.tab-dropzone-card\s*{/);
+  assert.match(css, /\.assigned-folder-pill\s*{/);
+
+  // JS checks
+  assert.match(js, /function renderTabs\(\)/);
+  assert.match(js, /function renderFolderTabMapping\(\)/);
+  assert.match(js, /function renderTabsFolderTree\(/);
+  assert.match(js, /function renderTabsDropzones\(\)/);
+  assert.match(js, /currentSettings\.tabs\s*=\s*\[\]/);
+  assert.match(js, /currentSettings\.folderTabs\s*=\s*\{\}/);
+  assert.match(js, /addTabBtn\.addEventListener/);
+});
+
+
 
