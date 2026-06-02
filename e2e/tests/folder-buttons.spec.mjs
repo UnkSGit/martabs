@@ -47,7 +47,7 @@ test.describe('Folder Header Buttons and Sorting', () => {
     const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
     await setupPage.goto();
     await setupPage.selectFolder(testFolder.id);
-    await setupPage.navigateToSection('appearance');
+    await setupPage.navigateToSection('dashboard');
     await page.locator('#show-view-button').uncheck();
     await page.locator('#show-sort-button').uncheck();
     await setupPage.save();

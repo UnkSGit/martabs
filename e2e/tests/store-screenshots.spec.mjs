@@ -287,7 +287,7 @@ test.describe('Capturas de la tienda', () => {
         await page.locator('#edit-cancel').click();
 
         await page.goto(`${server.origin}/src/setup/setup.html`);
-        await expect(page.locator('#section-folders')).toBeVisible();
+        await expect(page.locator('#section-dashboard')).toBeVisible();
         await capture('6-settings.png');
       } finally {
         await browser.close();

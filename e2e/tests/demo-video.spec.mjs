@@ -288,12 +288,12 @@ test.describe('Video Demo Generation', () => {
       // 6. Navigate to Settings page
       await page.locator('#settings').click();
       await page.waitForURL('**/setup/setup.html');
-      await expect(page.locator('#section-folders')).toBeVisible();
+      await expect(page.locator('#section-dashboard')).toBeVisible();
       await page.waitForTimeout(2000);
 
       // 7. Click Wallpaper tab on sidebar
-      await page.locator('.setup-nav-button[data-section="wallpaper"]').click();
-      await expect(page.locator('#section-wallpaper')).toBeVisible();
+      await page.locator('.setup-nav-button[data-section="appearance"]').click();
+      await expect(page.locator('#section-appearance')).toBeVisible();
       await page.waitForTimeout(1500);
 
       // 8. Select Gradient wallpaper type

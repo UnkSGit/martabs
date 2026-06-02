@@ -53,8 +53,8 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     await setupPage.save();
     await expect(setupPage.statusText).toContainText('Configuración guardada');
 
-    // Navegar a la sección Avanzado para exportar
-    await setupPage.navigateToSection('advanced');
+    // Navegar a la sección Datos para exportar
+    await setupPage.navigateToSection('data');
     await setupPage.exportBtn.waitFor({ state: 'visible' });
     
     const download = await setupPage.exportarConfiguracion();
@@ -85,15 +85,15 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     await setupPage.save();
     await expect(setupPage.statusText).toContainText('Configuración guardada');
     
-    // 2. Ir a Avanzado y exportar para obtener las refs correctas
-    await setupPage.navigateToSection('advanced');
+    // 2. Ir a Datos y exportar para obtener las refs correctas
+    await setupPage.navigateToSection('data');
     await setupPage.exportBtn.waitFor({ state: 'visible' });
     const download = await setupPage.exportarConfiguracion();
     const jsonStr = fs.readFileSync(await download.path(), 'utf8');
     const exportedJson = JSON.parse(jsonStr);
     
-    // 3. Volver a Carpetas para desmarcar
-    await setupPage.navigateToSection('folders');
+    // 3. Volver a Tablero para desmarcar
+    await setupPage.navigateToSection('dashboard');
     await setupPage.selectFolder('1'); // Seleccionar una carpeta extra para poder guardar
     await setupPage.deselectFolder(testFolder.id);
     await setupPage.save();
@@ -115,8 +115,8 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     tmpFilePath = path.join(os.tmpdir(), `mock-export-${Date.now()}.json`);
     fs.writeFileSync(tmpFilePath, JSON.stringify(mockData));
 
-    // 5. Ir a Avanzado e importar
-    await setupPage.navigateToSection('advanced');
+    // 5. Ir a Datos e importar
+    await setupPage.navigateToSection('data');
     await setupPage.importBtn.waitFor({ state: 'visible' });
     await setupPage.importarConfiguracion(tmpFilePath);
     
@@ -147,15 +147,15 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     await setupPage.save();
     await expect(setupPage.statusText).toContainText('Configuración guardada');
     
-    // 2. Ir a Avanzado y exportar para obtener las refs
-    await setupPage.navigateToSection('advanced');
+    // 2. Ir a Datos y exportar para obtener las refs
+    await setupPage.navigateToSection('data');
     await setupPage.exportBtn.waitFor({ state: 'visible' });
     const download = await setupPage.exportarConfiguracion();
     const jsonStr = fs.readFileSync(await download.path(), 'utf8');
     const exportedJson = JSON.parse(jsonStr);
 
-    // 3. Volver a Carpetas y desmarcar
-    await setupPage.navigateToSection('folders');
+    // 3. Volver a Tablero y desmarcar
+    await setupPage.navigateToSection('dashboard');
     await setupPage.selectFolder('1'); // Seleccionar una carpeta extra
     await setupPage.deselectFolder(testFolder.id);
     await setupPage.save();
@@ -177,8 +177,8 @@ test.describe('HU-Backup: Importar y Exportar Configuración', () => {
     tmpFilePath = path.join(os.tmpdir(), `mock-export-cancel-${Date.now()}.json`);
     fs.writeFileSync(tmpFilePath, JSON.stringify(mockData));
 
-    // 5. Ir a Avanzado e importar
-    await setupPage.navigateToSection('advanced');
+    // 5. Ir a Datos e importar
+    await setupPage.navigateToSection('data');
     await setupPage.importBtn.waitFor({ state: 'visible' });
     await setupPage.importarConfiguracion(tmpFilePath);
     

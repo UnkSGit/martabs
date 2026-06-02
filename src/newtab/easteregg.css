@@ -21,16 +21,21 @@
 }
 
 /* CRT Scanline effect */
-.fallout-terminal-overlay::before {
+.fallout-terminal-overlay::before,
+body.fallout-theme-active::after {
   content: " ";
   display: block;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
+  z-index: 9999;
   background-size: 100% 4px, 6px 100%;
   pointer-events: none;
   opacity: 0.8;
+}
+
+body.fallout-theme-active::after {
+  position: fixed;
 }
 
 /* CRT Flicker animation */
@@ -107,12 +112,190 @@
   font-weight: bold;
 }
 
+/* ==========================================================================
+   PERSISTENT FALLOUT LAYOUT THEME (.fallout-theme-active)
+   ========================================================================== */
+
+body.fallout-theme-active,
+body.fallout-theme-active *,
+body.fallout-theme-active input,
+body.fallout-theme-active button,
+body.fallout-theme-active span,
+body.fallout-theme-active h2,
+body.fallout-theme-active h3,
+body.fallout-theme-active div {
+  font-family: 'Courier New', Courier, monospace !important;
+  color: #1ff042 !important;
+  text-shadow: 0 0 5px rgba(31, 240, 66, 0.6) !important;
+}
+
+body.fallout-theme-active {
+  background-color: #040804 !important;
+  animation: fallout-flicker 0.15s infinite;
+}
+
+/* Make custom wallpapers black/green terminal backdrop */
+body.fallout-theme-active .custom-wallpaper-overlay {
+  background: rgba(4, 8, 4, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Hide modern gradients/blobs */
+body.fallout-theme-active .aurora-blob {
+  display: none !important;
+}
+
+/* CRT glowing green borders on structural panels */
+body.fallout-theme-active .app-shell,
+body.fallout-theme-active .topbar,
+body.fallout-theme-active .search-wrap,
+body.fallout-theme-active .group,
+body.fallout-theme-active .bookmark,
+body.fallout-theme-active .tab-pill,
+body.fallout-theme-active .bookmark-list,
+body.fallout-theme-active .load-more-btn {
+  border-color: #1ff042 !important;
+  box-shadow: 0 0 8px rgba(31, 240, 66, 0.25) !important;
+  background: rgba(8, 16, 8, 0.8) !important;
+}
+
+/* Monochrome green filter for all images and favicons */
+body.fallout-theme-active img {
+  filter: sepia(1) hue-rotate(90deg) saturate(20) brightness(0.9) !important;
+}
+
+/* Override SVG stroke colors to phosphorescent green */
+body.fallout-theme-active svg,
+body.fallout-theme-active svg * {
+  stroke: #1ff042 !important;
+}
+
+/* Inverse video highlights for active states and hover triggers */
+body.fallout-theme-active .bookmark:hover,
+body.fallout-theme-active .tab-pill.is-active,
+body.fallout-theme-active .tab-pill:hover,
+body.fallout-theme-active .load-more-btn:hover {
+  background-color: #1ff042 !important;
+  color: #000000 !important;
+}
+
+body.fallout-theme-active .bookmark:hover *,
+body.fallout-theme-active .tab-pill.is-active *,
+body.fallout-theme-active .tab-pill:hover *,
+body.fallout-theme-active .load-more-btn:hover * {
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+/* CRT Power-On Collapse overlay (Option 1) */
+#fallout-crt-gate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #040804;
+  z-index: 9990;
+  pointer-events: none;
+  transform-origin: center;
+  animation: fallout-crt-collapse 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#fallout-crt-gate::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%;
+  opacity: 0.8;
+  animation: fallout-flicker 0.15s infinite;
+}
+
+@keyframes fallout-crt-collapse {
+  0% {
+    background-color: #1ff042;
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  5% {
+    background-color: #1ff042;
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  /* Collapse to horizontal line */
+  15% {
+    background-color: #1ff042;
+    transform: scaleY(0.002) scaleX(1);
+    opacity: 1;
+  }
+  /* Collapse to center dot */
+  25% {
+    background-color: #1ff042;
+    transform: scaleY(0.002) scaleX(0.002);
+    opacity: 1;
+    filter: brightness(2);
+  }
+  /* Power-on expand vertically */
+  35% {
+    background-color: #040804;
+    transform: scaleY(0.01) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    background-color: #040804;
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  60% { opacity: 0.98; }
+  70% { opacity: 1; }
+  80% { opacity: 0.97; }
+  90% { opacity: 1; }
+  100% {
+    background-color: #040804;
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Ensure Search bar and Terminal Overlay render on top of the CRT collapse gate */
+.search-wrap.easter-fallout-active {
+  z-index: 9999 !important;
+}
+
+.fallout-terminal-overlay {
+  z-index: 9999 !important;
+}
+
 /* Accessibility / prefers-reduced-motion compatibility */
 @media (prefers-reduced-motion: reduce) {
-  .fallout-terminal-overlay {
+  .fallout-terminal-overlay,
+  body.fallout-theme-active,
+  #fallout-crt-gate,
+  #fallout-crt-gate::after {
     animation: none !important;
   }
   .fallout-caret {
     animation: none !important;
   }
 }
+
+/* Style the website preview card for the Fallout retro terminal theme */
+body.fallout-theme-active .preview-card {
+  background-color: #040804 !important;
+  border: 1.5px solid #1ff042 !important;
+  box-shadow: 0 0 10px rgba(31, 240, 66, 0.4) !important;
+}
+
+body.fallout-theme-active .preview-thumbnail-container {
+  background: #040804 !important;
+  border-bottom: 1.5px solid #1ff042 !important;
+}
+
+body.fallout-theme-active .preview-local-mark {
+  background: rgba(31, 240, 66, 0.2) !important;
+  box-shadow: inset 0 0 0 1px rgba(31, 240, 66, 0.4) !important;
+}
+

@@ -65,6 +65,13 @@ function activateFalloutEasterEgg() {
 
   isFalloutEasterEggActive = true;
 
+  const existingGate = document.getElementById("fallout-crt-gate");
+  if (!existingGate) {
+    const gate = document.createElement("div");
+    gate.id = "fallout-crt-gate";
+    document.body.appendChild(gate);
+  }
+
   if (searchClearBtn) {
     searchClearBtn.style.display = "none";
   }
@@ -104,13 +111,13 @@ function activateFalloutEasterEgg() {
     } else {
       const t1 = setTimeout(() => {
         renderFalloutTerminalLine(t(api, "easterFalloutIndexing", "> INDEXING LOCAL ARCHIVES..."));
-      }, 300);
+      }, 900);
       const t2 = setTimeout(() => {
         renderFalloutTerminalLine(t(api, "easterFalloutRecovered", [String(bookmarks.length)], `> ${bookmarks.length} ENTRIES RECOVERED`));
-      }, 1200);
+      }, 2000);
       const t3 = setTimeout(() => {
         renderFalloutTerminalLine(t(api, "easterFalloutSignalStable", "> SIGNAL STABLE"), true);
-      }, 2100);
+      }, 3100);
       falloutActiveTimeouts.push(t1, t2, t3);
     }
   }
@@ -151,6 +158,9 @@ function clearFalloutIntroState() {
 
   const overlay = document.getElementById("fallout-terminal");
   if (overlay) overlay.remove();
+
+  const gate = document.getElementById("fallout-crt-gate");
+  if (gate) gate.remove();
 
   searchInput.readOnly = false;
 
