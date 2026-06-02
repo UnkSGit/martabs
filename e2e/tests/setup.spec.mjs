@@ -26,8 +26,8 @@ test.describe('HU-1: Primer uso (Setup)', () => {
     const setupPage = new SetupPage(page, `${extensionProtocol}${extensionId}`);
     await setupPage.goto();
 
-    await expect(page.locator('nav button')).toHaveCount(9); // Carpetas, Pestañas, Apariencia, Fondo de pantalla, Privacidad, Estadísticas, Etiquetas, Accesibilidad, Avanzado
-    await expect(page.locator('#section-folders')).toBeVisible();
+    await expect(page.locator('nav button')).toHaveCount(5); // Tablero, Apariencia, Funciones, Datos, Avanzado
+    await expect(page.locator('#section-dashboard')).toBeVisible();
   });
 
   test('S-02: Las carpetas del navegador se listan con checkboxes', async ({ page, extensionId, extensionProtocol }) => {

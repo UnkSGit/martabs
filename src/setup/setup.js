@@ -206,7 +206,7 @@ function showSection(sectionId) {
     section.classList.toggle("is-active", section.dataset.section === sectionId);
   });
 
-  if (sectionId === "folders" && foldersTreeWrapper && foldersSortWrapper) {
+  if (sectionId === "dashboard" && foldersTreeWrapper && foldersSortWrapper) {
     foldersTreeWrapper.style.display = "flex";
     foldersSortWrapper.style.display = "none";
     if (foldersSortActions) foldersSortActions.style.display = "none";
@@ -1293,6 +1293,14 @@ function renderTabsDropzones() {
           if (!tabId) {
             const msg = t(api, "confirmRemoveFolderSetup", [folderTitle]) || `¿Seguro que deseas dejar de monitorear la carpeta "${folderTitle}"?`;
             if (confirm(msg)) {
+              const checkbox = document.querySelector(`#folder-cb-${fid}`);
+              if (checkbox) {
+                checkbox.checked = false;
+                const rowEl = checkbox.closest(".folder-tree-row");
+                if (rowEl) {
+                  rowEl.classList.remove("is-selected");
+                }
+              }
               currentSettings.selectedFolderIds = (currentSettings.selectedFolderIds || []).filter(id => id !== fid);
               if (currentSettings.folderTabs) {
                 delete currentSettings.folderTabs[fid];
