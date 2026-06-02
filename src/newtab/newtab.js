@@ -51,12 +51,18 @@ let pendingViewFocusFolderId = null;
 let pendingViewFocusTimer = null;
 
 const FALLOUT_COMMAND = ":fallout";
-const FALLOUT_DURATION_MS = 10000;
+const FALLOUT_DURATION_MS = 5000;
 let falloutEasterEggTimer = null;
 let isFalloutEasterEggActive = false;
+let isFalloutThemeActive = false;
 let falloutActiveTimeouts = [];
 
 function activateFalloutEasterEgg() {
+  if (isFalloutThemeActive) {
+    deactivateFalloutEasterEgg();
+    return;
+  }
+
   isFalloutEasterEggActive = true;
 
   if (searchClearBtn) {
@@ -110,7 +116,7 @@ function activateFalloutEasterEgg() {
   }
 
   falloutEasterEggTimer = setTimeout(() => {
-    deactivateFalloutEasterEgg();
+    completeFalloutEasterEggIntro();
   }, FALLOUT_DURATION_MS);
 }
 
@@ -133,7 +139,7 @@ function renderFalloutTerminalLine(text, isLast = false) {
   }
 }
 
-function deactivateFalloutEasterEgg() {
+function clearFalloutIntroState() {
   isFalloutEasterEggActive = false;
 
   if (falloutEasterEggTimer) {
@@ -147,7 +153,6 @@ function deactivateFalloutEasterEgg() {
   if (overlay) overlay.remove();
 
   searchInput.readOnly = false;
-  searchInput.value = "";
 
   const searchWrap = document.querySelector(".search-wrap");
   if (searchWrap) {
@@ -155,8 +160,26 @@ function deactivateFalloutEasterEgg() {
   }
 
   statusLine.classList.remove("fallout-counter-active");
+}
+
+function completeFalloutEasterEggIntro() {
+  clearFalloutIntroState();
+  isFalloutThemeActive = true;
+  document.body.classList.add("fallout-theme-active");
+  searchInput.value = "";
 
   render();
+}
+
+function deactivateFalloutEasterEgg({ renderAfter = true } = {}) {
+  clearFalloutIntroState();
+  isFalloutThemeActive = false;
+  document.body.classList.remove("fallout-theme-active");
+  searchInput.value = "";
+
+  if (renderAfter) {
+    render();
+  }
 }
 
 const TIMEOUT_MS = 8000;
@@ -1775,6 +1798,7 @@ document.addEventListener("keydown", (event) => {
 
 
 settingsButton.addEventListener("click", () => {
+  deactivateFalloutEasterEgg({ renderAfter: false });
   window.location.href = "../setup/setup.html";
 });
 

@@ -241,8 +241,13 @@ test("newtab contains Fallout Easter Egg implementation", async () => {
 
   // JS checks
   assert.match(js, /const FALLOUT_COMMAND = ":fallout";/);
+  assert.match(js, /const FALLOUT_DURATION_MS = 5000;/);
   assert.match(js, /function activateFalloutEasterEgg\(\)/);
-  assert.match(js, /function deactivateFalloutEasterEgg\(\)/);
+  assert.match(js, /function deactivateFalloutEasterEgg\(\{ renderAfter = true \} = \{\}\)/);
+  assert.match(js, /function completeFalloutEasterEggIntro\(\)/);
+  assert.match(js, /isFalloutThemeActive/);
+  assert.match(js, /document\.body\.classList\.add\("fallout-theme-active"\)/);
+  assert.match(js, /document\.body\.classList\.remove\("fallout-theme-active"\)/);
   assert.match(js, /isFalloutEasterEggActive/);
   assert.match(js, /Escape/);
   assert.match(js, /prefers-reduced-motion/);
