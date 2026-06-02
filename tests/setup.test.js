@@ -245,5 +245,50 @@ test("setup has tabs and mapping support", async () => {
   assert.match(js, /addTabBtn\.addEventListener/);
 });
 
+test("setup keeps stable control IDs required by setup.js", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const requiredIds = [
+    "settings-search",
+    "save",
+    "folder-tree-container",
+    "selected-folders-list",
+    "folder-tree-search",
+    "sort-columns-btn",
+    "back-to-tree-btn",
+    "tabs-list",
+    "tabs-folder-tree-container",
+    "tabs-dropzones-list",
+    "default-mode-select",
+    "default-sort-select",
+    "theme-select",
+    "language-select",
+    "show-pinned-folder",
+    "clean-folder-names",
+    "show-view-button",
+    "show-sort-button",
+    "preview-enabled",
+    "wallpaper-type-select",
+    "wallpaper-image-container",
+    "wallpaper-gradient-container",
+    "link-health",
+    "preview-capture",
+    "frequent-sites",
+    "local-stats",
+    "automatic-tags",
+    "manual-tags",
+    "enable-pinned-shortcuts",
+    "reset-local-organization",
+    "clear-preview-cache",
+    "export-config",
+    "import-config",
+    "advanced-version"
+  ];
+
+  for (const id of requiredIds) {
+    assert.match(html, new RegExp(`id="${id}"`), `Missing #${id}`);
+  }
+});
+
 
 
