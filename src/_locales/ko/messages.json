@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "martabs 정보"
   },
+  "aboutAppNameDesc": {
+    "message": "설치된 버전 및 확장 프로그램에 대한 정보입니다."
+  },
   "accessibilityDescription": {
     "message": "키보드 단축키 및 접근성 탐색 옵션."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "트리로 돌아가기"
   },
+  "backupsDescription": {
+    "message": "로컬 통계 다운로드, 기록 삭제 또는 설정 가져오기/내보내기를 수행합니다."
+  },
+  "backupsHeading": {
+    "message": "설정 및 백업"
+  },
   "bookmarkEditBtn": {
     "message": "북마크 편집"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "명확성을 위해 짧은 이름을 표시합니다."
   },
+  "clearBtnLabel": {
+    "message": "지우기"
+  },
   "clearPreviewCache": {
     "message": "캐시된 미리보기 지우기"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "저장된 로컬 이미지를 삭제하여 공간을 확보합니다."
   },
   "clearPreviewsError": {
     "message": "미리보기 캐시 삭제 실패: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "확장 / 축소"
   },
+  "exportBtnLabel": {
+    "message": "내보내기"
+  },
   "exportConfig": {
     "message": "설정 내보내기"
+  },
+  "exportConfigDesc": {
+    "message": "폴더, 테마 및 탭이 포함된 백업 파일을 저장합니다."
   },
   "exportError": {
     "message": "내보내기 오류: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "Firefox에서는 Ctrl+Shift+O 단축키를 사용하여 북마크를 관리하세요."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "??"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "??"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "? ???"
   },
   "folderTableHeaderFolder": {
     "message": "폴더"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "모두 무시"
   },
+  "importBtnLabel": {
+    "message": "가져오기"
+  },
   "importConfig": {
     "message": "설정 가져오기"
+  },
+  "importConfigDesc": {
+    "message": "JSON 백업에서 기본 설정 및 탭을 복원합니다."
   },
   "importErrorParse": {
     "message": "구성 파일 형식이 올바르지 않습니다."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "사용자 지정 배경 제거"
   },
+  "resetBtnLabel": {
+    "message": "리셋"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "로컬 배치 데이터 초기화"
+  },
+  "resetLocalOrgDesc": {
+    "message": "폴더 순서 및 로컬 재정의를 리셋합니다."
   },
   "resetLocalOrgError": {
     "message": "로컬 배치 데이터 초기화 실패: $ERROR$",

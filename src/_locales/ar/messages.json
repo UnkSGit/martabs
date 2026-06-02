@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "حول martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "معلومات حول الإصدار المثبت والامتداد."
+  },
   "accessibilityDescription": {
     "message": "اختصارات لوحة المفاتيح وخيارات التنقل."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "العودة إلى الشجرة"
   },
+  "backupsDescription": {
+    "message": "قم بتنزيل إحصاءاتك المحلية، أو امسح السجل، أو استورد/صدر إعداداتك."
+  },
+  "backupsHeading": {
+    "message": "التكوين والنسخ الاحتياطي"
+  },
   "bookmarkEditBtn": {
     "message": "تعديل"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "عرض أسماء مجلدات قصيرة للوضوح."
   },
+  "clearBtnLabel": {
+    "message": "مسح"
+  },
   "clearPreviewCache": {
     "message": "مسح ذاكرة التخزين المؤقت للمعاينة"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "يوفر مساحة عن طريق حذف الصور المحلية المحفوظة."
   },
   "clearPreviewsError": {
     "message": "حدث خطأ أثناء مسح المعاينات: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "توسيع / طي"
   },
+  "exportBtnLabel": {
+    "message": "تصدير"
+  },
   "exportConfig": {
     "message": "تصدير الإعدادات"
+  },
+  "exportConfigDesc": {
+    "message": "احفظ ملف نسخة احتياطية يحتوي على مجلداتك ومظاهرك وعلامات تبويب أولية."
   },
   "exportError": {
     "message": "حدث خطأ أثناء تصدير الإعدادات: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "في فايرفوكس، يرجى استخدام الاختصار Ctrl+Shift+O لإدارة الإشارات المرجعية."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "?????"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "???????"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "??? ???"
   },
   "folderTableHeaderFolder": {
     "message": "المجلد"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "تجاهل الكل"
   },
+  "importBtnLabel": {
+    "message": "استيراد"
+  },
   "importConfig": {
     "message": "استيراد الإعدادات"
+  },
+  "importConfigDesc": {
+    "message": "استعد تفضيلاتك وعلامات تبويب أولية من نسخة احتياطية بتنسيق JSON."
   },
   "importErrorParse": {
     "message": "ملف استيراد غير صالح."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "إزالة الخلفية المخصصة"
   },
+  "resetBtnLabel": {
+    "message": "إعادة تعيين"
+  },
   "resetHiddenTopSites": {
     "message": "إعادة تعيين المواقع المخفية"
   },
   "resetLocalOrg": {
     "message": "إعادة تعيين التنظيم المحلي"
+  },
+  "resetLocalOrgDesc": {
+    "message": "إعادة تعيين ترتيب المجلدات والتجاوزات المحلية."
   },
   "resetLocalOrgError": {
     "message": "حدث خطأ أثناء إعادة التعيين: $ERROR$.",

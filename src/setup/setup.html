@@ -13,14 +13,11 @@
     <main class="setup-shell">
       <section class="setup-panel">
         <header class="setup-header">
-          <div style="display: flex; gap: 16px; align-items: center;">
+          <div class="setup-header-brand">
             <button id="back-to-dashboard" class="back-btn" title="Volver al tablero" type="button" data-i18n-title="backToDashboard">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             </button>
-            <div>
-              <p class="eyebrow">martabs</p>
-              <h1 data-i18n="setupHeaderTitle">Configuracion</h1>
-            </div>
+            <img class="setup-logo-img" src="../images/newlogo.png" alt="martabs">
           </div>
           <label class="setup-search" for="settings-search">
             <span class="sr-only" data-i18n="searchSettingsPlaceholder">Buscar ajustes</span>
@@ -34,11 +31,55 @@
 
         <div class="setup-layout">
           <nav class="setup-sidebar" aria-label="Secciones de configuracion">
-            <button class="setup-nav-button is-active" type="button" data-section="dashboard" data-i18n="setupSectionDashboard">Tablero</button>
-            <button class="setup-nav-button" type="button" data-section="appearance" data-i18n="appearanceSection">Apariencia</button>
-            <button class="setup-nav-button" type="button" data-section="features" data-i18n="setupSectionFeatures">Funciones</button>
-            <button class="setup-nav-button" type="button" data-section="data" data-i18n="setupSectionData">Datos</button>
-            <button class="setup-nav-button" type="button" data-section="advanced" data-i18n="advancedSection">Avanzado</button>
+            <div class="setup-sidebar-heading">
+              <span data-i18n="setupHeaderTitle">Configuracion</span>
+              <strong>martabs</strong>
+            </div>
+            <button class="setup-nav-button is-active" type="button" data-section="dashboard">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7"></rect><rect x="14" y="4" width="7" height="7"></rect><rect x="3" y="15" width="7" height="5"></rect><rect x="14" y="15" width="7" height="5"></rect></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="setupSectionDashboard">Tablero</strong>
+                <small data-i18n="dashboardDescription">Configura las columnas, orden y pestanas del tablero principal.</small>
+              </span>
+            </button>
+            <button class="setup-nav-button" type="button" data-section="appearance">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 4v16"></path><path d="M4 12h16"></path></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="appearanceSection">Apariencia</strong>
+                <small data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</small>
+              </span>
+            </button>
+            <button class="setup-nav-button" type="button" data-section="features">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3l2.4 5 5.4.8-3.9 3.8.9 5.4L12 15.5 7.2 18l.9-5.4-3.9-3.8 5.4-.8z"></path></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="setupSectionFeatures">Funciones</strong>
+                <small data-i18n="setupSectionFeaturesDesc">Activa funciones opcionales del tablero y accesos rapidos.</small>
+              </span>
+            </button>
+            <button class="setup-nav-button" type="button" data-section="data">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 6c0 1.7 3.1 3 7 3s7-1.3 7-3-3.1-3-7-3-7 1.3-7 3z"></path><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"></path><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"></path></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="setupSectionData">Datos</strong>
+                <small data-i18n="setupSectionDataDesc">Controla estadisticas locales, almacenamiento e importacion/exportacion.</small>
+              </span>
+            </button>
+            <button class="setup-nav-button" type="button" data-section="advanced">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="5"></circle></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="advancedSection">Avanzado</strong>
+                <small data-i18n="advancedDescription">Acciones poco frecuentes para limpiar estado local.</small>
+              </span>
+            </button>
             
             <div class="sidebar-footer">
               <span class="sidebar-footer-appname">martabs</span>
@@ -173,16 +214,22 @@
                       <small data-i18n="tabsDescription">Organiza las columnas de tus marcadores en pestañas personalizadas.</small>
                     </span>
                   </div>
-                  <div class="settings-group-body" style="padding: 18px;">
-                    <div id="tabs-manager-container">
-                      <div class="tab-creator-form" style="display: flex; gap: 8px; margin-bottom: 16px;">
-                        <input type="text" id="new-tab-name" data-i18n-placeholder="tabNamePlaceholder" placeholder="Nombre de la pestaña..." style="flex: 1; min-width: 0;">
-                        <button type="button" id="add-tab-btn" class="primary-button" data-i18n="addTabBtn">Añadir pestaña</button>
+                  <div class="settings-group-body tabs-settings-body">
+                    <div id="tabs-manager-container" class="tabs-subsection">
+                      <div class="tabs-subsection-header">
+                        <span>
+                          <strong data-i18n="newTabHeading">Crear y ordenar pestañas</strong>
+                          <small data-i18n="tabsDescription">Organiza las columnas de tus marcadores en pestañas personalizadas.</small>
+                        </span>
+                      </div>
+                      <div class="tab-creator-form">
+                        <input type="text" id="new-tab-name" data-i18n-placeholder="tabNamePlaceholder" placeholder="Nombre de la pestaña...">
+                        <button type="button" id="add-tab-btn" class="primary-button compact-action-button" data-i18n="addTabBtn">Añadir pestaña</button>
                       </div>
                       <div id="tabs-list" class="tabs-list">
                         <!-- Pestañas renderizadas dinámicamente -->
                       </div>
-                      <label class="switch-row" style="margin-top: 16px;">
+                      <label class="switch-row tabs-hide-all-row">
                         <input id="hide-all-tab" type="checkbox">
                         <span>
                           <strong data-i18n="hideAllTab">Ocultar pestaña "Todos"</strong>
@@ -191,22 +238,36 @@
                       </label>
                     </div>
 
-                    <div class="tabs-drag-split-layout" style="margin-top: 24px; border-top: 1px solid var(--surface-border); padding-top: 24px;">
-                      <!-- Left column: monitored folders tree -->
-                      <div class="tabs-drag-left-pane">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                          <h4 data-i18n="foldersHeading" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0;">Carpetas</h4>
-                          <button type="button" id="tabs-collapse-all-btn" class="secondary-button compact-action-button" data-i18n="collapseAll">Colapsar todas</button>
-                        </div>
-                        <p class="settings-inline-note" data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</p>
-                        <div id="tabs-folder-tree-container" class="folder-tree" role="tree"></div>
+                    <div class="tabs-subsection tabs-assignment-subsection">
+                      <div class="tabs-subsection-header">
+                        <span>
+                          <strong data-i18n="tabsDropzonesTitle">Asignar carpetas a pestañas</strong>
+                          <small data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña.</small>
+                        </span>
                       </div>
-                      <!-- Right column: tab dropzones list -->
-                      <div class="tabs-drag-right-pane">
-                        <h4 data-i18n="tabsDropzonesTitle" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Pestañas y Asignaciones</h4>
-                        <p class="settings-inline-note" data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña.</p>
-                        <div id="tabs-dropzones-list" class="tabs-dropzones-list">
-                          <!-- Tab dropzones rendered dynamically -->
+                      <div class="tabs-drag-split-layout">
+                        <!-- Left column: monitored folders tree -->
+                        <div class="tabs-drag-left-pane">
+                          <div class="tabs-pane-header">
+                            <span>
+                              <strong data-i18n="foldersHeading">Carpetas</strong>
+                              <small data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</small>
+                            </span>
+                            <button type="button" id="tabs-collapse-all-btn" class="secondary-button compact-action-button" data-i18n="collapseAll">Colapsar todas</button>
+                          </div>
+                          <div id="tabs-folder-tree-container" class="folder-tree" role="tree"></div>
+                        </div>
+                        <!-- Right column: tab dropzones list -->
+                        <div class="tabs-drag-right-pane">
+                          <div class="tabs-pane-header">
+                            <span>
+                              <strong data-i18n="tabsDropzonesTitle">Pestañas y asignaciones</strong>
+                              <small data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas.</small>
+                            </span>
+                          </div>
+                          <div id="tabs-dropzones-list" class="tabs-dropzones-list">
+                            <!-- Tab dropzones rendered dynamically -->
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -764,8 +825,8 @@
                   <div class="settings-group">
                     <div class="settings-group-header">
                       <span>
-                        <strong data-i18n="setupSectionData">Configuración y Copias de Seguridad</strong>
-                        <small>Descarga tus datos locales, borra historial o importa/exporta tus ajustes.</small>
+                        <strong data-i18n="backupsHeading">Configuración y Copias de Seguridad</strong>
+                        <small data-i18n="backupsDescription">Descarga tus datos locales, borra historial o importa/exporta tus ajustes.</small>
                       </span>
                     </div>
                     <div class="settings-group-body">
@@ -785,10 +846,10 @@
 
                       <div class="setting-row">
                         <span>
-                          <strong>Exportar configuración</strong>
-                          <small>Guarda un archivo de respaldo con tus carpetas, temas y pestañas.</small>
+                          <strong data-i18n="exportConfig">Exportar configuración</strong>
+                          <small data-i18n="exportConfigDesc">Guarda un archivo de respaldo con tus carpetas, temas y pestañas.</small>
                         </span>
-                        <button id="export-config" class="secondary-button" type="button" data-i18n-search="searchExportBtn" data-i18n="exportConfig">
+                        <button id="export-config" class="secondary-button" type="button" data-i18n-search="searchExportBtn" data-i18n="exportBtnLabel">
                           Exportar
                         </button>
                       </div>
@@ -796,10 +857,10 @@
                       <div class="setting-row" style="flex-direction: column; align-items: stretch; gap: 12px; padding: 18px 18px 18px 18px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                           <span>
-                            <strong>Importar configuración</strong>
-                            <small>Restaura tus preferencias y pestañas desde un respaldo JSON.</small>
+                            <strong data-i18n="importConfig">Importar configuración</strong>
+                            <small data-i18n="importConfigDesc">Restaura tus preferencias y pestañas desde un respaldo JSON.</small>
                           </span>
-                          <button id="import-config" class="secondary-button" type="button" data-i18n-search="searchImportBtn" data-i18n="importConfig">
+                          <button id="import-config" class="secondary-button" type="button" data-i18n-search="searchImportBtn" data-i18n="importBtnLabel">
                             Importar
                           </button>
                         </div>
@@ -819,10 +880,6 @@
             </section>
 
             <section id="section-advanced" class="setup-section" data-section="advanced" data-i18n-search="searchAdvancedSection" data-search="avanzado limpiar restablecer reset previews cache organizacion">
-              <div class="section-heading">
-                <h2 data-i18n="advancedHeading">Avanzado</h2>
-                <p data-i18n="advancedDescription">Acciones poco frecuentes para limpiar estado local.</p>
-              </div>
               <div class="settings-section-grid">
                 <div class="settings-group">
                   <div class="settings-group-header">
@@ -835,9 +892,9 @@
                     <div class="setting-row">
                       <span>
                         <strong data-i18n="resetLocalOrg" style="display: block;">Restablecer organización local</strong>
-                        <small>Restablece el orden de carpetas y overrides locales.</small>
+                        <small data-i18n="resetLocalOrgDesc">Restablece el orden de carpetas y overrides locales.</small>
                       </span>
-                      <button id="reset-local-organization" class="secondary-button danger-button" type="button" data-i18n-search="searchResetLocalOrgBtn" data-i18n="resetLocalOrg">
+                      <button id="reset-local-organization" class="secondary-button danger-button" type="button" data-i18n-search="searchResetLocalOrgBtn" data-i18n="resetBtnLabel">
                         Restablecer
                       </button>
                     </div>
@@ -845,9 +902,9 @@
                     <div class="setting-row">
                       <span>
                         <strong data-i18n="clearPreviewCache" style="display: block;">Limpiar vistas previas en caché</strong>
-                        <small>Libera espacio eliminando las imágenes locales guardadas.</small>
+                        <small data-i18n="clearPreviewCacheDesc">Libera espacio eliminando las imágenes locales guardadas.</small>
                       </span>
-                      <button id="clear-preview-cache" class="secondary-button danger-button" type="button" data-i18n-search="searchClearPreviewsBtn" data-i18n="clearPreviewCache">
+                      <button id="clear-preview-cache" class="secondary-button danger-button" type="button" data-i18n-search="searchClearPreviewsBtn" data-i18n="clearBtnLabel">
                         Limpiar
                       </button>
                     </div>
@@ -858,7 +915,7 @@
                   <div class="settings-group-header">
                     <span>
                       <strong data-i18n="aboutAppName">Acerca de martabs</strong>
-                      <small>Información sobre la versión instalada y la extensión.</small>
+                      <small data-i18n="aboutAppNameDesc">Información sobre la versión instalada y la extensión.</small>
                     </span>
                   </div>
                   <div class="settings-group-body">

@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "关于 martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "关于已安装版本和扩展程序的信息。"
+  },
   "accessibilityDescription": {
     "message": "键盘快捷键和无障碍导航选项。"
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "返回树状视图"
   },
+  "backupsDescription": {
+    "message": "下载本地统计数据、清除历史记录或导入/导出您的设置。"
+  },
+  "backupsHeading": {
+    "message": "配置与备份"
+  },
   "bookmarkEditBtn": {
     "message": "编辑书签"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "显示简短名称以提高清晰度。"
   },
+  "clearBtnLabel": {
+    "message": "清除"
+  },
   "clearPreviewCache": {
     "message": "清除缓存的预览图"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "通过删除保存的本地图像来释放空间。"
   },
   "clearPreviewsError": {
     "message": "清除预览图缓存失败: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "展开 / 收起"
   },
+  "exportBtnLabel": {
+    "message": "导出"
+  },
   "exportConfig": {
     "message": "导出配置"
+  },
+  "exportConfigDesc": {
+    "message": "保存包含您的文件夹、主题和标签页的备份文件。"
   },
   "exportError": {
     "message": "导出失败: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "在 Firefox 中，请使用 Ctrl+Shift+O 快捷键来管理书签。"
+  },
+  "folderSelectionScopeBranch": {
+    "message": "??"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "??"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "???"
   },
   "folderTableHeaderFolder": {
     "message": "文件夹"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "忽略全部"
   },
+  "importBtnLabel": {
+    "message": "导入"
+  },
   "importConfig": {
     "message": "导入配置"
+  },
+  "importConfigDesc": {
+    "message": "从 JSON 备份中恢复您的首选项和标签页。"
   },
   "importErrorParse": {
     "message": "配置文件格式不正确。"
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "移除自定义背景"
   },
+  "resetBtnLabel": {
+    "message": "重置"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "重置本地排序及移动"
+  },
+  "resetLocalOrgDesc": {
+    "message": "重置文件夹顺序和本地重写。"
   },
   "resetLocalOrgError": {
     "message": "重置本地排序失败: $ERROR$",

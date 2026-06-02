@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "Informazioni su martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Informazioni sulla versione installata e sull'estensione."
+  },
   "accessibilityDescription": {
     "message": "Scorciatoie da tastiera e opzioni di navigazione accessibili."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Torna all'albero"
   },
+  "backupsDescription": {
+    "message": "Scarica le tue statistiche locali, cancella la cronologia o importa/esporta le tue impostazioni."
+  },
+  "backupsHeading": {
+    "message": "Configurazione e backup"
+  },
   "bookmarkEditBtn": {
     "message": "Modifica segnalibro"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Mostra nomi brevi per maggiore chiarezza."
   },
+  "clearBtnLabel": {
+    "message": "Cancella"
+  },
   "clearPreviewCache": {
     "message": "Cancella anteprime in cache"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Libera spazio eliminando le immagini locali salvate."
   },
   "clearPreviewsError": {
     "message": "Impossibile cancellare la cache delle anteprime: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Espandi / Comprimi"
   },
+  "exportBtnLabel": {
+    "message": "Esporta"
+  },
   "exportConfig": {
     "message": "Esporta configurazione"
+  },
+  "exportConfigDesc": {
+    "message": "Salva un file di backup con le tue cartelle, temi e schede."
   },
   "exportError": {
     "message": "Errore durante l'esportazione: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "In Firefox, usa la scorciatoia Ctrl+Shift+O per gestire i preferiti."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Ramo"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Figli"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "Solo"
   },
   "folderTableHeaderFolder": {
     "message": "Cartella"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Ignora tutti"
   },
+  "importBtnLabel": {
+    "message": "Importa"
+  },
   "importConfig": {
     "message": "Importa configurazione"
+  },
+  "importConfigDesc": {
+    "message": "Ripristina le tue preferenze e schede da un backup JSON."
   },
   "importErrorParse": {
     "message": "Il file di configurazione ha un formato non valido."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Rimuovi sfondo personalizzato"
   },
+  "resetBtnLabel": {
+    "message": "Ripristina"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "Ripristina organizzazione locale"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Ripristina l'ordine delle cartelle e le sostituzioni locali."
   },
   "resetLocalOrgError": {
     "message": "Impossibile ripristinare l'organizzazione locale: $ERROR$",

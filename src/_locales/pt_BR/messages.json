@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "Sobre o martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Informações sobre la versão instalada e a extensão."
+  },
   "accessibilityDescription": {
     "message": "Atalhos de teclado e opções de navegação acessíveis."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Voltar para a árvore"
   },
+  "backupsDescription": {
+    "message": "Baixe suas estatísticas locais, limpe o histórico ou importe/exporte suas configurações."
+  },
+  "backupsHeading": {
+    "message": "Configuração e backups"
+  },
   "bookmarkEditBtn": {
     "message": "Editar favorito"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Mostra nomes curtos para maior clareza."
   },
+  "clearBtnLabel": {
+    "message": "Limpar"
+  },
   "clearPreviewCache": {
     "message": "Limpar pré-visualizações em cache"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Libera espaço excluindo as imagens locais salvas."
   },
   "clearPreviewsError": {
     "message": "Não foi possível limpar o cache de pré-visualizações: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Expandir / Recolher"
   },
+  "exportBtnLabel": {
+    "message": "Exportar"
+  },
   "exportConfig": {
     "message": "Exportar configuração"
+  },
+  "exportConfigDesc": {
+    "message": "Salve um arquivo de backup com suas pastas, temas e abas."
   },
   "exportError": {
     "message": "Erro ao exportar: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "No Firefox, use o atalho Ctrl+Shift+O para gerenciar favoritos."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Ramo"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Filhos"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "S? esta"
   },
   "folderTableHeaderFolder": {
     "message": "Pasta"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Ignorar todos"
   },
+  "importBtnLabel": {
+    "message": "Importar"
+  },
   "importConfig": {
     "message": "Importar configuração"
+  },
+  "importConfigDesc": {
+    "message": "Restaure suas preferências e abas a partir de um backup JSON."
   },
   "importErrorParse": {
     "message": "O arquivo de configuração não possui um formato válido."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Remover plano de fundo personalizado"
   },
+  "resetBtnLabel": {
+    "message": "Redefinir"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "Redefinir organização local"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Redefine a ordem das pastas e as substituições locais."
   },
   "resetLocalOrgError": {
     "message": "Não foi possível redefinir a organização local: $ERROR$",

@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "Acerca de martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Información sobre la versión instalada y la extensión."
+  },
   "accessibilityDescription": {
     "message": "Atajos de teclado y opciones de navegación accesibles."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Volver al árbol"
   },
+  "backupsDescription": {
+    "message": "Descarga tus datos locales, borra historial o importa/exporta tus ajustes."
+  },
+  "backupsHeading": {
+    "message": "Configuración y copias de seguridad"
+  },
   "bookmarkEditBtn": {
     "message": "Editar marcador"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Muestra nombres cortos para mayor claridad."
   },
+  "clearBtnLabel": {
+    "message": "Limpiar"
+  },
   "clearPreviewCache": {
     "message": "Limpiar vistas previas en caché"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Libera espacio eliminando las imágenes locales guardadas."
   },
   "clearPreviewsError": {
     "message": "No se pudo limpiar el caché de vistas previas: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Expandir / Colapsar"
   },
+  "exportBtnLabel": {
+    "message": "Exportar"
+  },
   "exportConfig": {
     "message": "Exportar configuración"
+  },
+  "exportConfigDesc": {
+    "message": "Guarda un archivo de respaldo con tus carpetas, temas y pestañas."
   },
   "exportError": {
     "message": "Error al exportar: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "Firefox no permite abrir el administrador de marcadores desde una extensión.\nAbrilo manualmente con Ctrl+Shift+O."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Rama"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Hijos"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "Solo"
   },
   "folderTableHeaderFolder": {
     "message": "Carpeta"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Ignorar todos"
   },
+  "importBtnLabel": {
+    "message": "Importar"
+  },
   "importConfig": {
     "message": "Importar configuración"
+  },
+  "importConfigDesc": {
+    "message": "Restaura tus preferencias y pestañas desde un respaldo JSON."
   },
   "importErrorParse": {
     "message": "El archivo de configuración no tiene un formato válido."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Quitar fondo personalizado"
   },
+  "resetBtnLabel": {
+    "message": "Restablecer"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "Restablecer organización local"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Restablece el orden de carpetas y overrides locales."
   },
   "resetLocalOrgError": {
     "message": "No se pudo restablecer la organización local: $ERROR$",

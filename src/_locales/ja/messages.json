@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "martabs について"
   },
+  "aboutAppNameDesc": {
+    "message": "インストールされているバージョンと拡張機能に関する情報。"
+  },
   "accessibilityDescription": {
     "message": "キーボードショートカットとアクセシビリティオプション。"
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "ツリーに戻る"
   },
+  "backupsDescription": {
+    "message": "ローカル統計のダウンロード、履歴の消去、または設定のインポート/エクスポートを行います。"
+  },
+  "backupsHeading": {
+    "message": "設定とバックアップ"
+  },
   "bookmarkEditBtn": {
     "message": "ブックマークを編集"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "わかりやすくするために短い名前を表示します。"
   },
+  "clearBtnLabel": {
+    "message": "クリア"
+  },
   "clearPreviewCache": {
     "message": "キャッシュされたプレビューをクリア"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "保存されたローカル画像を削除して空き容量を増やします。"
   },
   "clearPreviewsError": {
     "message": "プレビューキャッシュをクリアできませんでした: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "展開 / 折りたたみ"
   },
+  "exportBtnLabel": {
+    "message": "エクスポート"
+  },
   "exportConfig": {
     "message": "設定をエクスポート"
+  },
+  "exportConfigDesc": {
+    "message": "フォルダ、テーマ、タブを含むバックアップファイルを保存します。"
   },
   "exportError": {
     "message": "エクスポートエラー: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "Firefox では、Ctrl+Shift+O ショートカットを使用してブックマークを管理してください。"
+  },
+  "folderSelectionScopeBranch": {
+    "message": "????"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "?"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "???"
   },
   "folderTableHeaderFolder": {
     "message": "フォルダ"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "すべて無視"
   },
+  "importBtnLabel": {
+    "message": "インポート"
+  },
   "importConfig": {
     "message": "設定をインポート"
+  },
+  "importConfigDesc": {
+    "message": "JSONバックアップから設定とタブを復元します。"
   },
   "importErrorParse": {
     "message": "構成ファイルの形式が無効です。"
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "カスタム背景を削除"
   },
+  "resetBtnLabel": {
+    "message": "リセット"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "ローカルの配置データをリセット"
+  },
+  "resetLocalOrgDesc": {
+    "message": "フォルダの順序とローカルのオーバーライドをリセットします。"
   },
   "resetLocalOrgError": {
     "message": "ローカル配置をリセットできませんでした: $ERROR$",

@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "О martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Информация об установленной версии и расширении."
+  },
   "accessibilityDescription": {
     "message": "Сочетания клавиш и параметры доступной навигации."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Назад к дереву"
   },
+  "backupsDescription": {
+    "message": "Скачивайте локальную статистику, очищайте историю или импортируйте/экспортируйте настройки."
+  },
+  "backupsHeading": {
+    "message": "Настройки и резервное копирование"
+  },
   "bookmarkEditBtn": {
     "message": "Редактировать закладку"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Показывать короткие имена для ясности."
   },
+  "clearBtnLabel": {
+    "message": "Очистить"
+  },
   "clearPreviewCache": {
     "message": "Очистить кэш превью"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Освобождает место, удаляя сохраненные локальные изображения."
   },
   "clearPreviewsError": {
     "message": "Не удалось очистить кэш превью: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Развернуть / Свернуть"
   },
+  "exportBtnLabel": {
+    "message": "Экспорт"
+  },
   "exportConfig": {
     "message": "Экспорт конфигурации"
+  },
+  "exportConfigDesc": {
+    "message": "Сохраните файл резервной копии со своими папками, темами и вкладками."
   },
   "exportError": {
     "message": "Ошибка экспорта: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "В Firefox используйте сочетание клавиш Ctrl+Shift+O для управления закладками."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "?????"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "????????"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "?????? ???"
   },
   "folderTableHeaderFolder": {
     "message": "Папка"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Игнорировать все"
   },
+  "importBtnLabel": {
+    "message": "Импорт"
+  },
   "importConfig": {
     "message": "Импорт конфигурации"
+  },
+  "importConfigDesc": {
+    "message": "Восстановите свои настройки и вкладки из резервной копии JSON."
   },
   "importErrorParse": {
     "message": "Неверный формат файла конфигурации."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Удалить фоновое изображение"
   },
+  "resetBtnLabel": {
+    "message": "Сбросить"
+  },
   "resetHiddenTopSites": {
     "message": "Сбросить скрытые сайты"
   },
   "resetLocalOrg": {
     "message": "Сбросить локальную организацию"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Сбрасывает порядок папок и локальные переопределения."
   },
   "resetLocalOrgError": {
     "message": "Не удалось сбросить локальную организацию: $ERROR$",

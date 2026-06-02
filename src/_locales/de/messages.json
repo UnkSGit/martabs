@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "Über martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Informationen über die installierte Version und die Erweiterung."
+  },
   "accessibilityDescription": {
     "message": "Tastenkombinationen und barrierefreie Navigationsoptionen."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Zurück zum Baum"
   },
+  "backupsDescription": {
+    "message": "Laden Sie Ihre lokalen Statistiken herunter, löschen Sie den Verlauf oder importieren/exportieren Sie Ihre Einstellungen."
+  },
+  "backupsHeading": {
+    "message": "Konfiguration & Backups"
+  },
   "bookmarkEditBtn": {
     "message": "Lesezeichen bearbeiten"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Zeigt kurze Namen für mehr Übersichtlichkeit."
   },
+  "clearBtnLabel": {
+    "message": "Bereinigen"
+  },
   "clearPreviewCache": {
     "message": "Vorschaubilder löschen"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Gibt Speicherplatz frei, indem gespeicherte lokale Bilder gelöscht werden."
   },
   "clearPreviewsError": {
     "message": "Vorschau-Cache konnte nicht gelöscht werden: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Erweitern / Einklappen"
   },
+  "exportBtnLabel": {
+    "message": "Exportieren"
+  },
   "exportConfig": {
     "message": "Konfiguration exportieren"
+  },
+  "exportConfigDesc": {
+    "message": "Speichern Sie eine Backup-Datei mit Ihren Ordnern, Themes und Registerkarten."
   },
   "exportError": {
     "message": "Fehler beim Exportieren: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "In Firefox verwenden Sie bitte die Tastenkombination Strg+Umschalt+O, um Lesezeichen zu verwalten."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Zweig"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Kinder"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "Nur diese"
   },
   "folderTableHeaderFolder": {
     "message": "Ordner"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Alle ignorieren"
   },
+  "importBtnLabel": {
+    "message": "Importieren"
+  },
   "importConfig": {
     "message": "Konfiguration importieren"
+  },
+  "importConfigDesc": {
+    "message": "Stellen Sie Ihre Einstellungen und Registerkarten aus einem JSON-Backup wieder her."
   },
   "importErrorParse": {
     "message": "Die Konfigurationsdatei hat ein ungültiges Format."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Hintergrundbild entfernen"
   },
+  "resetBtnLabel": {
+    "message": "Zurücksetzen"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "Lokale Organisation zurücksetzen"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Setzt die Ordnerreihenfolge und lokale Überschreibungen zurück."
   },
   "resetLocalOrgError": {
     "message": "Lokale Organisation konnte nicht zurückgesetzt werden: $ERROR$",

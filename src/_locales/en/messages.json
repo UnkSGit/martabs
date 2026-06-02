@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "About martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Information about the installed version and the extension."
+  },
   "accessibilityDescription": {
     "message": "Keyboard shortcuts and accessible navigation options."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Back to tree"
   },
+  "backupsDescription": {
+    "message": "Download your local statistics, clear history, or import/export your settings."
+  },
+  "backupsHeading": {
+    "message": "Configuration & Backups"
+  },
   "bookmarkEditBtn": {
     "message": "Edit bookmark"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Show short folder names for clarity."
   },
+  "clearBtnLabel": {
+    "message": "Clear"
+  },
   "clearPreviewCache": {
     "message": "Clear cached previews"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Frees up space by deleting saved local images."
   },
   "clearPreviewsError": {
     "message": "Could not clear preview cache: $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Expand / Collapse"
   },
+  "exportBtnLabel": {
+    "message": "Export"
+  },
   "exportConfig": {
     "message": "Export configuration"
+  },
+  "exportConfigDesc": {
+    "message": "Save a backup file with your folders, themes, and tabs."
   },
   "exportError": {
     "message": "Error exporting: $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "Firefox does not allow opening the bookmark manager from an extension.\nOpen it manually with Ctrl+Shift+O."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Branch"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Children"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "Only this"
   },
   "folderTableHeaderFolder": {
     "message": "Folder"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Ignore all"
   },
+  "importBtnLabel": {
+    "message": "Import"
+  },
   "importConfig": {
     "message": "Import configuration"
+  },
+  "importConfigDesc": {
+    "message": "Restore your preferences and tabs from a JSON backup."
   },
   "importErrorParse": {
     "message": "The configuration file has an invalid format."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Remove custom background"
   },
+  "resetBtnLabel": {
+    "message": "Reset"
+  },
   "resetHiddenTopSites": {
     "message": "Reset hidden sites"
   },
   "resetLocalOrg": {
     "message": "Reset local organization"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Resets folder order and local overrides."
   },
   "resetLocalOrgError": {
     "message": "Could not reset local organization: $ERROR$",

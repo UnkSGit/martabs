@@ -2,6 +2,9 @@
   "aboutAppName": {
     "message": "À propos de martabs"
   },
+  "aboutAppNameDesc": {
+    "message": "Informations sur la version installée et l'estension."
+  },
   "accessibilityDescription": {
     "message": "Raccourcis clavier et options de navigation accessibles."
   },
@@ -65,6 +68,12 @@
   "backToTree": {
     "message": "Retour à l'arbre"
   },
+  "backupsDescription": {
+    "message": "Téléchargez vos statistiques locales, effacez l'historique ou importez/exportez vos paramètres."
+  },
+  "backupsHeading": {
+    "message": "Configuration et sauvegardes"
+  },
   "bookmarkEditBtn": {
     "message": "Editar marcador"
   },
@@ -108,8 +117,14 @@
   "cleanFolderNamesDesc": {
     "message": "Affiche des noms courts pour plus de clarté."
   },
+  "clearBtnLabel": {
+    "message": "Effacer"
+  },
   "clearPreviewCache": {
     "message": "Effacer les aperçus en cache"
+  },
+  "clearPreviewCacheDesc": {
+    "message": "Libère de l'espace en supprimant les images locales enregistrées."
   },
   "clearPreviewsError": {
     "message": "Impossible d'effacer le cache des aperçus : $ERROR$",
@@ -280,8 +295,14 @@
   "expandCollapse": {
     "message": "Développer / Réduire"
   },
+  "exportBtnLabel": {
+    "message": "Exporter"
+  },
   "exportConfig": {
     "message": "Exporter la configuration"
+  },
+  "exportConfigDesc": {
+    "message": "Enregistrez un fichier de sauvegarde avec vos dossiers, thèmes et onglets."
   },
   "exportError": {
     "message": "Erreur d'exportation : $ERROR$",
@@ -326,6 +347,15 @@
   },
   "firefoxBookmarksNotice": {
     "message": "Dans Firefox, veuillez utiliser le raccourci Ctrl+Shift+O pour gérer les favoris."
+  },
+  "folderSelectionScopeBranch": {
+    "message": "Branche"
+  },
+  "folderSelectionScopeChildren": {
+    "message": "Enfants"
+  },
+  "folderSelectionScopeSelf": {
+    "message": "Seule"
   },
   "folderTableHeaderFolder": {
     "message": "Dossier"
@@ -416,8 +446,14 @@
   "ignoreAll": {
     "message": "Tout ignorer"
   },
+  "importBtnLabel": {
+    "message": "Importer"
+  },
   "importConfig": {
     "message": "Importer la configuration"
+  },
+  "importConfigDesc": {
+    "message": "Restaurez vos préférences et onglets à partir d'une sauvegarde JSON."
   },
   "importErrorParse": {
     "message": "Le fichier de configuration a un format invalide."
@@ -679,11 +715,17 @@
   "removeWallpaper": {
     "message": "Supprimer le fond d'écran personnalisé"
   },
+  "resetBtnLabel": {
+    "message": "Réinitialiser"
+  },
   "resetHiddenTopSites": {
     "message": "Restablecer ocultos"
   },
   "resetLocalOrg": {
     "message": "Réinitialiser l'organisation locale"
+  },
+  "resetLocalOrgDesc": {
+    "message": "Réinitialise l'ordre des dossiers et les surcharges locales."
   },
   "resetLocalOrgError": {
     "message": "Impossible de réinitialiser l'organisation locale : $ERROR$",
