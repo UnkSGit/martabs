@@ -259,6 +259,36 @@
   "dragToReorder": {
     "message": "拖拽排序"
   },
+  "easterFalloutCounter": {
+    "message": "$COUNT$ 条记录已保护",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutIndexing": {
+    "message": "> 正在索引本地档案..."
+  },
+  "easterFalloutRecovered": {
+    "message": "> 已恢复 $COUNT$ 条记录",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutSignalStable": {
+    "message": "> 信号稳定"
+  },
+  "easterFalloutVaultOnline": {
+    "message": "避难所 $COUNT$ 已上线",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "editFaviconError": {
     "message": "无法加载当前图片。"
   },

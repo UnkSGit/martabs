@@ -50,6 +50,115 @@ let hideTimeout = null;
 let pendingViewFocusFolderId = null;
 let pendingViewFocusTimer = null;
 
+const FALLOUT_COMMAND = ":fallout";
+const FALLOUT_DURATION_MS = 10000;
+let falloutEasterEggTimer = null;
+let isFalloutEasterEggActive = false;
+let falloutActiveTimeouts = [];
+
+function activateFalloutEasterEgg() {
+  isFalloutEasterEggActive = true;
+
+  if (searchClearBtn) {
+    searchClearBtn.style.display = "none";
+  }
+
+  const searchWrap = document.querySelector(".search-wrap");
+  if (searchWrap) {
+    searchWrap.classList.add("easter-fallout-active");
+  }
+
+  statusLine.classList.add("fallout-counter-active");
+  searchInput.readOnly = true;
+
+  const vaultText = t(api, "easterFalloutVaultOnline", [String(bookmarks.length)], `VAULT ${bookmarks.length} ONLINE`);
+  const statusText = t(api, "easterFalloutCounter", [String(bookmarks.length)], `${bookmarks.length} ENTRIES SECURED`);
+
+  searchInput.value = vaultText;
+  statusLine.textContent = statusText;
+
+  const searchSection = document.querySelector(".search-section");
+  if (searchSection) {
+    const existing = document.getElementById("fallout-terminal");
+    if (existing) existing.remove();
+
+    const overlay = document.createElement("div");
+    overlay.id = "fallout-terminal";
+    overlay.className = "fallout-terminal-overlay";
+    overlay.setAttribute("role", "log");
+    overlay.setAttribute("aria-live", "polite");
+
+    searchSection.appendChild(overlay);
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      renderFalloutTerminalLine(t(api, "easterFalloutIndexing", "> INDEXING LOCAL ARCHIVES..."));
+      renderFalloutTerminalLine(t(api, "easterFalloutRecovered", [String(bookmarks.length)], `> ${bookmarks.length} ENTRIES RECOVERED`));
+      renderFalloutTerminalLine(t(api, "easterFalloutSignalStable", "> SIGNAL STABLE"), true);
+    } else {
+      const t1 = setTimeout(() => {
+        renderFalloutTerminalLine(t(api, "easterFalloutIndexing", "> INDEXING LOCAL ARCHIVES..."));
+      }, 300);
+      const t2 = setTimeout(() => {
+        renderFalloutTerminalLine(t(api, "easterFalloutRecovered", [String(bookmarks.length)], `> ${bookmarks.length} ENTRIES RECOVERED`));
+      }, 1200);
+      const t3 = setTimeout(() => {
+        renderFalloutTerminalLine(t(api, "easterFalloutSignalStable", "> SIGNAL STABLE"), true);
+      }, 2100);
+      falloutActiveTimeouts.push(t1, t2, t3);
+    }
+  }
+
+  falloutEasterEggTimer = setTimeout(() => {
+    deactivateFalloutEasterEgg();
+  }, FALLOUT_DURATION_MS);
+}
+
+function renderFalloutTerminalLine(text, isLast = false) {
+  const overlay = document.getElementById("fallout-terminal");
+  if (!overlay) return;
+
+  const oldCaret = overlay.querySelector(".fallout-caret");
+  if (oldCaret) oldCaret.remove();
+
+  const lineEl = document.createElement("div");
+  lineEl.className = "fallout-terminal-line";
+  lineEl.textContent = text;
+  overlay.appendChild(lineEl);
+
+  if (!isLast) {
+    const caret = document.createElement("span");
+    caret.className = "fallout-caret";
+    overlay.appendChild(caret);
+  }
+}
+
+function deactivateFalloutEasterEgg() {
+  isFalloutEasterEggActive = false;
+
+  if (falloutEasterEggTimer) {
+    clearTimeout(falloutEasterEggTimer);
+    falloutEasterEggTimer = null;
+  }
+  falloutActiveTimeouts.forEach(t => clearTimeout(t));
+  falloutActiveTimeouts = [];
+
+  const overlay = document.getElementById("fallout-terminal");
+  if (overlay) overlay.remove();
+
+  searchInput.readOnly = false;
+  searchInput.value = "";
+
+  const searchWrap = document.querySelector(".search-wrap");
+  if (searchWrap) {
+    searchWrap.classList.remove("easter-fallout-active");
+  }
+
+  statusLine.classList.remove("fallout-counter-active");
+
+  render();
+}
+
 const TIMEOUT_MS = 8000;
 
 function svgFromTrustedMarkup(markup) {
@@ -1490,8 +1599,17 @@ function updateSearchClearVisibility() {
 }
 
 function render() {
-  updateSearchClearVisibility();
+  if (isFalloutEasterEggActive) {
+    return;
+  }
   const query = searchInput.value;
+  const trimmedQuery = query.trim().toLowerCase();
+  if (trimmedQuery === FALLOUT_COMMAND) {
+    activateFalloutEasterEgg();
+    return;
+  }
+
+  updateSearchClearVisibility();
   const searchableBookmarks = topSites.length > 0 ? [...bookmarks, ...topSites] : bookmarks;
   const results = searchBookmarks(searchableBookmarks, query);
   const monitoredText = bookmarks.length === 1
@@ -1583,6 +1701,10 @@ document.addEventListener("keydown", (event) => {
   const isInput = target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable;
 
   if (event.key === "Escape") {
+    if (isFalloutEasterEggActive) {
+      deactivateFalloutEasterEgg();
+      return;
+    }
     if (editModal.open) {
       editCancel.click();
       return;

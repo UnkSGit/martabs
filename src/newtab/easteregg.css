@@ -1,0 +1,118 @@
+/* Styles for the Fallout Easter Egg Retro Terminal Console */
+.fallout-terminal-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(8, 12, 8, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid #1ff042;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 15px rgba(31, 240, 66, 0.25), inset 0 0 10px rgba(31, 240, 66, 0.15);
+  padding: 16px;
+  margin-top: 12px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #1ff042;
+  font-size: 13px;
+  line-height: 1.5;
+  text-shadow: 0 0 5px rgba(31, 240, 66, 0.6);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* CRT Scanline effect */
+.fallout-terminal-overlay::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* CRT Flicker animation */
+@keyframes fallout-flicker {
+  0% { opacity: 0.98; }
+  50% { opacity: 1; }
+  100% { opacity: 0.99; }
+}
+
+.fallout-terminal-overlay {
+  animation: fallout-power-on 0.25s ease-out, fallout-flicker 0.15s infinite;
+}
+
+/* Power on screen scan effect */
+@keyframes fallout-power-on {
+  0% {
+    transform: scaleY(0.01) scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(0.01) scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+}
+
+.fallout-terminal-line {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+  display: flex;
+  align-items: center;
+}
+
+/* Caret blinking */
+.fallout-caret {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background-color: #1ff042;
+  margin-left: 4px;
+  box-shadow: 0 0 5px rgba(31, 240, 66, 0.8);
+  animation: fallout-caret-blink 1s steps(2, start) infinite;
+  vertical-align: middle;
+}
+
+@keyframes fallout-caret-blink {
+  to { visibility: hidden; }
+}
+
+/* Retro green glow on search input when active */
+.search-wrap.easter-fallout-active {
+  border-color: #1ff042 !important;
+  box-shadow: 0 0 10px rgba(31, 240, 66, 0.4) !important;
+}
+
+.search-wrap.easter-fallout-active input {
+  color: #1ff042 !important;
+  font-family: 'Courier New', Courier, monospace !important;
+  text-shadow: 0 0 5px rgba(31, 240, 66, 0.5) !important;
+}
+
+.search-wrap.easter-fallout-active svg {
+  color: #1ff042 !important;
+}
+
+.fallout-counter-active {
+  color: #1ff042 !important;
+  text-shadow: 0 0 8px rgba(31, 240, 66, 0.8) !important;
+  font-family: 'Courier New', Courier, monospace !important;
+  font-weight: bold;
+}
+
+/* Accessibility / prefers-reduced-motion compatibility */
+@media (prefers-reduced-motion: reduce) {
+  .fallout-terminal-overlay {
+    animation: none !important;
+  }
+  .fallout-caret {
+    animation: none !important;
+  }
+}

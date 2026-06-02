@@ -224,3 +224,28 @@ test("newtab has tabs and pagination support", async () => {
   assert.match(js, /class: "load-more-btn"/);
   assert.match(js, /initialLimit = 50/);
 });
+
+test("newtab contains Fallout Easter Egg implementation", async () => {
+  const js = await readFile("src/newtab/newtab.js", "utf8");
+  const css = await readFile("src/newtab/easteregg.css", "utf8");
+  const html = await readFile("src/newtab/newtab.html", "utf8");
+
+  // HTML check
+  assert.match(html, /<link rel="stylesheet" href="\.\/easteregg\.css">/);
+
+  // CSS checks
+  assert.match(css, /\.fallout-terminal-overlay\s*{/);
+  assert.match(css, /\.fallout-terminal-line\s*{/);
+  assert.match(css, /\.fallout-caret\s*{/);
+  assert.match(css, /prefers-reduced-motion/);
+
+  // JS checks
+  assert.match(js, /const FALLOUT_COMMAND = ":fallout";/);
+  assert.match(js, /function activateFalloutEasterEgg\(\)/);
+  assert.match(js, /function deactivateFalloutEasterEgg\(\)/);
+  assert.match(js, /isFalloutEasterEggActive/);
+  assert.match(js, /Escape/);
+  assert.match(js, /prefers-reduced-motion/);
+  assert.match(js, /easterFalloutVaultOnline/);
+  assert.match(js, /easterFalloutCounter/);
+});

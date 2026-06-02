@@ -259,6 +259,36 @@
   "dragToReorder": {
     "message": "Перетащите для изменения порядка"
   },
+  "easterFalloutCounter": {
+    "message": "$COUNT$ ЗАПИСЕЙ ЗАЩИЩЕНО",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutIndexing": {
+    "message": "> ИНДЕКСАЦИЯ ЛОКАЛЬНЫХ АРХИВОВ..."
+  },
+  "easterFalloutRecovered": {
+    "message": "> $COUNT$ ЗАПИСЕЙ ВОССТАНОВЛЕНО",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutSignalStable": {
+    "message": "> СИГНАЛ СТАБИЛЕН"
+  },
+  "easterFalloutVaultOnline": {
+    "message": "УБЕЖИЩЕ $COUNT$ В СЕТИ",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "editFaviconError": {
     "message": "Не удалось загрузить текущее изображение."
   },

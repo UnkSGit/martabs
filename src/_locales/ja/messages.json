@@ -259,6 +259,36 @@
   "dragToReorder": {
     "message": "ドラッグして並べ替え"
   },
+  "easterFalloutCounter": {
+    "message": "$COUNT$ 個のエントリが保護されました",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutIndexing": {
+    "message": "> ローカルアーカイブをインデックス中..."
+  },
+  "easterFalloutRecovered": {
+    "message": "> $COUNT$ 個のエントリが回復されました",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutSignalStable": {
+    "message": "> シグナル安定"
+  },
+  "easterFalloutVaultOnline": {
+    "message": "VAULT $COUNT$ オンライン",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "editFaviconError": {
     "message": "現在の画像を読み込めませんでした。"
   },

@@ -259,6 +259,36 @@
   "dragToReorder": {
     "message": "اسحب لإعادة الترتيب"
   },
+  "easterFalloutCounter": {
+    "message": "تأمين $COUNT$ من القيود",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutIndexing": {
+    "message": "> جاري فهرسة الأرشيفات المحلية..."
+  },
+  "easterFalloutRecovered": {
+    "message": "> تم استرداد $COUNT$ من القيود",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutSignalStable": {
+    "message": "> الإشارة مستقرة"
+  },
+  "easterFalloutVaultOnline": {
+    "message": "مخبأ $COUNT$ متصل",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "editFaviconError": {
     "message": "تنسيق صورة غير صالح"
   },

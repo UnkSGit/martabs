@@ -259,6 +259,36 @@
   "dragToReorder": {
     "message": "Drag to reorder"
   },
+  "easterFalloutCounter": {
+    "message": "$COUNT$ ENTRIES SECURED",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutIndexing": {
+    "message": "> INDEXING LOCAL ARCHIVES..."
+  },
+  "easterFalloutRecovered": {
+    "message": "> $COUNT$ ENTRIES RECOVERED",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "easterFalloutSignalStable": {
+    "message": "> SIGNAL STABLE"
+  },
+  "easterFalloutVaultOnline": {
+    "message": "VAULT $COUNT$ ONLINE",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
   "editFaviconError": {
     "message": "The current image could not be loaded."
   },
