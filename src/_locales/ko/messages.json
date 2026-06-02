@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "설정된 탭이 없습니다. 모든 폴더가 함께 표시됩니다."
   },
+  "none": {
+    "message": "없음"
+  },
   "openBrowserBookmarks": {
     "message": "북마크 관리"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "일출"
+  },
+  "pressKey": {
+    "message": "키를 누르세요..."
   },
   "previewCapture": {
     "message": "로컬 미리보기 캡처"

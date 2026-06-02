@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "Вкладки не настроены. Все папки будут показаны вместе."
   },
+  "none": {
+    "message": "Нет"
+  },
   "openBrowserBookmarks": {
     "message": "Управление закладками"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Рассвет"
+  },
+  "pressKey": {
+    "message": "Нажмите клавишу..."
   },
   "previewCapture": {
     "message": "Создавать локальные превью"

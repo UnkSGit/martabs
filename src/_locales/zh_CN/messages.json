@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "未配置标签页。所有文件夹将一起显示。"
   },
+  "none": {
+    "message": "无"
+  },
   "openBrowserBookmarks": {
     "message": "管理书签"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "朝阳"
+  },
+  "pressKey": {
+    "message": "按下按键..."
   },
   "previewCapture": {
     "message": "捕获本地预览"

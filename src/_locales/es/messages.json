@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "No tienes pestañas configuradas. Las carpetas se mostrarán juntas."
   },
+  "none": {
+    "message": "Ninguno"
+  },
   "openBrowserBookmarks": {
     "message": "Administrar Marcadores (Navegador)"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Amanecer"
+  },
+  "pressKey": {
+    "message": "Presiona..."
   },
   "previewCapture": {
     "message": "Capturar vistas previas locales"

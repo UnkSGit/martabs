@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "Nessuna scheda configurata. Tutte le cartelle verranno mostrate insieme."
   },
+  "none": {
+    "message": "Nessuno"
+  },
   "openBrowserBookmarks": {
     "message": "Gestisci i preferiti"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Alba"
+  },
+  "pressKey": {
+    "message": "Premi un tasto..."
   },
   "previewCapture": {
     "message": "Cattura anteprime locali"
@@ -955,16 +961,16 @@
     "message": "Apre il pannello dei dettagli al passaggio del mouse."
   },
   "showSortButtonDesc": {
-    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
+    "message": "Mostra il pulsante per ordinare i preferiti nella cartella."
   },
   "showSortButtonTitle": {
-    "message": "Mostrar botón de Ordenar"
+    "message": "Mostra pulsante Ordina"
   },
   "showViewButtonDesc": {
-    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+    "message": "Mostra il pulsante per modificare la modalità di visualizzazione della cartella."
   },
   "showViewButtonTitle": {
-    "message": "Mostrar botón de Vista"
+    "message": "Mostra pulsante Visualizzazione"
   },
   "sortBrowser": {
     "message": "Ordine originale"

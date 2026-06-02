@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "لم يتم تكوين أي أقسام. سيتم عرض جميع المجلدات معًا."
   },
+  "none": {
+    "message": "لا شيء"
+  },
   "openBrowserBookmarks": {
     "message": "إدارة الإشارات المرجعية"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "شروق"
+  },
+  "pressKey": {
+    "message": "اضغط على مفتاح..."
   },
   "previewCapture": {
     "message": "التقاط المعاينة محليًا"

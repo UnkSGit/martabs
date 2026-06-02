@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "Keine Tabs konfiguriert. Alle Ordner werden zusammen angezeigt."
   },
+  "none": {
+    "message": "Keine"
+  },
   "openBrowserBookmarks": {
     "message": "Lesezeichen verwalten"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Sunrise"
+  },
+  "pressKey": {
+    "message": "Taste drücken..."
   },
   "previewCapture": {
     "message": "Lokale Vorschauen erfassen"
@@ -955,16 +961,16 @@
     "message": "Öffnet die Details beim Darüberfahren mit der Maus."
   },
   "showSortButtonDesc": {
-    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
+    "message": "Zeigt die Schaltfläche zum Sortieren der Lesezeichen im Ordner an."
   },
   "showSortButtonTitle": {
-    "message": "Mostrar botón de Ordenar"
+    "message": "Schaltfläche 'Sortieren' anzeigen"
   },
   "showViewButtonDesc": {
-    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+    "message": "Zeigt die Schaltfläche zum Ändern des Ansichtsmodus des Ordners an."
   },
   "showViewButtonTitle": {
-    "message": "Mostrar botón de Vista"
+    "message": "Schaltfläche 'Ansicht' anzeigen"
   },
   "sortBrowser": {
     "message": "Originalreihenfolge"

@@ -1,5 +1,5 @@
 import { getBrowserApi } from "../shared/browser-api.js";
-import { getFolderOptions } from "../shared/bookmarks.js";
+import { getFolderOptions, getFolderSelectionIds, getFolderSelectionScope, getNextFolderSelectionScope } from "../shared/bookmarks.js";
 import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shared/storage.js";
 import { generateExportData, parseAndRemapImport } from "../shared/sync.js";
 import { localizeHtml, t, initI18n, normalizeLanguageCode } from "../shared/i18n-helper.js";
@@ -63,6 +63,10 @@ const themeSelectHelperNote = document.querySelector("#theme-select-helper-note"
 
 let customWallpaperObjectUrl = null;
 let customWallpaperObjectUrls = { 1: null, 2: null, 3: null };
+const folderTreeExpandedIds = new Set();
+const folderTreeCollapsedIds = new Set();
+const tabsFolderTreeExpandedIds = new Set();
+const tabsFolderTreeCollapsedIds = new Set();
 const foldersSortActions = document.querySelector("#folders-sort-actions");
 const saveButton = document.querySelector("#save");
 const backButton = document.querySelector("#back-to-dashboard");
@@ -293,7 +297,10 @@ function renderFolderTree(nodes, selectedFolderIds) {
     const rowEl = document.createElement("div");
     rowEl.className = "folder-tree-row";
 
-    const isExpandedByDefault = parentPath.length === 0 || hasSelectedDescendant(node, selectedFolderIds);
+    const defaultExpanded = parentPath.length === 0 || hasSelectedDescendant(node, selectedFolderIds);
+    const isExpandedByDefault = folderTreeCollapsedIds.has(node.id)
+      ? false
+      : folderTreeExpandedIds.has(node.id) || defaultExpanded;
 
     const leftEl = document.createElement("div");
     leftEl.className = "folder-tree-row-left";
@@ -306,9 +313,19 @@ function renderFolderTree(nodes, selectedFolderIds) {
       btn.setAttribute("aria-label", `${t(api, "expandCollapse")} ${node.title}`);
       btn.setAttribute("aria-expanded", isExpandedByDefault ? "true" : "false");
 
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const expanded = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", !expanded ? "true" : "false");
+        const nextExpanded = !expanded;
+        if (nextExpanded) {
+          folderTreeExpandedIds.add(node.id);
+          folderTreeCollapsedIds.delete(node.id);
+        } else {
+          folderTreeCollapsedIds.add(node.id);
+          folderTreeExpandedIds.delete(node.id);
+        }
+        btn.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
         childrenEl.classList.toggle("is-collapsed", expanded);
       });
       leftEl.appendChild(btn);
@@ -323,17 +340,28 @@ function renderFolderTree(nodes, selectedFolderIds) {
     checkbox.value = node.id;
     checkbox.checked = selectedFolderIds.includes(node.id);
     checkbox.id = `folder-cb-${node.id}`;
+    const selectionScope = getFolderSelectionScope(
+      rawBookmarkTree || [],
+      node.id,
+      selectedFolderIds,
+      currentSettings.folderSelectionScopes || {}
+    );
+    checkbox.indeterminate = checkbox.checked && (selectionScope === "branch" || selectionScope === "children");
     
     if (checkbox.checked) {
       rowEl.classList.add("is-selected");
     }
+    rowEl.dataset.selectionScope = selectionScope;
     
     const fullPathString = nextPath.join(" / ");
     checkbox.setAttribute("aria-label", `${t(api, "selectFolder")} ${fullPathString}`);
 
+    checkbox.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
     checkbox.addEventListener("change", () => {
-      rowEl.classList.toggle("is-selected", checkbox.checked);
-      handleCheckboxChange(node.id, checkbox.checked);
+      handleCheckboxChange(node.id);
     });
 
     leftEl.appendChild(checkbox);
@@ -344,6 +372,11 @@ function renderFolderTree(nodes, selectedFolderIds) {
     const overrideName = (currentSettings.folderNameOverrides || {})[node.id];
     nameSpan.textContent = overrideName || node.title;
     nameSpan.title = overrideName || node.title;
+    
+    const scopeBadge = document.createElement("span");
+    scopeBadge.className = "folder-selection-scope-badge";
+    scopeBadge.textContent = getFolderScopeLabel(selectionScope);
+    scopeBadge.hidden = !checkbox.checked;
 
     nameSpan.addEventListener("dblclick", (e) => {
       e.stopPropagation();
@@ -396,6 +429,7 @@ function renderFolderTree(nodes, selectedFolderIds) {
     });
 
     leftEl.appendChild(nameSpan);
+    leftEl.appendChild(scopeBadge);
     rowEl.appendChild(leftEl);
 
     // Controles inline (Modo y Orden) que se muestran dinámicamente
@@ -501,20 +535,70 @@ function treeContainerClear() {
   }
 }
 
-function handleCheckboxChange(folderId, isChecked) {
-  let selectedIds = [...(currentSettings.selectedFolderIds || [])];
-  if (isChecked) {
-    if (!selectedIds.includes(folderId)) {
-      selectedIds.push(folderId);
+function getFolderScopeLabel(scope) {
+  if (scope === "branch") return t(api, "folderSelectionScopeBranch") || "Rama";
+  if (scope === "children") return t(api, "folderSelectionScopeChildren") || "Hijos";
+  if (scope === "self") return t(api, "folderSelectionScopeSelf") || "Solo";
+  return "";
+}
+
+function captureFolderTreeExpansionState() {
+  if (!folderTreeContainer) return;
+
+  folderTreeContainer.querySelectorAll(".folder-tree-node").forEach(node => {
+    const folderId = node.dataset.folderId;
+    const toggle = node.querySelector(":scope > .folder-tree-row .folder-toggle-btn");
+    if (!folderId || !toggle) return;
+
+    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+    if (isExpanded) {
+      folderTreeExpandedIds.add(folderId);
+      folderTreeCollapsedIds.delete(folderId);
+    } else {
+      folderTreeCollapsedIds.add(folderId);
+      folderTreeExpandedIds.delete(folderId);
     }
+  });
+}
+
+function replaceFolderSelectionScope(folderId, nextScope) {
+  const selectedIds = new Set(currentSettings.selectedFolderIds || []);
+  const affectedIds = getFolderSelectionIds(rawBookmarkTree || [], folderId, "branch");
+  const nextIds = getFolderSelectionIds(rawBookmarkTree || [], folderId, nextScope);
+  const scopes = { ...(currentSettings.folderSelectionScopes || {}) };
+
+  affectedIds.forEach(id => selectedIds.delete(id));
+  nextIds.forEach(id => selectedIds.add(id));
+
+  if (nextScope === "none") {
+    delete scopes[folderId];
   } else {
-    selectedIds = selectedIds.filter(id => id !== folderId);
+    scopes[folderId] = nextScope;
   }
-  currentSettings.selectedFolderIds = selectedIds;
+
+  currentSettings.folderSelectionScopes = scopes;
+  currentSettings.selectedFolderIds = [...selectedIds];
+}
+
+function handleCheckboxChange(folderId, isChecked) {
+  captureFolderTreeExpansionState();
+  const nextScope = getNextFolderSelectionScope(
+    rawBookmarkTree || [],
+    folderId,
+    currentSettings.selectedFolderIds || [],
+    currentSettings.folderSelectionScopes || {}
+  );
+  replaceFolderSelectionScope(folderId, nextScope);
   saveButton.disabled = false;
   if (typeof status !== "undefined" && status) {
     status.textContent = t(api, "unsavedChanges");
   }
+  renderFolders(
+    currentFolders,
+    currentSettings.selectedFolderIds,
+    currentSettings.folderModes || {},
+    currentSettings.folderSorts || {}
+  );
   renderSelectedFolders();
 }
 
@@ -661,13 +745,18 @@ function renderSelectedFolders() {
     removeBtn.setAttribute("aria-label", `${t(api, "removeFolder")} ${overrideName || folder.title}`);
 
     removeBtn.addEventListener("click", () => {
-      const checkbox = document.querySelector(`#folder-cb-${id}`);
-      if (checkbox) {
-        checkbox.checked = false;
-        checkbox.dispatchEvent(new Event("change"));
-      } else {
-        handleCheckboxChange(id, false);
+      replaceFolderSelectionScope(id, "none");
+      saveButton.disabled = false;
+      if (typeof status !== "undefined" && status) {
+        status.textContent = t(api, "unsavedChanges");
       }
+      renderFolders(
+        currentFolders,
+        currentSettings.selectedFolderIds,
+        currentSettings.folderModes || {},
+        currentSettings.folderSorts || {}
+      );
+      renderSelectedFolders();
     });
 
     itemEl.appendChild(removeBtn);
@@ -1002,6 +1091,9 @@ function renderTabsFolderTree(nodes, selectedFolderIds) {
       if (!isChildFolder) return false;
       return selectedFolderIds.includes(child.id) || hasSelectedDescendant(child, selectedFolderIds);
     });
+    const isExpandedByDefault = tabsFolderTreeCollapsedIds.has(node.id)
+      ? false
+      : tabsFolderTreeExpandedIds.has(node.id) || true;
 
     if (hasChildFolders) {
       const btn = document.createElement("button");
@@ -1009,11 +1101,21 @@ function renderTabsFolderTree(nodes, selectedFolderIds) {
       btn.className = "folder-toggle-btn";
       btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
       btn.setAttribute("aria-label", `${t(api, "expandCollapse")} ${node.title}`);
-      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-expanded", isExpandedByDefault ? "true" : "false");
 
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const expanded = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", !expanded ? "true" : "false");
+        const nextExpanded = !expanded;
+        if (nextExpanded) {
+          tabsFolderTreeExpandedIds.add(node.id);
+          tabsFolderTreeCollapsedIds.delete(node.id);
+        } else {
+          tabsFolderTreeCollapsedIds.add(node.id);
+          tabsFolderTreeExpandedIds.delete(node.id);
+        }
+        btn.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
         childrenEl.classList.toggle("is-collapsed", expanded);
       });
       leftEl.appendChild(btn);
@@ -1041,7 +1143,7 @@ function renderTabsFolderTree(nodes, selectedFolderIds) {
     let childrenEl = null;
     if (node.children && node.children.length > 0) {
       childrenEl = document.createElement("div");
-      childrenEl.className = "folder-tree-children";
+      childrenEl.className = "folder-tree-children" + (isExpandedByDefault ? "" : " is-collapsed");
 
       let childCount = 0;
       for (const child of node.children) {
@@ -1632,9 +1734,14 @@ async function init() {
   if (tabsCollapseAllBtn) {
     tabsCollapseAllBtn.addEventListener("click", () => {
       if (!tabsFolderTreeContainer) return;
+      tabsFolderTreeExpandedIds.clear();
       const allChildren = tabsFolderTreeContainer.querySelectorAll(".folder-tree-children");
       allChildren.forEach(children => {
         children.classList.add("is-collapsed");
+        const parentNode = children.closest(".folder-tree-node");
+        if (parentNode?.dataset.folderId) {
+          tabsFolderTreeCollapsedIds.add(parentNode.dataset.folderId);
+        }
       });
       const allToggleBtns = tabsFolderTreeContainer.querySelectorAll(".folder-toggle-btn");
       allToggleBtns.forEach(btn => {
@@ -2487,7 +2594,8 @@ async function resetLocalOrganization() {
     ...currentSettings,
     bookmarkFolderOverrides: {},
     folderBookmarkOrders: {},
-    folderNameOverrides: {}
+    folderNameOverrides: {},
+    folderSelectionScopes: {}
   };
 
   await saveSettings(api, currentSettings);
@@ -2506,6 +2614,7 @@ async function clearPreviewCache() {
 if (toggleAllFoldersBtn) {
   toggleAllFoldersBtn.addEventListener("click", () => {
     if (!folderTreeContainer) return;
+    captureFolderTreeExpansionState();
     const checkboxes = folderTreeContainer.querySelectorAll("input[type='checkbox']");
     const allChecked = [...checkboxes].every(cb => cb.checked);
     const newState = !allChecked;
@@ -2522,10 +2631,19 @@ if (toggleAllFoldersBtn) {
       }
     });
     currentSettings.selectedFolderIds = selectedIds;
+    currentSettings.folderSelectionScopes = newState
+      ? Object.fromEntries(selectedIds.map(id => [id, "self"]))
+      : {};
     saveButton.disabled = false;
     if (typeof status !== "undefined" && status) {
       status.textContent = t(api, "unsavedChanges");
     }
+    renderFolders(
+      currentFolders,
+      currentSettings.selectedFolderIds,
+      currentSettings.folderModes || {},
+      currentSettings.folderSorts || {}
+    );
     renderSelectedFolders();
   });
 }
@@ -2533,9 +2651,14 @@ if (toggleAllFoldersBtn) {
 if (collapseAllBtn) {
   collapseAllBtn.addEventListener("click", () => {
     if (!folderTreeContainer) return;
+    folderTreeExpandedIds.clear();
     const allChildren = folderTreeContainer.querySelectorAll(".folder-tree-children");
     allChildren.forEach(children => {
       children.classList.add("is-collapsed");
+      const parentNode = children.closest(".folder-tree-node");
+      if (parentNode?.dataset.folderId) {
+        folderTreeCollapsedIds.add(parentNode.dataset.folderId);
+      }
     });
     const allToggleBtns = folderTreeContainer.querySelectorAll(".folder-toggle-btn");
     allToggleBtns.forEach(btn => {
@@ -2818,7 +2941,7 @@ init().then(() => {
 });
 
 function formatKeyName(key) {
-  if (!key) return "Ninguno";
+  if (!key) return t(api, "none");
   if (key === " ") return "Space";
   return key.charAt(0).toUpperCase() + key.slice(1);
 }
@@ -2834,7 +2957,7 @@ function bindCatcher(catcher, index) {
   if (!catcher) return;
   catcher.addEventListener("click", () => {
     activeCatcherIndex = index;
-    catcher.textContent = "Presiona...";
+    catcher.textContent = t(api, "pressKey");
     catcher.focus();
   });
 
@@ -2915,7 +3038,10 @@ async function renderStatistics() {
       let domain = "";
       try { domain = new URL(urls[id]).hostname; } catch(e) {}
       const faviconUrl = domain ? `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=32` : "";
-      const visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
+      let visitsText = t(api, count === 1 ? "visitsCountSingular" : "visitsCountPlural", [String(count)]);
+      if (visitsText === "visitsCountSingular" || visitsText === "visitsCountPlural") {
+        visitsText = String(count);
+      }
 
       const item = document.createElement("div");
       item.setAttribute("role", "listitem");
@@ -2944,7 +3070,7 @@ async function renderStatistics() {
 
       const countEl = document.createElement("div");
       countEl.style.cssText = "width: 80px; min-width: 80px; font-size: 12px; color: var(--text-secondary); text-align: end;";
-      countEl.textContent = visitsText || `${count} aperturas`;
+      countEl.textContent = visitsText || String(count);
 
       const barWrap = document.createElement("div");
       barWrap.setAttribute("aria-hidden", "true");

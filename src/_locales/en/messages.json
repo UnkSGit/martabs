@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "No tabs configured. All folders will be shown together."
   },
+  "none": {
+    "message": "None"
+  },
   "openBrowserBookmarks": {
     "message": "Manage bookmarks"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Sunrise"
+  },
+  "pressKey": {
+    "message": "Press key..."
   },
   "previewCapture": {
     "message": "Capture local previews"

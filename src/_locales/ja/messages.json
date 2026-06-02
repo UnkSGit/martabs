@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "タブが設定されていません。すべてのフォルダが一緒に表示されます。"
   },
+  "none": {
+    "message": "なし"
+  },
   "openBrowserBookmarks": {
     "message": "ブックマークを管理"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "サンライズ"
+  },
+  "pressKey": {
+    "message": "キーを押してください..."
   },
   "previewCapture": {
     "message": "ローカルプレビューをキャプチャ"

@@ -658,6 +658,9 @@
   "noTabsConfigured": {
     "message": "Aucun onglet configuré. Tous les dossiers seront affichés ensemble."
   },
+  "none": {
+    "message": "Aucun"
+  },
   "openBrowserBookmarks": {
     "message": "Gérer les favoris"
   },
@@ -681,6 +684,9 @@
   },
   "presetWarmSunrise": {
     "message": "Aurore"
+  },
+  "pressKey": {
+    "message": "Appuyez sur une touche..."
   },
   "previewCapture": {
     "message": "Capturer des aperçus locaux"
@@ -955,16 +961,16 @@
     "message": "Ouvre le panneau de détails au survol de la souris."
   },
   "showSortButtonDesc": {
-    "message": "Muestra el botón para ordenar los marcadores de la carpeta."
+    "message": "Affiche le bouton pour trier les favoris dans le dossier."
   },
   "showSortButtonTitle": {
-    "message": "Mostrar botón de Ordenar"
+    "message": "Afficher le bouton Trier"
   },
   "showViewButtonDesc": {
-    "message": "Muestra el botón para cambiar el modo de vista de la carpeta."
+    "message": "Affiche le bouton permettant de modifier le mode d'affichage du dossier."
   },
   "showViewButtonTitle": {
-    "message": "Mostrar botón de Vista"
+    "message": "Afficher le bouton Vue"
   },
   "sortBrowser": {
     "message": "Ordre d'origine"
