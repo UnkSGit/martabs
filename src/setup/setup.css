@@ -779,6 +779,73 @@ button:disabled {
   margin-inline-start: auto;
 }
 
+/* Spacious Overhaul Layout Primitives */
+.settings-section-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.settings-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 22px;
+  align-items: start;
+}
+
+.settings-group {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-bg);
+  overflow: hidden;
+}
+
+.settings-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.settings-group-header strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.settings-group-header small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.settings-group-body {
+  display: grid;
+  gap: 0;
+}
+
+.settings-group-body > .setting-row,
+.settings-group-body > .switch-row {
+  min-height: 72px;
+  border: 0;
+  border-bottom: 1px solid var(--surface-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.settings-group-body > .setting-row:last-child,
+.settings-group-body > .switch-row:last-child {
+  border-bottom: 0;
+}
+
+.settings-side-panel {
+  display: grid;
+  gap: 16px;
+}
+
 #status {
   max-width: 420px;
   margin: 0;
@@ -815,6 +882,10 @@ button:disabled {
 
   .setup-layout {
     display: block;
+  }
+
+  .settings-two-column {
+    grid-template-columns: 1fr;
   }
 
   .setup-sidebar {

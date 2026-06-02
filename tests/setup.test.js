@@ -66,6 +66,12 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /\.folder-tree-inline-controls\s*{/);
   assert.doesNotMatch(css, /min-height: calc\(100vh/);
   assert.match(css, /\.setting-row[,\s]/);
+  assert.match(css, /\.settings-section-grid\s*{/);
+  assert.match(css, /\.settings-two-column\s*{/);
+  assert.match(css, /\.settings-group\s*{/);
+  assert.match(css, /\.settings-group-header\s*{/);
+  assert.match(css, /\.settings-group-body\s*{/);
+  assert.match(css, /\.settings-side-panel\s*{/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
 });
