@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Benutzerdefiniertes Hintergrundbild aktiv"
   },
+  "dashboardDescription": {
+    "message": "Konfigurieren Sie Spalten, Sortierung und Registerkarten des Haupt-Dashboards."
+  },
   "dateAdded": {
     "message": "Hinzugefügt: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Datenschutz"
   },
+  "productivityFeaturesDesc": {
+    "message": "Optionen zur Bereicherung Ihrer Lesezeichen-Erfahrung."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Tools und Screenshots"
+  },
   "removeFolder": {
     "message": "Ordner entfernen"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "löschen vorschauen cache erfassen bilder"
   },
+  "searchDashboardSection": {
+    "message": "dashboard ordner spalten tabs ansicht sortierung angepinnt"
+  },
+  "searchDataSection": {
+    "message": "daten datenschutz statistiken import export json speicher"
+  },
   "searchExportBtn": {
     "message": "exportieren konfiguration backup herunterladen json"
+  },
+  "searchFeaturesSection": {
+    "message": "funktionen links screenshots haeufige seiten tags barrierefreiheit shortcuts"
   },
   "searchFolders": {
     "message": "ordner auswählen überwachen ansicht sortierung manuell standard"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Einstellungen"
+  },
+  "setupSectionDashboard": {
+    "message": "Dashboard"
+  },
+  "setupSectionData": {
+    "message": "Daten"
+  },
+  "setupSectionDataDesc": {
+    "message": "Lokale Statistiken, Speicher und Import/Export verwalten."
+  },
+  "setupSectionFeatures": {
+    "message": "Funktionen"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Aktivieren Sie optionale Dashboard-Funktionen und Schnellzugriffe."
   },
   "setupTitle": {
     "message": "martabs konfigurieren"

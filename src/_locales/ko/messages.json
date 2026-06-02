@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "사용자 지정 배경화면 활성화됨"
   },
+  "dashboardDescription": {
+    "message": "기본 대시보드의 열, 정렬 및 탭을 구성합니다."
+  },
   "dateAdded": {
     "message": "추가됨: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "개인정보 보호"
   },
+  "productivityFeaturesDesc": {
+    "message": "북마크 환경을 풍부하게 만드는 옵션."
+  },
+  "productivityFeaturesHeading": {
+    "message": "도구 및 캡처"
+  },
   "removeFolder": {
     "message": "폴더 제거"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "정리 미리보기 캐시 캡처 이미지"
   },
+  "searchDashboardSection": {
+    "message": "대시보드 폴더 열 탭 보기 정렬 고정"
+  },
+  "searchDataSection": {
+    "message": "데이터 개인정보 통계 가져오기 내보내기 저장소"
+  },
   "searchExportBtn": {
     "message": "내보내기 설정 백업 다운로드 json"
+  },
+  "searchFeaturesSection": {
+    "message": "기능 링크 캡처 자주 방문하는 사이트 태그 접근성 단축키"
   },
   "searchFolders": {
     "message": "폴더 선택 모니터링 보기 정렬 수동 기본값"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "설정"
+  },
+  "setupSectionDashboard": {
+    "message": "대시보드"
+  },
+  "setupSectionData": {
+    "message": "데이터"
+  },
+  "setupSectionDataDesc": {
+    "message": "로컬 통계, 저장소 및 가져오기/내보내기를 제어합니다."
+  },
+  "setupSectionFeatures": {
+    "message": "기능"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "선택적 대시보드 기능 및 빠른 단축키를 활성화합니다."
   },
   "setupTitle": {
     "message": "martabs 구성"

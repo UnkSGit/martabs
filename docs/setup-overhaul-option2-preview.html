@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>martabs setup overhaul preview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d1118;
+        --panel: #151b25;
+        --panel-2: #101722;
+        --panel-3: #1b2330;
+        --line: rgba(159, 179, 208, 0.16);
+        --line-strong: rgba(40, 206, 194, 0.36);
+        --text: #edf4ff;
+        --muted: #9aa9bd;
+        --soft: #6f7f93;
+        --primary: #19c6b8;
+        --primary-2: #76f0e6;
+        --danger: #ff6b7d;
+        --shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 18% 16%, rgba(25, 198, 184, 0.16), transparent 30%),
+          radial-gradient(circle at 88% 10%, rgba(116, 93, 255, 0.13), transparent 26%),
+          linear-gradient(135deg, #0b0f16 0%, #111827 100%);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        padding: 42px;
+      }
+
+      .setup-frame {
+        width: min(1280px, calc(100vw - 84px));
+        min-height: 760px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(15, 21, 31, 0.86);
+        box-shadow: var(--shadow);
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 250px 1fr auto;
+        gap: 22px;
+        align-items: center;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(12, 17, 25, 0.72);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .back {
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        background: var(--panel-2);
+      }
+
+      .brand img {
+        width: 112px;
+        filter: drop-shadow(0 0 12px rgba(118, 240, 230, 0.4));
+      }
+
+      .setup-title span {
+        display: block;
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .setup-title strong {
+        display: block;
+        margin-top: 2px;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .search {
+        height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.035);
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .save-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .status {
+        max-width: 240px;
+        color: var(--soft);
+        text-align: right;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .save {
+        height: 42px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 12px;
+        background: var(--primary);
+        color: #031816;
+        font-weight: 900;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 236px 1fr;
+        min-height: 0;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 20px 16px;
+        border-right: 1px solid var(--line);
+        background: rgba(20, 28, 40, 0.58);
+      }
+
+      .nav-item {
+        min-height: 48px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        display: grid;
+        grid-template-columns: 26px 1fr;
+        gap: 10px;
+        align-items: center;
+        color: var(--muted);
+        border: 1px solid transparent;
+      }
+
+      .nav-item b {
+        display: block;
+        color: inherit;
+        font-size: 13px;
+      }
+
+      .nav-item small {
+        display: block;
+        margin-top: 2px;
+        color: var(--soft);
+        font-size: 11px;
+      }
+
+      .nav-item.is-active {
+        color: var(--text);
+        border-color: var(--line-strong);
+        background: linear-gradient(135deg, rgba(25, 198, 184, 0.18), rgba(25, 198, 184, 0.05));
+      }
+
+      .nav-icon {
+        width: 26px;
+        height: 26px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.045);
+        color: var(--primary-2);
+        font-size: 14px;
+      }
+
+      .version {
+        margin-top: auto;
+        padding: 14px 12px 0;
+        border-top: 1px dashed var(--line);
+        color: var(--soft);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .content {
+        min-width: 0;
+        padding: 26px 30px 34px;
+        overflow: hidden;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 20px;
+      }
+
+      .section-head h2 {
+        margin: 0 0 5px;
+        font-size: 25px;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .quick-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .ghost {
+        height: 34px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.035);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) 310px;
+        gap: 18px;
+      }
+
+      .group {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(19, 27, 39, 0.72);
+        overflow: hidden;
+      }
+
+      .group-head {
+        min-height: 58px;
+        padding: 15px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .group-head b {
+        font-size: 14px;
+      }
+
+      .group-head small {
+        display: block;
+        margin-top: 3px;
+        color: var(--soft);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .setting-row {
+        min-height: 64px;
+        padding: 13px 16px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+        border-bottom: 1px solid rgba(159, 179, 208, 0.09);
+      }
+
+      .setting-row:last-child {
+        border-bottom: 0;
+      }
+
+      .setting-row strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 13px;
+      }
+
+      .setting-row small {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .segmented,
+      .select {
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--panel-2);
+        display: flex;
+        align-items: center;
+        padding: 3px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .segmented span {
+        padding: 7px 10px;
+        border-radius: 8px;
+      }
+
+      .segmented .on {
+        background: var(--primary);
+        color: #021716;
+      }
+
+      .select {
+        min-width: 156px;
+        justify-content: space-between;
+        padding: 0 11px;
+        color: var(--text);
+      }
+
+      .folder-panel {
+        max-height: 390px;
+        overflow: hidden;
+      }
+
+      .folder-list {
+        padding: 10px;
+        display: grid;
+        gap: 5px;
+      }
+
+      .folder-line {
+        height: 38px;
+        display: grid;
+        grid-template-columns: 24px 1fr auto auto;
+        gap: 9px;
+        align-items: center;
+        padding: 0 10px;
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .folder-line.active {
+        background: rgba(25, 198, 184, 0.14);
+      }
+
+      .check {
+        width: 15px;
+        height: 15px;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+      }
+
+      .check.on {
+        border-color: var(--primary);
+        background: var(--primary);
+        box-shadow: inset 0 0 0 3px #10232b;
+      }
+
+      .path {
+        color: var(--soft);
+        font-size: 11px;
+      }
+
+      .mini-select {
+        width: 98px;
+        height: 28px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: #101722;
+        color: var(--muted);
+        display: grid;
+        place-items: center;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .side-stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .board-preview {
+        padding: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .preview-card {
+        padding: 12px;
+        border: 1px solid rgba(159, 179, 208, 0.13);
+        border-radius: 13px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+      }
+
+      .preview-card b {
+        display: block;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+      }
+
+      .bookmark {
+        height: 22px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 750;
+      }
+
+      .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        background: var(--primary);
+        opacity: 0.8;
+      }
+
+      .hint {
+        padding: 14px;
+        border: 1px solid rgba(25, 198, 184, 0.22);
+        border-radius: 14px;
+        background: rgba(25, 198, 184, 0.08);
+      }
+
+      .hint b {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+
+      .hint p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="setup-frame">
+      <header class="topbar">
+        <div class="brand">
+          <div class="back">←</div>
+          <img src="../src/images/newlogo.png" alt="martabs">
+        </div>
+        <label class="search">Buscar ajustes, permisos, carpetas o fondo...</label>
+        <div class="save-area">
+          <div class="status">Cambios pendientes en Organización</div>
+          <button class="save">Guardar cambios</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="setup-title">
+            <span>Configuración</span>
+            <strong>martabs</strong>
+          </div>
+          <div class="nav-item is-active">
+            <span class="nav-icon">▦</span>
+            <span><b>Tablero</b><small>Carpetas, pestañas y vistas</small></span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">◐</span>
+            <span><b>Apariencia</b><small>Tema, idioma y fondo</small></span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">◇</span>
+            <span><b>Funciones</b><small>Previews, links y tags</small></span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">◎</span>
+            <span><b>Datos</b><small>Privacidad y estadísticas</small></span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">⌘</span>
+            <span><b>Avanzado</b><small>Exportar, reset y versión</small></span>
+          </div>
+          <div class="version">martabs v0.9.9 · local first</div>
+        </aside>
+
+        <section class="content">
+          <div class="section-head">
+            <div>
+              <h2>Tablero</h2>
+              <p>Todo lo que define cómo se organizan y aparecen tus columnas en la nueva pestaña.</p>
+            </div>
+            <div class="quick-actions">
+              <button class="ghost">Ordenar columnas</button>
+              <button class="ghost">Administrar marcadores</button>
+            </div>
+          </div>
+
+          <div class="workspace">
+            <div class="group folder-panel">
+              <div class="group-head">
+                <span><b>Carpetas monitoreadas</b><small>Seleccioná, renombrá y ajustá cada carpeta desde el árbol.</small></span>
+                <button class="ghost">Marcar todas</button>
+              </div>
+              <div class="folder-list">
+                <div class="folder-line active">
+                  <span class="check on"></span>
+                  <span>Barra de favoritos</span>
+                  <span class="mini-select">Lista</span>
+                  <span class="mini-select">Manual</span>
+                </div>
+                <div class="folder-line">
+                  <span class="check on"></span>
+                  <span>Personales <span class="path">/ Familia</span></span>
+                  <span class="mini-select">Iconos</span>
+                  <span class="mini-select">Título</span>
+                </div>
+                <div class="folder-line">
+                  <span class="check"></span>
+                  <span>Otros favoritos / Importados / Opera</span>
+                  <span class="mini-select">Default</span>
+                  <span class="mini-select">Default</span>
+                </div>
+                <div class="folder-line active">
+                  <span class="check on"></span>
+                  <span>Contenedor</span>
+                  <span class="mini-select">Lista</span>
+                  <span class="mini-select">Manual</span>
+                </div>
+                <div class="folder-line">
+                  <span class="check on"></span>
+                  <span>Elastic Course</span>
+                  <span class="mini-select">Compacta</span>
+                  <span class="mini-select">Fecha</span>
+                </div>
+                <div class="folder-line">
+                  <span class="check"></span>
+                  <span>Meets Cuatri</span>
+                  <span class="mini-select">Default</span>
+                  <span class="mini-select">Default</span>
+                </div>
+              </div>
+            </div>
+
+            <aside class="side-stack">
+              <div class="group">
+                <div class="group-head">
+                  <span><b>Valores por defecto</b><small>Se aplican donde no hay ajuste propio.</small></span>
+                </div>
+                <div class="setting-row">
+                  <span><strong>Modo visual</strong><small>Vista inicial de las columnas.</small></span>
+                  <span class="select">Lista completa ▾</span>
+                </div>
+                <div class="setting-row">
+                  <span><strong>Orden</strong><small>Orden inicial de marcadores.</small></span>
+                  <span class="select">Original ▾</span>
+                </div>
+                <div class="setting-row">
+                  <span><strong>Pestaña “Todo”</strong><small>Mostrar o esconder vista global.</small></span>
+                  <span class="segmented"><span class="on">Mostrar</span><span>Ocultar</span></span>
+                </div>
+              </div>
+
+              <div class="group">
+                <div class="group-head">
+                  <span><b>Preview del tablero</b><small>Vista aproximada, no interactiva.</small></span>
+                </div>
+                <div class="board-preview">
+                  <div class="preview-card">
+                    <b>Barra de favoritos</b>
+                    <div class="bookmark"><span class="dot"></span>Video Archiv / LiveTV</div>
+                    <div class="bookmark"><span class="dot"></span>IBM</div>
+                  </div>
+                  <div class="preview-card">
+                    <b>Contenedor</b>
+                    <div class="bookmark"><span class="dot"></span>Portainer</div>
+                    <div class="bookmark"><span class="dot"></span>Grafana</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hint">
+                <b>Idea del rediseño</b>
+                <p>Menos secciones principales, más contexto dentro de cada pantalla y acciones rápidas donde realmente se usan.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

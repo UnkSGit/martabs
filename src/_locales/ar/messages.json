@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "خلفية مخصصة نشطة"
   },
+  "dashboardDescription": {
+    "message": "تكوين الأعمدة والترتيب وعلامات التبويب للوحة التحكم الرئيسية."
+  },
   "dateAdded": {
     "message": "تاريخ الإضافة: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "الخصوصية"
   },
+  "productivityFeaturesDesc": {
+    "message": "خيارات لإثراء تجربة الإشارات المرجعية الخاصة بك."
+  },
+  "productivityFeaturesHeading": {
+    "message": "الأدوات واللقطات"
+  },
   "removeFolder": {
     "message": "إزالة المجلد"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "مسح المعاينات"
   },
+  "searchDashboardSection": {
+    "message": "لوحة التحكم مجلدات أعمدة علامات تبويب عرض ترتيب مثبت"
+  },
+  "searchDataSection": {
+    "message": "بيانات خصوصية إحصاءات استيراد تصدير تخزين"
+  },
   "searchExportBtn": {
     "message": "تصدير"
+  },
+  "searchFeaturesSection": {
+    "message": "ميزات روابط لقطات مواقع شائعة علامات إمكانية الوصول اختصارات"
   },
   "searchFolders": {
     "message": "بحث في المجلدات..."
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "الإعدادات"
+  },
+  "setupSectionDashboard": {
+    "message": "لوحة التحكم"
+  },
+  "setupSectionData": {
+    "message": "البيانات"
+  },
+  "setupSectionDataDesc": {
+    "message": "التحكم في الإحصاءات المحلية والتخزين والاستيراد والتصدير."
+  },
+  "setupSectionFeatures": {
+    "message": "الميزات"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "تمكين ميزات لوحة التحكم الاختيارية والاختصارات السريعة."
   },
   "setupTitle": {
     "message": "إعدادات Martabs"

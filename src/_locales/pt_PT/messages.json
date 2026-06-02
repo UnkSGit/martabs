@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Plano de fundo personalizado activo"
   },
+  "dashboardDescription": {
+    "message": "Configure colunas, ordenação e separadores do painel principal."
+  },
   "dateAdded": {
     "message": "Adicionado: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Privacidade"
   },
+  "productivityFeaturesDesc": {
+    "message": "Opções para enriquecer a sua experiência de marcadores."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Ferramentas e capturas"
+  },
   "removeFolder": {
     "message": "Remover pasta"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "limpar previews cache capturas imagens"
   },
+  "searchDashboardSection": {
+    "message": "painel pastas colunas separadores visualizacao ordenacao fixados"
+  },
+  "searchDataSection": {
+    "message": "dados privacidade estatisticas importar exportar json armazenamento"
+  },
   "searchExportBtn": {
     "message": "exportar configuração backup baixar json"
+  },
+  "searchFeaturesSection": {
+    "message": "funcionalidades links capturas sites frequentes tags acessibilidade atalhos"
   },
   "searchFolders": {
     "message": "pastas selecionar monitorar visualização ordenação manual padrão"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Configurações"
+  },
+  "setupSectionDashboard": {
+    "message": "Painel"
+  },
+  "setupSectionData": {
+    "message": "Dados"
+  },
+  "setupSectionDataDesc": {
+    "message": "Controlar estatísticas locais, armazenamento e importação/exportação."
+  },
+  "setupSectionFeatures": {
+    "message": "Funcionalidades"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Ativar funcionalidades opcionais do painel e atalhos rápidos."
   },
   "setupTitle": {
     "message": "Configurar martabs"

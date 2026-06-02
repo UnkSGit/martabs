@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "カスタム壁紙が有効"
   },
+  "dashboardDescription": {
+    "message": "メインダッシュボードの列、並べ替え、およびタブを設定します。"
+  },
   "dateAdded": {
     "message": "追加日: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "プライバシー"
   },
+  "productivityFeaturesDesc": {
+    "message": "ブックマーク体験を豊かにするためのオプション。"
+  },
+  "productivityFeaturesHeading": {
+    "message": "ツールとキャプチャ"
+  },
   "removeFolder": {
     "message": "フォルダを削除"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "クリア プレビュー キャッシュ キャプチャ 画像"
   },
+  "searchDashboardSection": {
+    "message": "ダッシュボード フォルダ 列 タブ 表示 順序 固定"
+  },
+  "searchDataSection": {
+    "message": "データ プライバシー 統計 インポート エクスポート ストレージ"
+  },
   "searchExportBtn": {
     "message": "エクスポート 設定 バックアップ ダウンロード json"
+  },
+  "searchFeaturesSection": {
+    "message": "機能 リンク キャプチャ よく使うサイト タグ アクセシビリティ ショートカット"
   },
   "searchFolders": {
     "message": "フォルダ 選択 監視 表示 ソート 手動 デフォルト"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "設定"
+  },
+  "setupSectionDashboard": {
+    "message": "ダッシュボード"
+  },
+  "setupSectionData": {
+    "message": "データ"
+  },
+  "setupSectionDataDesc": {
+    "message": "ローカル統計、ストレージ、およびインポート/エクスポートを管理します。"
+  },
+  "setupSectionFeatures": {
+    "message": "機能"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "オプションのダッシュボード機能とクイックショートカットを有効にします。"
   },
   "setupTitle": {
     "message": "martabs の設定"

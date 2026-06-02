@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Sfondo personalizzato attivo"
   },
+  "dashboardDescription": {
+    "message": "Configura colonne, ordinamento e schede della bacheca principale."
+  },
   "dateAdded": {
     "message": "Aggiunto il: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Privacy"
   },
+  "productivityFeaturesDesc": {
+    "message": "Opzioni per arricchire l'esperienza dei tuoi segnalibri."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Strumenti e catture"
+  },
   "removeFolder": {
     "message": "Rimuovi cartella"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "cancella anteprime cache cattura immagini"
   },
+  "searchDashboardSection": {
+    "message": "bacheca cartelle colonne schede vista ordinamento fissati"
+  },
+  "searchDataSection": {
+    "message": "dati privacy statistiche importa esporta json archiviazione"
+  },
   "searchExportBtn": {
     "message": "esporta configurazione backup scarica json"
+  },
+  "searchFeaturesSection": {
+    "message": "funzioni collegamenti catture siti frequenti tag accessibilita scorciatoie"
   },
   "searchFolders": {
     "message": "cartelle seleziona monitora vista ordinamento manuale predefinito"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Impostazioni"
+  },
+  "setupSectionDashboard": {
+    "message": "Bacheca"
+  },
+  "setupSectionData": {
+    "message": "Dati"
+  },
+  "setupSectionDataDesc": {
+    "message": "Controlla le statistiche locali, l'archiviazione e l'importazione/esportazione."
+  },
+  "setupSectionFeatures": {
+    "message": "Funzioni"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Abilita funzioni opzionali della bacheca e scorciatoie rapide."
   },
   "setupTitle": {
     "message": "Configura martabs"

@@ -87,7 +87,7 @@
                         <div id="selected-folders-list" class="selected-folders-list" aria-label="Carpetas seleccionadas" role="list"></div>
                       </div>
                       <div id="folders-sort-actions" style="margin-top: 16px; display: none; justify-content: flex-end;">
-                        <button type="button" id="back-to-tree-btn" class="primary-button" style="padding: 8px 16px; font-size: 12px;" data-i18n="backToTree">Volver al árbol</button>
+                        <button type="button" id="back-to-tree-btn" class="primary-button compact-action-button" data-i18n="backToTree">Volver al árbol</button>
                       </div>
                     </div>
                   </div>
@@ -198,13 +198,13 @@
                           <h4 data-i18n="foldersHeading" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0;">Carpetas</h4>
                           <button type="button" id="tabs-collapse-all-btn" class="secondary-button compact-action-button" data-i18n="collapseAll">Colapsar todas</button>
                         </div>
-                        <p style="margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);" data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</p>
+                        <p class="settings-inline-note" data-i18n="tabsTreeInstructions">Arrastra carpetas monitoreadas hacia las pestañas de la derecha para asignarlas.</p>
                         <div id="tabs-folder-tree-container" class="folder-tree" role="tree"></div>
                       </div>
                       <!-- Right column: tab dropzones list -->
                       <div class="tabs-drag-right-pane">
                         <h4 data-i18n="tabsDropzonesTitle" class="pane-title-small" style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Pestañas y Asignaciones</h4>
-                        <p style="margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);" data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña.</p>
+                        <p class="settings-inline-note" data-i18n="tabsDropzonesInstructions">Suelta carpetas aquí para asignarlas. Usa 'Sin pestaña' para quitarlas de una pestaña.</p>
                         <div id="tabs-dropzones-list" class="tabs-dropzones-list">
                           <!-- Tab dropzones rendered dynamically -->
                         </div>
@@ -215,512 +215,606 @@
               </div>
             </section>
 
-            <section id="section-appearance" class="setup-section" data-section="appearance" data-i18n-search="searchAppearance" data-search="apariencia tema modo vista orden fijados preview vista rapida">
+            <section id="section-appearance" class="setup-section" data-section="appearance" data-i18n-search="searchAppearance" data-search="apariencia tema modo vista orden fijados preview vista rapida fondo personalizado pantalla imagen cargar webp 12mb legibilidad intensidad slider color esquema claro oscuro automatico rotacion slots brillo opacidad">
               <div class="section-heading">
                 <h2 data-i18n="appearanceHeading">Apariencia</h2>
                 <p data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</p>
               </div>
-              <div class="settings-stack">
-                <label class="setting-row" data-i18n-search="searchThemeRow" data-search="tema color sistema claro oscuro">
-                  <span>
-                    <strong data-i18n="theme">Tema</strong>
-                    <small data-i18n="themeDesc">Respeta el sistema o fuerza claro/oscuro.</small>
-                  </span>
-                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-                    <select id="theme-select">
-                      <option value="system" data-i18n="themeSystem">Sistema (Automatico)</option>
-                      <option value="light" data-i18n="themeLight">Claro</option>
-                      <option value="dark" data-i18n="themeDark">Oscuro</option>
-                    </select>
-                    <small id="theme-select-helper-note" style="font-size: 11px; color: var(--warning-text); display: none; text-align: right; max-width: 250px; line-height: 1.3;" data-i18n="themeSelectHelperNote">El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado.</small>
-                  </div>
-                </label>
-
-                <label class="setting-row" data-i18n-search="searchLanguageRow" data-search="idioma lenguaje ingles espanol system sistema">
-                  <span>
-                    <strong data-i18n="language">Idioma</strong>
-                    <small data-i18n="languageDesc">Elige el idioma de la interfaz.</small>
-                  </span>
-                  <select id="language-select">
-                    <option value="system" data-i18n="languageSystem">Sistema</option>
-                    <option value="de" data-i18n="languageDe">Alemán</option>
-                    <option value="ar" data-i18n="languageAr">Árabe</option>
-                    <option value="zh_CN" data-i18n="languageZh">Chino</option>
-                    <option value="ko" data-i18n="languageKo">Coreano</option>
-                    <option value="es" data-i18n="languageEs">Español</option>
-                    <option value="fr" data-i18n="languageFr">Francés</option>
-                    <option value="en" data-i18n="languageEn">Inglés</option>
-                    <option value="it" data-i18n="languageIt">Italiano</option>
-                    <option value="ja" data-i18n="languageJa">Japonés</option>
-                    <option value="pt_BR" data-i18n="languagePt">Portugués</option>
-                    <option value="ru" data-i18n="languageRu">Ruso</option>
-                  </select>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchPreviewRow" data-search="vista rapida preview tooltip detalle mouse">
-                  <input id="preview-enabled" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="showPreview">Mostrar vista rapida</strong>
-                    <small data-i18n="showPreviewDesc">Abre el panel de detalle al pasar el mouse.</small>
-                  </span>
-                </label>
-              </div>
-            </section>
-
-            <section id="section-wallpaper" class="setup-section" data-section="wallpaper" data-i18n-search="searchWallpaperSection" data-search="fondo personalizado pantalla imagen cargar webp 12mb legibilidad intensidad slider color esquema claro oscuro automatico rotacion slots brillo opacidad">
-              <div class="section-heading">
-                <h2 data-i18n="wallpaperHeading">Fondo de pantalla</h2>
-                <p data-i18n="wallpaperDescription">Personaliza el fondo del tablero principal de tu nueva pestaña.</p>
-              </div>
-              <div class="settings-stack">
-                <!-- Selector de tipo de fondo -->
-                <div class="setting-row wallpaper-type-row" id="wallpaper-type-row">
-                  <span>
-                    <strong data-i18n="wallpaperType">Tipo de fondo</strong>
-                  </span>
-                  <div class="wallpaper-type-segment" role="group" aria-label="Tipo de fondo">
-                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="none" data-i18n="wallpaperTypeNone">Sin fondo</button>
-                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="image" data-i18n="wallpaperTypeImage">Imagen</button>
-                    <button type="button" class="wallpaper-type-option" data-wallpaper-type="gradient" data-i18n="wallpaperTypeGradient">Degradado</button>
-                  </div>
-                  <select id="wallpaper-type-select" class="sr-only" aria-hidden="true" tabindex="-1">
-                    <option value="none" data-i18n="wallpaperTypeNone">Sin fondo</option>
-                    <option value="image" data-i18n="wallpaperTypeImage">Imagen</option>
-                    <option value="gradient" data-i18n="wallpaperTypeGradient">Degradado</option>
-                  </select>
-                </div>
-
-                <!-- Contenedor de Fondos de Imagen -->
-                <div id="wallpaper-image-container" class="settings-stack" style="display: none; padding: 0; border: none; margin: 0; width: 100%; gap: 16px;">
-                  <div class="setting-row" style="flex-direction: column; align-items: stretch; gap: 12px; padding: 0; border: none; margin: 0; width: 100%;">
-                    <strong data-i18n="customWallpaper">Imágenes de fondo personalizadas</strong>
-
-                    <div class="wallpaper-slots-grid">
-                      <!-- Slot 1 -->
-                      <div class="wallpaper-slot" data-slot="1">
-                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-1">
-                          <span class="wallpaper-slot-number">1</span>
-                          <div class="wallpaper-slot-empty">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="12" y1="5" x2="12" y2="19"></line>
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            <span data-i18n="uploadImage">Subir imagen</span>
-                          </div>
-                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-1" alt="" style="display: none;">
-                          <button type="button" class="wallpaper-slot-remove" data-slot="1" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Slot 2 -->
-                      <div class="wallpaper-slot" data-slot="2">
-                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-2">
-                          <span class="wallpaper-slot-number">2</span>
-                          <div class="wallpaper-slot-empty">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="12" y1="5" x2="12" y2="19"></line>
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            <span data-i18n="uploadImage">Subir imagen</span>
-                          </div>
-                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-2" alt="" style="display: none;">
-                          <button type="button" class="wallpaper-slot-remove" data-slot="2" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- Slot 3 -->
-                      <div class="wallpaper-slot" data-slot="3">
-                        <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-3">
-                          <span class="wallpaper-slot-number">3</span>
-                          <div class="wallpaper-slot-empty">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="12" y1="5" x2="12" y2="19"></line>
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            <span data-i18n="uploadImage">Subir imagen</span>
-                          </div>
-                          <img class="wallpaper-slot-img" id="wallpaper-slot-img-3" alt="" style="display: none;">
-                          <button type="button" class="wallpaper-slot-remove" data-slot="3" title="Quitar imagen" data-i18n-title="removeWallpaper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;">
-                    <span id="wallpaper-error-message" class="edit-error" style="color: var(--warning-text); font-size: 11px; display: none;"></span>
-
-                    <!-- Hidden legacy elements to ensure tests looking for these specific IDs pass successfully -->
-                    <div style="display: none;">
-                      <div id="wallpaper-dropzone"></div>
-                      <img id="wallpaper-preview-img" class="wallpaper-preview-img" alt="">
-                      <button type="button" id="remove-wallpaper-btn"></button>
-                      <div id="wallpaper-preview-container"></div>
-                      <label id="wallpaper-legibility-row">
-                        <input type="range" id="wallpaper-legibility-slider">
-                        <span id="wallpaper-legibility-value"></span>
-                      </label>
-                      <span id="wallpaper-upload-text"></span>
-                    </div>
-                  </div>
-
-                  <!-- Checkbox: Rotar fondos al azar -->
-                  <label class="switch-row" id="wallpaper-rotate-row" style="display: none;">
-                    <input id="wallpaper-rotate-checkbox" type="checkbox">
+              <div class="settings-section-grid">
+                <div class="settings-group">
+                  <div class="settings-group-header">
                     <span>
-                      <strong data-i18n="rotateWallpapers">Rotar fondos al azar</strong>
-                      <small data-i18n="rotateWallpapersDesc">Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva.</small>
+                      <strong data-i18n="appearanceHeading">Apariencia</strong>
+                      <small data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</small>
                     </span>
-                  </label>
+                  </div>
+                  <div class="settings-group-body">
+                    <label class="setting-row" data-i18n-search="searchThemeRow" data-search="tema color sistema claro oscuro">
+                      <span>
+                        <strong data-i18n="theme">Tema</strong>
+                        <small data-i18n="themeDesc">Respeta el sistema o fuerza claro/oscuro.</small>
+                      </span>
+                      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                        <select id="theme-select">
+                          <option value="system" data-i18n="themeSystem">Sistema (Automatico)</option>
+                          <option value="light" data-i18n="themeLight">Claro</option>
+                          <option value="dark" data-i18n="themeDark">Oscuro</option>
+                        </select>
+                        <small id="theme-select-helper-note" style="font-size: 11px; color: var(--warning-text); display: none; text-align: right; max-width: 250px; line-height: 1.3;" data-i18n="themeSelectHelperNote">El tema de la interfaz está siendo controlado por el fondo de pantalla personalizado.</small>
+                      </div>
+                    </label>
+
+                    <label class="setting-row" data-i18n-search="searchLanguageRow" data-search="idioma lenguaje ingles espanol system sistema">
+                      <span>
+                        <strong data-i18n="language">Idioma</strong>
+                        <small data-i18n="languageDesc">Elige el idioma de la interfaz.</small>
+                      </span>
+                      <select id="language-select">
+                        <option value="system" data-i18n="languageSystem">Sistema</option>
+                        <option value="de" data-i18n="languageDe">Alemán</option>
+                        <option value="ar" data-i18n="languageAr">Árabe</option>
+                        <option value="zh_CN" data-i18n="languageZh">Chino</option>
+                        <option value="ko" data-i18n="languageKo">Coreano</option>
+                        <option value="es" data-i18n="languageEs">Español</option>
+                        <option value="fr" data-i18n="languageFr">Francés</option>
+                        <option value="en" data-i18n="languageEn">Inglés</option>
+                        <option value="it" data-i18n="languageIt">Italiano</option>
+                        <option value="ja" data-i18n="languageJa">Japonés</option>
+                        <option value="pt_BR" data-i18n="languagePt">Portugués</option>
+                        <option value="ru" data-i18n="languageRu">Ruso</option>
+                      </select>
+                    </label>
+
+                    <label class="switch-row" data-i18n-search="searchPreviewRow" data-search="vista rapida preview tooltip detalle mouse">
+                      <input id="preview-enabled" type="checkbox" checked>
+                      <span>
+                        <strong data-i18n="showPreview">Mostrar vista rapida</strong>
+                        <small data-i18n="showPreviewDesc">Abre el panel de detalle al pasar el mouse.</small>
+                      </span>
+                    </label>
+                  </div>
                 </div>
 
-                <!-- Contenedor de Fondos de Degradado -->
-                <div id="wallpaper-gradient-container" class="settings-stack wallpaper-gradient-panel" style="display: none;">
-                  <div class="gradient-showcase">
-                    <div id="gradient-preview-canvas" class="gradient-preview-canvas">
-                      <div class="gradient-preview-aurora gradient-preview-aurora-a"></div>
-                      <div class="gradient-preview-aurora gradient-preview-aurora-b"></div>
-                      <div class="gradient-preview-shell" aria-hidden="true">
-                        <div class="gradient-preview-topbar">
-                          <div class="gradient-preview-brand">
-                            <img class="gradient-preview-logo-img" src="../images/newlogo.png" alt="">
-                            <span class="gradient-preview-status" data-i18n="loadingBookmarks">Cargando marcadores...</span>
-                          </div>
-                          <div class="gradient-preview-settings">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-                              <circle cx="12" cy="12" r="3"/>
-                            </svg>
-                            <span data-i18n="settingsBtn">Configurar</span>
-                          </div>
-                        </div>
-                        <div class="gradient-preview-search">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                          </svg>
-                          <span data-i18n="searchPlaceholder">Buscar titulo, etiqueta, URL o carpeta...</span>
-                        </div>
-                        <div class="gradient-preview-cards">
-                          <div class="gradient-preview-folder">
-                            <strong>Barra de favoritos</strong>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                          </div>
-                          <div class="gradient-preview-folder">
-                            <strong>Personales</strong>
-                            <div class="gradient-preview-icon-grid">
-                              <i></i><i></i><i></i><i></i>
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="wallpaperHeading">Fondo de pantalla</strong>
+                      <small data-i18n="wallpaperDescription">Personaliza el fondo del tablero principal de tu nueva pestaña.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <!-- Selector de tipo de fondo -->
+                    <div class="setting-row wallpaper-type-row" id="wallpaper-type-row">
+                      <span>
+                        <strong data-i18n="wallpaperType">Tipo de fondo</strong>
+                      </span>
+                      <div class="wallpaper-type-segment" role="group" aria-label="Tipo de fondo">
+                        <button type="button" class="wallpaper-type-option" data-wallpaper-type="none" data-i18n="wallpaperTypeNone">Sin fondo</button>
+                        <button type="button" class="wallpaper-type-option" data-wallpaper-type="image" data-i18n="wallpaperTypeImage">Imagen</button>
+                        <button type="button" class="wallpaper-type-option" data-wallpaper-type="gradient" data-i18n="wallpaperTypeGradient">Degradado</button>
+                      </div>
+                      <select id="wallpaper-type-select" class="sr-only" aria-hidden="true" tabindex="-1">
+                        <option value="none" data-i18n="wallpaperTypeNone">Sin fondo</option>
+                        <option value="image" data-i18n="wallpaperTypeImage">Imagen</option>
+                        <option value="gradient" data-i18n="wallpaperTypeGradient">Degradado</option>
+                      </select>
+                    </div>
+
+                    <!-- Contenedor de Fondos de Imagen -->
+                    <div id="wallpaper-image-container" class="settings-stack" style="display: none; padding: 16px; border: none; margin: 0; width: 100%; gap: 16px;">
+                      <div class="setting-row" style="flex-direction: column; align-items: stretch; gap: 12px; padding: 0; border: none; margin: 0; width: 100%;">
+                        <strong data-i18n="customWallpaper">Imágenes de fondo personalizadas</strong>
+
+                        <div class="wallpaper-slots-grid">
+                          <!-- Slot 1 -->
+                          <div class="wallpaper-slot" data-slot="1">
+                            <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-1">
+                              <span class="wallpaper-slot-number">1</span>
+                              <div class="wallpaper-slot-empty">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span data-i18n="uploadImage">Subir imagen</span>
+                              </div>
+                              <img class="wallpaper-slot-img" id="wallpaper-slot-img-1" alt="" style="display: none;">
+                              <button type="button" class="wallpaper-slot-remove" data-slot="1" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                              </button>
                             </div>
                           </div>
-                          <div class="gradient-preview-folder">
-                            <strong>Favoritos del dispositivo</strong>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+
+                          <!-- Slot 2 -->
+                          <div class="wallpaper-slot" data-slot="2">
+                            <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-2">
+                              <span class="wallpaper-slot-number">2</span>
+                              <div class="wallpaper-slot-empty">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span data-i18n="uploadImage">Subir imagen</span>
+                              </div>
+                              <img class="wallpaper-slot-img" id="wallpaper-slot-img-2" alt="" style="display: none;">
+                              <button type="button" class="wallpaper-slot-remove" data-slot="2" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Slot 3 -->
+                          <div class="wallpaper-slot" data-slot="3">
+                            <div class="wallpaper-slot-preview" id="wallpaper-slot-preview-3">
+                              <span class="wallpaper-slot-number">3</span>
+                              <div class="wallpaper-slot-empty">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span data-i18n="uploadImage">Subir imagen</span>
+                              </div>
+                              <img class="wallpaper-slot-img" id="wallpaper-slot-img-3" alt="" style="display: none;">
+                              <button type="button" class="wallpaper-slot-remove" data-slot="3" title="Quitar imagen" data-i18n-title="removeWallpaper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <!-- Presets -->
-                  <div class="gradient-presets-section">
-                    <strong data-i18n="gradientPresetsHeading">Seleccionar un degradado</strong>
-                    <div class="gradient-presets-grid">
-                      <button type="button" class="gradient-preset-btn" data-preset="sunset-breeze">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetSunsetBreeze">Sunset Breeze</span>
-                      </button>
-                      <button type="button" class="gradient-preset-btn" data-preset="deep-ocean">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetDeepOcean">Deep Ocean</span>
-                      </button>
-                      <button type="button" class="gradient-preset-btn" data-preset="midnight-forest">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetMidnightForest">Midnight Forest</span>
-                      </button>
-                      <button type="button" class="gradient-preset-btn" data-preset="cosmic-violet">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetCosmicViolet">Cosmic Violet</span>
-                      </button>
-                      <button type="button" class="gradient-preset-btn" data-preset="dark-glass">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetDarkGlass">Dark Glass</span>
-                      </button>
-                      <button type="button" class="gradient-preset-btn" data-preset="warm-sunrise">
-                        <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);">
-                          <span class="gradient-preset-check">✓</span>
-                        </div>
-                        <span class="gradient-preset-name" data-i18n="presetWarmSunrise">Warm Sunrise</span>
-                      </button>
-                    </div>
-                  </div>
+                        <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;">
+                        <span id="wallpaper-error-message" class="edit-error" style="color: var(--warning-text); font-size: 11px; display: none;"></span>
 
-                  <!-- Acordeón: Personalizar degradado -->
-                  <div class="accordion-toggle" id="gradient-customize-toggle">
-                    <span>
-                      <strong data-i18n="customGradientHeading">Personalizar degradado</strong>
-                      <small data-i18n="customGradientDesc">Ajusta los colores, tipo y ángulo del degradado.</small>
-                    </span>
-                    <span class="accordion-chevron" style="transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
-                  </div>
-
-                  <!-- Panel del Acordeón -->
-                  <div id="gradient-customize-panel" class="accordion-panel settings-stack gradient-custom-panel">
-                    <div class="gradient-custom-grid">
-                      <!-- Colores -->
-                      <div class="gradient-control-card" style="flex-direction: row; justify-content: space-between; align-items: center; gap: 16px; min-height: unset; height: fit-content; display: flex; width: 100%;">
-                        <span data-i18n="gradientColors" style="font-weight: 750;">Colores</span>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                          <input type="color" id="gradient-color-a" value="#1f1c2c" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
-                          <input type="color" id="gradient-color-b" value="#928dab" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
+                        <!-- Hidden legacy elements to ensure tests looking for these specific IDs pass successfully -->
+                        <div style="display: none;">
+                          <div id="wallpaper-dropzone"></div>
+                          <img id="wallpaper-preview-img" class="wallpaper-preview-img" alt="">
+                          <button type="button" id="remove-wallpaper-btn"></button>
+                          <div id="wallpaper-preview-container"></div>
+                          <label id="wallpaper-legibility-row">
+                            <input type="range" id="wallpaper-legibility-slider">
+                            <span id="wallpaper-legibility-value"></span>
+                          </label>
+                          <span id="wallpaper-upload-text"></span>
                         </div>
                       </div>
 
-                      <!-- Estilo (Tipo y Ángulo) -->
-                      <div class="gradient-control-card" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start; min-height: unset; height: fit-content; width: 100%;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                          <span data-i18n="gradientStyleHeading" style="font-weight: 750;">Estilo</span>
-                          <select id="gradient-type-select" style="width: 100px;">
-                            <option value="linear" data-i18n="gradientLinear">Lineal</option>
-                            <option value="radial" data-i18n="gradientRadial">Radial</option>
-                          </select>
-                        </div>
-                        <div id="gradient-angle-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; border: none; margin: 0; background: transparent;">
-                          <span data-i18n="gradientAngle" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Ángulo</span>
-                          <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
-                            <input type="range" id="gradient-angle-slider" min="0" max="360" step="5" value="135" style="flex: 1; height: 6px; margin: 0;">
-                            <span id="gradient-angle-value" style="font-family: monospace; font-size: 12px; min-width: 36px; text-align: end; color: var(--text-secondary);">135°</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Checkbox de animación (Aurora) -->
-                      <label class="gradient-control-card" id="gradient-animate-row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: unset; height: fit-content; width: 100%; user-select: none;">
-                        <div style="display: flex; flex-direction: column; gap: 2px;">
-                          <span data-i18n="animateGradient" style="font-weight: 750;">Animación</span>
-                          <span data-i18n="animateGradientDescShort" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Efecto Aurora sutil</span>
-                        </div>
-                        <input id="gradient-animate-checkbox" type="checkbox" style="margin: 0; cursor: pointer;">
+                      <!-- Checkbox: Rotar fondos al azar -->
+                      <label class="switch-row" id="wallpaper-rotate-row" style="display: none;">
+                        <input id="wallpaper-rotate-checkbox" type="checkbox">
+                        <span>
+                          <strong data-i18n="rotateWallpapers">Rotar fondos al azar</strong>
+                          <small data-i18n="rotateWallpapersDesc">Cambia aleatoriamente entre los fondos subidos al abrir una pestaña nueva.</small>
+                        </span>
                       </label>
                     </div>
+
+                    <!-- Contenedor de Fondos de Degradado -->
+                    <div id="wallpaper-gradient-container" class="settings-stack wallpaper-gradient-panel" style="display: none; padding: 16px;">
+                      <div class="gradient-showcase">
+                        <div id="gradient-preview-canvas" class="gradient-preview-canvas">
+                          <div class="gradient-preview-aurora gradient-preview-aurora-a"></div>
+                          <div class="gradient-preview-aurora gradient-preview-aurora-b"></div>
+                          <div class="gradient-preview-shell" aria-hidden="true">
+                            <div class="gradient-preview-topbar">
+                              <div class="gradient-preview-brand">
+                                <img class="gradient-preview-logo-img" src="../images/newlogo.png" alt="">
+                                <span class="gradient-preview-status" data-i18n="loadingBookmarks">Cargando marcadores...</span>
+                              </div>
+                              <div class="gradient-preview-settings">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                                  <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <span data-i18n="settingsBtn">Configurar</span>
+                              </div>
+                            </div>
+                            <div class="gradient-preview-search">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                              </svg>
+                              <span data-i18n="searchPlaceholder">Buscar titulo, etiqueta, URL o carpeta...</span>
+                            </div>
+                            <div class="gradient-preview-cards">
+                              <div class="gradient-preview-folder">
+                                <strong>Barra de favoritos</strong>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                              </div>
+                              <div class="gradient-preview-folder">
+                                <strong>Personales</strong>
+                                <div class="gradient-preview-icon-grid">
+                                  <i></i><i></i><i></i><i></i>
+                                </div>
+                              </div>
+                              <div class="gradient-preview-folder">
+                                <strong>Favoritos del dispositivo</strong>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Presets -->
+                      <div class="gradient-presets-section">
+                        <strong data-i18n="gradientPresetsHeading">Seleccionar un degradado</strong>
+                        <div class="gradient-presets-grid">
+                          <button type="button" class="gradient-preset-btn" data-preset="sunset-breeze">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetSunsetBreeze">Sunset Breeze</span>
+                          </button>
+                          <button type="button" class="gradient-preset-btn" data-preset="deep-ocean">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetDeepOcean">Deep Ocean</span>
+                          </button>
+                          <button type="button" class="gradient-preset-btn" data-preset="midnight-forest">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetMidnightForest">Midnight Forest</span>
+                          </button>
+                          <button type="button" class="gradient-preset-btn" data-preset="cosmic-violet">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetCosmicViolet">Cosmic Violet</span>
+                          </button>
+                          <button type="button" class="gradient-preset-btn" data-preset="dark-glass">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetDarkGlass">Dark Glass</span>
+                          </button>
+                          <button type="button" class="gradient-preset-btn" data-preset="warm-sunrise">
+                            <div class="gradient-preset-surface" style="background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);">
+                              <span class="gradient-preset-check">✓</span>
+                            </div>
+                            <span class="gradient-preset-name" data-i18n="presetWarmSunrise">Warm Sunrise</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Acordeón: Personalizar degradado -->
+                      <div class="accordion-toggle" id="gradient-customize-toggle">
+                        <span>
+                          <strong data-i18n="customGradientHeading">Personalizar degradado</strong>
+                          <small data-i18n="customGradientDesc">Ajusta los colores, tipo y ángulo del degradado.</small>
+                        </span>
+                        <span class="accordion-chevron" style="transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                        </span>
+                      </div>
+
+                      <!-- Panel del Acordeón -->
+                      <div id="gradient-customize-panel" class="accordion-panel settings-stack gradient-custom-panel">
+                        <div class="gradient-custom-grid">
+                          <!-- Colores -->
+                          <div class="gradient-control-card" style="flex-direction: row; justify-content: space-between; align-items: center; gap: 16px; min-height: unset; height: fit-content; display: flex; width: 100%;">
+                            <span data-i18n="gradientColors" style="font-weight: 750;">Colores</span>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                              <input type="color" id="gradient-color-a" value="#1f1c2c" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
+                              <input type="color" id="gradient-color-b" value="#928dab" style="width: 36px; height: 28px; padding: 0; border-radius: 4px; cursor: pointer; border: 1px solid var(--surface-border); background: transparent;">
+                            </div>
+                          </div>
+
+                          <!-- Estilo (Tipo y Ángulo) -->
+                          <div class="gradient-control-card" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start; min-height: unset; height: fit-content; width: 100%;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                              <span data-i18n="gradientStyleHeading" style="font-weight: 750;">Estilo</span>
+                              <select id="gradient-type-select" style="width: 100px;">
+                                <option value="linear" data-i18n="gradientLinear">Lineal</option>
+                                <option value="radial" data-i18n="gradientRadial">Radial</option>
+                              </select>
+                            </div>
+                            <div id="gradient-angle-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; border: none; margin: 0; background: transparent;">
+                              <span data-i18n="gradientAngle" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Ángulo</span>
+                              <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
+                                <input type="range" id="gradient-angle-slider" min="0" max="360" step="5" value="135" style="flex: 1; height: 6px; margin: 0;">
+                                <span id="gradient-angle-value" style="font-family: monospace; font-size: 12px; min-width: 36px; text-align: end; color: var(--text-secondary);">135°</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Checkbox de animación (Aurora) -->
+                          <label class="gradient-control-card" id="gradient-animate-row" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: unset; height: fit-content; width: 100%; user-select: none;">
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                              <span data-i18n="animateGradient" style="font-weight: 750;">Animación</span>
+                              <span data-i18n="animateGradientDescShort" style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Efecto Aurora sutil</span>
+                            </div>
+                            <input id="gradient-animate-checkbox" type="checkbox" style="margin: 0; cursor: pointer;">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Selector de esquema de la interfaz -->
+                    <label class="setting-row" id="wallpaper-theme-row" style="display: none;">
+                      <span>
+                        <strong data-i18n="wallpaperTheme">Esquema de la interfaz</strong>
+                        <small data-i18n="wallpaperThemeDesc">Forzar colores claros u oscuros sobre la imagen.</small>
+                      </span>
+                      <select id="wallpaper-theme-select" style="width: 180px;">
+                        <option value="system" data-i18n="themeSystem">Automático</option>
+                        <option value="light" data-i18n="themeLight">Claro</option>
+                        <option value="dark" data-i18n="themeDark">Oscuro</option>
+                      </select>
+                    </label>
+
+                    <!-- Slider: Brillo de la imagen -->
+                    <label class="setting-row" id="wallpaper-brightness-row" style="display: none;">
+                      <span>
+                        <strong data-i18n="wallpaperBrightness">Brillo de la imagen</strong>
+                        <small data-i18n="wallpaperBrightnessDesc">Ajusta la luminosidad del fondo personalizado.</small>
+                      </span>
+                      <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
+                        <input type="range" id="wallpaper-brightness-slider" min="0.1" max="1.0" step="0.05" style="flex: 1; height: 6px;">
+                        <span id="wallpaper-brightness-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">80%</span>
+                      </div>
+                    </label>
+
+                    <!-- Slider: Opacidad de carpetas -->
+                    <label class="setting-row" id="wallpaper-folder-opacity-row" style="display: none;">
+                      <span>
+                        <strong data-i18n="wallpaperFolderOpacity">Opacidad de carpetas</strong>
+                        <small data-i18n="wallpaperFolderOpacityDesc">Modifica la transparencia de las tarjetas de las carpetas.</small>
+                      </span>
+                      <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
+                        <input type="range" id="wallpaper-folder-opacity-slider" min="0.1" max="0.9" step="0.05" style="flex: 1; height: 6px;">
+                        <span id="wallpaper-folder-opacity-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">45%</span>
+                      </div>
+                    </label>
+
+                    <!-- Slider: Opacidad de cabecera -->
+                    <label class="setting-row" id="wallpaper-header-opacity-row" style="display: none;">
+                      <span>
+                        <strong data-i18n="wallpaperHeaderOpacity">Opacidad de cabecera</strong>
+                        <small data-i18n="wallpaperHeaderOpacityDesc">Modifica la transparencia de la barra superior.</small>
+                      </span>
+                      <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
+                        <input type="range" id="wallpaper-header-opacity-slider" min="0.1" max="1.0" step="0.05" style="flex: 1; height: 6px;">
+                        <span id="wallpaper-header-opacity-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">45%</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
-
-                <!-- Selector de esquema de la interfaz -->
-                <label class="setting-row" id="wallpaper-theme-row" style="display: none;">
-                  <span>
-                    <strong data-i18n="wallpaperTheme">Esquema de la interfaz</strong>
-                    <small data-i18n="wallpaperThemeDesc">Forzar colores claros u oscuros sobre la imagen.</small>
-                  </span>
-                  <select id="wallpaper-theme-select" style="width: 180px;">
-                    <option value="system" data-i18n="themeSystem">Automático</option>
-                    <option value="light" data-i18n="themeLight">Claro</option>
-                    <option value="dark" data-i18n="themeDark">Oscuro</option>
-                  </select>
-                </label>
-
-                <!-- Slider: Brillo de la imagen -->
-                <label class="setting-row" id="wallpaper-brightness-row" style="display: none;">
-                  <span>
-                    <strong data-i18n="wallpaperBrightness">Brillo de la imagen</strong>
-                    <small data-i18n="wallpaperBrightnessDesc">Ajusta la luminosidad del fondo personalizado.</small>
-                  </span>
-                  <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
-                    <input type="range" id="wallpaper-brightness-slider" min="0.1" max="1.0" step="0.05" style="flex: 1; height: 6px;">
-                    <span id="wallpaper-brightness-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">80%</span>
-                  </div>
-                </label>
-
-                <!-- Slider: Opacidad de carpetas -->
-                <label class="setting-row" id="wallpaper-folder-opacity-row" style="display: none;">
-                  <span>
-                    <strong data-i18n="wallpaperFolderOpacity">Opacidad de carpetas</strong>
-                    <small data-i18n="wallpaperFolderOpacityDesc">Modifica la transparencia de las tarjetas de las carpetas.</small>
-                  </span>
-                  <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
-                    <input type="range" id="wallpaper-folder-opacity-slider" min="0.1" max="0.9" step="0.05" style="flex: 1; height: 6px;">
-                    <span id="wallpaper-folder-opacity-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">45%</span>
-                  </div>
-                </label>
-
-                <!-- Slider: Opacidad de cabecera -->
-                <label class="setting-row" id="wallpaper-header-opacity-row" style="display: none;">
-                  <span>
-                    <strong data-i18n="wallpaperHeaderOpacity">Opacidad de cabecera</strong>
-                    <small data-i18n="wallpaperHeaderOpacityDesc">Modifica la transparencia de la barra superior.</small>
-                  </span>
-                  <div style="display: flex; align-items: center; gap: 12px; width: 180px;">
-                    <input type="range" id="wallpaper-header-opacity-slider" min="0.1" max="1.0" step="0.05" style="flex: 1; height: 6px;">
-                    <span id="wallpaper-header-opacity-value" style="font-family: monospace; font-size: 13px; min-width: 36px; text-align: end;">45%</span>
-                  </div>
-                </label>
               </div>
             </section>
 
-            <section id="section-privacy" class="setup-section" data-section="privacy" data-i18n-search="searchPrivacySection" data-search="privacidad permisos enlaces capturas red">
+            <section id="section-features" class="setup-section" data-section="features" data-i18n-search="searchFeaturesSection" data-search="funciones enlaces capturas sitios frecuentes etiquetas accesibilidad atajos">
               <div class="section-heading">
-                <h2 data-i18n="privacyHeading">Privacidad</h2>
-                <p data-i18n="privacyDescription">Funciones que pueden pedir permisos opcionales del navegador.</p>
+                <h2 data-i18n="setupSectionFeatures">Funciones</h2>
+                <p data-i18n="setupSectionFeaturesDesc">Activa funciones opcionales del tablero y accesos rápidos.</p>
               </div>
-              <div class="settings-stack">
-                <label class="switch-row" data-i18n-search="searchLinkHealthRow" data-search="revision enlaces caidos fallos permisos red">
-                  <input id="link-health" type="checkbox">
-                  <span>
-                    <strong data-i18n="linkHealth">Revision de enlaces</strong>
-                    <small data-i18n="linkHealthDesc">Agrega el boton Revisar en cada carpeta y pide permisos de red.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchPreviewCaptureRow" data-search="capturar vistas previas locales imagen captura permisos">
-                  <input id="preview-capture" type="checkbox">
-                  <span>
-                    <strong data-i18n="previewCapture">Capturar vistas previas locales</strong>
-                    <small data-i18n="previewCaptureDesc">Solo para marcadores abiertos desde martabs.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchFrequentSitesRow" data-search="sitios frecuentes topsites permisos">
-                  <input id="frequent-sites" type="checkbox">
-                  <span>
-                    <strong data-i18n="frequentSites">Sitios frecuentes</strong>
-                    <small data-i18n="frequentSitesDesc">Muestra tus sitios más visitados según recolectó el navegador.</small>
-                    <button type="button" id="reset-topsites-blacklist" class="secondary-button" style="margin-top: 8px; display: none;" data-i18n="resetHiddenTopSites">Restablecer ocultos</button>
-                  </span>
-                  <select id="topsites-limit" style="margin-left: 12px; max-width: 80px;" title="Cantidad máxima">
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="10">10</option>
-                  </select>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchLocalStatsRow" data-search="estadisticas de uso locales">
-                  <input id="local-stats" type="checkbox">
-                  <span>
-                    <strong data-i18n="localStats">Estadísticas de uso locales</strong>
-                    <small data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</small>
-                  </span>
-                </label>
-              </div>
-            </section>
-
-            <section id="section-statistics" class="setup-section" data-section="statistics" data-i18n-search="searchStatisticsRow" data-search="estadisticas uso clics visitas historial json">
-              <div class="section-heading">
-                <h2 data-i18n="statisticsSection">Estadísticas</h2>
-                <p data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</p>
-              </div>
-              
-              <div id="statistics-disabled-msg" style="display: none; padding: 24px; background-color: var(--surface-bg); border-radius: 8px; border: 1px dashed var(--surface-border); text-align: center;">
-                <p data-i18n="statsDisabledMsg" style="margin-bottom: 12px; font-size: 13px; color: var(--text-secondary);">Las estadísticas locales están desactivadas. Habilita la opción en Privacidad para ver tus sitios más usados.</p>
-                <button type="button" id="go-to-privacy-stats" class="secondary-button" style="margin: 0 auto;" data-i18n="enableInPrivacy">Habilitar en Privacidad</button>
-              </div>
-
-              <div class="settings-stack" id="statistics-content">
-                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 16px;">
-                  <strong data-i18n="mostVisitedBookmarks">Marcadores más usados</strong>
-                  <div id="stats-chart" class="stats-chart" style="width: 100%; display: flex; flex-direction: column; gap: 8px;"></div>
-                </div>
-
-                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 16px;">
-                  <strong data-i18n="localStorageAudit">Uso de almacenamiento local</strong>
-                  <div id="storage-audit" class="storage-audit" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
-                </div>
-
-                <div class="setting-row">
-                  <span>
-                    <strong data-i18n="downloadClickStats" style="display: block;">Descargar historial de clics</strong>
-                  </span>
-                  <button type="button" id="download-stats" class="secondary-button" data-i18n="downloadJsonBtn">Descargar JSON</button>
-                </div>
-                
-                <div class="setting-row">
-                  <span>
-                    <strong data-i18n="resetStats" style="display: block;">Restablecer estadísticas</strong>
-                  </span>
-                  <button type="button" id="reset-stats" class="secondary-button danger-button" data-i18n="delete">Borrar</button>
-                </div>
-              </div>
-            </section>
-
-            <section id="section-tags" class="setup-section" data-section="tags" data-i18n-search="searchTagsSection" data-search="etiquetas tags automaticas manuales">
-              <div class="section-heading">
-                <h2 data-i18n="tagsHeading">Etiquetas</h2>
-                <p data-i18n="tagsDescription">Controla como martabs genera y muestra tags.</p>
-              </div>
-              <div class="settings-stack">
-                <label class="switch-row" data-i18n-search="searchAutoTagsRow" data-search="etiquetas automaticas tags dominio carpeta">
-                  <input id="automatic-tags" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="automaticTags">Etiquetas automaticas</strong>
-                    <small data-i18n="automaticTagsDesc">Se derivan de carpetas, dominio y datos del marcador.</small>
-                  </span>
-                </label>
-
-                <label class="switch-row" data-i18n-search="searchManualTagsRow" data-search="etiquetas manuales tags editar marcador">
-                  <input id="manual-tags" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="manualTags">Etiquetas manuales</strong>
-                    <small data-i18n="manualTagsDesc">Permite editar tags desde la UI de cada marcador.</small>
-                  </span>
-                </label>
-              </div>
-            </section>
-
-            <section id="section-accessibility" class="setup-section" data-section="accessibility" data-i18n-search="searchAccessibilitySection" data-search="accesibilidad atajos teclado shortcuts foco accesibility">
-              <div class="section-heading">
-                <h2 data-i18n="accessibilityHeading">Accesibilidad</h2>
-                <p data-i18n="accessibilityDescription">Atajos de teclado y opciones de navegación accesibles.</p>
-              </div>
-              <div class="settings-stack">
-                <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                  <strong data-i18n="keyboardShortcuts">Atajos de teclado</strong>
-                  <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; color: var(--text-secondary); font-size: 13px;">
-                    <li><kbd>/</kbd> : <span data-i18n="shortcutSearch">Enfocar barra de búsqueda</span></li>
-                    <li><kbd>Esc</kbd> : <span data-i18n="shortcutEsc">Limpiar búsqueda o cerrar menú/vista previa</span></li>
-                  </ul>
-                </div>
-                <label class="switch-row" data-i18n-search="searchShortcutsRow" data-search="atajos pinned fijados teclado ctrl shift">
-                  <input id="enable-pinned-shortcuts" type="checkbox" checked>
-                  <span>
-                    <strong data-i18n="enablePinnedShortcuts">Atajos para fijados rápidos</strong>
-                    <small data-i18n="enablePinnedShortcutsDesc">Abre rápidamente los primeros 9 marcadores fijados.</small>
-                  </span>
-                  <div style="margin-inline-start: 16px; display: flex; gap: 8px; align-items: center; font-size: 13px;">
-                    <button id="pinned-shortcut-catcher-1" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Alt</button>
-                    <span style="color: var(--text-secondary);">+</span>
-                    <button id="pinned-shortcut-catcher-2" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Ninguno</button>
-                    <span style="color: var(--text-secondary);">+ 1..9</span>
+              <div class="settings-section-grid">
+                <!-- Group: Herramientas y capturas -->
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="productivityFeaturesHeading">Herramientas y capturas</strong>
+                      <small data-i18n="productivityFeaturesDesc">Opciones para enriquecer la experiencia de tus marcadores.</small>
+                    </span>
                   </div>
-                </label>
+                  <div class="settings-group-body">
+                    <label class="switch-row" data-i18n-search="searchLinkHealthRow" data-search="revision enlaces caidos fallos permisos red">
+                      <input id="link-health" type="checkbox">
+                      <span>
+                        <strong data-i18n="linkHealth">Revision de enlaces</strong>
+                        <small data-i18n="linkHealthDesc">Agrega el boton Revisar en cada carpeta y pide permisos de red.</small>
+                      </span>
+                    </label>
+
+                    <label class="switch-row" data-i18n-search="searchPreviewCaptureRow" data-search="capturar vistas previas locales imagen captura permisos">
+                      <input id="preview-capture" type="checkbox">
+                      <span>
+                        <strong data-i18n="previewCapture">Capturar vistas previas locales</strong>
+                        <small data-i18n="previewCaptureDesc">Solo para marcadores abiertos desde martabs.</small>
+                      </span>
+                    </label>
+
+                    <label class="switch-row" data-i18n-search="searchFrequentSitesRow" data-search="sitios frecuentes topsites permisos">
+                      <input id="frequent-sites" type="checkbox">
+                      <span>
+                        <strong data-i18n="frequentSites">Sitios frecuentes</strong>
+                        <small data-i18n="frequentSitesDesc">Muestra tus sitios más visitados según recolectó el navegador.</small>
+                        <button type="button" id="reset-topsites-blacklist" class="secondary-button" style="margin-top: 8px; display: none;" data-i18n="resetHiddenTopSites">Restablecer ocultos</button>
+                      </span>
+                      <select id="topsites-limit" style="margin-left: 12px; max-width: 80px;" title="Cantidad máxima">
+                        <option value="4">4</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Group: Etiquetas -->
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="tagsHeading">Etiquetas</strong>
+                      <small data-i18n="tagsDescription">Controla como martabs genera y muestra tags.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <label class="switch-row" data-i18n-search="searchAutoTagsRow" data-search="etiquetas automaticas tags dominio carpeta">
+                      <input id="automatic-tags" type="checkbox" checked>
+                      <span>
+                        <strong data-i18n="automaticTags">Etiquetas automaticas</strong>
+                        <small data-i18n="automaticTagsDesc">Se derivan de carpetas, dominio y datos del marcador.</small>
+                      </span>
+                    </label>
+
+                    <label class="switch-row" data-i18n-search="searchManualTagsRow" data-search="etiquetas manuales tags editar marcador">
+                      <input id="manual-tags" type="checkbox" checked>
+                      <span>
+                        <strong data-i18n="manualTags">Etiquetas manuales</strong>
+                        <small data-i18n="manualTagsDesc">Permite editar tags desde la UI de cada marcador.</small>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Group: Accesibilidad -->
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="accessibilityHeading">Accesibilidad</strong>
+                      <small data-i18n="accessibilityDescription">Atajos de teclado y opciones de navegación accesibles.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 8px; padding: 18px 18px 18px 18px; border-bottom: 1px solid var(--surface-border);">
+                      <strong data-i18n="keyboardShortcuts">Atajos de teclado</strong>
+                      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; color: var(--text-secondary); font-size: 13px;">
+                        <li><kbd>/</kbd> : <span data-i18n="shortcutSearch">Enfocar barra de búsqueda</span></li>
+                        <li><kbd>Esc</kbd> : <span data-i18n="shortcutEsc">Limpiar búsqueda o cerrar menú/vista previa</span></li>
+                      </ul>
+                    </div>
+                    <label class="switch-row" data-i18n-search="searchShortcutsRow" data-search="atajos pinned fijados teclado ctrl shift">
+                      <input id="enable-pinned-shortcuts" type="checkbox" checked>
+                      <span>
+                        <strong data-i18n="enablePinnedShortcuts">Atajos para fijados rápidos</strong>
+                        <small data-i18n="enablePinnedShortcutsDesc">Abre rápidamente los primeros 9 marcadores fijados.</small>
+                      </span>
+                      <div style="margin-inline-start: 16px; display: flex; gap: 8px; align-items: center; font-size: 13px;">
+                        <button id="pinned-shortcut-catcher-1" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Alt</button>
+                        <span style="color: var(--text-secondary);">+</span>
+                        <button id="pinned-shortcut-catcher-2" type="button" class="secondary-button" style="min-width: 80px; text-align: center;">Ninguno</button>
+                        <span style="color: var(--text-secondary);">+ 1..9</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="section-data" class="setup-section" data-section="data" data-i18n-search="searchDataSection" data-search="datos privacidad estadisticas importar exportar json almacenamiento">
+              <div class="section-heading">
+                <h2 data-i18n="setupSectionData">Datos</h2>
+                <p data-i18n="setupSectionDataDesc">Controla estadísticas locales, almacenamiento e importación/exportación.</p>
+              </div>
+              <div class="settings-section-grid">
+                <!-- Group: Privacidad de estadísticas -->
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="localStats">Estadísticas de uso locales</strong>
+                      <small data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <label class="switch-row" data-i18n-search="searchLocalStatsRow" data-search="estadisticas de uso locales">
+                      <input id="local-stats" type="checkbox">
+                      <span>
+                        <strong data-i18n="localStats">Estadísticas de uso locales</strong>
+                        <small data-i18n="localStatsDesc">Registra aperturas para mostrar recientes y más usados. Privado.</small>
+                      </span>
+                    </label>
+
+                    <div id="statistics-disabled-msg" style="display: none; padding: 24px; background-color: var(--surface-bg); border-radius: 0; text-align: center; border-bottom: 1px solid var(--surface-border);">
+                      <p data-i18n="statsDisabledMsg" style="margin-bottom: 12px; font-size: 13px; color: var(--text-secondary);">Las estadísticas locales están desactivadas. Habilita la opción para ver tus sitios más usados.</p>
+                      <button type="button" id="go-to-privacy-stats" class="secondary-button" style="margin: 0 auto; display: none;" data-i18n="enableInPrivacy">Habilitar estadísticas</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Group: Auditoría y exportación -->
+                <div id="statistics-content" class="settings-section-grid" style="display: grid; gap: 20px;">
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="mostVisitedBookmarks">Marcadores más usados</strong>
+                      </span>
+                    </div>
+                    <div class="settings-group-body" style="padding: 18px;">
+                      <div id="stats-chart" class="stats-chart" style="width: 100%; display: flex; flex-direction: column; gap: 8px;"></div>
+                    </div>
+                  </div>
+
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="localStorageAudit">Uso de almacenamiento local</strong>
+                      </span>
+                    </div>
+                    <div class="settings-group-body" style="padding: 18px;">
+                      <div id="storage-audit" class="storage-audit" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
+                    </div>
+                  </div>
+
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="setupSectionData">Configuración y Copias de Seguridad</strong>
+                        <small>Descarga tus datos locales, borra historial o importa/exporta tus ajustes.</small>
+                      </span>
+                    </div>
+                    <div class="settings-group-body">
+                      <div class="setting-row">
+                        <span>
+                          <strong data-i18n="downloadClickStats" style="display: block;">Descargar historial de clics</strong>
+                        </span>
+                        <button type="button" id="download-stats" class="secondary-button" data-i18n="downloadJsonBtn">Descargar JSON</button>
+                      </div>
+
+                      <div class="setting-row">
+                        <span>
+                          <strong data-i18n="resetStats" style="display: block;">Restablecer estadísticas</strong>
+                        </span>
+                        <button type="button" id="reset-stats" class="secondary-button danger-button" data-i18n="delete">Borrar</button>
+                      </div>
+
+                      <div class="setting-row">
+                        <span>
+                          <strong>Exportar configuración</strong>
+                          <small>Guarda un archivo de respaldo con tus carpetas, temas y pestañas.</small>
+                        </span>
+                        <button id="export-config" class="secondary-button" type="button" data-i18n-search="searchExportBtn" data-i18n="exportConfig">
+                          Exportar
+                        </button>
+                      </div>
+
+                      <div class="setting-row" style="flex-direction: column; align-items: stretch; gap: 12px; padding: 18px 18px 18px 18px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                          <span>
+                            <strong>Importar configuración</strong>
+                            <small>Restaura tus preferencias y pestañas desde un respaldo JSON.</small>
+                          </span>
+                          <button id="import-config" class="secondary-button" type="button" data-i18n-search="searchImportBtn" data-i18n="importConfig">
+                            Importar
+                          </button>
+                        </div>
+                        <input type="file" id="import-config-file" accept=".json" style="display: none;">
+                        <div id="import-summary-container" style="display: none; width: 100%; padding: 12px; border: 1px solid var(--primary); border-radius: var(--radius-sm); background: var(--primary-soft);">
+                          <p id="import-summary-text" style="margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary);"></p>
+                          <div style="display: flex; gap: 8px;">
+                            <button id="import-confirm-btn" type="button" class="primary-button compact-action-button" data-i18n="confirmAndApply">Confirmar y aplicar</button>
+                            <button id="import-cancel-btn" type="button" class="secondary-button compact-action-button" data-i18n="cancelImport">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -729,38 +823,55 @@
                 <h2 data-i18n="advancedHeading">Avanzado</h2>
                 <p data-i18n="advancedDescription">Acciones poco frecuentes para limpiar estado local.</p>
               </div>
-              <div class="advanced-actions">
-                <button id="reset-local-organization" class="secondary-button advanced-action" type="button" data-i18n-search="searchResetLocalOrgBtn" data-i18n="resetLocalOrg">
-                  Restablecer organizacion local
-                </button>
-                <button id="clear-preview-cache" class="secondary-button advanced-action" type="button" data-i18n-search="searchClearPreviewsBtn" data-i18n="clearPreviewCache">
-                  Limpiar previews cacheadas
-                </button>
-                <button id="export-config" class="secondary-button advanced-action" type="button" data-i18n-search="searchExportBtn" data-i18n="exportConfig">
-                  Exportar configuracion
-                </button>
-                <button id="import-config" class="secondary-button advanced-action" type="button" data-i18n-search="searchImportBtn" data-i18n="importConfig">
-                  Importar configuracion
-                </button>
-                <input type="file" id="import-config-file" accept=".json" style="display: none;">
-                <div id="import-summary-container" style="display: none; width: 100%; margin-top: 15px; padding: 12px; border: 1px solid var(--primary); border-radius: var(--radius-sm); background: var(--primary-soft);">
-                  <p id="import-summary-text" style="margin-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary);"></p>
-                  <div style="display: flex; gap: 8px;">
-                    <button id="import-confirm-btn" type="button" class="primary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="confirmAndApply">Confirmar y aplicar</button>
-                    <button id="import-cancel-btn" type="button" class="secondary-button" style="height: 32px; font-size: 12px; padding: 0 12px;" data-i18n="cancelImport">Cancelar</button>
+              <div class="settings-section-grid">
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="advancedHeading">Acciones avanzadas</strong>
+                      <small data-i18n="advancedDescription">Acciones poco frecuentes para limpiar estado local.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <div class="setting-row">
+                      <span>
+                        <strong data-i18n="resetLocalOrg" style="display: block;">Restablecer organización local</strong>
+                        <small>Restablece el orden de carpetas y overrides locales.</small>
+                      </span>
+                      <button id="reset-local-organization" class="secondary-button danger-button" type="button" data-i18n-search="searchResetLocalOrgBtn" data-i18n="resetLocalOrg">
+                        Restablecer
+                      </button>
+                    </div>
+
+                    <div class="setting-row">
+                      <span>
+                        <strong data-i18n="clearPreviewCache" style="display: block;">Limpiar vistas previas en caché</strong>
+                        <small>Libera espacio eliminando las imágenes locales guardadas.</small>
+                      </span>
+                      <button id="clear-preview-cache" class="secondary-button danger-button" type="button" data-i18n-search="searchClearPreviewsBtn" data-i18n="clearPreviewCache">
+                        Limpiar
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div class="settings-stack" style="margin-top: 24px; border-top: 1px solid var(--surface-border); padding-top: 20px;">
-                <div class="setting-row" data-i18n-search="searchAboutRow" data-search="acerca de version instalada info">
-                  <span>
-                    <strong data-i18n="aboutAppName">Acerca de martabs</strong>
-                    <small>
-                      <span data-i18n="installedVersion">Versión instalada:</span> 
-                      <span id="advanced-version" dir="ltr">0.0.0</span>
-                    </small>
-                  </span>
+
+                <div class="settings-group">
+                  <div class="settings-group-header">
+                    <span>
+                      <strong data-i18n="aboutAppName">Acerca de martabs</strong>
+                      <small>Información sobre la versión instalada y la extensión.</small>
+                    </span>
+                  </div>
+                  <div class="settings-group-body">
+                    <div class="setting-row" data-i18n-search="searchAboutRow" data-search="acerca de version info">
+                      <span>
+                        <strong data-i18n="aboutAppName">Acerca de martabs</strong>
+                        <small>
+                          <span data-i18n="installedVersion">Versión instalada:</span>
+                          <span id="advanced-version" dir="ltr">0.0.0</span>
+                        </small>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>

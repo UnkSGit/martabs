@@ -72,8 +72,19 @@ test("setup styles include the setup shell and folder list layout", async () => 
   assert.match(css, /\.settings-group-header\s*{/);
   assert.match(css, /\.settings-group-body\s*{/);
   assert.match(css, /\.settings-side-panel\s*{/);
+  assert.match(css, /\.compact-action-button\s*{/);
+  assert.match(css, /\.settings-group-actions\s*{/);
+  assert.match(css, /\.settings-inline-note\s*{/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
+
+  // Assert style cleanup on setup.html elements
+  const html = await readFile("src/setup/setup.html", "utf8");
+  assert.doesNotMatch(html, /id="back-to-tree-btn"[^>]*style=/);
+  assert.doesNotMatch(html, /id="import-confirm-btn"[^>]*style=/);
+  assert.doesNotMatch(html, /id="import-cancel-btn"[^>]*style=/);
+  assert.doesNotMatch(html, /data-i18n="tabsTreeInstructions"[^>]*style=/);
+  assert.doesNotMatch(html, /data-i18n="tabsDropzonesInstructions"[^>]*style=/);
 });
 
 test("setup script saves selected folders and setup completion", async () => {
@@ -151,8 +162,8 @@ test("setup page has custom wallpaper layout and logic", async () => {
   const js = await readFile("src/setup/setup.js", "utf8");
 
   // HTML checks
-  assert.match(html, /data-section="wallpaper"/);
-  assert.match(html, /id="section-wallpaper"/);
+  assert.doesNotMatch(html, /data-section="wallpaper"/);
+  assert.doesNotMatch(html, /id="section-wallpaper"/);
   assert.match(html, /id="wallpaper-dropzone"/);
   assert.match(html, /id="wallpaper-file-input"/);
   assert.match(html, /id="wallpaper-legibility-slider"/);
@@ -227,8 +238,8 @@ test("setup has tabs and mapping support", async () => {
   const js = await readFile("src/setup/setup.js", "utf8");
 
   // HTML checks
-  assert.match(html, /data-section="tabs"/);
-  assert.match(html, /id="section-tabs"/);
+  assert.doesNotMatch(html, /data-section="tabs"/);
+  assert.doesNotMatch(html, /id="section-tabs"/);
   assert.match(html, /id="tabs-manager-container"/);
   assert.match(html, /id="tabs-list"/);
   assert.match(html, /id="tabs-folder-tree-container"/);
@@ -314,6 +325,73 @@ test("setup dashboard groups folder, tab, and default view controls", async () =
   assert.match(dashboard, /id="clean-folder-names"/);
   assert.match(dashboard, /id="show-view-button"/);
   assert.match(dashboard, /id="show-sort-button"/);
+});
+
+test("setup appearance groups theme language preview and wallpaper controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const appearance = html.slice(
+    html.indexOf('id="section-appearance"'),
+    html.indexOf('id="section-features"')
+  );
+
+  assert.match(appearance, /id="theme-select"/);
+  assert.match(appearance, /id="language-select"/);
+  assert.match(appearance, /id="preview-enabled"/);
+  assert.match(appearance, /id="wallpaper-type-select"/);
+  assert.match(appearance, /id="wallpaper-image-container"/);
+  assert.match(appearance, /id="wallpaper-gradient-container"/);
+  assert.doesNotMatch(html, /id="section-wallpaper"/);
+});
+
+test("setup features groups optional feature controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const features = html.slice(
+    html.indexOf('id="section-features"'),
+    html.indexOf('id="section-data"')
+  );
+
+  assert.match(features, /id="link-health"/);
+  assert.match(features, /id="preview-capture"/);
+  assert.match(features, /id="frequent-sites"/);
+  assert.match(features, /id="automatic-tags"/);
+  assert.match(features, /id="manual-tags"/);
+  assert.match(features, /id="enable-pinned-shortcuts"/);
+  assert.doesNotMatch(html, /id="section-privacy"/);
+  assert.doesNotMatch(html, /id="section-tags"/);
+  assert.doesNotMatch(html, /id="section-accessibility"/);
+});
+
+test("setup data groups local statistics and import export controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const dataSection = html.slice(
+    html.indexOf('id="section-data"'),
+    html.indexOf('id="section-advanced"')
+  );
+
+  assert.match(dataSection, /id="local-stats"/);
+  assert.match(dataSection, /id="statistics-disabled-msg"/);
+  assert.match(dataSection, /id="statistics-content"/);
+  assert.match(dataSection, /id="download-stats"/);
+  assert.match(dataSection, /id="reset-stats"/);
+  assert.match(dataSection, /id="export-config"/);
+  assert.match(dataSection, /id="import-config"/);
+});
+
+test("setup advanced section contains only maintenance and version controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+
+  const advanced = html.slice(
+    html.indexOf('id="section-advanced"')
+  );
+
+  assert.match(advanced, /id="reset-local-organization"/);
+  assert.match(advanced, /id="clear-preview-cache"/);
+  assert.match(advanced, /id="advanced-version"/);
+  assert.doesNotMatch(advanced, /id="export-config"/);
+  assert.doesNotMatch(advanced, /id="import-config"/);
 });
 
 

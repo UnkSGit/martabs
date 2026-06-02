@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Fond d'écran personnalisé actif"
   },
+  "dashboardDescription": {
+    "message": "Configurez les colonnes, le tri et les onglets du tableau de bord principal."
+  },
   "dateAdded": {
     "message": "Agregado: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Confidentialité"
   },
+  "productivityFeaturesDesc": {
+    "message": "Options pour enrichir votre expérience de favoris."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Outils et captures"
+  },
   "removeFolder": {
     "message": "Supprimer le dossier"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "effacer aperçus cache capture images"
   },
+  "searchDashboardSection": {
+    "message": "tableau de bord dossiers colonnes onglets vue tri epingle"
+  },
+  "searchDataSection": {
+    "message": "donnees confidentialite statistiques importer exporter json stockage"
+  },
   "searchExportBtn": {
     "message": "exporter configuration sauvegarde télécharger json"
+  },
+  "searchFeaturesSection": {
+    "message": "fonctionnalites liens captures sites frequents tags accessibilite raccourcis"
   },
   "searchFolders": {
     "message": "dossiers sélectionner surveiller vue tri manuel par défaut"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Paramètres"
+  },
+  "setupSectionDashboard": {
+    "message": "Tableau de bord"
+  },
+  "setupSectionData": {
+    "message": "Données"
+  },
+  "setupSectionDataDesc": {
+    "message": "Contrôlez les statistiques locales, le stockage et l'import/export."
+  },
+  "setupSectionFeatures": {
+    "message": "Fonctionnalités"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Activez les fonctionnalités facultatives du tableau de bord et les raccourcis rapides."
   },
   "setupTitle": {
     "message": "Configurer martabs"

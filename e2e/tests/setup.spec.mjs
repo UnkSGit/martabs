@@ -70,7 +70,17 @@ test.describe('HU-1: Primer uso (Setup)', () => {
     // Wait for folders to load
     await expect(setupPage.getFolderCheckbox(testFolder.id)).toBeVisible();
 
-    await expect(page).toHaveScreenshot('setup-page.png', { maxDiffPixelRatio: 0.02 });
+    // 1. Light Theme Screenshot
+    await page.evaluate(() => {
+      document.documentElement.classList.remove('theme-dark');
+    });
+    await expect(page).toHaveScreenshot('setup-page-light.png', { maxDiffPixelRatio: 0.02 });
+
+    // 2. Dark Theme Screenshot
+    await page.evaluate(() => {
+      document.documentElement.classList.add('theme-dark');
+    });
+    await expect(page).toHaveScreenshot('setup-page-dark.png', { maxDiffPixelRatio: 0.02 });
   });
 
   test('S-06: El botón de guardar está deshabilitado sin cambios y se habilita al modificar', async ({ page, extensionId, extensionProtocol }) => {

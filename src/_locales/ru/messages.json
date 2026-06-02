@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Пользовательские обои активны"
   },
+  "dashboardDescription": {
+    "message": "Настройка колонок, сортировки и вкладок главной панели."
+  },
   "dateAdded": {
     "message": "Добавлено: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Конфиденциальность"
   },
+  "productivityFeaturesDesc": {
+    "message": "Варианты для улучшения работы с закладками."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Инструменты и снимки"
+  },
   "removeFolder": {
     "message": "Удалить папку"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "очистить кэш превью снимки изображения"
   },
+  "searchDashboardSection": {
+    "message": "панель папки колонки вкладки вид сортировка закрепленные"
+  },
+  "searchDataSection": {
+    "message": "данные конфиденциальность статистика импорт экспорт хранилище"
+  },
   "searchExportBtn": {
     "message": "экспорт конфигурации резервная копия скачать json"
+  },
+  "searchFeaturesSection": {
+    "message": "функции ссылки снимки часто посещаемые сайты теги доступность клавиши"
   },
   "searchFolders": {
     "message": "папки выбор отслеживание вид порядок вручную по умолчанию"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Настройки"
+  },
+  "setupSectionDashboard": {
+    "message": "Панель управления"
+  },
+  "setupSectionData": {
+    "message": "Данные"
+  },
+  "setupSectionDataDesc": {
+    "message": "Управление локальной статистикой, хранилищем и импортом/экспортом."
+  },
+  "setupSectionFeatures": {
+    "message": "Функции"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Включение дополнительных функций панели и быстрых клавиш."
   },
   "setupTitle": {
     "message": "Настройка martabs"

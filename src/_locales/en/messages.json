@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Custom wallpaper active"
   },
+  "dashboardDescription": {
+    "message": "Configure columns, sorting, and tabs of the main dashboard."
+  },
   "dateAdded": {
     "message": "Added: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Privacy"
   },
+  "productivityFeaturesDesc": {
+    "message": "Options to enrich your bookmark experience."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Tools and captures"
+  },
   "removeFolder": {
     "message": "Remove folder"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "clear previews cache captures images"
   },
+  "searchDashboardSection": {
+    "message": "dashboard folders columns tabs view order pinned"
+  },
+  "searchDataSection": {
+    "message": "data privacy statistics import export json storage"
+  },
   "searchExportBtn": {
     "message": "export configuration backup download json"
+  },
+  "searchFeaturesSection": {
+    "message": "features links captures frequent sites tags accessibility shortcuts"
   },
   "searchFolders": {
     "message": "folders select monitor view order manual default"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Settings"
+  },
+  "setupSectionDashboard": {
+    "message": "Dashboard"
+  },
+  "setupSectionData": {
+    "message": "Data"
+  },
+  "setupSectionDataDesc": {
+    "message": "Control local statistics, storage, and import/export."
+  },
+  "setupSectionFeatures": {
+    "message": "Features"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Enable optional dashboard features and quick shortcuts."
   },
   "setupTitle": {
     "message": "Configure martabs"

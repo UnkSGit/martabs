@@ -3010,8 +3010,8 @@ if (resetStatsBtn) {
   });
 
   goToPrivacyStatsBtn.addEventListener("click", () => {
-    const privacyBtn = document.querySelector('.setup-nav-button[data-section="privacy"]');
-    if (privacyBtn) privacyBtn.click();
+    const dataBtn = document.querySelector('.setup-nav-button[data-section="data"]');
+    if (dataBtn) dataBtn.click();
   });
 
   resetTopsitesBlacklistBtn.addEventListener("click", async () => {

@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "Fondo personalizado activo"
   },
+  "dashboardDescription": {
+    "message": "Configura las columnas, orden y pestañas del tablero principal."
+  },
   "dateAdded": {
     "message": "Agregado: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "Privacidad"
   },
+  "productivityFeaturesDesc": {
+    "message": "Opciones para enriquecer la experiencia de tus marcadores."
+  },
+  "productivityFeaturesHeading": {
+    "message": "Herramientas y capturas"
+  },
   "removeFolder": {
     "message": "Quitar carpeta"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "limpiar vistas previas cache capturas imagenes"
   },
+  "searchDashboardSection": {
+    "message": "tablero carpetas columnas pestañas vista orden fijados"
+  },
+  "searchDataSection": {
+    "message": "datos privacidad estadisticas importar exportar json almacenamiento"
+  },
   "searchExportBtn": {
     "message": "exportar configuracion backup descargar json"
+  },
+  "searchFeaturesSection": {
+    "message": "funciones enlaces capturas sitios frecuentes etiquetas accesibilidad atajos"
   },
   "searchFolders": {
     "message": "carpetas seleccionar monitorear vista orden manual predeterminado"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "Configuración"
+  },
+  "setupSectionDashboard": {
+    "message": "Tablero"
+  },
+  "setupSectionData": {
+    "message": "Datos"
+  },
+  "setupSectionDataDesc": {
+    "message": "Controla estadísticas locales, almacenamiento e importación/exportación."
+  },
+  "setupSectionFeatures": {
+    "message": "Funciones"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "Activa funciones opcionales del tablero y accesos rápidos."
   },
   "setupTitle": {
     "message": "Configurar martabs"

@@ -195,6 +195,9 @@
   "customWallpaperActive": {
     "message": "自定义壁纸已启用"
   },
+  "dashboardDescription": {
+    "message": "配置主仪表板的列、排序和标签页。"
+  },
   "dateAdded": {
     "message": "添加日期: $DATE$",
     "placeholders": {
@@ -664,6 +667,12 @@
   "privacySection": {
     "message": "隐私"
   },
+  "productivityFeaturesDesc": {
+    "message": "丰富书签体验的选项。"
+  },
+  "productivityFeaturesHeading": {
+    "message": "工具和捕获"
+  },
   "removeFolder": {
     "message": "移除文件夹"
   },
@@ -751,8 +760,17 @@
   "searchClearPreviewsBtn": {
     "message": "清除 预览 缓存 捕获 图片"
   },
+  "searchDashboardSection": {
+    "message": "仪表板 文件夹 列 标签页 视图 排序 固定"
+  },
+  "searchDataSection": {
+    "message": "数据 隐私 统计 导入 导出 存储"
+  },
   "searchExportBtn": {
     "message": "导出 配置 备份 下载 json"
+  },
+  "searchFeaturesSection": {
+    "message": "功能 链接 捕获 常用网站 标签 可访问性 快捷方式"
   },
   "searchFolders": {
     "message": "文件夹 选择 监控 视图 排序 手动 默认"
@@ -837,6 +855,21 @@
   },
   "setupHeaderTitle": {
     "message": "设置"
+  },
+  "setupSectionDashboard": {
+    "message": "仪表板"
+  },
+  "setupSectionData": {
+    "message": "数据"
+  },
+  "setupSectionDataDesc": {
+    "message": "控制本地统计数据、存储和导入/导出。"
+  },
+  "setupSectionFeatures": {
+    "message": "功能"
+  },
+  "setupSectionFeaturesDesc": {
+    "message": "启用可选的仪表板功能和快速快捷方式。"
   },
   "setupTitle": {
     "message": "配置 martabs"
