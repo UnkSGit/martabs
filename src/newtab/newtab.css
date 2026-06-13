@@ -1588,7 +1588,7 @@ button svg {
 
 .widgets-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(280px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
   gap: 20px;
   justify-content: center;
   justify-items: stretch;
@@ -1596,24 +1596,6 @@ button svg {
   max-height: 2000px;
   opacity: 1;
   overflow: visible;
-}
-
-@media (max-width: 1370px) {
-  .widgets-grid {
-    grid-template-columns: repeat(3, minmax(280px, 320px));
-  }
-}
-
-@media (max-width: 1030px) {
-  .widgets-grid {
-    grid-template-columns: repeat(2, minmax(280px, 320px));
-  }
-}
-
-@media (max-width: 690px) {
-  .widgets-grid {
-    grid-template-columns: minmax(260px, 320px);
-  }
 }
 
 /* Widget Cards */

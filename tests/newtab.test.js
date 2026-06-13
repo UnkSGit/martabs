@@ -337,7 +337,7 @@ test("widgets grid is centered, stable on hover, and respects saved order", asyn
   assert.match(js, /\.\.\.savedOrder\.filter\(id => defaultWidgetIds\.includes\(id\)\)/);
   assert.match(js, /\.\.\.defaultWidgetIds\.filter\(id => !savedOrder\.includes\(id\)\)/);
 
-  assert.match(css, /\.widgets-grid\s*{[\s\S]*?grid-template-columns:\s*repeat\(4, minmax\(280px, 320px\)\)/);
+  assert.match(css, /\.widgets-grid\s*{[\s\S]*?grid-template-columns:\s*repeat\(auto-fit, minmax\(280px, 320px\)\)/);
   assert.match(css, /\.widgets-grid\s*{[\s\S]*?justify-content:\s*center/);
   assert.match(css, /\.widget-card:hover\s*{[\s\S]*?transform:\s*none/);
 });
