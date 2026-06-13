@@ -53,6 +53,15 @@
                 <small data-i18n="appearanceDescription">Preferencias visuales generales del tablero.</small>
               </span>
             </button>
+            <button class="setup-nav-button" type="button" data-section="widgets">
+              <span class="setup-nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+              </span>
+              <span class="setup-nav-copy">
+                <strong data-i18n="widgetsSection">Widgets</strong>
+                <small data-i18n="widgetsDescription">Configure personal widgets to display clock, notes, checklists, weather, or sports metrics.</small>
+              </span>
+            </button>
             <button class="setup-nav-button" type="button" data-section="features">
               <span class="setup-nav-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M12 3l2.4 5 5.4.8-3.9 3.8.9 5.4L12 15.5 7.2 18l.9-5.4-3.9-3.8 5.4-.8z"></path></svg>
@@ -656,6 +665,183 @@
                       </div>
                     </label>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="section-widgets" class="setup-section" data-section="widgets" data-i18n-search="searchWidgetsSection" data-search="widgets reloj notas checklist tareas clima deportes connected local enabled">
+              <div class="section-heading">
+                <h2>
+                  <span data-i18n="widgetsHeading">Widgets</span>
+                  <span id="widgets-counter-badge" class="widgets-counter-badge"></span>
+                </h2>
+                <p data-i18n="widgetsDescription">Configure personal widgets to display a clock, quick notes, checklist, weather, or sports scores.</p>
+              </div>
+              <div class="settings-section-grid">
+                
+                <!-- Tarjeta 1: Activar widgets -->
+                <div class="settings-group">
+                  <div class="settings-group-body">
+                    <label class="switch-row">
+                      <input id="widgets-enabled" type="checkbox">
+                      <span>
+                        <strong data-i18n="widgetsEnabled">Enable widgets on the new tab page</strong>
+                      </span>
+                    </label>
+                    <label class="setting-row" id="widgets-style-row">
+                      <span data-i18n="widgetsStyle">Widget style</span>
+                      <select id="widgets-style">
+                        <option value="standard" data-i18n="widgetsStyleStandard">Standard (Vertical)</option>
+                        <option value="compact" data-i18n="widgetsStyleCompact">Compact (Horizontal)</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Contenedor configurable (ocultable por JS) -->
+                <div id="widgets-config-container" class="widgets-config-container">
+                  
+                  <!-- Warning Banner for Widget Limit -->
+                  <div id="widgets-limit-banner" class="widgets-limit-banner">
+                    <svg class="widgets-limit-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span data-i18n="widgetsLimitWarning">Puedes activar hasta 4 widgets a la vez. Desactiva uno para agregar otro.</span>
+                  </div>
+                  
+                  <!-- Tarjeta 2: Widgets Locales -->
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="localWidgets">Local widgets</strong>
+                      </span>
+                    </div>
+                    <div class="settings-group-body">
+                      <label class="switch-row">
+                        <input id="widget-clock-enabled" type="checkbox">
+                        <span>
+                          <strong data-i18n="clockWidget">Clock</strong>
+                        </span>
+                      </label>
+                      <div id="widget-clock-config" class="widgets-sub-config">
+                        <label class="setting-row">
+                          <span data-i18n="clockWidgetFormat">Clock time format</span>
+                          <select id="widget-clock-format">
+                            <option value="locale">Locale (12h/24h)</option>
+                            <option value="12">12-hour (AM/PM)</option>
+                            <option value="24">24-hour</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <label class="switch-row">
+                        <input id="widget-notes-enabled" type="checkbox">
+                        <span>
+                          <strong data-i18n="notesWidget">Quick notes</strong>
+                        </span>
+                      </label>
+
+                      <label class="switch-row">
+                        <input id="widget-checklist-enabled" type="checkbox">
+                        <span>
+                          <strong data-i18n="checklistWidget">Checklist</strong>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta 3: Widgets Conectados -->
+                  <div class="settings-group">
+                    <div class="settings-group-header">
+                      <span>
+                        <strong data-i18n="connectedWidgets">Connected widgets</strong>
+                      </span>
+                    </div>
+                    <div class="settings-group-body" style="padding-top: 14px;">
+                      <div class="widgets-warning-box" data-i18n="connectedWidgetsNotice" style="margin: 0 18px 14px 18px;">
+                        Notice: Connected widgets obtain information from external services (Open-Meteo, ESPN) and will make network requests upon tab load if enabled.
+                      </div>
+
+                      <label class="switch-row">
+                        <input id="widget-weather-enabled" type="checkbox">
+                        <span>
+                          <strong data-i18n="weatherWidget">Weather</strong>
+                        </span>
+                      </label>
+                      <div id="widget-weather-config" class="widgets-sub-config">
+                        <label class="setting-row">
+                          <span data-i18n="weatherLocationLabel">Location label (e.g. London)</span>
+                          <input id="widget-weather-label" type="text">
+                        </label>
+                        <label class="setting-row">
+                          <span data-i18n="weatherLocationQuery">Location search (e.g. London, UK)</span>
+                          <div class="widgets-verify-group">
+                            <input id="widget-weather-query" class="settings-search-input" type="text" autocomplete="off">
+                            <button id="weather-verify-btn" type="button" class="action-button secondary-button" data-i18n="verifyLocationBtn">Verificar</button>
+                          </div>
+                        </label>
+                        <div class="widgets-status-row">
+                          <span id="weather-validation-status" class="validation-status" aria-live="polite"></span>
+                        </div>
+                        <label class="setting-row">
+                          <span data-i18n="weatherUnits">Temperature units</span>
+                          <select id="widget-weather-units">
+                            <option value="metric">Celsius (°C)</option>
+                            <option value="imperial">Fahrenheit (°F)</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <label class="switch-row">
+                        <input id="widget-sports-enabled" type="checkbox">
+                        <span>
+                          <strong data-i18n="sportsWidget">Sports</strong>
+                        </span>
+                      </label>
+                      <div id="widget-sports-config" class="widgets-sub-config">
+                        <label class="setting-row">
+                          <span data-i18n="sportsLeague">Liga</span>
+                          <select id="widget-sports-league">
+                            <option value="soccer-esp-1">Spanish LaLiga</option>
+                            <option value="soccer-eng-1">English Premier League</option>
+                            <option value="soccer-uefa-champions">UEFA Champions League</option>
+                            <option value="soccer-ita-1">Italian Serie A</option>
+                            <option value="soccer-fifa-world">FIFA World Cup</option>
+                            <option value="soccer-uefa-euro">UEFA Euro</option>
+                            <option value="soccer-copa-america">Copa América</option>
+                            <option value="basketball-nba">NBA</option>
+                            <option value="football-nfl">NFL</option>
+                          </select>
+                        </label>
+                        <label class="setting-row">
+                          <span data-i18n="sportsMode">Sports display mode</span>
+                          <select id="widget-sports-mode">
+                            <option value="league">Toda la liga</option>
+                            <option value="teams">Solo mis equipos favoritos</option>
+                          </select>
+                        </label>
+                        <div id="widget-sports-teams-verification">
+                          <label class="setting-row">
+                            <span data-i18n="sportsTeam">Equipo</span>
+                            <div class="widgets-verify-group">
+                              <input id="widget-sports-team-input" class="settings-search-input" type="text" autocomplete="off" placeholder="e.g. Real Madrid">
+                              <button id="widget-sports-verify-btn" type="button" class="action-button secondary-button" data-i18n="verifyTeamBtn">Verificar</button>
+                            </div>
+                          </label>
+                          <div class="widgets-status-row">
+                            <span id="sports-validation-status" class="validation-status" aria-live="polite"></span>
+                          </div>
+                          <div class="widgets-favorites-container">
+                            <span class="widgets-favorites-title" data-i18n="sportsVerifiedFavorites">Equipos verificados:</span>
+                            <div id="sports-verified-list" class="sports-teams-selector"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </section>

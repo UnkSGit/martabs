@@ -111,6 +111,9 @@
   "changeView": {
     "message": "Ansicht ändern"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "Saubere Ordnernamen"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "Vorschauen gelöscht."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "Alle einklappen"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "Nutzungsstatistiken-Verlauf zurücksetzen?"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "Farben, Typ und Winkel des Farbverlaufs anpassen."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "Lokale Speichernutzung"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "Manuelle Tags"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "Keine"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "Lesezeichen verwalten"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "Titel A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "Liga"
+  },
+  "sportsMode": {
+    "message": "Anzeigemodus"
+  },
+  "sportsNoFavorites": {
+    "message": "Keine Spiele mit Ihren Lieblingsteams."
+  },
+  "sportsNoLive": {
+    "message": "Keine Live-Spiele"
+  },
+  "sportsNoMatches": {
+    "message": "Keine Spiele gefunden"
+  },
+  "sportsTabLive": {
+    "message": "Live"
+  },
+  "sportsTabResults": {
+    "message": "Ergebnisse"
+  },
+  "sportsTabUpcoming": {
+    "message": "Kommende"
+  },
+  "sportsTeam": {
+    "message": "Team"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "Verifizierte Teams:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "Statistiken"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "Ziehen Sie ein Bild hierher oder klicken Sie, um zu suchen (max. 12 MB)"
   },
+  "verifyLocationBtn": {
+    "message": "Verifizieren"
+  },
+  "verifyTeamBtn": {
+    "message": "Hinzufügen"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ Besuche",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "Kein Hintergrund"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "aktive Widgets"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "Widgets"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "Sie können nur bis zu 4 Widgets gleichzeitig aktivieren."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "Limit erreicht"
+  },
+  "widgetsLimitWarning": {
+    "message": "Sie können nur bis zu 4 Widgets gleichzeitig aktivieren. Deaktivieren Sie eines, um ein anderes hinzuzufügen."
+  },
+  "widgetsResizeTooltip": {
+    "message": "Widget-Größe umschalten"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "Widgets konfigurieren"
+  },
+  "widgetsStyle": {
+    "message": "Widget-Stil"
+  },
+  "widgetsStyleCompact": {
+    "message": "Kompakt (Horizontal)"
+  },
+  "widgetsStyleStandard": {
+    "message": "Standard (Vertikal)"
   }
 }

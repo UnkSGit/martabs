@@ -111,6 +111,9 @@
   "changeView": {
     "message": "Change view"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "Clean folder names"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "Cached previews cleared."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "Collapse all"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "Reset usage statistics history?"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "Adjust the gradient colors, type, and angle."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "Local storage usage"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "Manual tags"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "None"
+  },
+  "notesWidget": {
+    "message": "Quick notes"
   },
   "openBrowserBookmarks": {
     "message": "Manage bookmarks"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "Title A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "League"
+  },
+  "sportsMode": {
+    "message": "Display mode"
+  },
+  "sportsNoFavorites": {
+    "message": "No games involving favorite teams."
+  },
+  "sportsNoLive": {
+    "message": "No live matches"
+  },
+  "sportsNoMatches": {
+    "message": "No matches found"
+  },
+  "sportsTabLive": {
+    "message": "Live"
+  },
+  "sportsTabResults": {
+    "message": "Results"
+  },
+  "sportsTabUpcoming": {
+    "message": "Upcoming"
+  },
+  "sportsTeam": {
+    "message": "Team"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "Verified teams:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "Statistics"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "Drag an image here or click to browse (Max 12 MB)"
   },
+  "verifyLocationBtn": {
+    "message": "Verify"
+  },
+  "verifyTeamBtn": {
+    "message": "Add"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ visits",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "None"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "active widgets"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "Widgets"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "You can only enable up to 4 widgets at a time."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "Limit reached"
+  },
+  "widgetsLimitWarning": {
+    "message": "You can enable up to 4 widgets at a time. Deactivate one to enable another."
+  },
+  "widgetsResizeTooltip": {
+    "message": "Toggle widget size"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "Configure Widgets"
+  },
+  "widgetsStyle": {
+    "message": "Widget style"
+  },
+  "widgetsStyleCompact": {
+    "message": "Compact (Horizontal)"
+  },
+  "widgetsStyleStandard": {
+    "message": "Standard (Vertical)"
   }
 }

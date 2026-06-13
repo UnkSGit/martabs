@@ -257,3 +257,87 @@ test("newtab contains Fallout Easter Egg implementation", async () => {
   assert.match(js, /easterFalloutVaultOnline/);
   assert.match(js, /easterFalloutCounter/);
 });
+
+test("checklist widget adds tasks from the header without permanent footer form", async () => {
+  const js = await readFile("src/newtab/widgets/widget-renderer.js", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+
+  assert.match(js, /class:\s*'widget-checklist-add-btn'/);
+  assert.match(js, /class:\s*'widget-checklist-form is-inline'/);
+  assert.match(js, /function openAddTask\(\)/);
+  assert.match(js, /function closeAddTask\(\)/);
+  assert.match(js, /event\.key === 'Escape'/);
+  assert.match(js, /container\.append\(header, listContainer\);/);
+  assert.doesNotMatch(js, /container\.append\(header, listContainer, inputForm\);/);
+
+  assert.match(css, /\.widget-checklist-add-btn\s*{/);
+  assert.match(css, /\.widget-checklist-form\.is-inline\s*{/);
+  assert.match(css, /\.widget-checklist-form\[hidden\]\s*{/);
+  assert.match(css, /\.widget-checklist-list::-webkit-scrollbar\s*{/);
+  assert.match(css, /\.widget-checklist-delete\s*{[\s\S]*?width:\s*18px/);
+  assert.match(css, /max-height:\s*126px/);
+});
+
+test("sports widget uses two working tabs and displays upcoming date/time", async () => {
+  const js = await readFile("src/newtab/widgets/widget-renderer.js", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+
+  assert.match(js, /renderSportsWidgetV2/);
+  assert.match(js, /fetchScoreboardEvents\(getDateRange\(-2, 0\)\)/);
+  assert.match(js, /fetchScoreboardEvents\(getDateRange\(0, 2\)\)/);
+  assert.match(js, /widgetCache:sports/);
+  assert.match(js, /const results = uniqueEvents\(recentRawEvents\)/);
+  assert.match(js, /const upcoming = uniqueEvents\(upcomingRawEvents\)/);
+  assert.doesNotMatch(js, /const displayResults = results\.length > 0 \? results : events/);
+  assert.match(js, /function formatMatchDate\(match\)/);
+  assert.match(js, /function formatMatchTime\(match\)/);
+  assert.match(js, /text:\s*t\(api, 'sportsTabUpcoming'\) \|\| 'Upcoming'/);
+  assert.match(js, /text:\s*'‹'/);
+  assert.match(js, /text:\s*'›'/);
+  assert.match(js, /resultTab\.addEventListener\('click'/);
+  assert.match(js, /upcomingTab\.addEventListener\('click'/);
+  assert.match(js, /widget-sports-featured-match/);
+  assert.match(js, /const scoreClass = isUpcoming \? 'widget-sports-kickoff' : 'widget-sports-score'/);
+  assert.doesNotMatch(js, /class: `widget-sports-tab \$\{activeTab === 'ahora'/);
+
+  assert.match(css, /\.widget-sports-featured-match\s*{/);
+  assert.match(css, /\.widget-sports-kickoff\s*{/);
+  assert.match(css, /\.widget-sports-kickoff\s*{[\s\S]*?font-size:\s*14px/);
+  assert.match(css, /\.widget-sports-kickoff\s*{[\s\S]*?white-space:\s*nowrap/);
+  assert.match(css, /\.widgets-compact \.widget-sports-kickoff\s*{/);
+  assert.match(css, /\.widget-sports-footer\s*{[\s\S]*?border-top:\s*none/);
+  assert.match(css, /\.widget-sports-date\s*{/);
+  assert.match(css, /\.widgets-compact \.widget-sports-tabs\s*{/);
+});
+
+test("weather and clock widgets use cache and compact am pm rendering", async () => {
+  const js = await readFile("src/newtab/widgets/widget-renderer.js", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+
+  assert.match(js, /WEATHER_CACHE_TTL_MS/);
+  assert.match(js, /SPORTS_CACHE_TTL_MS/);
+  assert.match(js, /async function getWidgetCache/);
+  assert.match(js, /async function setWidgetCache/);
+  assert.match(js, /widgetCache:weather/);
+  assert.match(js, /const cachedWeather = await getWidgetCache/);
+  assert.match(js, /await setWidgetCache\(api, cacheKey/);
+  assert.match(js, /class:\s*'widget-clock-period'/);
+  assert.match(js, /timeEl\.classList\.toggle\('has-period'/);
+
+  assert.match(css, /\.widget-clock-time-display\.has-period\s*{/);
+  assert.match(css, /\.widget-clock-period\s*{/);
+  assert.match(css, /\.widget-clock-time-main\s*{[\s\S]*?white-space:\s*nowrap/);
+});
+
+test("widgets grid is centered, stable on hover, and respects saved order", async () => {
+  const js = await readFile("src/newtab/widgets/widget-renderer.js", "utf8");
+  const css = await readFile("src/newtab/newtab.css", "utf8");
+
+  assert.match(js, /const savedOrder = Array\.isArray\(w\.order\) \? w\.order : \[\]/);
+  assert.match(js, /\.\.\.savedOrder\.filter\(id => defaultWidgetIds\.includes\(id\)\)/);
+  assert.match(js, /\.\.\.defaultWidgetIds\.filter\(id => !savedOrder\.includes\(id\)\)/);
+
+  assert.match(css, /\.widgets-grid\s*{[\s\S]*?grid-template-columns:\s*repeat\(4, minmax\(280px, 320px\)\)/);
+  assert.match(css, /\.widgets-grid\s*{[\s\S]*?justify-content:\s*center/);
+  assert.match(css, /\.widget-card:hover\s*{[\s\S]*?transform:\s*none/);
+});

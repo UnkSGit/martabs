@@ -292,16 +292,26 @@ button svg {
   transform: none;
 }
 
-/* Content wrapper */
-.content {
+/* Scroll container wrapper */
+.scroll-container {
   flex-grow: 1;
   min-height: 0;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  width: 100%;
 }
-.content::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
+}
+
+/* Content wrapper */
+.content {
+  flex-grow: 1;
+  min-height: auto;
+  overflow: visible;
 }
 
 /* Group folder widget styling */
@@ -1514,4 +1524,893 @@ button svg {
 .search-clear-btn svg {
   width: 14px;
   height: 14px;
+}
+
+/* Widgets Layout Styles */
+.widgets-container {
+  max-width: 1400px;
+  width: calc(100% - 32px);
+  margin: 0 auto 16px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.widgets-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+}
+
+.widgets-header-title-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.widgets-header-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.widgets-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.widgets-toggle-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.widgets-toggle-btn svg.chevron-icon {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.widgets-container.widgets-style-compact .widgets-toggle-btn svg.chevron-icon {
+  transform: rotate(180deg);
+}
+
+.widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(280px, 320px));
+  gap: 20px;
+  justify-content: center;
+  justify-items: stretch;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 2000px;
+  opacity: 1;
+  overflow: visible;
+}
+
+@media (max-width: 1370px) {
+  .widgets-grid {
+    grid-template-columns: repeat(3, minmax(280px, 320px));
+  }
+}
+
+@media (max-width: 1030px) {
+  .widgets-grid {
+    grid-template-columns: repeat(2, minmax(280px, 320px));
+  }
+}
+
+@media (max-width: 690px) {
+  .widgets-grid {
+    grid-template-columns: minmax(260px, 320px);
+  }
+}
+
+/* Widget Cards */
+.widget-card {
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+  min-height: 180px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.widget-card:hover {
+  border-color: rgba(13, 148, 136, 0.24);
+  box-shadow: var(--shadow-md);
+  transform: none;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.widget-title-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.widget-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.widget-save-status {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.widget-save-status.saving {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Clock Widget */
+.widget-clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+}
+
+.widget-clock-time-display {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+  font-size: 2.8rem;
+  font-weight: 800;
+  font-feature-settings: "tnum";
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.widget-clock-time-display.has-period {
+  font-size: 2.45rem;
+  letter-spacing: 0;
+}
+
+.widget-clock-time-main {
+  white-space: nowrap;
+}
+
+.widget-clock-period {
+  font-size: 0.44em;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.widget-clock-date-display {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.widgets-compact .widget-clock-time-display {
+  font-size: 2.1rem;
+}
+
+.widgets-compact .widget-clock-time-display.has-period {
+  font-size: 1.75rem;
+}
+
+.widgets-compact .widget-clock-date-display {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+/* Weather Widget */
+.widget-weather-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 6px;
+}
+
+.widget-weather-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.widget-weather-large-temp {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.widget-weather-large-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.widget-weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widget-weather-location {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.widget-weather-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Sports Widget */
+.widget-sports-card {
+  gap: 0;
+}
+
+.widget-sports-card .widget-header {
+  margin-bottom: 8px;
+}
+
+.widget-sports-tabs {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: none;
+  padding-bottom: 0;
+  flex-shrink: 0;
+  background: transparent;
+  padding: 0 8px;
+  border-radius: 0;
+  justify-content: center;
+}
+
+.widget-sports-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  height: 24px;
+  min-height: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 12px;
+  text-transform: none;
+  letter-spacing: 0;
+  transition: all 0.15s ease;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.widget-sports-tab:hover {
+  color: var(--text-primary);
+  background: transparent;
+  transform: none;
+}
+
+.widget-sports-tab.active {
+  color: var(--text-primary);
+  background: transparent;
+  border-bottom: none;
+}
+
+.widget-sports-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 54%, #c4b5fd 46%);
+}
+
+.widget-sports-match {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 6px;
+  min-height: 0;
+}
+
+.widget-sports-featured-match {
+  display: grid;
+  grid-template-columns: minmax(68px, 1fr) auto minmax(68px, 1fr);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 4px 2px;
+}
+
+.widget-sports-featured-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  text-align: center;
+}
+
+.widget-sports-featured-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 74px;
+  text-align: center;
+}
+
+.widget-sports-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.widget-sports-logo-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.widget-sports-team-name {
+  max-width: 92px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-sports-score {
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.05;
+}
+
+.widget-sports-kickoff {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  max-width: 110px;
+  text-align: center;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.widget-sports-date {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.widget-sports-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 4px;
+  border-top: none;
+  flex-shrink: 0;
+}
+
+.widget-sports-status {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.widget-sports-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sports-pager-btn {
+  width: 26px;
+  height: 24px;
+  min-width: 26px;
+  background: color-mix(in srgb, var(--surface-bg) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--surface-border) 72%, transparent);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.sports-pager-btn:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--primary-soft) 72%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 34%, var(--surface-border));
+}
+
+.sports-pager-btn:disabled {
+  color: rgba(255, 255, 255, 0.15);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.widget-sports-page-indicator {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 24px;
+  text-align: center;
+}
+
+.widget-sports-empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: auto 0;
+}
+
+/* Notes Widget */
+.widget-notes-textarea {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  resize: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0;
+  margin-top: 4px;
+}
+
+/* Checklist Widget */
+.widget-checklist-header {
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.widget-checklist-title-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.widget-checklist-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-checklist-add-btn {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-color: rgba(13, 148, 136, 0.28);
+  box-shadow: none;
+}
+
+.widget-checklist-add-btn:hover {
+  background: var(--primary-hover);
+  color: #ffffff;
+  transform: none;
+}
+
+.widget-checklist-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 126px;
+  min-height: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline-end: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.22) transparent;
+}
+
+.widget-checklist-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.widget-checklist-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.widget-checklist-list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+}
+
+.widget-checklist-empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 16px;
+}
+
+.widget-checklist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 25px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.widget-checklist-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.widget-checklist-item.checked span {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.widget-checklist-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-primary);
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.widget-checklist-label span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-checklist-label input[type="checkbox"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+}
+
+.widget-checklist-delete {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+  border-radius: 999px;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.widget-checklist-delete:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border-color: transparent;
+  transform: none;
+}
+
+.widget-checklist-form {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.widget-checklist-form[hidden] {
+  display: none !important;
+}
+
+.widget-checklist-form.is-inline {
+  flex: 1;
+  width: 100%;
+}
+
+.widget-checklist-input {
+  flex: 1;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.widget-checklist-input:focus {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================
+   COMPACT MODE OVERRIDES (.widgets-compact)
+   ========================================== */
+.widgets-compact .widget-card {
+  height: 110px;
+  min-height: 110px;
+  padding: 10px 14px;
+}
+
+.widgets-compact .widget-header {
+  margin-bottom: 6px;
+}
+
+/* Compact Clock Widget */
+.widgets-compact .widget-clock-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  align-content: center;
+}
+
+.widgets-compact .widget-clock-row {
+  padding: 2px 0;
+  border-bottom: none;
+}
+
+.widgets-compact .widget-clock-label {
+  font-size: 11px;
+}
+
+.widgets-compact .widget-clock-time {
+  font-size: 12px;
+}
+
+/* Compact Weather Widget */
+.widgets-compact .widget-weather-body {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.widgets-compact .widget-weather-main {
+  gap: 8px;
+}
+
+.widgets-compact .widget-weather-large-temp {
+  font-size: 22px;
+}
+
+.widgets-compact .widget-weather-large-icon {
+  font-size: 24px;
+}
+
+.widgets-compact .widget-weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.widgets-compact .widget-weather-location {
+  text-align: left;
+  font-size: 12px;
+}
+
+.widgets-compact .widget-weather-desc {
+  text-align: left;
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+/* Compact Sports Widget */
+.widgets-compact .widget-sports .widget-header {
+  margin-bottom: 2px;
+}
+
+.widgets-compact .widget-sports-tabs {
+  display: flex;
+  margin-bottom: 2px;
+  gap: 16px;
+  justify-content: center;
+  padding: 0;
+}
+
+.widgets-compact .widget-sports-tab {
+  height: 16px;
+  min-height: 16px;
+  padding: 0 4px;
+  font-size: 10.5px;
+  line-height: 1;
+}
+
+.widgets-compact .widget-sports-match {
+  justify-content: center;
+  gap: 0;
+  min-height: 28px;
+  height: auto;
+}
+
+.widgets-compact .widget-sports-featured-match {
+  grid-template-columns: minmax(58px, 1fr) auto minmax(58px, 1fr);
+  gap: 8px;
+  padding: 0;
+}
+
+.widgets-compact .widget-sports-featured-team {
+  flex-direction: row;
+  gap: 5px;
+}
+
+.widgets-compact .widget-sports-logo,
+.widgets-compact .widget-sports-logo-placeholder {
+  width: 20px;
+  height: 20px;
+}
+
+.widgets-compact .widget-sports-team-name {
+  font-size: 11px;
+  max-width: 44px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.widgets-compact .widget-sports-score {
+  font-size: 13px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.widgets-compact .widget-sports-kickoff {
+  font-size: 11px;
+  min-width: 60px;
+}
+
+.widgets-compact .widget-sports-date {
+  font-size: 10px;
+}
+
+.widgets-compact .widget-sports-footer {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 1px;
+}
+
+.widgets-compact .widget-sports-status {
+  font-size: 10px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widgets-compact .widget-sports-page-indicator {
+  font-size: 10px;
+  min-width: 20px;
+}
+
+.widgets-compact .widget-sports-pager {
+  margin-inline-start: auto;
+}
+
+.widgets-compact .sports-pager-btn {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  font-size: 10px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Compact Notes Widget */
+.widgets-compact .widget-notes-textarea {
+  min-height: 44px;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 0;
+}
+
+/* Compact Checklist Widget */
+.widgets-compact .widget-checklist-list {
+  max-height: 58px;
+  gap: 3px;
+  margin-bottom: 0;
+}
+
+.widgets-compact .widget-checklist-item {
+  min-height: 23px;
+  padding: 2px 4px;
+}
+
+.widgets-compact .widget-checklist-label {
+  font-size: 11px;
+}
+
+.widgets-compact .widget-checklist-input {
+  height: 22px;
+  font-size: 11px;
+  padding: 0 6px;
+}
+
+.widgets-compact .widget-checklist-add-btn {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  font-size: 15px;
 }

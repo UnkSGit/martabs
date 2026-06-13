@@ -111,6 +111,9 @@
   "changeView": {
     "message": "تغيير العرض"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "أسماء مجلدات نظيفة"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "تم مسح المعاينات بنجاح."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "طي الكل"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "هل أنت متأكد من إعادة تعيين الإحصائيات؟"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "ضبط الألوان والنوع والزاوية للتحسين."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "تدقيق التخزين المحلي"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "علامات يدوية"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "لا شيء"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "إدارة الإشارات المرجعية"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "الاسم (تصاعدي)"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "الدوري"
+  },
+  "sportsMode": {
+    "message": "وضع العرض"
+  },
+  "sportsNoFavorites": {
+    "message": "لا توجد مباريات لفرقك المفضلة."
+  },
+  "sportsNoLive": {
+    "message": "لا توجد مباريات مباشرة"
+  },
+  "sportsNoMatches": {
+    "message": "لم يتم العثور على مباريات"
+  },
+  "sportsTabLive": {
+    "message": "مباشر"
+  },
+  "sportsTabResults": {
+    "message": "النتائج"
+  },
+  "sportsTabUpcoming": {
+    "message": "قادم"
+  },
+  "sportsTeam": {
+    "message": "الفريق"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "الفرق المؤكدة:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "الإحصائيات"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "اسحب صورة هنا أو انقر للبحث (بحد أقصى 12 ميجابايت)"
   },
+  "verifyLocationBtn": {
+    "message": "التحقق"
+  },
+  "verifyTeamBtn": {
+    "message": "إضافة"
+  },
   "visitsCountPlural": {
     "message": "زيارات $COUNT$",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "بدون خلفية"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "الأدوات النشطة"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "القطع البرمجية"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "يمكنك تفعيل ما يصل إلى 4 أدوات فقط في نفس الوقت."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "تم الوصول إلى الحد الأقصى"
+  },
+  "widgetsLimitWarning": {
+    "message": "يمكنك تنشيط ما يصل إلى 4 عناصر واجهة مستخدم فقط في المرة الواحدة. قم بتعطيل أحدها لإضافة عنصر آخر."
+  },
+  "widgetsResizeTooltip": {
+    "message": "تبديل حجم القطعة البرمجية"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "تكوين القطع البرمجية"
+  },
+  "widgetsStyle": {
+    "message": "نمط الأدوات"
+  },
+  "widgetsStyleCompact": {
+    "message": "مدمج (أفقي)"
+  },
+  "widgetsStyleStandard": {
+    "message": "قياسي (عمودي)"
   }
 }

@@ -1,204 +1,204 @@
 {
-  "timestamp": "2026-06-02T17:55:12.714Z",
+  "timestamp": "2026-06-13T01:43:09.243Z",
   "scenarios": {
     "A (Baseline: 10 folders x 10 bookmarks = 100 total)": {
       "domStats": {
-        "nodes": 1330,
+        "nodes": 1339,
         "groups": 10,
         "bookmarks": 100
       },
-      "loadDurationMs": 106,
-      "broadSearchDuration": 71,
+      "loadDurationMs": 131,
+      "broadSearchDuration": 66,
       "searchResultCount": 50,
       "cleanScroll": {
-        "avgFrame": 24.22187499993015,
-        "worstFrame": 101.09999999776483,
-        "over16": 31,
-        "over33": 1,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 775.0999999977648
+        "duration": 0
       },
       "interactiveScroll": {
-        "avgFrame": 28.053124999976717,
-        "worstFrame": 111.80000000074506,
-        "over16": 28,
-        "over33": 7,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 897.6999999992549
+        "duration": 0
       },
       "wheelScroll": {
-        "avgFrame": 24.046666666616996,
-        "worstFrame": 105.19999999925494,
-        "over16": 8,
-        "over33": 2,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 360.69999999925494
+        "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.59801980200233,
-        "worstFrame": 109.80000000074506,
-        "over16": 58,
+        "avgFrame": 18.06831683144711,
+        "worstFrame": 116.29999995231628,
+        "over16": 76,
         "over33": 1,
         "over50": 1,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1777.4000000022352
+        "duration": 1824.8999999761581
       }
     },
     "B (Wide folders: 5 folders x 100 bookmarks = 500 total)": {
       "domStats": {
-        "nodes": 2910,
+        "nodes": 2919,
         "groups": 5,
         "bookmarks": 250
       },
-      "loadDurationMs": 195,
-      "broadSearchDuration": 70,
+      "loadDurationMs": 201,
+      "broadSearchDuration": 85,
       "searchResultCount": 50,
       "cleanScroll": {
-        "avgFrame": 22.2920000000298,
-        "worstFrame": 100.39999999850988,
-        "over16": 21,
-        "over33": 1,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 557.3000000007451
+        "duration": 0
       },
       "interactiveScroll": {
-        "avgFrame": 32.9,
-        "worstFrame": 115.30000000074506,
-        "over16": 17,
-        "over33": 15,
-        "over50": 5,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 822.5
+        "duration": 0
       },
       "wheelScroll": {
-        "avgFrame": 25.11000000014901,
-        "worstFrame": 104.89999999850988,
-        "over16": 7,
-        "over33": 1,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 251.10000000149012
+        "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.607920792064455,
-        "worstFrame": 111.59999999776483,
-        "over16": 52,
+        "avgFrame": 17.90297029750182,
+        "worstFrame": 102.39999997615814,
+        "over16": 84,
         "over33": 1,
         "over50": 1,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1778.3999999985099
+        "duration": 1808.2000000476837
       }
     },
     "C (Many columns: 250 folders x 2 bookmarks = 500 total)": {
       "domStats": {
-        "nodes": 9810,
+        "nodes": 9819,
         "groups": 250,
         "bookmarks": 500
       },
-      "loadDurationMs": 286,
-      "broadSearchDuration": 86,
+      "loadDurationMs": 300,
+      "broadSearchDuration": 75,
       "searchResultCount": 50,
       "cleanScroll": {
-        "avgFrame": 28.141584158423218,
-        "worstFrame": 101.19999999925494,
-        "over16": 97,
-        "over33": 5,
-        "over50": 3,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 2842.300000000745
+        "duration": 0
       },
       "interactiveScroll": {
-        "avgFrame": 31.333663366329258,
-        "worstFrame": 104.60000000149012,
-        "over16": 97,
-        "over33": 25,
-        "over50": 4,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 3164.699999999255
+        "duration": 0
       },
       "wheelScroll": {
-        "avgFrame": 25.754999999981372,
-        "worstFrame": 115.30000000074506,
-        "over16": 22,
-        "over33": 16,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1030.199999999255
+        "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.57722772274277,
-        "worstFrame": 109.09999999776483,
-        "over16": 59,
+        "avgFrame": 17.75445544483638,
+        "worstFrame": 100.5,
+        "over16": 80,
         "over33": 1,
         "over50": 1,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1775.2999999970198
+        "duration": 1793.1999999284744
       }
     },
     "D (Huge load: 50 folders x 40 bookmarks = 2000 total)": {
       "domStats": {
-        "nodes": 22910,
+        "nodes": 22919,
         "groups": 50,
         "bookmarks": 2000
       },
-      "loadDurationMs": 714,
-      "broadSearchDuration": 103,
+      "loadDurationMs": 730,
+      "broadSearchDuration": 101,
       "searchResultCount": 50,
       "cleanScroll": {
-        "avgFrame": 35.339603960403416,
-        "worstFrame": 101,
-        "over16": 101,
-        "over33": 42,
-        "over50": 5,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 3569.300000000745
+        "duration": 0
       },
       "interactiveScroll": {
-        "avgFrame": 64.44752475250475,
-        "worstFrame": 131.10000000149012,
-        "over16": 101,
-        "over33": 94,
-        "over50": 66,
-        "longTasksCount": 60,
-        "maxLongTask": 104,
-        "duration": 6509.20000000298
-      },
-      "wheelScroll": {
-        "avgFrame": 23.178461538484463,
-        "worstFrame": 126.60000000149012,
-        "over16": 42,
-        "over33": 10,
-        "over50": 1,
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1506.6000000014901
+        "duration": 0
+      },
+      "wheelScroll": {
+        "avgFrame": 0,
+        "worstFrame": 0,
+        "over16": 0,
+        "over33": 0,
+        "over50": 0,
+        "longTasksCount": 0,
+        "maxLongTask": 0,
+        "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.554455445544555,
-        "worstFrame": 105.69999999925494,
-        "over16": 59,
+        "avgFrame": 17.934653466290765,
+        "worstFrame": 101.20000004768372,
+        "over16": 81,
         "over33": 1,
         "over50": 1,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1773
+        "duration": 1811.4000000953674
       }
     }
   }

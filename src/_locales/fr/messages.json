@@ -111,6 +111,9 @@
   "changeView": {
     "message": "Changer de vue"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "Noms de dossiers propres"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "Aperçus en cache effacés."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "Tout réduire"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "Réinitialiser l'historique des statistiques d'utilisation ?"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "Ajustez les couleurs, le type et l'angle du dégradé."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "Utilisation du stockage local"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "Tags manuels"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "Aucun"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "Gérer les favoris"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "Titre A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "Ligue"
+  },
+  "sportsMode": {
+    "message": "Mode d'affichage"
+  },
+  "sportsNoFavorites": {
+    "message": "Aucun match impliquant vos équipes favorites."
+  },
+  "sportsNoLive": {
+    "message": "Aucun match en direct"
+  },
+  "sportsNoMatches": {
+    "message": "Aucun match trouvé"
+  },
+  "sportsTabLive": {
+    "message": "Direct"
+  },
+  "sportsTabResults": {
+    "message": "Résultats"
+  },
+  "sportsTabUpcoming": {
+    "message": "À venir"
+  },
+  "sportsTeam": {
+    "message": "Équipe"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "Équipes vérifiées :"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "Statistiques"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "Faites glisser une image ici ou cliquez pour parcourir (Max 12 Mo)"
   },
+  "verifyLocationBtn": {
+    "message": "Vérifier"
+  },
+  "verifyTeamBtn": {
+    "message": "Ajouter"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ visites",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "Aucun"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "widgets actifs"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "Widgets"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "Vous ne pouvez activer que jusqu'à 4 widgets à la fois."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "Limite atteinte"
+  },
+  "widgetsLimitWarning": {
+    "message": "Vous ne pouvez activer que 4 widgets à la fois. Désactivez-en un pour en ajouter un autre."
+  },
+  "widgetsResizeTooltip": {
+    "message": "Basculer la taille des widgets"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "Configurer les widgets"
+  },
+  "widgetsStyle": {
+    "message": "Style des widgets"
+  },
+  "widgetsStyleCompact": {
+    "message": "Compact (Horizontal)"
+  },
+  "widgetsStyleStandard": {
+    "message": "Standard (Vertical)"
   }
 }

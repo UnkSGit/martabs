@@ -430,5 +430,79 @@ test("setup advanced section contains only maintenance and version controls", as
   assert.doesNotMatch(advanced, /id="import-config"/);
 });
 
+test("setup widgets section contains widgets activation and sub-configuration controls", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+  const js = await readFile("src/setup/setup.js", "utf8");
 
+  // HTML checks
+  assert.match(html, /id="section-widgets"/);
+  assert.match(html, /id="widgets-enabled"/);
+  assert.match(html, /id="widgets-style"/);
+  assert.match(html, /id="widgets-config-container"/);
+  assert.match(html, /id="widget-clock-enabled"/);
+  assert.match(html, /id="widget-clock-format"/);
+  assert.match(html, /id="widget-notes-enabled"/);
+  assert.match(html, /id="widget-checklist-enabled"/);
+  assert.match(html, /id="widget-weather-enabled"/);
+  assert.match(html, /id="widget-sports-enabled"/);
+  assert.match(html, /id="widget-sports-mode"/);
+  assert.match(html, /id="widget-sports-league"/);
 
+  // JS checks
+  assert.match(js, /widgetsEnabled = document\.querySelector\("#widgets-enabled"\)/);
+  assert.match(js, /widgetsStyle = document\.querySelector\("#widgets-style"\)/);
+  assert.match(js, /widgetSportsMode = document\.querySelector\("#widget-sports-mode"\)/);
+  assert.match(js, /widgetSportsLeague = document\.querySelector\("#widget-sports-league"\)/);
+  assert.match(js, /widgets:\s*\{/);
+  assert.match(js, /style:\s*widgetsStyle/);
+  assert.match(js, /clock:\s*\{/);
+  assert.match(js, /notes:\s*\{/);
+  assert.match(js, /checklist:\s*\{/);
+  assert.match(js, /weather:\s*\{/);
+  assert.match(js, /sports:\s*\{/);
+  assert.match(js, /mode:\s*widgetSportsMode/);
+  assert.match(js, /league:\s*widgetSportsLeague/);
+});
+
+test("setup widget initialization does not redeclare sports settings", async () => {
+  const files = [
+    "src/setup/setup.js",
+    "dist/chrome/setup/setup.js",
+    "dist/firefox/setup/setup.js"
+  ];
+
+  for (const file of files) {
+    const js = await readFile(file, "utf8");
+    const declarations = js.match(/const sports = w\.sports \|\| \{\};/g) || [];
+    assert.equal(declarations.length, 1, `${file} should declare sports settings once`);
+  }
+});
+
+test("setup widgets controls use compact card styling", async () => {
+  const css = await readFile("src/setup/setup.css", "utf8");
+
+  assert.match(css, /\.widgets-config-container > \.switch-row\s*{/);
+  assert.match(css, /\.widgets-config-container > \.setting-row:first-child\s*{[\s\S]*?display:\s*none\s*!important/);
+  assert.match(css, /\.widgets-sub-config\s*{/);
+  assert.match(css, /#widget-sports-config \.setting-row\s*{/);
+  assert.match(css, /#widget-sports-teams-verification \.setting-row\s*{/);
+  assert.match(css, /\.sports-team-badge\s*{/);
+  assert.match(css, /\.validation-status\s*{/);
+});
+
+test("setup widgets expose visual order badges and persist selection order", async () => {
+  const js = await readFile("src/setup/setup.js", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+
+  assert.match(js, /const WIDGET_ORDER_IDS = \["clock", "notes", "checklist", "weather", "sports"\]/);
+  assert.match(js, /function normalizeWidgetOrder\(order = \[\], widgets = \{\}\)/);
+  assert.match(js, /function updateWidgetOrderBadges\(\)/);
+  assert.match(js, /className = "widget-order-badge"/);
+  assert.match(js, /function handleWidgetOrderChange\(widgetId, checkbox\)/);
+  assert.match(js, /order:\s*normalizeWidgetOrder\(currentSettings\.widgets\?\.order \|\| \[\]/);
+  assert.match(js, /handleWidgetOrderChange\("clock", widgetClockEnabled\)/);
+  assert.match(js, /handleWidgetOrderChange\("sports", widgetSportsEnabled\)/);
+
+  assert.match(css, /\.widget-order-badge\s*{/);
+  assert.match(css, /\.widgets-config-container > \.switch-row\.has-widget-order\s*{/);
+});

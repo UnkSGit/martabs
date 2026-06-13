@@ -48,9 +48,23 @@
         </label>
       </div>
 
-      <div id="tabs-bar" class="tabs-bar" style="display: none;"></div>
-
-      <section id="content" class="content" aria-live="polite"></section>
+      <div id="scroll-container" class="scroll-container">
+        <div id="widgets-container" class="widgets-container" style="display: none;">
+          <div class="widgets-header">
+            <div class="widgets-header-title-container">
+              <span class="widgets-header-title" data-i18n="widgetsHeaderTitle">Widgets</span>
+              <button id="widgets-toggle" class="widgets-toggle-btn" aria-label="Toggle Widgets">
+                <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="widgets-grid" class="widgets-grid"></div>
+        </div>
+        <div id="tabs-bar" class="tabs-bar" style="display: none;"></div>
+        <section id="content" class="content" aria-live="polite"></section>
+      </div>
     </main>
     <div id="preview-card" class="preview-card" hidden></div>
     <dialog id="edit-modal" class="edit-modal">

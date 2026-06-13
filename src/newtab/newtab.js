@@ -17,6 +17,7 @@ import { localizeHtml, t, initI18n } from "../shared/i18n-helper.js";
 import { mergeTags } from "../shared/tags.js";
 import { getFolderOptions, getDisplayFolderName } from "../shared/bookmarks.js";
 import { getWallpaper } from "../shared/db.js";
+import { initializeWidgets } from "./widgets/widget-renderer.js";
 
 const api = getBrowserApi();
 const CAPTURE_OPENED_BOOKMARK = "CAPTURE_OPENED_BOOKMARK";
@@ -37,6 +38,8 @@ const editCancel = document.querySelector("#edit-cancel");
 const editSave = document.querySelector("#edit-save");
 const editFavicon = document.querySelector("#edit-favicon");
 const editFaviconError = document.querySelector("#edit-favicon-error");
+const widgetsContainer = document.querySelector("#widgets-container");
+const widgetsGrid = document.querySelector("#widgets-grid");
 const PINNED_FOLDER_KEY = "__martabs_pinned__";
 
 let bookmarks = [];
@@ -1620,6 +1623,10 @@ function renderTabsActiveState() {
 }
 
 function resetDashboardScroll() {
+  const scrollContainer = document.querySelector("#scroll-container");
+  if (scrollContainer) {
+    scrollContainer.scrollTop = 0;
+  }
   if (content) {
     content.scrollTop = 0;
   }
@@ -1702,6 +1709,10 @@ async function init() {
     } catch (e) {
       console.error("Failed to fetch top sites", e);
     }
+  }
+
+  if (widgetsContainer && widgetsGrid) {
+    initializeWidgets(api, settings, widgetsContainer, widgetsGrid);
   }
 
   render();
@@ -1937,6 +1948,9 @@ if (api.storage && api.storage.onChanged) {
           currentSettings = { ...(currentSettings || {}), ...newSettings };
           applyTheme(newSettings.theme || "system");
           applyCustomWallpaper();
+          if (widgetsContainer && widgetsGrid) {
+            initializeWidgets(api, currentSettings, widgetsContainer, widgetsGrid);
+          }
           render();
         }
       }

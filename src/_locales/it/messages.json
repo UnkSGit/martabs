@@ -111,6 +111,9 @@
   "changeView": {
     "message": "Cambia visualizzazione"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "Nomi cartelle puliti"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "Anteprime in cache cancellate."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "Comprimi tutto"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "Reimpostare la cronologia delle statistiche di utilizzo?"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "Regola i colori, il tipo e l'angolazione del gradiente."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "Uso della memoria locale"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "Tag manuali"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "Nessuno"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "Gestisci i preferiti"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "Titolo A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "Lega"
+  },
+  "sportsMode": {
+    "message": "Modalità di visualizzazione"
+  },
+  "sportsNoFavorites": {
+    "message": "Nessuna partita con le tue squadre preferite."
+  },
+  "sportsNoLive": {
+    "message": "Nessuna partita in corso"
+  },
+  "sportsNoMatches": {
+    "message": "Nessuna partita trovata"
+  },
+  "sportsTabLive": {
+    "message": "Live"
+  },
+  "sportsTabResults": {
+    "message": "Risultati"
+  },
+  "sportsTabUpcoming": {
+    "message": "Prossimi"
+  },
+  "sportsTeam": {
+    "message": "Squadra"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "Squadre verificate:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "Statistiche"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "Trascina un'immagine qui o fai clic per cercare (Max 12 MB)"
   },
+  "verifyLocationBtn": {
+    "message": "Verifica"
+  },
+  "verifyTeamBtn": {
+    "message": "Aggiungi"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ visite",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "Nessuno"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "widget attivi"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "Widget"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "Puoi attivare solo fino a 4 widget contemporaneamente."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "Limite raggiunto"
+  },
+  "widgetsLimitWarning": {
+    "message": "Puoi attivare solo fino a 4 widget alla volta. Disattiva uno per aggiungerne un altro."
+  },
+  "widgetsResizeTooltip": {
+    "message": "Alterna la dimensione dei widget"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "Configura i widget"
+  },
+  "widgetsStyle": {
+    "message": "Stile dei widget"
+  },
+  "widgetsStyleCompact": {
+    "message": "Compatto (Orizzontale)"
+  },
+  "widgetsStyleStandard": {
+    "message": "Standard (Verticale)"
   }
 }

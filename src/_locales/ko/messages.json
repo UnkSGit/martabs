@@ -111,6 +111,9 @@
   "changeView": {
     "message": "보기 변경"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "깔끔한 폴더 이름"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "캐시된 미리보기가 삭제되었습니다."
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "모두 축소"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "사용 통계 기록을 초기화하시겠습니까?"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "그라디언트 색상, 유형 및 각도를 조절합니다."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "로컬 스토리지 사용량"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "수동 태그"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "없음"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "북마크 관리"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "제목 A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "리그"
+  },
+  "sportsMode": {
+    "message": "표시 모드"
+  },
+  "sportsNoFavorites": {
+    "message": "선호하는 팀의 경기가 없습니다."
+  },
+  "sportsNoLive": {
+    "message": "진행 중인 경기가 없습니다"
+  },
+  "sportsNoMatches": {
+    "message": "경기 없음"
+  },
+  "sportsTabLive": {
+    "message": "라이브"
+  },
+  "sportsTabResults": {
+    "message": "결과"
+  },
+  "sportsTabUpcoming": {
+    "message": "예정"
+  },
+  "sportsTeam": {
+    "message": "팀"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "인증된 팀:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "통계"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "이미지를 여기에 끌어다 놓거나 클릭하여 찾아보기 (최대 12 MB)"
   },
+  "verifyLocationBtn": {
+    "message": "확인"
+  },
+  "verifyTeamBtn": {
+    "message": "추가"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ 회 방문",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "배경 없음"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "활성 위젯"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "위젯"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "한 번에 최대 4개의 위젯만 활성화할 수 있습니다."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "한도 도달"
+  },
+  "widgetsLimitWarning": {
+    "message": "한 번에 최대 4개의 위젯만 활성화할 수 있습니다. 다른 위젯을 추가하려면 하나를 비활성화하세요."
+  },
+  "widgetsResizeTooltip": {
+    "message": "위젯 크기 전환"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "위젯 설정"
+  },
+  "widgetsStyle": {
+    "message": "위젯 스타일"
+  },
+  "widgetsStyleCompact": {
+    "message": "컴팩트 (가로)"
+  },
+  "widgetsStyleStandard": {
+    "message": "표준 (세로)"
   }
 }

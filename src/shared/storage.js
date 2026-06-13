@@ -44,7 +44,18 @@ const DEFAULT_SETTINGS = {
   },
   tabs: [],
   folderTabs: {},
-  activeTabId: "all"
+  activeTabId: "all",
+  widgets: {
+    enabled: false,
+    collapsed: false,
+    style: "standard",
+    layout: [],
+    clock: { enabled: false, format: "locale" },
+    notes: { enabled: false },
+    checklist: { enabled: false },
+    weather: { enabled: false, locationLabel: "", locationQuery: "", units: "metric" },
+    sports: { enabled: false, mode: "teams", league: "soccer-esp-1", favorites: [] }
+  }
 };
 
 export const STORAGE_KEYS = {
@@ -55,7 +66,9 @@ export const STORAGE_KEYS = {
   capturedPreviews: "capturedPreviews",
   pendingPreviewCaptures: "pendingPreviewCaptures",
   pinnedBookmarks: "pinnedBookmarks",
-  clickStats: "clickStats"
+  clickStats: "clickStats",
+  widgetNotes: "widgetNotes",
+  widgetChecklist: "widgetChecklist"
 };
 
 export async function getSettings(api) {

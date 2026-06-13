@@ -111,6 +111,9 @@
   "changeView": {
     "message": "ビューの変更"
   },
+  "checklistWidget": {
+    "message": "Checklist"
+  },
   "cleanFolderNames": {
     "message": "フォルダ名を簡略化"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "キャッシュされたプレビューがクリアされました。"
+  },
+  "clockWidget": {
+    "message": "Clock"
+  },
+  "clockWidgetFormat": {
+    "message": "Clock Time Format"
   },
   "collapseAll": {
     "message": "すべて折りたたむ"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "使用統計履歴をリセットしますか？"
+  },
+  "connectedWidgets": {
+    "message": "Connected Widgets"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
   },
   "customGradientDesc": {
     "message": "グラデーションの色、タイプ、角度を調整します。"
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "ローカルストレージの使用量"
   },
+  "localWidgets": {
+    "message": "Local Widgets"
+  },
   "manualTags": {
     "message": "手動タグ"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "なし"
+  },
+  "notesWidget": {
+    "message": "Quick Notes"
   },
   "openBrowserBookmarks": {
     "message": "ブックマークを管理"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "タイトル A-Z"
   },
+  "sportsFavorites": {
+    "message": "Favorite Teams (comma-separated)"
+  },
+  "sportsLeague": {
+    "message": "リーグ"
+  },
+  "sportsMode": {
+    "message": "表示モード"
+  },
+  "sportsNoFavorites": {
+    "message": "お気に入りチームの試合はありません。"
+  },
+  "sportsNoLive": {
+    "message": "ライブ中の試合はありません"
+  },
+  "sportsNoMatches": {
+    "message": "試合が見つかりません"
+  },
+  "sportsTabLive": {
+    "message": "ライブ"
+  },
+  "sportsTabResults": {
+    "message": "結果"
+  },
+  "sportsTabUpcoming": {
+    "message": "予定"
+  },
+  "sportsTeam": {
+    "message": "チーム"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "確認済みのチーム:"
+  },
+  "sportsWidget": {
+    "message": "Sports Score"
+  },
   "statisticsSection": {
     "message": "統計"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "画像をここにドラッグするか、クリックして選択（最大12 MB）"
   },
+  "verifyLocationBtn": {
+    "message": "確認"
+  },
+  "verifyTeamBtn": {
+    "message": "追加"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ 回の訪問",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "背景なし"
+  },
+  "weatherLocationLabel": {
+    "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationQuery": {
+    "message": "Search Query (City Name)"
+  },
+  "weatherUnits": {
+    "message": "Units"
+  },
+  "weatherWidget": {
+    "message": "Weather"
+  },
+  "widgetsActiveCount": {
+    "message": "有効なウィジェット"
+  },
+  "widgetsDescription": {
+    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+  },
+  "widgetsEnabled": {
+    "message": "Enable widgets on your dashboard."
+  },
+  "widgetsHeaderTitle": {
+    "message": "ウィジェット"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "同時に有効にできるウィジェットは最大4つまでです。"
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "上限に達しました"
+  },
+  "widgetsLimitWarning": {
+    "message": "一度に有効にできるウィジェットは最大4つまでです。別のウィジェットを追加するには、いずれかを無効にしてください。"
+  },
+  "widgetsResizeTooltip": {
+    "message": "ウィジェットのサイズを切り替える"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "ウィジェットの設定"
+  },
+  "widgetsStyle": {
+    "message": "ウィジェットのスタイル"
+  },
+  "widgetsStyleCompact": {
+    "message": "コンパクト（横）"
+  },
+  "widgetsStyleStandard": {
+    "message": "標準（縦）"
   }
 }

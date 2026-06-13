@@ -115,6 +115,248 @@ const advancedVersion = document.querySelector("#advanced-version");
 let currentSettings = null;
 let currentFolders = [];
 let rawBookmarkTree = null;
+const widgetsEnabled = document.querySelector("#widgets-enabled");
+const widgetsStyle = document.querySelector("#widgets-style");
+const widgetsConfigContainer = document.querySelector("#widgets-config-container");
+const widgetClockEnabled = document.querySelector("#widget-clock-enabled");
+const widgetClockConfig = document.querySelector("#widget-clock-config");
+const widgetClockFormat = document.querySelector("#widget-clock-format");
+const widgetNotesEnabled = document.querySelector("#widget-notes-enabled");
+const widgetChecklistEnabled = document.querySelector("#widget-checklist-enabled");
+const widgetWeatherEnabled = document.querySelector("#widget-weather-enabled");
+const widgetWeatherConfig = document.querySelector("#widget-weather-config");
+const widgetWeatherLabel = document.querySelector("#widget-weather-label");
+const widgetWeatherQuery = document.querySelector("#widget-weather-query");
+const widgetWeatherUnits = document.querySelector("#widget-weather-units");
+const weatherVerifyBtn = document.querySelector("#weather-verify-btn");
+const weatherValidationStatus = document.querySelector("#weather-validation-status");
+const widgetSportsEnabled = document.querySelector("#widget-sports-enabled");
+const widgetSportsConfig = document.querySelector("#widget-sports-config");
+const widgetSportsLeague = document.querySelector("#widget-sports-league");
+const widgetSportsMode = document.querySelector("#widget-sports-mode");
+const widgetSportsTeamsVerification = document.querySelector("#widget-sports-teams-verification");
+const widgetSportsTeamInput = document.querySelector("#widget-sports-team-input");
+const widgetSportsVerifyBtn = document.querySelector("#widget-sports-verify-btn");
+const sportsValidationStatus = document.querySelector("#sports-validation-status");
+const sportsVerifiedList = document.querySelector("#sports-verified-list");
+
+const SPORTS_LEAGUES = [
+  { id: "soccer-esp-1", sport: "soccer", league: "esp.1", label: "Spanish LaLiga" },
+  { id: "soccer-eng-1", sport: "soccer", league: "eng.1", label: "English Premier League" },
+  { id: "soccer-uefa-champions", sport: "soccer", league: "uefa.champions", label: "UEFA Champions League" },
+  { id: "soccer-ita-1", sport: "soccer", league: "ita.1", label: "Italian Serie A" },
+  { id: "soccer-fifa-world", sport: "soccer", league: "fifa.world", label: "FIFA World Cup" },
+  { id: "soccer-uefa-euro", sport: "soccer", league: "uefa.euro", label: "UEFA Euro" },
+  { id: "soccer-copa-america", sport: "soccer", league: "copa.america", label: "Copa Am├®rica" },
+  { id: "basketball-nba", sport: "basketball", league: "nba", label: "NBA" },
+  { id: "football-nfl", sport: "football", league: "nfl", label: "NFL" }
+];
+
+let verifiedWeatherData = { verified: false };
+let verifiedSportsFavorites = [];
+
+const WIDGET_ORDER_IDS = ["clock", "notes", "checklist", "weather", "sports"];
+const WIDGET_CHECKBOXES = {
+  clock: widgetClockEnabled,
+  notes: widgetNotesEnabled,
+  checklist: widgetChecklistEnabled,
+  weather: widgetWeatherEnabled,
+  sports: widgetSportsEnabled
+};
+
+function normalizeWidgetOrder(order = [], widgets = {}) {
+  const savedOrder = Array.isArray(order) ? order : [];
+  const enabledIds = WIDGET_ORDER_IDS.filter((id) => widgets[id]?.enabled || WIDGET_CHECKBOXES[id]?.checked);
+  return [
+    ...savedOrder.filter((id) => enabledIds.includes(id)),
+    ...enabledIds.filter((id) => !savedOrder.includes(id))
+  ];
+}
+
+function updateWidgetOrderBadges() {
+  const order = normalizeWidgetOrder(currentSettings?.widgets?.order || [], currentSettings?.widgets || {});
+  WIDGET_ORDER_IDS.forEach((id) => {
+    const checkbox = WIDGET_CHECKBOXES[id];
+    const row = checkbox?.closest(".switch-row");
+    if (!row) return;
+    const existingBadge = row.querySelector(".widget-order-badge");
+    const orderIndex = checkbox.checked ? order.indexOf(id) : -1;
+
+    if (orderIndex < 0) {
+      existingBadge?.remove();
+      row.classList.remove("has-widget-order");
+      return;
+    }
+
+    const badge = existingBadge || document.createElement("span");
+    badge.className = "widget-order-badge";
+    badge.setAttribute("aria-label", `Widget order ${orderIndex + 1}`);
+    
+    // Clear content safely
+    badge.textContent = "";
+
+    // Create SVG element
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svgEl = document.createElementNS(svgNS, "svg");
+    svgEl.setAttribute("class", "order-badge-icon");
+    svgEl.setAttribute("viewBox", "0 0 24 24");
+    svgEl.setAttribute("fill", "none");
+    svgEl.setAttribute("stroke", "currentColor");
+    svgEl.setAttribute("stroke-width", "2.5");
+    svgEl.setAttribute("stroke-linecap", "round");
+    svgEl.setAttribute("stroke-linejoin", "round");
+
+    const lines = [
+      { x1: "8", y1: "6", x2: "21", y2: "6" },
+      { x1: "8", y1: "12", x2: "21", y2: "12" },
+      { x1: "8", y1: "18", x2: "21", y2: "18" }
+    ];
+    lines.forEach(l => {
+      const line = document.createElementNS(svgNS, "line");
+      line.setAttribute("x1", l.x1);
+      line.setAttribute("y1", l.y1);
+      line.setAttribute("x2", l.x2);
+      line.setAttribute("y2", l.y2);
+      svgEl.appendChild(line);
+    });
+
+    const circles = [
+      { cx: "3", cy: "6" },
+      { cx: "3", cy: "12" },
+      { cx: "3", cy: "18" }
+    ];
+    circles.forEach(c => {
+      const circle = document.createElementNS(svgNS, "circle");
+      circle.setAttribute("cx", c.cx);
+      circle.setAttribute("cy", c.cy);
+      circle.setAttribute("r", "1");
+      svgEl.appendChild(circle);
+    });
+
+    const numberSpan = document.createElement("span");
+    numberSpan.className = "order-badge-number";
+    numberSpan.textContent = String(orderIndex + 1);
+
+    badge.appendChild(svgEl);
+    badge.appendChild(numberSpan);
+
+    if (!existingBadge) {
+      row.appendChild(badge);
+    }
+    row.classList.add("has-widget-order");
+  });
+}
+
+function handleWidgetOrderChange(widgetId, checkbox) {
+  if (!currentSettings.widgets) currentSettings.widgets = {};
+  const existingOrder = Array.isArray(currentSettings.widgets.order) ? currentSettings.widgets.order : [];
+
+  if (checkbox.checked) {
+    currentSettings.widgets.order = existingOrder.includes(widgetId)
+      ? normalizeWidgetOrder(existingOrder, currentSettings.widgets)
+      : normalizeWidgetOrder([...existingOrder, widgetId], currentSettings.widgets);
+  } else {
+    currentSettings.widgets.order = existingOrder.filter((id) => id !== widgetId);
+  }
+
+  updateWidgetOrderBadges();
+}
+
+let warningTimeout = null;
+function showWidgetsLimitWarning() {
+  const banner = document.querySelector("#widgets-limit-banner");
+  if (!banner) return;
+  
+  banner.classList.add("show");
+  
+  clearTimeout(warningTimeout);
+  warningTimeout = setTimeout(() => {
+    banner.classList.remove("show");
+  }, 4000);
+}
+
+function updateWidgetLimitState() {
+  const checkboxes = [
+    widgetClockEnabled,
+    widgetNotesEnabled,
+    widgetChecklistEnabled,
+    widgetWeatherEnabled,
+    widgetSportsEnabled
+  ].filter(Boolean);
+  
+  const checkedCount = checkboxes.filter(cb => cb.checked).length;
+  
+  // Update the text counter badge
+  const counterBadge = document.querySelector("#widgets-counter-badge");
+  if (counterBadge) {
+    const activeText = t(api, "widgetsActiveCount") || "widgets activos";
+    counterBadge.textContent = `${checkedCount}/4 ${activeText}`;
+    if (checkedCount === 4) {
+      counterBadge.classList.add("limit-reached");
+    } else {
+      counterBadge.classList.remove("limit-reached");
+    }
+  }
+
+  // Update disabled state for checkboxes and switch-rows
+  checkboxes.forEach(cb => {
+    const row = cb.closest(".switch-row");
+    if (checkedCount >= 4 && !cb.checked) {
+      cb.disabled = true;
+      if (row) {
+        row.classList.add("switch-row-disabled");
+        const tooltipText = t(api, "widgetsLimitReachedTooltip") || "Límite alcanzado";
+        row.setAttribute("title", tooltipText);
+      }
+    } else {
+      cb.disabled = false;
+      if (row) {
+        row.classList.remove("switch-row-disabled");
+        row.removeAttribute("title");
+      }
+    }
+  });
+}
+
+function enforceWidgetLimit(changedCheckbox) {
+  if (!changedCheckbox.checked) {
+    updateWidgetLimitState();
+    return true;
+  }
+  const checkboxes = [
+    widgetClockEnabled,
+    widgetNotesEnabled,
+    widgetChecklistEnabled,
+    widgetWeatherEnabled,
+    widgetSportsEnabled
+  ].filter(Boolean);
+  const checkedCount = checkboxes.filter(cb => cb.checked).length;
+  if (checkedCount > 4) {
+    changedCheckbox.checked = false;
+    showWidgetsLimitWarning();
+    updateWidgetLimitState();
+    return false;
+  }
+  updateWidgetLimitState();
+  return true;
+}
+
+function normalizeString(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function markChanged() {
+  if (saveButton) {
+    saveButton.disabled = false;
+  }
+  if (status) {
+    status.textContent = t(api, "unsavedChanges");
+  }
+}
 
 const topSitesPermissions = { permissions: ["topSites"] };
 
@@ -1516,6 +1758,40 @@ function collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showT
     customWallpaperLegibility: wallpaperBrightnessSlider ? 1.0 - Number(wallpaperBrightnessSlider.value) : 0.2,
     customWallpaperTheme: currentSettings.customWallpaperThemes?.[currentSettings.customWallpaperActiveSlot || 1] || "dark",
     
+    widgets: {
+      enabled: widgetsEnabled.checked,
+      collapsed: currentSettings.widgets?.collapsed || false,
+      style: widgetsStyle ? widgetsStyle.value : "standard",
+      layout: currentSettings.widgets?.layout || [],
+      order: normalizeWidgetOrder(currentSettings.widgets?.order || [], currentSettings.widgets),
+      clock: {
+        enabled: widgetClockEnabled.checked,
+        format: widgetClockFormat.value
+      },
+      notes: {
+        enabled: widgetNotesEnabled.checked
+      },
+      checklist: {
+        enabled: widgetChecklistEnabled.checked
+      },
+      weather: {
+        enabled: widgetWeatherEnabled.checked,
+        locationLabel: widgetWeatherLabel.value.trim(),
+        locationQuery: widgetWeatherQuery.value.trim(),
+        latitude: verifiedWeatherData?.latitude || null,
+        longitude: verifiedWeatherData?.longitude || null,
+        countryCode: verifiedWeatherData?.countryCode || "",
+        timezone: verifiedWeatherData?.timezone || "",
+        verifiedAt: verifiedWeatherData?.verifiedAt || null,
+        units: widgetWeatherUnits.value
+      },
+      sports: {
+        enabled: widgetSportsEnabled.checked,
+        mode: widgetSportsMode ? widgetSportsMode.value : "teams",
+        league: widgetSportsLeague ? widgetSportsLeague.value : "soccer-esp-1",
+        favorites: verifiedSportsFavorites
+      }
+    },
     setupComplete: true
   };
 }
@@ -1750,7 +2026,524 @@ async function init() {
     });
   }
 
+  // Initialize widgets controls
+  const w = currentSettings.widgets || {};
+  if (widgetsEnabled) {
+    widgetsEnabled.checked = w.enabled || false;
+    if (widgetsConfigContainer) {
+      widgetsConfigContainer.style.display = widgetsEnabled.checked ? "flex" : "none";
+    }
+  }
+  if (widgetsStyle) {
+    widgetsStyle.value = w.style || "standard";
+  }
+
+
+
+  const clock = w.clock || {};
+  const notes = w.notes || {};
+  const checklist = w.checklist || {};
+  const weather = w.weather || {};
+  const sports = w.sports || {};
+
+  let enabledCount = [
+    !!clock.enabled,
+    !!notes.enabled,
+    !!checklist.enabled,
+    !!weather.enabled,
+    !!sports.enabled
+  ].filter(Boolean).length;
+
+  if (enabledCount > 4) {
+    if (sports.enabled) { sports.enabled = false; enabledCount--; }
+    if (enabledCount > 4 && weather.enabled) { weather.enabled = false; enabledCount--; }
+    if (enabledCount > 4 && checklist.enabled) { checklist.enabled = false; enabledCount--; }
+    if (enabledCount > 4 && notes.enabled) { notes.enabled = false; enabledCount--; }
+    if (enabledCount > 4 && clock.enabled) { clock.enabled = false; enabledCount--; }
+  }
+
+  if (widgetClockEnabled) {
+    widgetClockEnabled.checked = clock.enabled || false;
+    if (widgetClockConfig) {
+      widgetClockConfig.style.display = widgetClockEnabled.checked ? "flex" : "none";
+    }
+  }
+  if (widgetClockFormat) {
+    widgetClockFormat.value = clock.format || "locale";
+  }
+
+  if (widgetNotesEnabled) {
+    widgetNotesEnabled.checked = notes.enabled || false;
+  }
+  if (widgetChecklistEnabled) {
+    widgetChecklistEnabled.checked = checklist.enabled || false;
+  }
+  if (widgetWeatherEnabled) {
+    widgetWeatherEnabled.checked = weather.enabled || false;
+    if (widgetWeatherConfig) {
+      widgetWeatherConfig.style.display = widgetWeatherEnabled.checked ? "flex" : "none";
+    }
+  }
+  if (widgetWeatherLabel) {
+    widgetWeatherLabel.value = weather.locationLabel || "";
+  }
+  if (widgetWeatherQuery) {
+    widgetWeatherQuery.value = weather.locationQuery || "";
+  }
+  if (widgetWeatherUnits) {
+    widgetWeatherUnits.value = weather.units || "metric";
+  }
+
+  if (weather.latitude && weather.longitude) {
+    verifiedWeatherData = { ...weather, verified: true };
+    if (weatherValidationStatus) {
+      weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n verificada: ${weather.locationQuery}`;
+      weatherValidationStatus.style.color = "var(--success-text)";
+    }
+  } else {
+    verifiedWeatherData = { verified: false };
+    if (weatherValidationStatus) {
+      weatherValidationStatus.textContent = "Pendiente de verificaci├│n";
+      weatherValidationStatus.style.color = "var(--warning-text)";
+    }
+  }
+
+  if (widgetSportsEnabled) {
+    widgetSportsEnabled.checked = sports.enabled || false;
+    if (widgetSportsConfig) {
+      widgetSportsConfig.style.display = widgetSportsEnabled.checked ? "flex" : "none";
+    }
+  }
+
+  if (widgetSportsMode) {
+    widgetSportsMode.value = sports.mode || "teams";
+  }
+  if (widgetSportsLeague) {
+    widgetSportsLeague.value = sports.league || "soccer-esp-1";
+  }
+  if (widgetSportsTeamsVerification) {
+    widgetSportsTeamsVerification.style.display = (widgetSportsEnabled && widgetSportsEnabled.checked && widgetSportsMode && widgetSportsMode.value === "teams") ? "flex" : "none";
+  }
+
+  verifiedSportsFavorites = Array.isArray(sports.favorites) ? sports.favorites : [];
+  renderVerifiedSportsFavorites();
+  updateWidgetOrderBadges();
+  updateWidgetLimitState();
   applySettingsSearch();
+}
+
+// Widget event listeners
+if (widgetsEnabled) {
+  widgetsEnabled.addEventListener("change", () => {
+    if (widgetsConfigContainer) {
+      widgetsConfigContainer.style.display = widgetsEnabled.checked ? "flex" : "none";
+    }
+  });
+}
+
+if (widgetClockEnabled) {
+  widgetClockEnabled.addEventListener("change", () => {
+    if (!enforceWidgetLimit(widgetClockEnabled)) {
+      if (widgetClockConfig) widgetClockConfig.style.display = "none";
+      return;
+    }
+    handleWidgetOrderChange("clock", widgetClockEnabled);
+    if (widgetClockConfig) {
+      widgetClockConfig.style.display = widgetClockEnabled.checked ? "flex" : "none";
+    }
+  });
+}
+
+if (widgetNotesEnabled) {
+  widgetNotesEnabled.addEventListener("change", () => {
+    if (enforceWidgetLimit(widgetNotesEnabled)) {
+      handleWidgetOrderChange("notes", widgetNotesEnabled);
+    }
+  });
+}
+
+if (widgetChecklistEnabled) {
+  widgetChecklistEnabled.addEventListener("change", () => {
+    if (enforceWidgetLimit(widgetChecklistEnabled)) {
+      handleWidgetOrderChange("checklist", widgetChecklistEnabled);
+    }
+  });
+}
+
+async function handleWidgetPermissionRequest(checkbox, origins) {
+  if (!checkbox.checked) return true;
+  if (!api.permissions?.request) return true;
+  try {
+    const granted = await api.permissions.request({ origins });
+    if (!granted) {
+      checkbox.checked = false;
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("Failed to request permission:", err);
+    checkbox.checked = false;
+    return false;
+  }
+}
+
+if (widgetWeatherEnabled) {
+  widgetWeatherEnabled.addEventListener("change", async () => {
+    if (!enforceWidgetLimit(widgetWeatherEnabled)) {
+      if (widgetWeatherConfig) widgetWeatherConfig.style.display = "none";
+      return;
+    }
+    const success = await handleWidgetPermissionRequest(widgetWeatherEnabled, [
+      "https://api.open-meteo.com/*",
+      "https://geocoding-api.open-meteo.com/*"
+    ]);
+    if (!success) {
+      handleWidgetOrderChange("weather", widgetWeatherEnabled);
+      updateWidgetLimitState();
+      if (widgetWeatherConfig) widgetWeatherConfig.style.display = "none";
+      return;
+    }
+    handleWidgetOrderChange("weather", widgetWeatherEnabled);
+    if (widgetWeatherConfig) {
+      widgetWeatherConfig.style.display = widgetWeatherEnabled.checked && success ? "flex" : "none";
+    }
+  });
+}
+
+if (widgetSportsEnabled) {
+  widgetSportsEnabled.addEventListener("change", async () => {
+    if (!enforceWidgetLimit(widgetSportsEnabled)) {
+      if (widgetSportsConfig) widgetSportsConfig.style.display = "none";
+      return;
+    }
+    const success = await handleWidgetPermissionRequest(widgetSportsEnabled, ["https://site.api.espn.com/*"]);
+    if (!success) {
+      handleWidgetOrderChange("sports", widgetSportsEnabled);
+      updateWidgetLimitState();
+      if (widgetSportsConfig) widgetSportsConfig.style.display = "none";
+      return;
+    }
+    handleWidgetOrderChange("sports", widgetSportsEnabled);
+    if (widgetSportsConfig) {
+      widgetSportsConfig.style.display = widgetSportsEnabled.checked && success ? "flex" : "none";
+    }
+  });
+}
+
+// Attach click listeners to all switch rows under #widgets-config-container to show the limit warning banner when clicking a disabled row
+document.querySelectorAll("#widgets-config-container .switch-row").forEach(row => {
+  row.addEventListener("click", (e) => {
+    const cb = row.querySelector("input[type='checkbox']");
+    if (cb && cb.disabled && !cb.checked) {
+      e.preventDefault();
+      showWidgetsLimitWarning();
+    }
+  });
+});
+
+// Weather Autocomplete
+if (widgetWeatherQuery) {
+  const weatherResults = document.querySelector("#weather-autocomplete-results");
+  let debounceTimeout = null;
+
+  widgetWeatherQuery.addEventListener("input", () => {
+    clearTimeout(debounceTimeout);
+    
+    // Mark current location as unverified if they type manually
+    if (verifiedWeatherData.verified && verifiedWeatherData.locationQuery !== widgetWeatherQuery.value.trim()) {
+      verifiedWeatherData.verified = false;
+      if (weatherValidationStatus) {
+        weatherValidationStatus.textContent = "Pendiente de verificaci├│n";
+        weatherValidationStatus.style.color = "var(--warning-text)";
+      }
+      markChanged();
+    }
+
+    const query = widgetWeatherQuery.value.trim();
+    if (query.length < 3) {
+      if (weatherResults) {
+        weatherResults.style.display = "none";
+        weatherResults.innerHTML = "";
+      }
+      return;
+    }
+
+    debounceTimeout = setTimeout(async () => {
+      try {
+        const allowed = await api.permissions.contains({
+          origins: ["https://geocoding-api.open-meteo.com/*"]
+        });
+        if (!allowed) return;
+
+        const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!data.results || data.results.length === 0) {
+          if (weatherResults) {
+            weatherResults.innerHTML = `<div class="autocomplete-suggestion-item" style="color: var(--text-secondary); cursor: default;">No results found</div>`;
+            weatherResults.style.display = "block";
+          }
+          return;
+        }
+
+        if (weatherResults) {
+          weatherResults.innerHTML = "";
+          data.results.forEach(item => {
+            const country = item.country ? `, ${item.country}` : "";
+            const admin1 = item.admin1 ? `, ${item.admin1}` : "";
+            const displayText = `${item.name}${admin1}${country}`;
+            const div = document.createElement("div");
+            div.className = "autocomplete-suggestion-item";
+            div.textContent = displayText;
+            div.addEventListener("click", () => {
+              widgetWeatherLabel.value = item.name;
+              widgetWeatherQuery.value = displayText;
+              weatherResults.style.display = "none";
+              
+              // Immediately mark as verified since it was selected from autocomplete
+              verifiedWeatherData = {
+                enabled: widgetWeatherEnabled.checked,
+                locationQuery: displayText,
+                locationLabel: item.name,
+                latitude: item.latitude,
+                longitude: item.longitude,
+                countryCode: item.country_code || "",
+                timezone: item.timezone || "Europe/London",
+                verifiedAt: Date.now(),
+                verified: true
+              };
+              if (weatherValidationStatus) {
+                weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n seleccionada: ${displayText}`;
+                weatherValidationStatus.style.color = "var(--success-text)";
+              }
+              markChanged();
+            });
+            weatherResults.appendChild(div);
+          });
+          weatherResults.style.display = "block";
+        }
+      } catch (err) {
+        console.error("Geocoding fetch failed", err);
+      }
+    }, 400);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (weatherResults && !widgetWeatherQuery.contains(e.target) && !weatherResults.contains(e.target)) {
+      weatherResults.style.display = "none";
+    }
+  });
+}
+
+if (weatherVerifyBtn) {
+  weatherVerifyBtn.addEventListener("click", async () => {
+    const success = await handleWidgetPermissionRequest(widgetWeatherEnabled, [
+      "https://api.open-meteo.com/*",
+      "https://geocoding-api.open-meteo.com/*"
+    ]);
+    if (!success) return;
+
+    const query = widgetWeatherQuery.value.trim();
+    if (!query) {
+      if (weatherValidationStatus) {
+        weatherValidationStatus.textContent = "Escribe una ubicaci├│n";
+        weatherValidationStatus.style.color = "var(--warning-text)";
+      }
+      return;
+    }
+    if (weatherValidationStatus) {
+      weatherValidationStatus.textContent = "Verificando ubicaci├│n...";
+      weatherValidationStatus.style.color = "var(--text-secondary)";
+    }
+    try {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=en&format=json`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!data.results || data.results.length === 0) {
+        if (weatherValidationStatus) {
+          weatherValidationStatus.textContent = "Ô£ù Ubicaci├│n no encontrada";
+          weatherValidationStatus.style.color = "var(--warning-text)";
+        }
+        verifiedWeatherData.verified = false;
+        return;
+      }
+      const item = data.results[0];
+      const country = item.country ? `, ${item.country}` : "";
+      const admin1 = item.admin1 ? `, ${item.admin1}` : "";
+      const fullName = `${item.name}${admin1}${country}`;
+      
+      verifiedWeatherData = {
+        enabled: widgetWeatherEnabled.checked,
+        locationQuery: query,
+        locationLabel: widgetWeatherLabel.value.trim() || item.name,
+        latitude: item.latitude,
+        longitude: item.longitude,
+        countryCode: item.country_code || "",
+        timezone: item.timezone || "Europe/London",
+        verifiedAt: Date.now(),
+        verified: true
+      };
+      
+      if (!widgetWeatherLabel.value.trim()) {
+        widgetWeatherLabel.value = item.name;
+      }
+      
+      if (weatherValidationStatus) {
+        weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n verificada: ${fullName}`;
+        weatherValidationStatus.style.color = "var(--success-text)";
+      }
+      markChanged();
+    } catch (err) {
+      console.error(err);
+      if (weatherValidationStatus) {
+        weatherValidationStatus.textContent = "Error de conexi├│n";
+        weatherValidationStatus.style.color = "var(--warning-text)";
+      }
+    }
+  });
+}
+
+if (widgetSportsVerifyBtn) {
+  widgetSportsVerifyBtn.addEventListener("click", async () => {
+    const success = await handleWidgetPermissionRequest(widgetSportsEnabled, ["https://site.api.espn.com/*"]);
+    if (!success) return;
+
+    const query = widgetSportsTeamInput.value.trim();
+    if (!query) {
+      if (sportsValidationStatus) {
+        sportsValidationStatus.textContent = "Escribe el nombre de un equipo";
+        sportsValidationStatus.style.color = "var(--warning-text)";
+      }
+      return;
+    }
+    
+    const selectedLeagueId = widgetSportsLeague.value;
+    const leagueInfo = SPORTS_LEAGUES.find(l => l.id === selectedLeagueId);
+    if (!leagueInfo) return;
+    
+    if (sportsValidationStatus) {
+      sportsValidationStatus.textContent = "Verificando equipo...";
+      sportsValidationStatus.style.color = "var(--text-secondary)";
+    }
+    
+    try {
+      const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${leagueInfo.sport}/${leagueInfo.league}/teams`);
+      const data = await res.json();
+      if (!data.sports || !data.sports[0] || !data.sports[0].leagues || !data.sports[0].leagues[0]) {
+        if (sportsValidationStatus) {
+          sportsValidationStatus.textContent = "Ô£ù Error al consultar ESPN";
+          sportsValidationStatus.style.color = "var(--warning-text)";
+        }
+        return;
+      }
+      
+      const teams = data.sports[0].leagues[0].teams || [];
+      const cleanQuery = normalizeString(query);
+      const matches = [];
+      
+      teams.forEach(t => {
+        const team = t.team;
+        if (!team) return;
+        const name = normalizeString(team.name || "");
+        const displayName = normalizeString(team.displayName || "");
+        const shortDisplayName = normalizeString(team.shortDisplayName || "");
+        const abbreviation = normalizeString(team.abbreviation || "");
+        
+        if (name === cleanQuery || displayName === cleanQuery || shortDisplayName === cleanQuery || abbreviation === cleanQuery) {
+          matches.push(team);
+        }
+      });
+      
+      if (matches.length === 0) {
+        teams.forEach(t => {
+          const team = t.team;
+          if (!team) return;
+          const displayName = normalizeString(team.displayName || "");
+          if (displayName.includes(cleanQuery)) {
+            matches.push(team);
+          }
+        });
+      }
+      
+      if (matches.length === 0) {
+        if (sportsValidationStatus) {
+          sportsValidationStatus.textContent = `Ô£ù Equipo no encontrado en ${leagueInfo.label}`;
+          sportsValidationStatus.style.color = "var(--warning-text)";
+        }
+        return;
+      }
+      
+      if (matches.length > 1) {
+        if (sportsValidationStatus) {
+          sportsValidationStatus.textContent = "Coincidencias m├║ltiples. S├® m├ís espec├¡fico.";
+          sportsValidationStatus.style.color = "var(--warning-text)";
+        }
+        return;
+      }
+      
+      const matchedTeam = matches[0];
+      const exists = verifiedSportsFavorites.some(f => f.teamId === matchedTeam.id && f.league === leagueInfo.league);
+      if (exists) {
+        if (sportsValidationStatus) {
+          sportsValidationStatus.textContent = "El equipo ya est├í en la lista.";
+          sportsValidationStatus.style.color = "var(--warning-text)";
+        }
+        return;
+      }
+      
+      verifiedSportsFavorites.push({
+        sport: leagueInfo.sport,
+        league: leagueInfo.league,
+        leagueLabel: leagueInfo.label,
+        teamId: matchedTeam.id,
+        teamName: matchedTeam.displayName,
+        teamAbbreviation: matchedTeam.abbreviation,
+        verifiedQuery: query,
+        verifiedAt: Date.now()
+      });
+      
+      widgetSportsTeamInput.value = "";
+      if (sportsValidationStatus) {
+        sportsValidationStatus.textContent = `Ô£ô Equipo agregado: ${matchedTeam.displayName}`;
+        sportsValidationStatus.style.color = "var(--success-text)";
+      }
+      
+      renderVerifiedSportsFavorites();
+      markChanged();
+    } catch (err) {
+      console.error(err);
+      if (sportsValidationStatus) {
+        sportsValidationStatus.textContent = "Error al conectar con ESPN API";
+        sportsValidationStatus.style.color = "var(--warning-text)";
+      }
+    }
+  });
+}
+
+function renderVerifiedSportsFavorites() {
+  if (!sportsVerifiedList) return;
+  sportsVerifiedList.innerHTML = "";
+  verifiedSportsFavorites.forEach((fav, index) => {
+    const badge = document.createElement("span");
+    badge.className = "sports-team-badge";
+    badge.textContent = `${fav.teamName} (${fav.leagueLabel || fav.league}) `;
+    
+    const removeBtn = document.createElement("span");
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = "Ô£ò";
+    removeBtn.style.cursor = "pointer";
+    removeBtn.style.marginLeft = "6px";
+    removeBtn.style.fontWeight = "bold";
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      verifiedSportsFavorites.splice(index, 1);
+      renderVerifiedSportsFavorites();
+      markChanged();
+    });
+    
+    badge.appendChild(removeBtn);
+    sportsVerifiedList.appendChild(badge);
+  });
 }
 
 navButtons.forEach((button) => {
@@ -2885,6 +3678,13 @@ saveButton.addEventListener("click", async () => {
     }
     if (!showTopSitesFolder) {
       frequentSites.checked = false;
+    }
+
+    if (widgetWeatherEnabled && widgetWeatherEnabled.checked) {
+      if (!verifiedWeatherData || !verifiedWeatherData.verified || verifiedWeatherData.locationQuery !== widgetWeatherQuery.value.trim()) {
+        alert("Por favor, verifica la ubicaci├│n del clima antes de guardar.");
+        return;
+      }
     }
 
     currentSettings = collectSettingsFromForm(linkHealthEnabled, previewCaptureEnabled, showTopSitesFolder, localStatsRequested);

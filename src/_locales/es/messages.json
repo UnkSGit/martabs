@@ -111,6 +111,9 @@
   "changeView": {
     "message": "Cambiar vista"
   },
+  "checklistWidget": {
+    "message": "Lista de tareas"
+  },
   "cleanFolderNames": {
     "message": "Nombres de carpetas limpios"
   },
@@ -136,6 +139,12 @@
   },
   "clearPreviewsSuccess": {
     "message": "Vistas previas en caché eliminadas."
+  },
+  "clockWidget": {
+    "message": "Reloj"
+  },
+  "clockWidgetFormat": {
+    "message": "Formato de hora de reloj"
   },
   "collapseAll": {
     "message": "Colapsar todas"
@@ -197,6 +206,12 @@
   },
   "confirmResetStats": {
     "message": "¿Restablecer el historial de estadísticas de uso?"
+  },
+  "connectedWidgets": {
+    "message": "Widgets conectados"
+  },
+  "connectedWidgetsNotice": {
+    "message": "Aviso: Los widgets conectados obtienen información de servicios externos (Open-Meteo, ESPN) y realizarán solicitudes de red al cargar la página si están activados."
   },
   "customGradientDesc": {
     "message": "Ajusta los colores, tipo y ángulo del degradado."
@@ -615,6 +630,9 @@
   "localStorageAudit": {
     "message": "Uso de almacenamiento local"
   },
+  "localWidgets": {
+    "message": "Widgets locales"
+  },
   "manualTags": {
     "message": "Etiquetas manuales"
   },
@@ -690,6 +708,9 @@
   },
   "none": {
     "message": "Ninguno"
+  },
+  "notesWidget": {
+    "message": "Notas rápidas"
   },
   "openBrowserBookmarks": {
     "message": "Administrar Marcadores (Navegador)"
@@ -1026,6 +1047,42 @@
   "sortTitleAsc": {
     "message": "Título A-Z"
   },
+  "sportsFavorites": {
+    "message": "Equipos favoritos (separados por comas)"
+  },
+  "sportsLeague": {
+    "message": "Liga"
+  },
+  "sportsMode": {
+    "message": "Modo de visualización"
+  },
+  "sportsNoFavorites": {
+    "message": "No hay partidos para tus equipos favoritos."
+  },
+  "sportsNoLive": {
+    "message": "No hay partidos en vivo"
+  },
+  "sportsNoMatches": {
+    "message": "No hay partidos"
+  },
+  "sportsTabLive": {
+    "message": "Ahora"
+  },
+  "sportsTabResults": {
+    "message": "Resultados"
+  },
+  "sportsTabUpcoming": {
+    "message": "Próximos"
+  },
+  "sportsTeam": {
+    "message": "Equipo"
+  },
+  "sportsVerifiedFavorites": {
+    "message": "Equipos verificados:"
+  },
+  "sportsWidget": {
+    "message": "Deportes"
+  },
   "statisticsSection": {
     "message": "Estadísticas"
   },
@@ -1104,6 +1161,12 @@
   "uploadWallpaperText": {
     "message": "Arrastra una imagen aquí o haz clic para buscar (Máx. 12 MB)"
   },
+  "verifyLocationBtn": {
+    "message": "Verificar"
+  },
+  "verifyTeamBtn": {
+    "message": "Agregar"
+  },
   "visitsCountPlural": {
     "message": "$COUNT$ visitas",
     "placeholders": {
@@ -1179,5 +1242,59 @@
   },
   "wallpaperTypeNone": {
     "message": "Sin fondo"
+  },
+  "weatherLocationLabel": {
+    "message": "Etiqueta de ubicación (ej: Madrid)"
+  },
+  "weatherLocationQuery": {
+    "message": "Búsqueda de ubicación (ej: Madrid, España)"
+  },
+  "weatherUnits": {
+    "message": "Unidad de temperatura"
+  },
+  "weatherWidget": {
+    "message": "Clima"
+  },
+  "widgetsActiveCount": {
+    "message": "widgets activos"
+  },
+  "widgetsDescription": {
+    "message": "Configura widgets personales para mostrar reloj, notas, listas de tareas, clima o resultados deportivos."
+  },
+  "widgetsEnabled": {
+    "message": "Activar widgets en la nueva pestaña"
+  },
+  "widgetsHeaderTitle": {
+    "message": "Widgets"
+  },
+  "widgetsHeading": {
+    "message": "Widgets"
+  },
+  "widgetsLimitReached": {
+    "message": "Solo se pueden activar hasta 4 widgets a la vez."
+  },
+  "widgetsLimitReachedTooltip": {
+    "message": "Límite alcanzado"
+  },
+  "widgetsLimitWarning": {
+    "message": "Puedes activar hasta 4 widgets a la vez. Desactiva uno para agregar otro."
+  },
+  "widgetsResizeTooltip": {
+    "message": "Alternar tamaño de widgets"
+  },
+  "widgetsSection": {
+    "message": "Widgets"
+  },
+  "widgetsSettingsTooltip": {
+    "message": "Configurar widgets"
+  },
+  "widgetsStyle": {
+    "message": "Estilo de los widgets"
+  },
+  "widgetsStyleCompact": {
+    "message": "Compacto (Horizontal)"
+  },
+  "widgetsStyleStandard": {
+    "message": "Estándar (Vertical)"
   }
 }
