@@ -766,6 +766,15 @@
   "productivityFeaturesHeading": {
     "message": "Strumenti e catture"
   },
+  "releaseCelebrationAriaLabel": {
+    "message": "celebrazione di martabs v1.0"
+  },
+  "releaseCelebrationSubtitle": {
+    "message": "Primo rilascio stabile"
+  },
+  "releaseCelebrationTitle": {
+    "message": "martabs v1.0"
+  },
   "removeFolder": {
     "message": "Rimuovi cartella"
   },

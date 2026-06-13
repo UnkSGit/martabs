@@ -766,6 +766,15 @@
   "productivityFeaturesHeading": {
     "message": "工具和捕获"
   },
+  "releaseCelebrationAriaLabel": {
+    "message": "martabs v1.0 庆祝"
+  },
+  "releaseCelebrationSubtitle": {
+    "message": "第一个稳定版本发布"
+  },
+  "releaseCelebrationTitle": {
+    "message": "martabs v1.0"
+  },
   "removeFolder": {
     "message": "移除文件夹"
   },

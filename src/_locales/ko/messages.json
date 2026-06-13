@@ -766,6 +766,15 @@
   "productivityFeaturesHeading": {
     "message": "도구 및 캡처"
   },
+  "releaseCelebrationAriaLabel": {
+    "message": "martabs v1.0 축하"
+  },
+  "releaseCelebrationSubtitle": {
+    "message": "첫 번째 안정적인 출시"
+  },
+  "releaseCelebrationTitle": {
+    "message": "martabs v1.0"
+  },
   "removeFolder": {
     "message": "폴더 제거"
   },

@@ -538,3 +538,18 @@ test("setup weather validation messages stay readable", async () => {
   assert.match(css, /\.widgets-config-container \.switch-row:has\(\+ \.widgets-sub-config\)\s*{[\s\S]*?border-bottom:\s*0/);
   assert.match(css, /\.widgets-config-container \.widgets-sub-config \+ \.switch-row\s*{[\s\S]*?border-top:\s*1px solid var\(--surface-border\)/);
 });
+
+test("setup page contains version click Easter egg implementation", async () => {
+  const js = await readFile("src/setup/setup.js", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+
+  assert.match(js, /function initVersionEasterEgg\(\)/);
+  assert.match(js, /function triggerVersionEasterEgg\(\)/);
+  assert.match(js, /versionClicks\s*>=?\s*10/);
+  assert.match(js, /initVersionEasterEgg\(\)/);
+
+  assert.match(css, /\.release-celebration-overlay\s*{/);
+  assert.match(css, /\.release-celebration-title\s*{/);
+  assert.match(css, /\.celebration-firework\s*{/);
+  assert.match(css, /@keyframes firework-explode\s*{/);
+});

@@ -358,6 +358,95 @@ function markChanged() {
   }
 }
 
+let versionClicks = 0;
+let lastVersionClickTime = 0;
+
+function handleVersionClick() {
+  const now = Date.now();
+  if (now - lastVersionClickTime > 5000) {
+    versionClicks = 1;
+  } else {
+    versionClicks++;
+  }
+  lastVersionClickTime = now;
+
+  if (versionClicks >= 10) {
+    versionClicks = 0;
+    triggerVersionEasterEgg();
+  }
+}
+
+function initVersionEasterEgg() {
+  const sidebarVersion = document.querySelector("#sidebar-version");
+  const advancedVersion = document.querySelector("#advanced-version");
+  if (sidebarVersion) {
+    sidebarVersion.style.cursor = "pointer";
+    sidebarVersion.addEventListener("click", handleVersionClick);
+  }
+  if (advancedVersion) {
+    advancedVersion.style.cursor = "pointer";
+    advancedVersion.addEventListener("click", handleVersionClick);
+  }
+}
+
+function triggerVersionEasterEgg() {
+  if (document.querySelector(".release-celebration-overlay")) return;
+
+  const overlay = document.createElement("div");
+  overlay.className = "release-celebration-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-label", t(api, "releaseCelebrationAriaLabel") || "Celebración de martabs v1.0");
+
+  const title = document.createElement("h1");
+  title.className = "release-celebration-title";
+  title.textContent = t(api, "releaseCelebrationTitle") || "martabs v1.0";
+
+  const subtitle = document.createElement("p");
+  subtitle.className = "release-celebration-subtitle";
+  subtitle.textContent = t(api, "releaseCelebrationSubtitle") || "First stable release";
+
+  overlay.appendChild(title);
+  overlay.appendChild(subtitle);
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReducedMotion) {
+    for (let i = 0; i < 5; i++) {
+      const firework = document.createElement("div");
+      firework.className = "celebration-firework";
+      firework.style.left = `${15 + Math.random() * 70}%`;
+      firework.style.top = `${15 + Math.random() * 50}%`;
+      firework.style.animationDelay = `${i * 0.4}s`;
+      overlay.appendChild(firework);
+    }
+  }
+
+  document.body.appendChild(overlay);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      closeOverlay();
+    }
+  };
+  document.addEventListener("keydown", handleKeyDown);
+
+  overlay.addEventListener("click", () => {
+    closeOverlay();
+  });
+
+  const autoCloseTimeout = setTimeout(() => {
+    closeOverlay();
+  }, 8000);
+
+  function closeOverlay() {
+    clearTimeout(autoCloseTimeout);
+    document.removeEventListener("keydown", handleKeyDown);
+    overlay.classList.add("fade-out");
+    overlay.addEventListener("animationend", () => {
+      overlay.remove();
+    });
+  }
+}
+
 const topSitesPermissions = { permissions: ["topSites"] };
 
 const urlPermissions = {
@@ -2129,6 +2218,7 @@ async function init() {
   renderVerifiedSportsFavorites();
   updateWidgetOrderBadges();
   updateWidgetLimitState();
+  initVersionEasterEgg();
   applySettingsSearch();
 }
 

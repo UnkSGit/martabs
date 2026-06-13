@@ -766,6 +766,15 @@
   "productivityFeaturesHeading": {
     "message": "Tools und Screenshots"
   },
+  "releaseCelebrationAriaLabel": {
+    "message": "martabs v1.0 Feier"
+  },
+  "releaseCelebrationSubtitle": {
+    "message": "Erster stabiler Release"
+  },
+  "releaseCelebrationTitle": {
+    "message": "martabs v1.0"
+  },
   "removeFolder": {
     "message": "Ordner entfernen"
   },

@@ -766,6 +766,15 @@
   "productivityFeaturesHeading": {
     "message": "ツールとキャプチャ"
   },
+  "releaseCelebrationAriaLabel": {
+    "message": "martabs v1.0 お祝い"
+  },
+  "releaseCelebrationSubtitle": {
+    "message": "初の安定版リリース"
+  },
+  "releaseCelebrationTitle": {
+    "message": "martabs v1.0"
+  },
   "removeFolder": {
     "message": "フォルダを削除"
   },
