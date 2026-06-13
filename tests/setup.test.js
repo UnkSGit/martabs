@@ -481,8 +481,8 @@ test("setup widget initialization does not redeclare sports settings", async () 
 test("setup widgets controls use compact card styling", async () => {
   const css = await readFile("src/setup/setup.css", "utf8");
 
-  assert.match(css, /\.widgets-config-container > \.switch-row\s*{/);
-  assert.match(css, /\.widgets-config-container > \.setting-row:first-child\s*{[\s\S]*?display:\s*none\s*!important/);
+  assert.match(css, /#widgets-style-row\s*{[\s\S]*?display:\s*none\s*!important/);
+  assert.match(css, /\.widgets-config-container \.switch-row\s*{/);
   assert.match(css, /\.widgets-sub-config\s*{/);
   assert.match(css, /#widget-sports-config \.setting-row\s*{/);
   assert.match(css, /#widget-sports-teams-verification \.setting-row\s*{/);
@@ -504,5 +504,37 @@ test("setup widgets expose visual order badges and persist selection order", asy
   assert.match(js, /handleWidgetOrderChange\("sports", widgetSportsEnabled\)/);
 
   assert.match(css, /\.widget-order-badge\s*{/);
-  assert.match(css, /\.widgets-config-container > \.switch-row\.has-widget-order\s*{/);
+  assert.match(css, /\.widgets-config-container \.switch-row\.has-widget-order\s*{/);
+});
+
+test("setup widgets limit uses inline warning, counter, and disabled rows", async () => {
+  const html = await readFile("src/setup/setup.html", "utf8");
+  const js = await readFile("src/setup/setup.js", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+
+  assert.match(html, /id="widgets-counter-badge"/);
+  assert.match(html, /id="widgets-limit-banner"/);
+  assert.match(js, /function showWidgetsLimitWarning\(\)/);
+  assert.match(js, /function updateWidgetLimitState\(\)/);
+  assert.match(js, /counterBadge\.textContent = `\$\{checkedCount\}\/4/);
+  assert.match(js, /row\.classList\.add\("switch-row-disabled"\)/);
+  assert.doesNotMatch(js, /alert\(t\(api, "widgetsLimitReached"\)/);
+  assert.match(css, /\.widgets-limit-banner\s*{/);
+  assert.match(css, /\.widgets-counter-badge\s*{/);
+  assert.match(css, /\.switch-row\.switch-row-disabled\s*{/);
+});
+
+test("setup weather validation messages stay readable", async () => {
+  const js = await readFile("src/setup/setup.js", "utf8");
+  const css = await readFile("src/setup/setup.css", "utf8");
+
+  assert.match(js, /OK - Ubicacion verificada/);
+  assert.match(js, /Pendiente de verificacion/);
+  assert.match(js, /Error - Ubicacion no encontrada/);
+  assert.match(js, /Error de conexion/);
+  assert.doesNotMatch(js, /weatherValidationStatus\.textContent[\s\S]{0,120}[\u00d4\u251c\u00c3]/);
+  assert.match(css, /\.widgets-sub-config\s*{[\s\S]*?margin:\s*8px 18px 18px 44px/);
+  assert.match(css, /\.widgets-sub-config\s*{[\s\S]*?clear:\s*both/);
+  assert.match(css, /\.widgets-config-container \.switch-row:has\(\+ \.widgets-sub-config\)\s*{[\s\S]*?border-bottom:\s*0/);
+  assert.match(css, /\.widgets-config-container \.widgets-sub-config \+ \.switch-row\s*{[\s\S]*?border-top:\s*1px solid var\(--surface-border\)/);
 });

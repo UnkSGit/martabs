@@ -2362,29 +2362,51 @@ html[dir="rtl"] .tabs-drag-split-layout {
   display: none !important;
 }
 
-.widgets-config-container > h3 {
-  margin: 10px 0 2px !important;
-  padding-inline-start: 2px;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  color: var(--text-muted) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.widgets-counter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
-.widgets-config-container > .setting-row:first-child {
-  display: none !important;
+.widgets-counter-badge.limit-reached {
+  border-color: color-mix(in srgb, var(--warning-text) 34%, var(--surface-border));
+  background: color-mix(in srgb, var(--warning-text) 12%, transparent);
+  color: var(--warning-text);
 }
 
-.widgets-config-container > .switch-row {
-  min-height: 66px;
-  border: 0;
-  border-bottom: 1px solid var(--surface-border);
-  border-radius: 0;
-  background: transparent;
-  padding: 14px 18px;
-  position: relative;
+.widgets-limit-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--warning-text) 34%, var(--surface-border));
+  background: color-mix(in srgb, var(--warning-text) 10%, transparent);
+  color: var(--warning-text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
 }
+
+.widgets-limit-banner.show {
+  display: flex;
+}
+
+.widgets-limit-banner-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .widgets-config-container .switch-row {
   min-height: 66px;
   border: 0;
@@ -2395,16 +2417,27 @@ html[dir="rtl"] .tabs-drag-split-layout {
   position: relative;
 }
 
-.widgets-config-container > .switch-row strong {
-  font-size: 13px;
+.widgets-config-container .switch-row:has(+ .widgets-sub-config) {
+  border-bottom: 0;
 }
+
+.widgets-config-container .widgets-sub-config + .switch-row {
+  border-top: 1px solid var(--surface-border);
+}
+
+.widgets-config-container .switch-row.switch-row-disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.widgets-config-container .switch-row.switch-row-disabled input {
+  cursor: not-allowed;
+}
+
 .widgets-config-container .switch-row strong {
   font-size: 13px;
 }
 
-.widgets-config-container > .switch-row.has-widget-order {
-  padding-inline-end: 54px;
-}
 .widgets-config-container .switch-row.has-widget-order {
   padding-inline-end: 54px;
 }
@@ -2448,12 +2481,13 @@ html[dir="rtl"] .tabs-drag-split-layout {
   flex-direction: column;
   gap: 10px;
   padding: 12px;
-  margin-top: -4px;
-  margin-bottom: 16px;
-  margin-inline-start: 28px;
+  margin: 8px 18px 18px 44px;
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   background: rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  width: auto;
+  clear: both;
 }
 
 .widgets-sub-config .setting-row {

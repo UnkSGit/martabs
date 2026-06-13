@@ -2097,13 +2097,13 @@ async function init() {
   if (weather.latitude && weather.longitude) {
     verifiedWeatherData = { ...weather, verified: true };
     if (weatherValidationStatus) {
-      weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n verificada: ${weather.locationQuery}`;
+      weatherValidationStatus.textContent = `OK - Ubicacion verificada: ${weather.locationQuery}`;
       weatherValidationStatus.style.color = "var(--success-text)";
     }
   } else {
     verifiedWeatherData = { verified: false };
     if (weatherValidationStatus) {
-      weatherValidationStatus.textContent = "Pendiente de verificaci├│n";
+      weatherValidationStatus.textContent = "Pendiente de verificacion";
       weatherValidationStatus.style.color = "var(--warning-text)";
     }
   }
@@ -2253,7 +2253,7 @@ if (widgetWeatherQuery) {
     if (verifiedWeatherData.verified && verifiedWeatherData.locationQuery !== widgetWeatherQuery.value.trim()) {
       verifiedWeatherData.verified = false;
       if (weatherValidationStatus) {
-        weatherValidationStatus.textContent = "Pendiente de verificaci├│n";
+        weatherValidationStatus.textContent = "Pendiente de verificacion";
         weatherValidationStatus.style.color = "var(--warning-text)";
       }
       markChanged();
@@ -2313,7 +2313,7 @@ if (widgetWeatherQuery) {
                 verified: true
               };
               if (weatherValidationStatus) {
-                weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n seleccionada: ${displayText}`;
+                weatherValidationStatus.textContent = `OK - Ubicacion seleccionada: ${displayText}`;
                 weatherValidationStatus.style.color = "var(--success-text)";
               }
               markChanged();
@@ -2346,13 +2346,13 @@ if (weatherVerifyBtn) {
     const query = widgetWeatherQuery.value.trim();
     if (!query) {
       if (weatherValidationStatus) {
-        weatherValidationStatus.textContent = "Escribe una ubicaci├│n";
+        weatherValidationStatus.textContent = "Escribe una ubicacion";
         weatherValidationStatus.style.color = "var(--warning-text)";
       }
       return;
     }
     if (weatherValidationStatus) {
-      weatherValidationStatus.textContent = "Verificando ubicaci├│n...";
+      weatherValidationStatus.textContent = "Verificando ubicacion...";
       weatherValidationStatus.style.color = "var(--text-secondary)";
     }
     try {
@@ -2361,7 +2361,7 @@ if (weatherVerifyBtn) {
       const data = await res.json();
       if (!data.results || data.results.length === 0) {
         if (weatherValidationStatus) {
-          weatherValidationStatus.textContent = "Ô£ù Ubicaci├│n no encontrada";
+          weatherValidationStatus.textContent = "Error - Ubicacion no encontrada";
           weatherValidationStatus.style.color = "var(--warning-text)";
         }
         verifiedWeatherData.verified = false;
@@ -2389,14 +2389,14 @@ if (weatherVerifyBtn) {
       }
       
       if (weatherValidationStatus) {
-        weatherValidationStatus.textContent = `Ô£ô Ubicaci├│n verificada: ${fullName}`;
+        weatherValidationStatus.textContent = `OK - Ubicacion verificada: ${fullName}`;
         weatherValidationStatus.style.color = "var(--success-text)";
       }
       markChanged();
     } catch (err) {
       console.error(err);
       if (weatherValidationStatus) {
-        weatherValidationStatus.textContent = "Error de conexi├│n";
+        weatherValidationStatus.textContent = "Error de conexion";
         weatherValidationStatus.style.color = "var(--warning-text)";
       }
     }
@@ -3682,7 +3682,7 @@ saveButton.addEventListener("click", async () => {
 
     if (widgetWeatherEnabled && widgetWeatherEnabled.checked) {
       if (!verifiedWeatherData || !verifiedWeatherData.verified || verifiedWeatherData.locationQuery !== widgetWeatherQuery.value.trim()) {
-        alert("Por favor, verifica la ubicaci├│n del clima antes de guardar.");
+        alert("Por favor, verifica la ubicacion del clima antes de guardar.");
         return;
       }
     }
