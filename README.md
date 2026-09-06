@@ -10,7 +10,7 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 
 ## Demo Video
 
-[martabs demo](https://github.com/user-attachments/assets/516ae9bc-bdc6-4087-8ace-0032dbeb48b6)
+[martabs-demo.webm](https://github.com/user-attachments/assets/3d010a62-945e-4fc5-b4fc-2fffee34e339)
 
 ## Screenshots
 
