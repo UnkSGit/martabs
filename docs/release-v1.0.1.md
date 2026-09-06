@@ -26,6 +26,7 @@ This release publishes the accumulated dashboard and widget improvements and fix
 - 34 selected Chromium browser tests passed, including seven persistence/import regression scenarios.
 - Translation consistency check passed.
 - Chrome and Firefox packages built successfully.
+- Mozilla web-ext 10.6.0 validation: zero errors, warnings or notices.
 - Firefox runtime testing remains limited by the existing extension test fixture.
 
 Store submission is manual for this release. Publishing the GitHub release does not publish an update in either browser store.

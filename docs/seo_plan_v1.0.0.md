@@ -257,4 +257,3 @@ Los objetivos agresivos como `Top 15 para Bookmark Manager` deben quedar como as
 - [ ] Revisar capturas finales.
 - [ ] Revisar cumplimiento de politicas antes de publicar.
 - [ ] Decidir si el boton de review entra en v1.0.0 o queda para v1.0.1.
-
