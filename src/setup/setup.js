@@ -1,7 +1,7 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { getFolderOptions, getFolderSelectionIds, getFolderSelectionScope, getNextFolderSelectionScope } from "../shared/bookmarks.js";
 import { getSettings, saveSettings, setStoredValue, STORAGE_KEYS } from "../shared/storage.js";
-import { generateExportData, parseAndRemapImport } from "../shared/sync.js";
+import { generateExportData, parseAndRemapImport, mergeImportedSettings } from "../shared/sync.js";
 import { localizeHtml, t, initI18n, normalizeLanguageCode } from "../shared/i18n-helper.js";
 import { saveWallpaper, getWallpaper, deleteWallpaper } from "../shared/db.js";
 
@@ -106,6 +106,7 @@ const themeSelect = document.querySelector("#theme-select");
 const languageSelect = document.querySelector("#language-select");
 const resetLocalOrganizationButton = document.querySelector("#reset-local-organization");
 const clearPreviewCacheButton = document.querySelector("#clear-preview-cache");
+const rateExtensionButton = document.querySelector("#rate-extension");
 const exportConfigButton = document.querySelector("#export-config");
 const importConfigButton = document.querySelector("#import-config");
 const importConfigFile = document.querySelector("#import-config-file");
@@ -133,24 +134,14 @@ const weatherValidationStatus = document.querySelector("#weather-validation-stat
 const widgetSportsEnabled = document.querySelector("#widget-sports-enabled");
 const widgetSportsConfig = document.querySelector("#widget-sports-config");
 const widgetSportsLeague = document.querySelector("#widget-sports-league");
-const widgetSportsMode = document.querySelector("#widget-sports-mode");
-const widgetSportsTeamsVerification = document.querySelector("#widget-sports-teams-verification");
-const widgetSportsTeamInput = document.querySelector("#widget-sports-team-input");
-const widgetSportsVerifyBtn = document.querySelector("#widget-sports-verify-btn");
-const sportsValidationStatus = document.querySelector("#sports-validation-status");
-const sportsVerifiedList = document.querySelector("#sports-verified-list");
+const widgetSportsMode = null;
+const widgetSportsTeamsVerification = null;
+const widgetSportsTeamInput = null;
+const widgetSportsVerifyBtn = null;
+const sportsValidationStatus = null;
+const sportsVerifiedList = null;
 
-const SPORTS_LEAGUES = [
-  { id: "soccer-esp-1", sport: "soccer", league: "esp.1", label: "Spanish LaLiga" },
-  { id: "soccer-eng-1", sport: "soccer", league: "eng.1", label: "English Premier League" },
-  { id: "soccer-uefa-champions", sport: "soccer", league: "uefa.champions", label: "UEFA Champions League" },
-  { id: "soccer-ita-1", sport: "soccer", league: "ita.1", label: "Italian Serie A" },
-  { id: "soccer-fifa-world", sport: "soccer", league: "fifa.world", label: "FIFA World Cup" },
-  { id: "soccer-uefa-euro", sport: "soccer", league: "uefa.euro", label: "UEFA Euro" },
-  { id: "soccer-copa-america", sport: "soccer", league: "copa.america", label: "Copa Am├®rica" },
-  { id: "basketball-nba", sport: "basketball", league: "nba", label: "NBA" },
-  { id: "football-nfl", sport: "football", league: "nfl", label: "NFL" }
-];
+const SPORTS_LEAGUES = [];
 
 let verifiedWeatherData = { verified: false };
 let verifiedSportsFavorites = [];
@@ -377,14 +368,8 @@ function handleVersionClick() {
 }
 
 function initVersionEasterEgg() {
-  const sidebarVersion = document.querySelector("#sidebar-version");
   const advancedVersion = document.querySelector("#advanced-version");
-  if (sidebarVersion) {
-    sidebarVersion.style.cursor = "pointer";
-    sidebarVersion.addEventListener("click", handleVersionClick);
-  }
   if (advancedVersion) {
-    advancedVersion.style.cursor = "pointer";
     advancedVersion.addEventListener("click", handleVersionClick);
   }
 }
@@ -428,10 +413,6 @@ function triggerVersionEasterEgg() {
     }
   };
   document.addEventListener("keydown", handleKeyDown);
-
-  overlay.addEventListener("click", () => {
-    closeOverlay();
-  });
 
   const autoCloseTimeout = setTimeout(() => {
     closeOverlay();
@@ -1458,7 +1439,8 @@ function renderTabsFolderTree(nodes, selectedFolderIds) {
 
     const iconEl = document.createElement("span");
     iconEl.className = "folder-icon";
-    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px; vertical-align: middle; color: ${isMonitored ? "var(--primary)" : "var(--text-muted)"}"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+    iconEl.style.color = isMonitored ? "var(--primary)" : "var(--text-muted)";
+    iconEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px; vertical-align: middle"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>';
     leftEl.appendChild(iconEl);
 
     const nameSpan = document.createElement("span");
@@ -3610,6 +3592,16 @@ clearPreviewCacheButton.addEventListener("click", () => {
   });
 });
 
+if (rateExtensionButton) {
+  rateExtensionButton.addEventListener("click", () => {
+    const isFirefox = typeof InstallTrigger !== "undefined" || navigator.userAgent.includes("Firefox");
+    const targetUrl = isFirefox
+      ? "https://addons.mozilla.org/es-ES/firefox/addon/martabs/"
+      : "https://chromewebstore.google.com/detail/martabs/fclhhlmpekebflpnihhkfocpnibmiiph/reviews";
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
+  });
+}
+
 const importSummaryContainer = document.querySelector("#import-summary-container");
 const importSummaryText = document.querySelector("#import-summary-text");
 const importConfirmBtn = document.querySelector("#import-confirm-btn");
@@ -3679,6 +3671,45 @@ importConfigFile.addEventListener("change", async (event) => {
       }
     }
 
+    // Imported toggles never grant permissions implicitly. Keep each optional
+    // feature disabled when its permission is absent.
+    if (result.settings.showTopSitesFolder) {
+      if (!api.permissions?.contains || !(await api.permissions.contains(topSitesPermissions))) result.settings.showTopSitesFolder = false;
+    }
+    const importedWidgets = result.settings.widgets;
+    if (importedWidgets) {
+      const widgetOrigins = {
+        weather: ["https://api.open-meteo.com/*", "https://geocoding-api.open-meteo.com/*"],
+        sports: ["https://site.api.espn.com/*"]
+      };
+      for (const [widgetName, origins] of Object.entries(widgetOrigins)) {
+        if (importedWidgets[widgetName]?.enabled && (!api.permissions?.contains || !(await api.permissions.contains({ origins })))) {
+          importedWidgets[widgetName].enabled = false;
+        }
+      }
+    }
+
+    // Image bytes are stored separately in IndexedDB. Keep same-profile slots
+    // that still exist, and clear missing slots from cross-profile imports.
+    if (result.settings.customWallpaperType === "image" && result.settings.customWallpaperEnabled) {
+      const slots = Array.isArray(result.settings.customWallpaperSlots) ? result.settings.customWallpaperSlots : [];
+      const availableSlots = [];
+      for (const slot of slots) {
+        try {
+          if (await getWallpaper(slot)) availableSlots.push(slot);
+        } catch {
+          // IndexedDB may be unavailable; the image cannot be restored safely.
+        }
+      }
+      result.settings.customWallpaperSlots = availableSlots;
+      if (availableSlots.length === 0) {
+        result.settings.customWallpaperEnabled = false;
+        result.settings.customWallpaperType = "none";
+      } else if (!availableSlots.includes(result.settings.customWallpaperActiveSlot)) {
+        result.settings.customWallpaperActiveSlot = availableSlots[0];
+      }
+    }
+
     pendingImportResult = result;
     importSummaryContainer.style.display = "block";
     importSummaryText.textContent = t(api, "importSummary", [
@@ -3706,7 +3737,9 @@ importConfirmBtn.addEventListener("click", async () => {
     importSummaryContainer.style.display = "none";
     status.textContent = t(api, "importSaving");
     
-    await setStoredValue(api, STORAGE_KEYS.settings, pendingImportResult.settings);
+    const installedSettings = await getSettings(api);
+    const mergedSettings = mergeImportedSettings(installedSettings, pendingImportResult.settings);
+    await saveSettings(api, mergedSettings);
     await setStoredValue(api, STORAGE_KEYS.manualTags, pendingImportResult.manualTags);
     await setStoredValue(api, STORAGE_KEYS.pinnedBookmarks, pendingImportResult.pinnedBookmarks);
     

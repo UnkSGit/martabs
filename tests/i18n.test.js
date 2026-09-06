@@ -77,6 +77,7 @@ test("localizeHtml updates mock DOM elements correctly", () => {
     "keyText": { message: "Monitored bookmarks" },
     "keyPlaceholder": { message: "Search..." },
     "keyTitle": { message: "Configure Settings" },
+    "keyAriaLabel": { message: "Toggle widgets" },
     "keySearch": { message: "extra search keywords" }
   };
 
@@ -86,6 +87,12 @@ test("localizeHtml updates mock DOM elements correctly", () => {
   const textElement = { dataset: { i18n: "keyText" }, textContent: "original" };
   const placeholderElement = { dataset: { i18nPlaceholder: "keyPlaceholder" }, placeholder: "original" };
   const titleElement = { dataset: { i18nTitle: "keyTitle" }, title: "original" };
+  const ariaElement = {
+    dataset: { i18nAriaLabel: "keyAriaLabel" },
+    setAttribute(name, value) {
+      this[name] = value;
+    }
+  };
   const searchElement = { dataset: { i18nSearch: "keySearch", search: "original" } };
 
   const mockDocument = {
@@ -100,6 +107,7 @@ test("localizeHtml updates mock DOM elements correctly", () => {
       if (selector === "[data-i18n]") return [textElement];
       if (selector === "[data-i18n-placeholder]") return [placeholderElement];
       if (selector === "[data-i18n-title]") return [titleElement];
+      if (selector === "[data-i18n-aria-label]") return [ariaElement];
       if (selector === "[data-i18n-search]") return [searchElement];
       return [];
     }
@@ -111,6 +119,7 @@ test("localizeHtml updates mock DOM elements correctly", () => {
   assert.strictEqual(textElement.textContent, "Monitored bookmarks");
   assert.strictEqual(placeholderElement.placeholder, "Search...");
   assert.strictEqual(titleElement.title, "Configure Settings");
+  assert.strictEqual(ariaElement["aria-label"], "Toggle widgets");
   assert.strictEqual(searchElement.dataset.search, "original extra search keywords");
 });
 

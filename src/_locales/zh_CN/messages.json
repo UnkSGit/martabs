@@ -111,8 +111,14 @@
   "changeView": {
     "message": "切换视图"
   },
+  "checklistEmpty": {
+    "message": "没有待办任务。"
+  },
+  "checklistPlaceholder": {
+    "message": "添加新任务..."
+  },
   "checklistWidget": {
-    "message": "Checklist"
+    "message": "清单"
   },
   "cleanFolderNames": {
     "message": "简洁文件夹名称"
@@ -140,11 +146,20 @@
   "clearPreviewsSuccess": {
     "message": "缓存的预览图已清除。"
   },
+  "clockFormat12": {
+    "message": "12小时制 (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24小时制"
+  },
+  "clockFormatLocale": {
+    "message": "系统 (12小时/24小时)"
+  },
   "clockWidget": {
-    "message": "Clock"
+    "message": "时钟"
   },
   "clockWidgetFormat": {
-    "message": "Clock Time Format"
+    "message": "时钟时间格式"
   },
   "collapseAll": {
     "message": "全部收起"
@@ -208,10 +223,10 @@
     "message": "重置使用统计历史记录？"
   },
   "connectedWidgets": {
-    "message": "Connected Widgets"
+    "message": "联网小部件"
   },
   "connectedWidgetsNotice": {
-    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
+    "message": "注意：联网小部件从外部服务 (Open-Meteo, ESPN) 获取数据，启用时将在加载标签页时发出网络请求。"
   },
   "customGradientDesc": {
     "message": "调整渐变的颜色、类型和角度。"
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "删除任务"
   },
   "domainNone": {
     "message": "无域名"
@@ -394,13 +412,13 @@
     "message": "在 Firefox 中，请使用 Ctrl+Shift+O 快捷键来管理书签。"
   },
   "folderSelectionScopeBranch": {
-    "message": "??"
+    "message": "文件夹和子文件夹"
   },
   "folderSelectionScopeChildren": {
-    "message": "??"
+    "message": "子文件夹"
   },
   "folderSelectionScopeSelf": {
-    "message": "???"
+    "message": "仅此文件夹"
   },
   "folderTableHeaderFolder": {
     "message": "文件夹"
@@ -631,7 +649,7 @@
     "message": "本地存储使用情况"
   },
   "localWidgets": {
-    "message": "Local Widgets"
+    "message": "本地小部件"
   },
   "manualTags": {
     "message": "手动标签"
@@ -709,8 +727,17 @@
   "none": {
     "message": "无"
   },
+  "notesPlaceholder": {
+    "message": "在这里输入笔记..."
+  },
+  "notesSaved": {
+    "message": "已保存"
+  },
+  "notesSaving": {
+    "message": "正在保存..."
+  },
   "notesWidget": {
-    "message": "Quick Notes"
+    "message": "快速便签"
   },
   "openBrowserBookmarks": {
     "message": "管理书签"
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "工具和捕获"
   },
+  "rateExtensionBtn": {
+    "message": "撰写评价"
+  },
+  "rateExtensionDesc": {
+    "message": "如果 martabs 帮助了您的日常浏览，请在应用商店中为我们评分！"
+  },
+  "rateExtensionTitle": {
+    "message": "支持该项目"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "martabs v1.0 庆祝"
+    "message": "martabs v1.0.0 庆祝"
   },
   "releaseCelebrationSubtitle": {
-    "message": "第一个稳定版本发布"
+    "message": "2026/06/15 - 第一个稳定版本发布"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "移除文件夹"
@@ -1056,17 +1092,68 @@
   "sortTitleAsc": {
     "message": "标题 A-Z"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "加载比分出错"
+  },
+  "sportsFinal": {
+    "message": "结束"
   },
   "sportsLeague": {
     "message": "联赛"
   },
-  "sportsMode": {
-    "message": "显示模式"
+  "sportsLeagueArgentinePrimera": {
+    "message": "阿根廷甲级联赛"
   },
-  "sportsNoFavorites": {
-    "message": "没有您喜爱的球队的比赛。"
+  "sportsLeagueBrazilianSerieA": {
+    "message": "巴西甲级联赛"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "南美解放者杯"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "美洲杯"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "英超联赛"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "国际足联世界杯"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "法国足球甲级联赛"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "德国足球甲级联赛"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "意甲联赛"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "墨西哥超级联赛"
+  },
+  "sportsLeagueNba": {
+    "message": "NBA"
+  },
+  "sportsLeagueNfl": {
+    "message": "NFL"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "葡萄牙超级联赛"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "西班牙西甲"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "欧洲冠军联赛"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "欧洲足球锦标赛"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "美国职业足球大联盟"
+  },
+  "sportsLive": {
+    "message": "直播"
   },
   "sportsNoLive": {
     "message": "暂无直播比赛"
@@ -1074,23 +1161,34 @@
   "sportsNoMatches": {
     "message": "未找到比赛"
   },
+  "sportsNoRecentResults": {
+    "message": "没有近期结果"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "没有已安排的比赛"
+  },
+  "sportsScheduled": {
+    "message": "已安排"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "在 Google 搜索 $MATCH$",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
+  },
   "sportsTabLive": {
     "message": "直播"
   },
   "sportsTabResults": {
-    "message": "比分"
+    "message": "结果"
   },
   "sportsTabUpcoming": {
     "message": "赛程"
   },
-  "sportsTeam": {
-    "message": "球队"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "已验证的球队:"
-  },
   "sportsWidget": {
-    "message": "Sports Score"
+    "message": "体育"
   },
   "statisticsSection": {
     "message": "统计"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "验证"
   },
-  "verifyTeamBtn": {
-    "message": "添加"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ 次访问",
     "placeholders": {
@@ -1252,32 +1347,126 @@
   "wallpaperTypeNone": {
     "message": "无背景"
   },
+  "weatherClearSky": {
+    "message": "晴朗"
+  },
+  "weatherCloudy": {
+    "message": "多云"
+  },
+  "weatherConfigureQuery": {
+    "message": "配置位置"
+  },
+  "weatherDrizzle": {
+    "message": "毛毛雨"
+  },
+  "weatherErrorShort": {
+    "message": "Err"
+  },
+  "weatherFoggy": {
+    "message": "有雾"
+  },
+  "weatherLoadFailed": {
+    "message": "无法加载天气"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Loc err"
+  },
   "weatherLocationLabel": {
-    "message": "Location Label (e.g. London)"
+    "message": "位置标签 (例如：北京)"
+  },
+  "weatherLocationNotFound": {
+    "message": "未找到位置"
   },
   "weatherLocationQuery": {
-    "message": "Search Query (City Name)"
+    "message": "位置搜索 (例如：中国北京)"
+  },
+  "weatherNetworkError": {
+    "message": "网络错误"
+  },
+  "weatherNoLocationShort": {
+    "message": "No loc"
+  },
+  "weatherNoResultsFound": {
+    "message": "未找到结果"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "局部多云"
+  },
+  "weatherRain": {
+    "message": "下雨"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "保存前请验证天气位置。"
+  },
+  "weatherShowers": {
+    "message": "阵雨"
+  },
+  "weatherSnow": {
+    "message": "下雪"
+  },
+  "weatherStatusChecking": {
+    "message": "正在验证位置..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "连接错误"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "请输入位置"
+  },
+  "weatherStatusNotFound": {
+    "message": "错误 - 未找到位置"
+  },
+  "weatherStatusPending": {
+    "message": "待验证"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - 已选择位置：$LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - 已验证位置：$LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "雷暴"
   },
   "weatherUnits": {
-    "message": "Units"
+    "message": "温度单位"
+  },
+  "weatherUnitsImperial": {
+    "message": "华氏度 (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "摄氏度 (C)"
   },
   "weatherWidget": {
-    "message": "Weather"
+    "message": "天气"
   },
   "widgetsActiveCount": {
     "message": "个启用的小部件"
   },
   "widgetsDescription": {
-    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+    "message": "在新建标签页中配置个人小部件以显示时钟、便签、清单、天气或体育比分。"
   },
   "widgetsEnabled": {
-    "message": "Enable widgets on your dashboard."
+    "message": "在仪表板上启用小部件"
   },
   "widgetsHeaderTitle": {
-    "message": "小组件"
+    "message": "小部件"
   },
   "widgetsHeading": {
-    "message": "Widgets"
+    "message": "小部件"
   },
   "widgetsLimitReached": {
     "message": "您最多只能同时启用4个小部件。"
@@ -1286,24 +1475,24 @@
     "message": "已达上限"
   },
   "widgetsLimitWarning": {
-    "message": "您一次最多只能启用 4 个小部件。请禁用其中一个以添加其他小部件。"
+    "message": "您最多可以同时启用 4 个小部件。请先停用一个以添加另一个。"
   },
   "widgetsResizeTooltip": {
-    "message": "切换小组件大小"
+    "message": "切换小部件大小"
   },
   "widgetsSection": {
-    "message": "Widgets"
+    "message": "小部件"
   },
   "widgetsSettingsTooltip": {
-    "message": "配置小组件"
+    "message": "配置小部件"
   },
   "widgetsStyle": {
     "message": "小部件样式"
   },
   "widgetsStyleCompact": {
-    "message": "紧凑（水平）"
+    "message": "紧凑 (水平)"
   },
   "widgetsStyleStandard": {
-    "message": "标准（垂直）"
+    "message": "标准 (垂直)"
   }
 }

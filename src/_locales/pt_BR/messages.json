@@ -111,8 +111,14 @@
   "changeView": {
     "message": "Alterar visualização"
   },
+  "checklistEmpty": {
+    "message": "Nenhuma tarefa pendente."
+  },
+  "checklistPlaceholder": {
+    "message": "Adicionar nova tarefa..."
+  },
   "checklistWidget": {
-    "message": "Checklist"
+    "message": "Lista de Tarefas"
   },
   "cleanFolderNames": {
     "message": "Nomes de pastas limpos"
@@ -140,11 +146,20 @@
   "clearPreviewsSuccess": {
     "message": "Pré-visualizações em cache excluídas."
   },
+  "clockFormat12": {
+    "message": "12 Horas (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24 Horas"
+  },
+  "clockFormatLocale": {
+    "message": "Sistema (12h/24h)"
+  },
   "clockWidget": {
-    "message": "Clock"
+    "message": "Relógio"
   },
   "clockWidgetFormat": {
-    "message": "Clock Time Format"
+    "message": "Formato de hora"
   },
   "collapseAll": {
     "message": "Recolher todas"
@@ -208,10 +223,10 @@
     "message": "Redefinir o histórico de estatísticas de uso?"
   },
   "connectedWidgets": {
-    "message": "Connected Widgets"
+    "message": "Widgets Conectados"
   },
   "connectedWidgetsNotice": {
-    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
+    "message": "Aviso: Os widgets conectados obtêm dados de serviços externos (Open-Meteo, ESPN) e farão solicitações de rede ao carregar a guia se estiverem ativados."
   },
   "customGradientDesc": {
     "message": "Ajuste as cores, tipo e ângulo do degradê."
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "Excluir tarefa"
   },
   "domainNone": {
     "message": "Sem domínio"
@@ -631,7 +649,7 @@
     "message": "Uso de armazenamento local"
   },
   "localWidgets": {
-    "message": "Local Widgets"
+    "message": "Widgets Locais"
   },
   "manualTags": {
     "message": "Etiquetas manuais"
@@ -709,8 +727,17 @@
   "none": {
     "message": "Nenhum"
   },
+  "notesPlaceholder": {
+    "message": "Escreva suas notas aqui..."
+  },
+  "notesSaved": {
+    "message": "Salvo"
+  },
+  "notesSaving": {
+    "message": "Salvando..."
+  },
   "notesWidget": {
-    "message": "Quick Notes"
+    "message": "Notas Rápidas"
   },
   "openBrowserBookmarks": {
     "message": "Gerenciar favoritos"
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "Ferramentas e capturas"
   },
+  "rateExtensionBtn": {
+    "message": "Escrever uma avaliação"
+  },
+  "rateExtensionDesc": {
+    "message": "Se o martabs ajuda na sua navegação diária, por favor classifique-nos na Web Store!"
+  },
+  "rateExtensionTitle": {
+    "message": "Apoie o projeto"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "Celebração do martabs v1.0"
+    "message": "Celebração do martabs v1.0.0"
   },
   "releaseCelebrationSubtitle": {
-    "message": "Primeiro lançamento estável"
+    "message": "15/06/2026 - Primeiro lançamento estável"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "Remover pasta"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "Título A-Z"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "Erro ao carregar placares"
+  },
+  "sportsFinal": {
+    "message": "Final"
   },
   "sportsLeague": {
     "message": "Liga"
   },
-  "sportsMode": {
-    "message": "Modo de exibição"
+  "sportsLeagueArgentinePrimera": {
+    "message": "Campeonato Argentino"
   },
-  "sportsNoFavorites": {
-    "message": "Nenhum jogo envolvendo seus times favoritos."
+  "sportsLeagueBrazilianSerieA": {
+    "message": "Campeonato Brasileiro Série A"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "Copa Libertadores"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "Copa América"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "Premier League inglesa"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "Copa do Mundo da FIFA"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "Ligue 1 Francesa"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "Bundesliga Alemã"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "Serie A italiana"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "Liga MX Mexicana"
+  },
+  "sportsLeagueNba": {
+    "message": "NBA"
+  },
+  "sportsLeagueNfl": {
+    "message": "NFL"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "Primeira Liga Portuguesa"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "LaLiga espanhola"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "UEFA Champions League"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "UEFA Euro"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "MLS Americana"
+  },
+  "sportsLive": {
+    "message": "Ao vivo"
   },
   "sportsNoLive": {
     "message": "Nenhuma partida ao vivo"
   },
   "sportsNoMatches": {
     "message": "Nenhum jogo encontrado"
+  },
+  "sportsNoRecentResults": {
+    "message": "Sem resultados recentes"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "Sem partidas programadas"
+  },
+  "sportsScheduled": {
+    "message": "Programado"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "Pesquisar $MATCH$ no Google",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "Ao vivo"
@@ -1083,14 +1187,8 @@
   "sportsTabUpcoming": {
     "message": "Próximos"
   },
-  "sportsTeam": {
-    "message": "Time"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "Times verificados:"
-  },
   "sportsWidget": {
-    "message": "Sports Score"
+    "message": "Esportes"
   },
   "statisticsSection": {
     "message": "Estatísticas"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "Verificar"
   },
-  "verifyTeamBtn": {
-    "message": "Adicionar"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ visitas",
     "placeholders": {
@@ -1252,26 +1347,120 @@
   "wallpaperTypeNone": {
     "message": "Sem fundo"
   },
+  "weatherClearSky": {
+    "message": "Céu limpo"
+  },
+  "weatherCloudy": {
+    "message": "Nublado"
+  },
+  "weatherConfigureQuery": {
+    "message": "Configure a localização"
+  },
+  "weatherDrizzle": {
+    "message": "Garoa"
+  },
+  "weatherErrorShort": {
+    "message": "Erro"
+  },
+  "weatherFoggy": {
+    "message": "Neblina"
+  },
+  "weatherLoadFailed": {
+    "message": "Falha ao carregar o clima"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Local"
+  },
   "weatherLocationLabel": {
-    "message": "Location Label (e.g. London)"
+    "message": "Nome do local (ex: São Paulo)"
+  },
+  "weatherLocationNotFound": {
+    "message": "Localização não encontrada"
   },
   "weatherLocationQuery": {
-    "message": "Search Query (City Name)"
+    "message": "Busca de local (ex: São Paulo, Brasil)"
+  },
+  "weatherNetworkError": {
+    "message": "Erro de rede"
+  },
+  "weatherNoLocationShort": {
+    "message": "Sem local"
+  },
+  "weatherNoResultsFound": {
+    "message": "Nenhum resultado encontrado"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "Parcialmente nublado"
+  },
+  "weatherRain": {
+    "message": "Chuva"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "Verifique a localização do clima antes de salvar."
+  },
+  "weatherShowers": {
+    "message": "Pancadas"
+  },
+  "weatherSnow": {
+    "message": "Neve"
+  },
+  "weatherStatusChecking": {
+    "message": "Verificando localização..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "Erro de conexão"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "Digite uma localização"
+  },
+  "weatherStatusNotFound": {
+    "message": "Erro - Localização não encontrada"
+  },
+  "weatherStatusPending": {
+    "message": "Verificação pendente"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - Localização selecionada: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - Localização verificada: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "Tempestade"
   },
   "weatherUnits": {
-    "message": "Units"
+    "message": "Unidade de temperatura"
+  },
+  "weatherUnitsImperial": {
+    "message": "Fahrenheit (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "Celsius (C)"
   },
   "weatherWidget": {
-    "message": "Weather"
+    "message": "Clima"
   },
   "widgetsActiveCount": {
     "message": "widgets ativos"
   },
   "widgetsDescription": {
-    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+    "message": "Configure widgets pessoais para exibir relógio, notas, listas de tarefas, clima ou placares esportivos em sua nova guia."
   },
   "widgetsEnabled": {
-    "message": "Enable widgets on your dashboard."
+    "message": "Ativar widgets no painel"
   },
   "widgetsHeaderTitle": {
     "message": "Widgets"
@@ -1286,7 +1475,7 @@
     "message": "Limite atingido"
   },
   "widgetsLimitWarning": {
-    "message": "Você só pode ativar até 4 widgets por vez. Desative um para adicionar outro."
+    "message": "Você pode ativar até 4 widgets por vez. Desative um para adicionar outro."
   },
   "widgetsResizeTooltip": {
     "message": "Alternar tamanho dos widgets"

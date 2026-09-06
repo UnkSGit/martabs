@@ -121,6 +121,21 @@ Reglas:
 - No exportar `bookmarkIndex`, `linkHealth`, `capturedPreviews` ni `pendingPreviewCaptures`.
 - La UI de importacion muestra un resumen con botones "Confirmar y aplicar" / "Cancelar". No usar `window.confirm()`.
 
+## Persistencia de widgets
+
+- Las mutaciones de checklist y los guardados de notas pasan por mensajes al proceso de fondo, que serializa las escrituras. No volver a guardar una copia completa de la checklist desde cada pestana.
+- Conservar los IDs estables de las tareas y la lectura de datos anteriores sin ID.
+- Enviar las notas desde el evento de escritura, sin debounce ni colas pendientes en la pagina: cerrar la pestana no debe perder el ultimo cambio.
+- Los widgets deben escuchar cambios de almacenamiento y retirar los listeners al reiniciarse. Las inicializaciones asincronas anteriores no deben registrar listeners despues de ser reemplazadas.
+- Verificar estas rutas con `npx playwright test data-persistence.spec.mjs --project=chromium`.
+
+## Restauracion de configuracion
+
+- El esquema de importacion debe contemplar los ajustes nuevos y seguir validando sus tipos. Incluir Quicklinks y los formatos anteriores de favoritos deportivos.
+- Conservar ajustes ausentes en un respaldo antiguo. Los diccionarios presentes se reemplazan, incluso cuando estan vacios, para permitir restaurar o borrar la organizacion anterior.
+- Verificar los permisos de sitios frecuentes, clima y deportes, ademas de enlaces y capturas, antes de activar funciones importadas.
+- Los blobs de fondos de imagen viven en IndexedDB y no estan incluidos en el JSON de configuracion. Conservar los slots presentes en el perfil y desactivar las referencias a imagenes ausentes.
+
 ## Permisos y capturas
 
 Estado actual:

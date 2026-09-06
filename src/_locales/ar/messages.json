@@ -111,8 +111,14 @@
   "changeView": {
     "message": "تغيير العرض"
   },
+  "checklistEmpty": {
+    "message": "لا توجد مهام معلقة."
+  },
+  "checklistPlaceholder": {
+    "message": "إضافة مهمة جديدة..."
+  },
   "checklistWidget": {
-    "message": "Checklist"
+    "message": "قائمة المهام"
   },
   "cleanFolderNames": {
     "message": "أسماء مجلدات نظيفة"
@@ -140,11 +146,20 @@
   "clearPreviewsSuccess": {
     "message": "تم مسح المعاينات بنجاح."
   },
+  "clockFormat12": {
+    "message": "12 ساعة (ص/م)"
+  },
+  "clockFormat24": {
+    "message": "24 ساعة"
+  },
+  "clockFormatLocale": {
+    "message": "النظام (12 س/24 س)"
+  },
   "clockWidget": {
-    "message": "Clock"
+    "message": "الساعة"
   },
   "clockWidgetFormat": {
-    "message": "Clock Time Format"
+    "message": "تنسيق وقت الساعة"
   },
   "collapseAll": {
     "message": "طي الكل"
@@ -208,10 +223,10 @@
     "message": "هل أنت متأكد من إعادة تعيين الإحصائيات؟"
   },
   "connectedWidgets": {
-    "message": "Connected Widgets"
+    "message": "الأدوات المتصلة"
   },
   "connectedWidgetsNotice": {
-    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
+    "message": "تنبيه: الأدوات المتصلة تجلب البيانات من خدمات خارجية (Open-Meteo, ESPN) وستقوم بإجراء طلبات شبكة عند تحميل علامة التبويب إذا كانت مفعّلة."
   },
   "customGradientDesc": {
     "message": "ضبط الألوان والنوع والزاوية للتحسين."
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "حذف المهمة"
   },
   "domainNone": {
     "message": "بدون نطاق"
@@ -631,7 +649,7 @@
     "message": "تدقيق التخزين المحلي"
   },
   "localWidgets": {
-    "message": "Local Widgets"
+    "message": "الأدوات المحلية"
   },
   "manualTags": {
     "message": "علامات يدوية"
@@ -709,8 +727,17 @@
   "none": {
     "message": "لا شيء"
   },
+  "notesPlaceholder": {
+    "message": "اكتب ملاحظاتك هنا..."
+  },
+  "notesSaved": {
+    "message": "تم الحفظ"
+  },
+  "notesSaving": {
+    "message": "جار الحفظ..."
+  },
   "notesWidget": {
-    "message": "Quick Notes"
+    "message": "ملاحظات سريعة"
   },
   "openBrowserBookmarks": {
     "message": "إدارة الإشارات المرجعية"
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "الأدوات واللقطات"
   },
+  "rateExtensionBtn": {
+    "message": "كتابة مراجعة"
+  },
+  "rateExtensionDesc": {
+    "message": "إذا كان martabs يساعدك في تصفحك اليومي، يرجى تقييمنا على سوق كروم الإلكتروني!"
+  },
+  "rateExtensionTitle": {
+    "message": "دعم المشروع"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "احتفال martabs v1.0"
+    "message": "احتفال martabs v1.0.0"
   },
   "releaseCelebrationSubtitle": {
-    "message": "أول إصدار مستقر"
+    "message": "15/06/2026 - أول إصدار مستقر"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "إزالة المجلد"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "الاسم (تصاعدي)"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "خطأ في تحميل النتائج"
+  },
+  "sportsFinal": {
+    "message": "انتهت"
   },
   "sportsLeague": {
     "message": "الدوري"
   },
-  "sportsMode": {
-    "message": "وضع العرض"
+  "sportsLeagueArgentinePrimera": {
+    "message": "الدوري الأرجنتيني"
   },
-  "sportsNoFavorites": {
-    "message": "لا توجد مباريات لفرقك المفضلة."
+  "sportsLeagueBrazilianSerieA": {
+    "message": "الدوري البرازيلي"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "كوبا ليبرتادوريس"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "كوبا أمريكا"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "الدوري الإنجليزي الممتاز"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "كأس العالم لكرة القدم"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "الدوري الفرنسي"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "الدوري الألماني"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "الدوري الإيطالي"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "الدوري المكسيكي"
+  },
+  "sportsLeagueNba": {
+    "message": "رابطة كرة السلة الوطنية (NBA)"
+  },
+  "sportsLeagueNfl": {
+    "message": "الدوري الوطني لكرة القدم الأمريكية (NFL)"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "الدوري البرتغالي"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "الدوري الإسباني"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "دوري أبطال أوروبا"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "بطولة أمم أوروبا"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "الدوري الأمريكي (MLS)"
+  },
+  "sportsLive": {
+    "message": "مباشر"
   },
   "sportsNoLive": {
     "message": "لا توجد مباريات مباشرة"
   },
   "sportsNoMatches": {
     "message": "لم يتم العثور على مباريات"
+  },
+  "sportsNoRecentResults": {
+    "message": "لا توجد نتائج حديثة"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "لا توجد مباريات مجدولة"
+  },
+  "sportsScheduled": {
+    "message": "مجدول"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "البحث عن $MATCH$ في Google",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "مباشر"
@@ -1081,16 +1185,10 @@
     "message": "النتائج"
   },
   "sportsTabUpcoming": {
-    "message": "قادم"
-  },
-  "sportsTeam": {
-    "message": "الفريق"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "الفرق المؤكدة:"
+    "message": "المقبلة"
   },
   "sportsWidget": {
-    "message": "Sports Score"
+    "message": "الرياضة"
   },
   "statisticsSection": {
     "message": "الإحصائيات"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "التحقق"
   },
-  "verifyTeamBtn": {
-    "message": "إضافة"
-  },
   "visitsCountPlural": {
     "message": "زيارات $COUNT$",
     "placeholders": {
@@ -1252,50 +1347,144 @@
   "wallpaperTypeNone": {
     "message": "بدون خلفية"
   },
+  "weatherClearSky": {
+    "message": "سماء صافية"
+  },
+  "weatherCloudy": {
+    "message": "غائم"
+  },
+  "weatherConfigureQuery": {
+    "message": "اضبط الموقع"
+  },
+  "weatherDrizzle": {
+    "message": "رذاذ"
+  },
+  "weatherErrorShort": {
+    "message": "Err"
+  },
+  "weatherFoggy": {
+    "message": "ضباب"
+  },
+  "weatherLoadFailed": {
+    "message": "تعذر تحميل الطقس"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Loc err"
+  },
   "weatherLocationLabel": {
-    "message": "Location Label (e.g. London)"
+    "message": "اسم الموقع (مثال: القاهرة)"
+  },
+  "weatherLocationNotFound": {
+    "message": "الموقع غير موجود"
   },
   "weatherLocationQuery": {
-    "message": "Search Query (City Name)"
+    "message": "البحث عن موقع (مثال: القاهرة، مصر)"
+  },
+  "weatherNetworkError": {
+    "message": "خطأ في الشبكة"
+  },
+  "weatherNoLocationShort": {
+    "message": "No loc"
+  },
+  "weatherNoResultsFound": {
+    "message": "لا توجد نتائج"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "غائم جزئيا"
+  },
+  "weatherRain": {
+    "message": "مطر"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "تحقق من موقع الطقس قبل الحفظ."
+  },
+  "weatherShowers": {
+    "message": "زخات"
+  },
+  "weatherSnow": {
+    "message": "ثلج"
+  },
+  "weatherStatusChecking": {
+    "message": "جار التحقق من الموقع..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "خطأ في الاتصال"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "أدخل موقعا"
+  },
+  "weatherStatusNotFound": {
+    "message": "خطأ - لم يتم العثور على الموقع"
+  },
+  "weatherStatusPending": {
+    "message": "بانتظار التحقق"
+  },
+  "weatherStatusSelected": {
+    "message": "تم اختيار الموقع: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "تم التحقق من الموقع: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "عاصفة رعدية"
   },
   "weatherUnits": {
-    "message": "Units"
+    "message": "وحدة درجة الحرارة"
+  },
+  "weatherUnitsImperial": {
+    "message": "فهرنهايت (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "درجة مئوية (C)"
   },
   "weatherWidget": {
-    "message": "Weather"
+    "message": "الطقس"
   },
   "widgetsActiveCount": {
-    "message": "الأدوات النشطة"
+    "message": "أدوات نشطة"
   },
   "widgetsDescription": {
-    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+    "message": "تكوين أدوات شخصية لعرض الساعة أو الملاحظات أو قوائم المهام أو الطقس أو النتائج الرياضية في علامة تبويب جديدة."
   },
   "widgetsEnabled": {
-    "message": "Enable widgets on your dashboard."
+    "message": "تمكين الأدوات على لوحة التحكم"
   },
   "widgetsHeaderTitle": {
-    "message": "القطع البرمجية"
+    "message": "الأدوات"
   },
   "widgetsHeading": {
-    "message": "Widgets"
+    "message": "الأدوات"
   },
   "widgetsLimitReached": {
     "message": "يمكنك تفعيل ما يصل إلى 4 أدوات فقط في نفس الوقت."
   },
   "widgetsLimitReachedTooltip": {
-    "message": "تم الوصول إلى الحد الأقصى"
+    "message": "تم الوصول للحد الأقصى"
   },
   "widgetsLimitWarning": {
-    "message": "يمكنك تنشيط ما يصل إلى 4 عناصر واجهة مستخدم فقط في المرة الواحدة. قم بتعطيل أحدها لإضافة عنصر آخر."
+    "message": "يمكنك تنشيط ما يصل إلى 4 أدوات في المرة الواحدة. قم بإلغاء تنشيط واحدة لإضافة أخرى."
   },
   "widgetsResizeTooltip": {
-    "message": "تبديل حجم القطعة البرمجية"
+    "message": "تبديل حجم الأدوات"
   },
   "widgetsSection": {
-    "message": "Widgets"
+    "message": "الأدوات"
   },
   "widgetsSettingsTooltip": {
-    "message": "تكوين القطع البرمجية"
+    "message": "تكوين الأدوات"
   },
   "widgetsStyle": {
     "message": "نمط الأدوات"

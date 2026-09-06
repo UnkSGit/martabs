@@ -14,10 +14,13 @@ test("newtab page loads required HTML structures and selectors", async () => {
   assert.match(html, /id="preview-card" class="preview-card"/);
   assert.match(html, /<dialog id="edit-modal" class="edit-modal">/);
   assert.match(html, /id="edit-form" class="edit-form"/);
+  assert.match(html, /data-i18n="widgetsHeaderTitle"/);
+  assert.match(html, /id="widgets-toggle"[^>]+data-i18n-aria-label="widgetsResizeTooltip"/);
+  assert.match(html, /id="widgets-toggle"[^>]+data-i18n-title="widgetsResizeTooltip"/);
   assert.match(html, /class="logo-wrap"/);
   assert.match(html, /<script type="module" src="\.\/newtab\.js"><\/script>/);
   assert.doesNotMatch(html, /id="review-links"/);
-  assert.doesNotMatch(html, /Ã|Â/);
+  assert.doesNotMatch(html, /Ãƒ|Ã‚/);
 });
 
 test("newtab stylesheet contains modern layout definitions", async () => {
@@ -63,7 +66,7 @@ test("newtab stylesheet contains modern layout definitions", async () => {
   assert.match(css, /\.preview-capture-img\s*{/);
   assert.doesNotMatch(css, /\.review-links/);
   assert.doesNotMatch(css, /fonts\.googleapis/);
-  assert.doesNotMatch(css, /Ã|Â/);
+  assert.doesNotMatch(css, /Ãƒ|Ã‚/);
 });
 
 test("newtab controller imports correct shared modules", async () => {
@@ -130,12 +133,12 @@ test("newtab controller imports correct shared modules", async () => {
   assert.doesNotMatch(js, /"Revisando\.\.\."/);
   assert.doesNotMatch(js, /text:\s*"Eliminar"/);
   assert.doesNotMatch(js, /"Sin carpeta"/);
-  assert.doesNotMatch(js, /ðŸ/);
+  assert.doesNotMatch(js, /Ã°Å¸/);
   assert.doesNotMatch(js, /runManualLinkCheck/);
   assert.doesNotMatch(js, /CHECK_LINK_HEALTH_NOW/);
   assert.doesNotMatch(js, /image\.thum\.io/);
   assert.doesNotMatch(js, /icons\.duckduckgo/);
-  assert.doesNotMatch(js, /Ã|Â/);
+  assert.doesNotMatch(js, /Ãƒ|Ã‚/);
 });
 
 test("newtab folder mode change updates DOM in-place without full redraw", async () => {
@@ -291,9 +294,11 @@ test("sports widget uses two working tabs and displays upcoming date/time", asyn
   assert.doesNotMatch(js, /const displayResults = results\.length > 0 \? results : events/);
   assert.match(js, /function formatMatchDate\(match\)/);
   assert.match(js, /function formatMatchTime\(match\)/);
-  assert.match(js, /text:\s*t\(api, 'sportsTabUpcoming'\) \|\| 'Upcoming'/);
-  assert.match(js, /text:\s*'‹'/);
-  assert.match(js, /text:\s*'›'/);
+  assert.match(js, /text:\s*t\(api, 'sportsTabUpcoming', 'Upcoming'\)/);
+  assert.match(js, /text:\s*'\\u2039'/);
+  assert.match(js, /text:\s*'\\u203A'/);
+  assert.match(js, /sportsNoRecentResults/);
+  assert.match(js, /sportsNoScheduledMatches/);
   assert.match(js, /resultTab\.addEventListener\('click'/);
   assert.match(js, /upcomingTab\.addEventListener\('click'/);
   assert.match(js, /widget-sports-featured-match/);

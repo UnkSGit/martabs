@@ -30,6 +30,9 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
   Object.keys(settings.customFavicons || {}).forEach(id => {
     if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
   });
+  Object.keys(settings.brokenCustomFavicons || {}).forEach(id => {
+    if (bookmarkById[id]) refs.bookmarks[id] = bookmarkById[id].url;
+  });
 
   // Extraer referencias de carpetas seleccionadas
   (settings.selectedFolderIds || []).forEach(id => {
@@ -41,6 +44,11 @@ export function generateExportData(settings, manualTags, pinnedBookmarks, bookma
     Object.keys(settings[key] || {}).forEach(id => {
       if (folderById[id]) refs.folders[id] = folderById[id];
     });
+  });
+
+  // The folder-to-tab map is keyed by browser folder IDs as well.
+  Object.keys(settings.folderTabs || {}).forEach(id => {
+    if (folderById[id]) refs.folders[id] = folderById[id];
   });
 
   // Extraer referencias de reordenamientos manuales (carpetas y sus marcadores)
@@ -123,12 +131,19 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
   const oldSettings = jsonData.settings || {};
   const newSettings = {};
   
-  // Permitir solo propiedades conocidas y de tipo seguro
+  // Keep this schema explicit: imported settings are untrusted JSON.
   const booleanSettings = [
     "automaticTagsEnabled", "manualTagsEnabled", "showPinnedFolder", 
-    "linkHealthEnabled", "previewEnabled", "previewCaptureEnabled", "setupComplete"
+    "linkHealthEnabled", "previewEnabled", "previewCaptureEnabled", "setupComplete",
+    "showTopSitesFolder", "localStatsEnabled", "cleanFolderNames", "enablePinnedShortcuts",
+    "customWallpaperEnabled", "customWallpaperRotate", "hideAllTab", "showViewButton", "showSortButton"
   ];
-  const stringSettings = ["theme", "defaultFolderMode", "defaultFolderSort"];
+  const stringSettings = ["theme", "language", "defaultFolderMode", "defaultFolderSort", "activeTabId", "customWallpaperType", "customWallpaperTheme"];
+  const numberSettings = [
+    "topSitesLimit", "customWallpaperActiveSlot", "customWallpaperBrightness",
+    "customWallpaperFolderOpacity", "customWallpaperHeaderOpacity", "customWallpaperLegibility"
+  ];
+  const arraySettings = ["selectedFolderIds", "topSitesBlacklist", "pinnedShortcutModifier", "customWallpaperSlots"];
   
   booleanSettings.forEach(key => {
     if (typeof oldSettings[key] === "boolean") newSettings[key] = oldSettings[key];
@@ -136,6 +151,97 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
   stringSettings.forEach(key => {
     if (typeof oldSettings[key] === "string") newSettings[key] = oldSettings[key];
   });
+  numberSettings.forEach(key => {
+    if (typeof oldSettings[key] === "number" && Number.isFinite(oldSettings[key])) newSettings[key] = oldSettings[key];
+  });
+  arraySettings.forEach(key => {
+    if (!Array.isArray(oldSettings[key])) return;
+    const valid = key === "customWallpaperSlots"
+      ? oldSettings[key].every(item => Number.isInteger(item))
+      : oldSettings[key].every(item => typeof item === "string");
+    if (valid) newSettings[key] = oldSettings[key].slice();
+  });
+
+  const isPlainObject = value => value && typeof value === "object" && !Array.isArray(value);
+  const copyPlainObject = (value, validate = () => true) => {
+    if (!isPlainObject(value)) return undefined;
+    const result = {};
+    Object.entries(value).forEach(([key, item]) => {
+      if (validate(key, item)) result[key] = item;
+    });
+    return result;
+  };
+
+  // These maps contain local IDs and are remapped below where applicable.
+  if (isPlainObject(oldSettings.folderTabs)) {
+    newSettings.folderTabs = {};
+    Object.entries(oldSettings.folderTabs).forEach(([oldId, tabId]) => {
+      const newId = oldToNewFolders[oldId];
+      if (newId && typeof tabId === "string") newSettings.folderTabs[newId] = tabId;
+    });
+  }
+
+  if (Array.isArray(oldSettings.tabs)) {
+    newSettings.tabs = oldSettings.tabs.filter(tab => isPlainObject(tab) && typeof tab.id === "string" && typeof tab.name === "string")
+      .map(tab => ({ id: tab.id, name: tab.name }));
+  }
+
+  if (isPlainObject(oldSettings.customWallpaperThemes)) {
+    newSettings.customWallpaperThemes = copyPlainObject(oldSettings.customWallpaperThemes, (key, value) => /^\d+$/.test(key) && typeof value === "string");
+  }
+  if (isPlainObject(oldSettings.customWallpaperGradientConfig)) {
+    const gradient = oldSettings.customWallpaperGradientConfig;
+    const allowedGradient = ["type", "colorA", "colorB", "angle", "presetId", "animated"];
+    newSettings.customWallpaperGradientConfig = {};
+    allowedGradient.forEach(key => {
+      const value = gradient[key];
+      if ((key === "animated" && typeof value === "boolean") ||
+          (key === "angle" && typeof value === "number" && Number.isFinite(value)) ||
+          (["type", "colorA", "colorB", "presetId"].includes(key) && typeof value === "string")) {
+        newSettings.customWallpaperGradientConfig[key] = value;
+      }
+    });
+  }
+
+  if (isPlainObject(oldSettings.widgets)) {
+    const widgets = oldSettings.widgets;
+    const safeWidgets = {};
+    ["enabled", "collapsed"].forEach(key => { if (typeof widgets[key] === "boolean") safeWidgets[key] = widgets[key]; });
+    if (typeof widgets.style === "string") safeWidgets.style = widgets.style;
+    if (Array.isArray(widgets.layout)) safeWidgets.layout = widgets.layout.filter(item => typeof item === "string");
+    if (Array.isArray(widgets.order)) safeWidgets.order = widgets.order.filter(item => typeof item === "string");
+    ["clock", "notes", "checklist", "weather", "sports"].forEach(name => {
+      if (!isPlainObject(widgets[name])) return;
+      const source = widgets[name];
+      const target = {};
+      const fields = {
+        clock: ["enabled", "format"], notes: ["enabled"], checklist: ["enabled"],
+        weather: ["enabled", "locationLabel", "locationQuery", "latitude", "longitude", "countryCode", "timezone", "verifiedAt", "units"],
+        sports: ["enabled", "mode", "league"]
+      }[name];
+      const booleanFields = new Set(["enabled"]);
+      const numericFields = new Set(name === "weather" ? ["latitude", "longitude", "verifiedAt"] : []);
+      const stringFields = new Set(fields.filter(key => !booleanFields.has(key) && !numericFields.has(key)));
+      fields.forEach(key => {
+        const value = source[key];
+        if ((booleanFields.has(key) && typeof value === "boolean") ||
+            (numericFields.has(key) && ((typeof value === "number" && Number.isFinite(value)) || value === null)) ||
+            (stringFields.has(key) && typeof value === "string")) target[key] = value;
+      });
+      if (name === "sports" && Array.isArray(source.favorites)) {
+        target.favorites = source.favorites.filter(item => typeof item === "string" || isPlainObject(item)).map(item => {
+          if (typeof item === "string") return item;
+          const favorite = {};
+          ["sport", "league", "leagueLabel", "teamId", "teamName", "teamAbbreviation", "verifiedQuery", "verifiedAt"].forEach(key => {
+            if (typeof item[key] === "string" || typeof item[key] === "number") favorite[key] = item[key];
+          });
+          return favorite;
+        });
+      }
+      safeWidgets[name] = target;
+    });
+    newSettings.widgets = safeWidgets;
+  }
   
   if (oldSettings.customFavicons && typeof oldSettings.customFavicons === "object" && !Array.isArray(oldSettings.customFavicons)) {
     newSettings.customFavicons = {};
@@ -146,6 +252,13 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
       } else {
         stats.unmappedItems++;
       }
+    });
+  }
+  if (isPlainObject(oldSettings.brokenCustomFavicons)) {
+    newSettings.brokenCustomFavicons = {};
+    Object.entries(oldSettings.brokenCustomFavicons).forEach(([oldBId, broken]) => {
+      const newBId = oldToNewBookmarks[oldBId];
+      if (newBId && typeof broken === "boolean") newSettings.brokenCustomFavicons[newBId] = broken;
     });
   }
   
@@ -159,22 +272,22 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
     });
   }
 
-  const mapFolderObject = (oldObj) => {
+  const mapFolderObject = (oldObj, validate = value => typeof value === "string") => {
     const newObj = {};
     if (!oldObj || typeof oldObj !== "object" || Array.isArray(oldObj)) return newObj;
     Object.entries(oldObj).forEach(([oldId, val]) => {
       const newId = oldToNewFolders[oldId];
-      if (newId) newObj[newId] = val;
+      if (newId && validate(val)) newObj[newId] = val;
     });
     return newObj;
   };
 
-  newSettings.folderModes = mapFolderObject(oldSettings.folderModes);
-  newSettings.folderSorts = mapFolderObject(oldSettings.folderSorts);
-  newSettings.folderNameOverrides = mapFolderObject(oldSettings.folderNameOverrides);
+  if (Object.prototype.hasOwnProperty.call(oldSettings, "folderModes")) newSettings.folderModes = mapFolderObject(oldSettings.folderModes, value => ["list", "compact", "icons", "icons-large", "quicklinks"].includes(value));
+  if (Object.prototype.hasOwnProperty.call(oldSettings, "folderSorts")) newSettings.folderSorts = mapFolderObject(oldSettings.folderSorts, value => ["browser", "date-newest", "domain-asc", "health-broken-first", "manual", "title-asc"].includes(value));
+  if (Object.prototype.hasOwnProperty.call(oldSettings, "folderNameOverrides")) newSettings.folderNameOverrides = mapFolderObject(oldSettings.folderNameOverrides);
 
-  newSettings.folderBookmarkOrders = {};
-  if (oldSettings.folderBookmarkOrders && typeof oldSettings.folderBookmarkOrders === "object") {
+  if (Object.prototype.hasOwnProperty.call(oldSettings, "folderBookmarkOrders") && oldSettings.folderBookmarkOrders && typeof oldSettings.folderBookmarkOrders === "object") {
+    newSettings.folderBookmarkOrders = {};
     Object.entries(oldSettings.folderBookmarkOrders).forEach(([oldFId, arr]) => {
       const newFId = oldToNewFolders[oldFId];
       if (newFId && Array.isArray(arr)) {
@@ -188,8 +301,8 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
     });
   }
 
-  newSettings.bookmarkFolderOverrides = {};
-  if (oldSettings.bookmarkFolderOverrides && typeof oldSettings.bookmarkFolderOverrides === "object") {
+  if (Object.prototype.hasOwnProperty.call(oldSettings, "bookmarkFolderOverrides") && oldSettings.bookmarkFolderOverrides && typeof oldSettings.bookmarkFolderOverrides === "object") {
+    newSettings.bookmarkFolderOverrides = {};
     Object.entries(oldSettings.bookmarkFolderOverrides).forEach(([oldBId, oldFId]) => {
       const newBId = oldToNewBookmarks[oldBId];
       const newFId = oldToNewFolders[oldFId];
@@ -205,6 +318,10 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
     Object.entries(jsonData.manualTags).forEach(([oldBId, tags]) => {
       const newBId = oldToNewBookmarks[oldBId];
       if (newBId && Array.isArray(tags)) {
+        if (!tags.every(tag => typeof tag === "string")) {
+          stats.unmappedItems++;
+          return;
+        }
         newManualTags[newBId] = tags;
         stats.mappedTags++;
       } else {
@@ -233,4 +350,24 @@ export function parseAndRemapImport(jsonData, bookmarkIndex, folderOptions) {
     pinnedBookmarks: newPinned,
     stats
   };
+}
+
+// Apply a validated import without dropping settings introduced by a newer version.
+export function mergeImportedSettings(currentSettings, importedSettings) {
+  const isObject = value => value && typeof value === "object" && !Array.isArray(value);
+  const replaceObjectKeys = new Set([
+    "folderModes", "folderSorts", "folderNameOverrides", "folderBookmarkOrders",
+    "bookmarkFolderOverrides", "folderTabs", "customFavicons", "brokenCustomFavicons",
+    "customWallpaperThemes"
+  ]);
+  const merge = (current, imported) => {
+    if (!isObject(current) || !isObject(imported)) return imported === undefined ? current : imported;
+    const result = { ...current };
+    Object.entries(imported).forEach(([key, value]) => {
+      result[key] = isObject(value) && isObject(current[key]) && !replaceObjectKeys.has(key)
+        ? merge(current[key], value) : value;
+    });
+    return result;
+  };
+  return merge(currentSettings || {}, importedSettings || {});
 }

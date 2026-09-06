@@ -50,7 +50,9 @@ Compatible con Chrome, Edge, Brave y Firefox.
 
 ## Privacidad
 
-martabs guarda todo localmente en el navegador. No usa servicios externos para previews, iconos, busqueda, metadata ni sincronizacion. No hay telemetria ni recoleccion de datos.
+martabs guarda los datos de la extension localmente en el navegador. No usa telemetria, analitica, pixeles de seguimiento, bases de datos remotas ni servicios externos de previews. Los widgets opcionales de Clima y Deportes solo contactan a Open-Meteo y ESPN cuando el usuario los activa; pueden enviar a esos proveedores la ciudad configurada, las coordenadas devueltas, la liga seleccionada y metadatos normales de red. Tambien pueden cargarse las URLs de logos de equipos que devuelve ESPN. Al mostrar las estadisticas locales, pueden cargarse imagenes de iconos de dominios desde `s2.googleusercontent.com` usando dominios de las estadisticas locales. Los marcadores, etiquetas y datos de organizacion de marcadores no se envian a los proveedores de widgets.
+
+En Firefox, los favicons de los marcadores pueden usar solicitudes directas a `/favicon.ico` en el origen de cada marcador mientras se muestran. Las URLs de iconos personalizados solo se cargan cuando el usuario las configura.
 
 Las capturas de pantalla solo se generan si el usuario activa la opcion y abre un marcador desde martabs. La revision de enlaces solo se ejecuta por accion explicita del usuario.
 

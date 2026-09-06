@@ -1,6 +1,7 @@
 import { getBrowserApi } from "../shared/browser-api.js";
 import { buildBookmarkIndex } from "../shared/bookmarks.js";
 import { mergeTags } from "../shared/tags.js";
+import { createChecklistMutationProcessor, createNotesSaveProcessor } from "../shared/widget-persistence.js";
 import {
   getCapturedPreviews,
   getLinkHealth,
@@ -21,6 +22,8 @@ export function setCaptureDelayMs(ms) {
   CAPTURE_DELAY_MS = ms;
 }
 const PENDING_CAPTURE_TTL_MS = 30000;
+const processChecklistMutation = createChecklistMutationProcessor(api.storage.local);
+const processNotesSave = createNotesSaveProcessor(api.storage.local);
 
 function isSameHost(url1, url2) {
   try {
@@ -198,6 +201,18 @@ listenToSettingsChanges();
 
 if (api.runtime?.onMessage) {
   api.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message?.type === "WIDGET_CHECKLIST_MUTATE") {
+      processChecklistMutation(message.mutation)
+        .then(sendResponse)
+        .catch((error) => sendResponse({ success: false, error: error.message }));
+      return true;
+    }
+    if (message?.type === "WIDGET_NOTES_SAVE") {
+      processNotesSave(message.value)
+        .then(sendResponse)
+        .catch((error) => sendResponse({ success: false, error: error.message }));
+      return true;
+    }
     if (message?.type !== CAPTURE_OPENED_BOOKMARK) return false;
 
     armPreviewCapture({

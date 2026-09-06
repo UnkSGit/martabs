@@ -54,7 +54,9 @@ Compatible with Chrome, Edge, Brave, and Firefox.
 
 ## Privacy
 
-martabs stores everything locally in the browser. It does not use external services for previews, icons, search, metadata, or synchronization. There is no telemetry or data collection of any kind.
+martabs stores extension data locally in the browser. It does not use telemetry, analytics, tracking pixels, remote databases, or external preview services. Optional Weather and Sports widgets contact Open-Meteo and ESPN only when you enable them; the configured city query, returned coordinates, selected league, and normal network metadata may be sent to those providers. Sports team logo URLs returned by ESPN may also be loaded. When local statistics are displayed, domain icon images may be loaded from `s2.googleusercontent.com` using domains from local visit statistics. Bookmarks, tags, and bookmark organization data are not sent to widget providers.
+
+In Firefox, bookmark favicons may fall back to direct `/favicon.ico` requests to each bookmark's origin while bookmarks are displayed. Custom favicon URLs are loaded only when configured by the user.
 
 Screenshots are only generated if you actively enable the option and open a bookmark from martabs. Link checking is only triggered by your explicit action. Frequent sites are read from the browser only if the user enables that optional folder.
 

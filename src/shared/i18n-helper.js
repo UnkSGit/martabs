@@ -18,16 +18,17 @@ export async function initI18n(api, userLanguage) {
   }
 
   try {
-    const url = `../_locales/${language}/messages.json`;
-    const response = await fetch(url);
+    const version = (api && api.runtime && typeof api.runtime.getManifest === "function" && api.runtime.getManifest()?.version) || Date.now();
+    const url = `../_locales/${language}/messages.json?v=${version}`;
+    const response = await fetch(url, { cache: "no-cache" });
     if (!response.ok) throw new Error("Failed to load");
     const messages = await response.json();
 
     let fallbackMessages = {};
     if (language !== "es") {
       try {
-        const fallbackUrl = `../_locales/es/messages.json`;
-        const fallbackResponse = await fetch(fallbackUrl);
+        const fallbackUrl = `../_locales/es/messages.json?v=${version}`;
+        const fallbackResponse = await fetch(fallbackUrl, { cache: "no-cache" });
         if (fallbackResponse.ok) {
           fallbackMessages = await fallbackResponse.json();
         }
@@ -113,6 +114,12 @@ export function localizeHtml(api, rootElement = document) {
   rootElement.querySelectorAll("[data-i18n-title]").forEach(el => {
     const msg = getMessage(api, el.dataset.i18nTitle);
     if (msg) el.title = msg;
+  });
+
+  // Traducir etiquetas accesibles
+  rootElement.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const msg = getMessage(api, el.dataset.i18nAriaLabel);
+    if (msg) el.setAttribute("aria-label", msg);
   });
 
   // Combinar data-search original con terminos adicionales traducidos sin pisar todo

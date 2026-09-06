@@ -111,6 +111,12 @@
   "changeView": {
     "message": "Change view"
   },
+  "checklistEmpty": {
+    "message": "No pending tasks."
+  },
+  "checklistPlaceholder": {
+    "message": "Add new task..."
+  },
   "checklistWidget": {
     "message": "Checklist"
   },
@@ -139,6 +145,15 @@
   },
   "clearPreviewsSuccess": {
     "message": "Cached previews cleared."
+  },
+  "clockFormat12": {
+    "message": "12-hour (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24-hour"
+  },
+  "clockFormatLocale": {
+    "message": "Locale (12h/24h)"
   },
   "clockWidget": {
     "message": "Clock"
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "Delete task"
   },
   "domainNone": {
     "message": "No domain"
@@ -709,6 +727,15 @@
   "none": {
     "message": "None"
   },
+  "notesPlaceholder": {
+    "message": "Type your notes here..."
+  },
+  "notesSaved": {
+    "message": "Saved"
+  },
+  "notesSaving": {
+    "message": "Saving..."
+  },
   "notesWidget": {
     "message": "Quick notes"
   },
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "Tools and captures"
   },
+  "rateExtensionBtn": {
+    "message": "Write a Review"
+  },
+  "rateExtensionDesc": {
+    "message": "If martabs helps your daily browsing, please rate us on the Web Store!"
+  },
+  "rateExtensionTitle": {
+    "message": "Support the Project"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "martabs v1.0 celebration"
+    "message": "martabs v1.0.0 celebration"
   },
   "releaseCelebrationSubtitle": {
-    "message": "First stable release"
+    "message": "15/06/2026 - First stable release"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "Remove folder"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "Title A-Z"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "Error loading scores"
+  },
+  "sportsFinal": {
+    "message": "Final"
   },
   "sportsLeague": {
     "message": "League"
   },
-  "sportsMode": {
-    "message": "Display mode"
+  "sportsLeagueArgentinePrimera": {
+    "message": "Argentine Primera División"
   },
-  "sportsNoFavorites": {
-    "message": "No games involving favorite teams."
+  "sportsLeagueBrazilianSerieA": {
+    "message": "Brazilian Série A"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "Copa Libertadores"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "Copa América"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "English Premier League"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "FIFA World Cup"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "French Ligue 1"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "German Bundesliga"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "Italian Serie A"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "Mexican Liga MX"
+  },
+  "sportsLeagueNba": {
+    "message": "NBA"
+  },
+  "sportsLeagueNfl": {
+    "message": "NFL"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "Portuguese Primeira Liga"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "Spanish LaLiga"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "UEFA Champions League"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "UEFA Euro"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "USA MLS"
+  },
+  "sportsLive": {
+    "message": "Live"
   },
   "sportsNoLive": {
     "message": "No live matches"
   },
   "sportsNoMatches": {
     "message": "No matches found"
+  },
+  "sportsNoRecentResults": {
+    "message": "No recent results"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "No scheduled matches"
+  },
+  "sportsScheduled": {
+    "message": "Scheduled"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "Search $MATCH$ on Google",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "Live"
@@ -1082,12 +1186,6 @@
   },
   "sportsTabUpcoming": {
     "message": "Upcoming"
-  },
-  "sportsTeam": {
-    "message": "Team"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "Verified teams:"
   },
   "sportsWidget": {
     "message": "Sports Score"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "Verify"
   },
-  "verifyTeamBtn": {
-    "message": "Add"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ visits",
     "placeholders": {
@@ -1252,14 +1347,108 @@
   "wallpaperTypeNone": {
     "message": "None"
   },
+  "weatherClearSky": {
+    "message": "Clear sky"
+  },
+  "weatherCloudy": {
+    "message": "Cloudy"
+  },
+  "weatherConfigureQuery": {
+    "message": "Configure location"
+  },
+  "weatherDrizzle": {
+    "message": "Drizzle"
+  },
+  "weatherErrorShort": {
+    "message": "Err"
+  },
+  "weatherFoggy": {
+    "message": "Foggy"
+  },
+  "weatherLoadFailed": {
+    "message": "Failed to load weather"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Loc err"
+  },
   "weatherLocationLabel": {
     "message": "Location Label (e.g. London)"
+  },
+  "weatherLocationNotFound": {
+    "message": "Location not found"
   },
   "weatherLocationQuery": {
     "message": "Search Query (City Name)"
   },
+  "weatherNetworkError": {
+    "message": "Network error"
+  },
+  "weatherNoLocationShort": {
+    "message": "No loc"
+  },
+  "weatherNoResultsFound": {
+    "message": "No results found"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "Partly cloudy"
+  },
+  "weatherRain": {
+    "message": "Rain"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "Verify the weather location before saving."
+  },
+  "weatherShowers": {
+    "message": "Showers"
+  },
+  "weatherSnow": {
+    "message": "Snow"
+  },
+  "weatherStatusChecking": {
+    "message": "Checking location..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "Connection error"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "Enter a location"
+  },
+  "weatherStatusNotFound": {
+    "message": "Error - Location not found"
+  },
+  "weatherStatusPending": {
+    "message": "Pending verification"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - Selected location: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - Verified location: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "Thunderstorm"
+  },
   "weatherUnits": {
     "message": "Units"
+  },
+  "weatherUnitsImperial": {
+    "message": "Fahrenheit (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "Celsius (C)"
   },
   "weatherWidget": {
     "message": "Weather"

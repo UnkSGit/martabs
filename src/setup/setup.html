@@ -92,7 +92,7 @@
             
             <div class="sidebar-footer">
               <span class="sidebar-footer-appname">martabs</span>
-              <span class="sidebar-footer-version" dir="ltr" id="sidebar-version">v0.0.0</span>
+              <span class="sidebar-footer-version" dir="ltr" id="sidebar-version">v1.0.0</span>
             </div>
           </nav>
 
@@ -675,7 +675,7 @@
                   <span data-i18n="widgetsHeading">Widgets</span>
                   <span id="widgets-counter-badge" class="widgets-counter-badge"></span>
                 </h2>
-                <p data-i18n="widgetsDescription">Configure personal widgets to display a clock, quick notes, checklist, weather, or sports scores.</p>
+                <p data-i18n="widgetsDescription">Configura widgets personales para mostrar reloj, notas, listas de tareas, clima o resultados deportivos.</p>
               </div>
               <div class="settings-section-grid">
                 
@@ -685,14 +685,14 @@
                     <label class="switch-row">
                       <input id="widgets-enabled" type="checkbox">
                       <span>
-                        <strong data-i18n="widgetsEnabled">Enable widgets on the new tab page</strong>
+                        <strong data-i18n="widgetsEnabled">Activar widgets en la nueva pestaña</strong>
                       </span>
                     </label>
                     <label class="setting-row" id="widgets-style-row">
-                      <span data-i18n="widgetsStyle">Widget style</span>
+                      <span data-i18n="widgetsStyle">Estilo de los widgets</span>
                       <select id="widgets-style">
-                        <option value="standard" data-i18n="widgetsStyleStandard">Standard (Vertical)</option>
-                        <option value="compact" data-i18n="widgetsStyleCompact">Compact (Horizontal)</option>
+                        <option value="standard" data-i18n="widgetsStyleStandard">Estándar (Vertical)</option>
+                        <option value="compact" data-i18n="widgetsStyleCompact">Compacto (Horizontal)</option>
                       </select>
                     </label>
                   </div>
@@ -715,23 +715,23 @@
                   <div class="settings-group">
                     <div class="settings-group-header">
                       <span>
-                        <strong data-i18n="localWidgets">Local widgets</strong>
+                        <strong data-i18n="localWidgets">Widgets locales</strong>
                       </span>
                     </div>
                     <div class="settings-group-body">
                       <label class="switch-row">
                         <input id="widget-clock-enabled" type="checkbox">
                         <span>
-                          <strong data-i18n="clockWidget">Clock</strong>
+                          <strong data-i18n="clockWidget">Reloj</strong>
                         </span>
                       </label>
                       <div id="widget-clock-config" class="widgets-sub-config">
                         <label class="setting-row">
-                          <span data-i18n="clockWidgetFormat">Clock time format</span>
+                          <span data-i18n="clockWidgetFormat">Formato de hora del reloj</span>
                           <select id="widget-clock-format">
-                            <option value="locale">Locale (12h/24h)</option>
-                            <option value="12">12-hour (AM/PM)</option>
-                            <option value="24">24-hour</option>
+                            <option value="locale" data-i18n="clockFormatLocale">Sistema (12h/24h)</option>
+                            <option value="12" data-i18n="clockFormat12">12 horas (AM/PM)</option>
+                            <option value="24" data-i18n="clockFormat24">24 horas</option>
                           </select>
                         </label>
                       </div>
@@ -739,14 +739,14 @@
                       <label class="switch-row">
                         <input id="widget-notes-enabled" type="checkbox">
                         <span>
-                          <strong data-i18n="notesWidget">Quick notes</strong>
+                          <strong data-i18n="notesWidget">Notas rápidas</strong>
                         </span>
                       </label>
 
                       <label class="switch-row">
                         <input id="widget-checklist-enabled" type="checkbox">
                         <span>
-                          <strong data-i18n="checklistWidget">Checklist</strong>
+                          <strong data-i18n="checklistWidget">Lista de tareas</strong>
                         </span>
                       </label>
                     </div>
@@ -756,27 +756,27 @@
                   <div class="settings-group">
                     <div class="settings-group-header">
                       <span>
-                        <strong data-i18n="connectedWidgets">Connected widgets</strong>
+                        <strong data-i18n="connectedWidgets">Widgets conectados</strong>
                       </span>
                     </div>
                     <div class="settings-group-body" style="padding-top: 14px;">
                       <div class="widgets-warning-box" data-i18n="connectedWidgetsNotice" style="margin: 0 18px 14px 18px;">
-                        Notice: Connected widgets obtain information from external services (Open-Meteo, ESPN) and will make network requests upon tab load if enabled.
+                        Aviso: Los widgets conectados obtienen información de servicios externos (Open-Meteo, ESPN) y realizarán solicitudes de red al cargar la página si están activados.
                       </div>
 
                       <label class="switch-row">
                         <input id="widget-weather-enabled" type="checkbox">
                         <span>
-                          <strong data-i18n="weatherWidget">Weather</strong>
+                          <strong data-i18n="weatherWidget">Clima</strong>
                         </span>
                       </label>
                       <div id="widget-weather-config" class="widgets-sub-config">
                         <label class="setting-row">
-                          <span data-i18n="weatherLocationLabel">Location label (e.g. London)</span>
-                          <input id="widget-weather-label" type="text">
+                          <span data-i18n="weatherLocationLabel">Etiqueta de ubicación (ej: Madrid)</span>
+                          <input id="widget-weather-label" class="settings-search-input" type="text">
                         </label>
                         <label class="setting-row">
-                          <span data-i18n="weatherLocationQuery">Location search (e.g. London, UK)</span>
+                          <span data-i18n="weatherLocationQuery">Búsqueda de ubicación (ej: Madrid, España)</span>
                           <div class="widgets-verify-group">
                             <input id="widget-weather-query" class="settings-search-input" type="text" autocomplete="off">
                             <button id="weather-verify-btn" type="button" class="action-button secondary-button" data-i18n="verifyLocationBtn">Verificar</button>
@@ -786,10 +786,10 @@
                           <span id="weather-validation-status" class="validation-status" aria-live="polite"></span>
                         </div>
                         <label class="setting-row">
-                          <span data-i18n="weatherUnits">Temperature units</span>
+                          <span data-i18n="weatherUnits">Unidad de temperatura</span>
                           <select id="widget-weather-units">
-                            <option value="metric">Celsius (°C)</option>
-                            <option value="imperial">Fahrenheit (°F)</option>
+                            <option value="metric" data-i18n="weatherUnitsMetric">Celsius (C)</option>
+                            <option value="imperial" data-i18n="weatherUnitsImperial">Fahrenheit (F)</option>
                           </select>
                         </label>
                       </div>
@@ -797,47 +797,32 @@
                       <label class="switch-row">
                         <input id="widget-sports-enabled" type="checkbox">
                         <span>
-                          <strong data-i18n="sportsWidget">Sports</strong>
+                          <strong data-i18n="sportsWidget">Deportes</strong>
                         </span>
                       </label>
                       <div id="widget-sports-config" class="widgets-sub-config">
                         <label class="setting-row">
                           <span data-i18n="sportsLeague">Liga</span>
                           <select id="widget-sports-league">
-                            <option value="soccer-esp-1">Spanish LaLiga</option>
-                            <option value="soccer-eng-1">English Premier League</option>
-                            <option value="soccer-uefa-champions">UEFA Champions League</option>
-                            <option value="soccer-ita-1">Italian Serie A</option>
-                            <option value="soccer-fifa-world">FIFA World Cup</option>
-                            <option value="soccer-uefa-euro">UEFA Euro</option>
-                            <option value="soccer-copa-america">Copa América</option>
-                            <option value="basketball-nba">NBA</option>
-                            <option value="football-nfl">NFL</option>
+                            <option value="soccer-esp-1" data-i18n="sportsLeagueSpanishLaLiga">LaLiga española</option>
+                            <option value="soccer-eng-1" data-i18n="sportsLeagueEnglishPremier">Premier League inglesa</option>
+                            <option value="soccer-ita-1" data-i18n="sportsLeagueItalianSerieA">Serie A italiana</option>
+                            <option value="soccer-ger-1" data-i18n="sportsLeagueGermanBundesliga">Bundesliga alemana</option>
+                            <option value="soccer-fra-1" data-i18n="sportsLeagueFrenchLigue1">Ligue 1 francesa</option>
+                            <option value="soccer-por-1" data-i18n="sportsLeaguePortuguesePrimeira">Primeira Liga portuguesa</option>
+                            <option value="soccer-bra-1" data-i18n="sportsLeagueBrazilianSerieA">Série A brasileña</option>
+                            <option value="soccer-arg-1" data-i18n="sportsLeagueArgentinePrimera">Primera División argentina</option>
+                            <option value="soccer-mex-1" data-i18n="sportsLeagueMexicanLigaMX">Liga MX mexicana</option>
+                            <option value="soccer-usa-1" data-i18n="sportsLeagueUsaMls">MLS de EE. UU.</option>
+                            <option value="soccer-uefa-champions" data-i18n="sportsLeagueUefaChampions">UEFA Champions League</option>
+                            <option value="soccer-conmebol-libertadores" data-i18n="sportsLeagueConmebolLibertadores">Copa Libertadores</option>
+                            <option value="soccer-fifa-world" data-i18n="sportsLeagueFifaWorldCup">Copa Mundial FIFA</option>
+                            <option value="soccer-uefa-euro" data-i18n="sportsLeagueUefaEuro">UEFA Euro</option>
+                            <option value="soccer-copa-america" data-i18n="sportsLeagueCopaAmerica">Copa América</option>
+                            <option value="basketball-nba" data-i18n="sportsLeagueNba">NBA</option>
+                            <option value="football-nfl" data-i18n="sportsLeagueNfl">NFL</option>
                           </select>
                         </label>
-                        <label class="setting-row">
-                          <span data-i18n="sportsMode">Sports display mode</span>
-                          <select id="widget-sports-mode">
-                            <option value="league">Toda la liga</option>
-                            <option value="teams">Solo mis equipos favoritos</option>
-                          </select>
-                        </label>
-                        <div id="widget-sports-teams-verification">
-                          <label class="setting-row">
-                            <span data-i18n="sportsTeam">Equipo</span>
-                            <div class="widgets-verify-group">
-                              <input id="widget-sports-team-input" class="settings-search-input" type="text" autocomplete="off" placeholder="e.g. Real Madrid">
-                              <button id="widget-sports-verify-btn" type="button" class="action-button secondary-button" data-i18n="verifyTeamBtn">Verificar</button>
-                            </div>
-                          </label>
-                          <div class="widgets-status-row">
-                            <span id="sports-validation-status" class="validation-status" aria-live="polite"></span>
-                          </div>
-                          <div class="widgets-favorites-container">
-                            <span class="widgets-favorites-title" data-i18n="sportsVerifiedFavorites">Equipos verificados:</span>
-                            <div id="sports-verified-list" class="sports-teams-selector"></div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -1110,9 +1095,18 @@
                         <strong data-i18n="aboutAppName">Acerca de martabs</strong>
                         <small>
                           <span data-i18n="installedVersion">Versión instalada:</span>
-                          <span id="advanced-version" dir="ltr">0.0.0</span>
+                          <span id="advanced-version" dir="ltr">1.0.0</span>
                         </small>
                       </span>
+                    </div>
+                    <div class="setting-row" data-i18n-search="searchRateRow" data-search="reseña calificar rate rating valorar opinion feed back">
+                      <span>
+                        <strong data-i18n="rateExtensionTitle">Apoya el proyecto</strong>
+                        <small data-i18n="rateExtensionDesc">Si martabs te ayuda en tu día a día, ¡califícanos en la Web Store!</small>
+                      </span>
+                      <button id="rate-extension" class="secondary-button" type="button" data-i18n="rateExtensionBtn">
+                        Dejar una reseña
+                      </button>
                     </div>
                   </div>
                 </div>

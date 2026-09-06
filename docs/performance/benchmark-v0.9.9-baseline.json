@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-13T01:43:09.243Z",
+  "timestamp": "2026-06-14T15:27:12.351Z",
   "scenarios": {
     "A (Baseline: 10 folders x 10 bookmarks = 100 total)": {
       "domStats": {
@@ -7,8 +7,8 @@
         "groups": 10,
         "bookmarks": 100
       },
-      "loadDurationMs": 131,
-      "broadSearchDuration": 66,
+      "loadDurationMs": 263,
+      "broadSearchDuration": 162,
       "searchResultCount": 50,
       "cleanScroll": {
         "avgFrame": 0,
@@ -41,14 +41,14 @@
         "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 18.06831683144711,
-        "worstFrame": 116.29999995231628,
-        "over16": 76,
-        "over33": 1,
-        "over50": 1,
+        "avgFrame": 33.2841584163137,
+        "worstFrame": 120.10000002384186,
+        "over16": 99,
+        "over33": 33,
+        "over50": 3,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1824.8999999761581
+        "duration": 3361.7000000476837
       }
     },
     "B (Wide folders: 5 folders x 100 bookmarks = 500 total)": {
@@ -57,8 +57,8 @@
         "groups": 5,
         "bookmarks": 250
       },
-      "loadDurationMs": 201,
-      "broadSearchDuration": 85,
+      "loadDurationMs": 566,
+      "broadSearchDuration": 207,
       "searchResultCount": 50,
       "cleanScroll": {
         "avgFrame": 0,
@@ -91,14 +91,14 @@
         "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.90297029750182,
-        "worstFrame": 102.39999997615814,
-        "over16": 84,
-        "over33": 1,
-        "over50": 1,
+        "avgFrame": 32.93168316855289,
+        "worstFrame": 114.79999995231628,
+        "over16": 99,
+        "over33": 30,
+        "over50": 2,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1808.2000000476837
+        "duration": 3326.100000023842
       }
     },
     "C (Many columns: 250 folders x 2 bookmarks = 500 total)": {
@@ -107,8 +107,8 @@
         "groups": 250,
         "bookmarks": 500
       },
-      "loadDurationMs": 300,
-      "broadSearchDuration": 75,
+      "loadDurationMs": 879,
+      "broadSearchDuration": 174,
       "searchResultCount": 50,
       "cleanScroll": {
         "avgFrame": 0,
@@ -141,14 +141,14 @@
         "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.75445544483638,
-        "worstFrame": 100.5,
-        "over16": 80,
-        "over33": 1,
+        "avgFrame": 31.859405941302235,
+        "worstFrame": 101.20000004768372,
+        "over16": 100,
+        "over33": 19,
         "over50": 1,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1793.1999999284744
+        "duration": 3217.8000000715256
       }
     },
     "D (Huge load: 50 folders x 40 bookmarks = 2000 total)": {
@@ -157,8 +157,8 @@
         "groups": 50,
         "bookmarks": 2000
       },
-      "loadDurationMs": 730,
-      "broadSearchDuration": 101,
+      "loadDurationMs": 1617,
+      "broadSearchDuration": 144,
       "searchResultCount": 50,
       "cleanScroll": {
         "avgFrame": 0,
@@ -191,14 +191,14 @@
         "duration": 0
       },
       "searchScroll": {
-        "avgFrame": 17.934653466290765,
+        "avgFrame": 32.482178218293896,
         "worstFrame": 101.20000004768372,
-        "over16": 81,
-        "over33": 1,
-        "over50": 1,
+        "over16": 99,
+        "over33": 26,
+        "over50": 2,
         "longTasksCount": 0,
         "maxLongTask": 0,
-        "duration": 1811.4000000953674
+        "duration": 3280.7000000476837
       }
     }
   }

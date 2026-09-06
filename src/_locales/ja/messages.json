@@ -111,8 +111,14 @@
   "changeView": {
     "message": "ビューの変更"
   },
+  "checklistEmpty": {
+    "message": "保留中のタスクはありません。"
+  },
+  "checklistPlaceholder": {
+    "message": "新しいタスクを追加..."
+  },
   "checklistWidget": {
-    "message": "Checklist"
+    "message": "チェックリスト"
   },
   "cleanFolderNames": {
     "message": "フォルダ名を簡略化"
@@ -140,11 +146,20 @@
   "clearPreviewsSuccess": {
     "message": "キャッシュされたプレビューがクリアされました。"
   },
+  "clockFormat12": {
+    "message": "12時間制 (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24時間制"
+  },
+  "clockFormatLocale": {
+    "message": "システム（12時間/24時間）"
+  },
   "clockWidget": {
-    "message": "Clock"
+    "message": "時計"
   },
   "clockWidgetFormat": {
-    "message": "Clock Time Format"
+    "message": "時計の時刻表示形式"
   },
   "collapseAll": {
     "message": "すべて折りたたむ"
@@ -208,10 +223,10 @@
     "message": "使用統計履歴をリセットしますか？"
   },
   "connectedWidgets": {
-    "message": "Connected Widgets"
+    "message": "連携ウィジェット"
   },
   "connectedWidgetsNotice": {
-    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
+    "message": "注意：連携ウィジェットは外部サービス（Open-Meteo、ESPN）からデータを取得し、有効な場合はタブ読み込み時にネットワーク要求を行います。"
   },
   "customGradientDesc": {
     "message": "グラデーションの色、タイプ、角度を調整します。"
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "タスクを削除"
   },
   "domainNone": {
     "message": "ドメインなし"
@@ -631,7 +649,7 @@
     "message": "ローカルストレージの使用量"
   },
   "localWidgets": {
-    "message": "Local Widgets"
+    "message": "ローカルウィジェット"
   },
   "manualTags": {
     "message": "手動タグ"
@@ -709,8 +727,17 @@
   "none": {
     "message": "なし"
   },
+  "notesPlaceholder": {
+    "message": "ここにメモを入力..."
+  },
+  "notesSaved": {
+    "message": "保存済み"
+  },
+  "notesSaving": {
+    "message": "保存中..."
+  },
   "notesWidget": {
-    "message": "Quick Notes"
+    "message": "クイックメモ"
   },
   "openBrowserBookmarks": {
     "message": "ブックマークを管理"
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "ツールとキャプチャ"
   },
+  "rateExtensionBtn": {
+    "message": "レビューを書く"
+  },
+  "rateExtensionDesc": {
+    "message": "martabsが毎日のブラウジングに役立っているなら、ウェブストアで評価をお願いします！"
+  },
+  "rateExtensionTitle": {
+    "message": "プロジェクトを支援する"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "martabs v1.0 お祝い"
+    "message": "martabs v1.0.0 お祝い"
   },
   "releaseCelebrationSubtitle": {
-    "message": "初の安定版リリース"
+    "message": "2026/06/15 - 初の安定版リリース"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "フォルダを削除"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "タイトル A-Z"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "スコアの読み込みエラー"
+  },
+  "sportsFinal": {
+    "message": "終了"
   },
   "sportsLeague": {
     "message": "リーグ"
   },
-  "sportsMode": {
-    "message": "表示モード"
+  "sportsLeagueArgentinePrimera": {
+    "message": "アルゼンチン プリメーラ・ディビシオン"
   },
-  "sportsNoFavorites": {
-    "message": "お気に入りチームの試合はありません。"
+  "sportsLeagueBrazilianSerieA": {
+    "message": "ブラジル セリエA"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "コパ・リベルタドーレス"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "コパ・アメリカ"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "イングランド プレミアリーグ"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "FIFA ワールドカップ"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "フランス リーグ・アン"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "ドイツ ブンデスリーガ"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "イタリア セリエA"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "メキシコ リーガMX"
+  },
+  "sportsLeagueNba": {
+    "message": "NBA"
+  },
+  "sportsLeagueNfl": {
+    "message": "NFL"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "ポルトガル プリメイラ・リーガ"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "スペイン ラ・リーガ"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "UEFA チャンピオンズリーグ"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "UEFA ユーロ"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "アメリカ MLS"
+  },
+  "sportsLive": {
+    "message": "ライブ"
   },
   "sportsNoLive": {
     "message": "ライブ中の試合はありません"
   },
   "sportsNoMatches": {
     "message": "試合が見つかりません"
+  },
+  "sportsNoRecentResults": {
+    "message": "最近の結果はありません"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "予定された試合はありません"
+  },
+  "sportsScheduled": {
+    "message": "予定"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "Google で $MATCH$ を検索",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "ライブ"
@@ -1083,14 +1187,8 @@
   "sportsTabUpcoming": {
     "message": "予定"
   },
-  "sportsTeam": {
-    "message": "チーム"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "確認済みのチーム:"
-  },
   "sportsWidget": {
-    "message": "Sports Score"
+    "message": "スポーツ"
   },
   "statisticsSection": {
     "message": "統計"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "確認"
   },
-  "verifyTeamBtn": {
-    "message": "追加"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ 回の訪問",
     "placeholders": {
@@ -1252,53 +1347,147 @@
   "wallpaperTypeNone": {
     "message": "背景なし"
   },
+  "weatherClearSky": {
+    "message": "快晴"
+  },
+  "weatherCloudy": {
+    "message": "曇り"
+  },
+  "weatherConfigureQuery": {
+    "message": "場所を設定"
+  },
+  "weatherDrizzle": {
+    "message": "霧雨"
+  },
+  "weatherErrorShort": {
+    "message": "Err"
+  },
+  "weatherFoggy": {
+    "message": "霧"
+  },
+  "weatherLoadFailed": {
+    "message": "天気を読み込めませんでした"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Loc err"
+  },
   "weatherLocationLabel": {
-    "message": "Location Label (e.g. London)"
+    "message": "場所のラベル（例：東京）"
+  },
+  "weatherLocationNotFound": {
+    "message": "場所が見つかりません"
   },
   "weatherLocationQuery": {
-    "message": "Search Query (City Name)"
+    "message": "場所の検索（例：日本、東京都）"
+  },
+  "weatherNetworkError": {
+    "message": "ネットワークエラー"
+  },
+  "weatherNoLocationShort": {
+    "message": "No loc"
+  },
+  "weatherNoResultsFound": {
+    "message": "結果が見つかりません"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "一部曇り"
+  },
+  "weatherRain": {
+    "message": "雨"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "保存する前に天気の場所を確認してください。"
+  },
+  "weatherShowers": {
+    "message": "にわか雨"
+  },
+  "weatherSnow": {
+    "message": "雪"
+  },
+  "weatherStatusChecking": {
+    "message": "場所を確認中..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "接続エラー"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "場所を入力してください"
+  },
+  "weatherStatusNotFound": {
+    "message": "エラー - 場所が見つかりません"
+  },
+  "weatherStatusPending": {
+    "message": "確認待ち"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - 選択した場所: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - 確認済みの場所: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "雷雨"
   },
   "weatherUnits": {
-    "message": "Units"
+    "message": "温度単位"
+  },
+  "weatherUnitsImperial": {
+    "message": "華氏 (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "摂氏 (C)"
   },
   "weatherWidget": {
-    "message": "Weather"
+    "message": "天気"
   },
   "widgetsActiveCount": {
-    "message": "有効なウィジェット"
+    "message": "個の有効なウィジェット"
   },
   "widgetsDescription": {
-    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+    "message": "新しいタブに時計、メモ、チェックリスト、天気、またはスポーツのスコアを表示するパーソナルウィジェットを設定します。"
   },
   "widgetsEnabled": {
-    "message": "Enable widgets on your dashboard."
+    "message": "ダッシュボードのウィジェットを有効にする"
   },
   "widgetsHeaderTitle": {
     "message": "ウィジェット"
   },
   "widgetsHeading": {
-    "message": "Widgets"
+    "message": "ウィジェット"
   },
   "widgetsLimitReached": {
     "message": "同時に有効にできるウィジェットは最大4つまでです。"
   },
   "widgetsLimitReachedTooltip": {
-    "message": "上限に達しました"
+    "message": "上限到達"
   },
   "widgetsLimitWarning": {
-    "message": "一度に有効にできるウィジェットは最大4つまでです。別のウィジェットを追加するには、いずれかを無効にしてください。"
+    "message": "一度に有効にできるウィジェットは最大4つまでです。別のウィジェットを追加するには、どれか1つを無効にしてください。"
   },
   "widgetsResizeTooltip": {
-    "message": "ウィジェットのサイズを切り替える"
+    "message": "ウィジェットサイズの切り替え"
   },
   "widgetsSection": {
-    "message": "Widgets"
+    "message": "ウィジェット"
   },
   "widgetsSettingsTooltip": {
     "message": "ウィジェットの設定"
   },
   "widgetsStyle": {
-    "message": "ウィジェットのスタイル"
+    "message": "ウィジェットスタイル"
   },
   "widgetsStyleCompact": {
     "message": "コンパクト（横）"

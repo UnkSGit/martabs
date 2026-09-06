@@ -445,13 +445,17 @@ test("setup widgets section contains widgets activation and sub-configuration co
   assert.match(html, /id="widget-checklist-enabled"/);
   assert.match(html, /id="widget-weather-enabled"/);
   assert.match(html, /id="widget-sports-enabled"/);
-  assert.match(html, /id="widget-sports-mode"/);
   assert.match(html, /id="widget-sports-league"/);
+  assert.match(html, /value="locale" data-i18n="clockFormatLocale"/);
+  assert.match(html, /value="12" data-i18n="clockFormat12"/);
+  assert.match(html, /value="24" data-i18n="clockFormat24"/);
+  assert.match(html, /value="metric" data-i18n="weatherUnitsMetric"/);
+  assert.match(html, /value="imperial" data-i18n="weatherUnitsImperial"/);
+  assert.match(html, /id="widget-weather-label"[^>]+class="settings-search-input"/);
 
   // JS checks
   assert.match(js, /widgetsEnabled = document\.querySelector\("#widgets-enabled"\)/);
   assert.match(js, /widgetsStyle = document\.querySelector\("#widgets-style"\)/);
-  assert.match(js, /widgetSportsMode = document\.querySelector\("#widget-sports-mode"\)/);
   assert.match(js, /widgetSportsLeague = document\.querySelector\("#widget-sports-league"\)/);
   assert.match(js, /widgets:\s*\{/);
   assert.match(js, /style:\s*widgetsStyle/);
@@ -460,7 +464,6 @@ test("setup widgets section contains widgets activation and sub-configuration co
   assert.match(js, /checklist:\s*\{/);
   assert.match(js, /weather:\s*\{/);
   assert.match(js, /sports:\s*\{/);
-  assert.match(js, /mode:\s*widgetSportsMode/);
   assert.match(js, /league:\s*widgetSportsLeague/);
 });
 
@@ -532,7 +535,11 @@ test("setup weather validation messages stay readable", async () => {
   assert.match(js, /Pendiente de verificacion/);
   assert.match(js, /Error - Ubicacion no encontrada/);
   assert.match(js, /Error de conexion/);
+  assert.match(js, /alert\("Por favor, verifica la ubicacion del clima antes de guardar\."\)/);
   assert.doesNotMatch(js, /weatherValidationStatus\.textContent[\s\S]{0,120}[\u00d4\u251c\u00c3]/);
+  assert.match(css, /\.widgets-sub-config\.requires-attention\s*{/);
+  assert.match(css, /\.validation-status\.is-success\s*{/);
+  assert.match(css, /\.validation-status\.is-warning,\s*\n\.validation-status\.is-error\s*{/);
   assert.match(css, /\.widgets-sub-config\s*{[\s\S]*?margin:\s*8px 18px 18px 44px/);
   assert.match(css, /\.widgets-sub-config\s*{[\s\S]*?clear:\s*both/);
   assert.match(css, /\.widgets-config-container \.switch-row:has\(\+ \.widgets-sub-config\)\s*{[\s\S]*?border-bottom:\s*0/);

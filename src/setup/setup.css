@@ -2490,6 +2490,11 @@ html[dir="rtl"] .tabs-drag-split-layout {
   clear: both;
 }
 
+.widgets-sub-config.requires-attention {
+  border-color: color-mix(in srgb, var(--warning-text) 45%, var(--surface-border));
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--warning-text) 78%, transparent);
+}
+
 .widgets-sub-config .setting-row {
   padding: 0 !important;
   border: none !important;
@@ -2560,6 +2565,29 @@ html[dir="rtl"] .tabs-drag-split-layout {
   font-size: 12px !important;
   font-weight: 700 !important;
   min-height: 16px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 4px 9px;
+  background: color-mix(in srgb, var(--surface-bg) 82%, transparent);
+}
+
+.validation-status.is-success {
+  color: var(--success-text);
+  background: color-mix(in srgb, var(--success-text) 12%, transparent);
+  border-color: color-mix(in srgb, var(--success-text) 28%, transparent);
+}
+
+.validation-status.is-warning,
+.validation-status.is-error {
+  color: var(--warning-text);
+  background: color-mix(in srgb, var(--warning-text) 12%, transparent);
+  border-color: color-mix(in srgb, var(--warning-text) 30%, transparent);
+}
+
+.validation-status.is-neutral {
+  color: var(--text-secondary);
 }
 
 /* Sports Team Badges/Pills */

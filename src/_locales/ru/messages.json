@@ -111,8 +111,14 @@
   "changeView": {
     "message": "Изменить вид"
   },
+  "checklistEmpty": {
+    "message": "Нет невыполненных задач."
+  },
+  "checklistPlaceholder": {
+    "message": "Добавить задачу..."
+  },
   "checklistWidget": {
-    "message": "Checklist"
+    "message": "Список задач"
   },
   "cleanFolderNames": {
     "message": "Короткие имена папок"
@@ -140,11 +146,20 @@
   "clearPreviewsSuccess": {
     "message": "Кэш превью очищен."
   },
+  "clockFormat12": {
+    "message": "12-часовой (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24-часовой"
+  },
+  "clockFormatLocale": {
+    "message": "Системный (12ч/24ч)"
+  },
   "clockWidget": {
-    "message": "Clock"
+    "message": "Часы"
   },
   "clockWidgetFormat": {
-    "message": "Clock Time Format"
+    "message": "Формат времени"
   },
   "collapseAll": {
     "message": "Свернуть все"
@@ -208,10 +223,10 @@
     "message": "Сбросить историю статистики использования?"
   },
   "connectedWidgets": {
-    "message": "Connected Widgets"
+    "message": "Подключенные виджеты"
   },
   "connectedWidgetsNotice": {
-    "message": "Notice: Connected widgets fetch data from external services (Open-Meteo, ESPN) and will make network requests on tab load when enabled."
+    "message": "Примечание: Подключенные виджеты загружают данные из внешних сервисов (Open-Meteo, ESPN) и при включении будут выполнять сетевые запросы при загрузке вкладки."
   },
   "customGradientDesc": {
     "message": "Настройка цвета, типа и угла градиента."
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "Удалить задачу"
   },
   "domainNone": {
     "message": "Нет домена"
@@ -631,7 +649,7 @@
     "message": "Использование локального хранилища"
   },
   "localWidgets": {
-    "message": "Local Widgets"
+    "message": "Локальные виджеты"
   },
   "manualTags": {
     "message": "Ручные теги"
@@ -709,8 +727,17 @@
   "none": {
     "message": "Нет"
   },
+  "notesPlaceholder": {
+    "message": "Введите заметки здесь..."
+  },
+  "notesSaved": {
+    "message": "Сохранено"
+  },
+  "notesSaving": {
+    "message": "Сохранение..."
+  },
   "notesWidget": {
-    "message": "Quick Notes"
+    "message": "Быстрые заметки"
   },
   "openBrowserBookmarks": {
     "message": "Управление закладками"
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "Инструменты и снимки"
   },
+  "rateExtensionBtn": {
+    "message": "Оставить отзыв"
+  },
+  "rateExtensionDesc": {
+    "message": "Если martabs помогает вам в повседневной работе, пожалуйста, оцените нас в интернет-магазине!"
+  },
+  "rateExtensionTitle": {
+    "message": "Поддержать проект"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "Празднование выпуска martabs v1.0"
+    "message": "Празднование выпуска martabs v1.0.0"
   },
   "releaseCelebrationSubtitle": {
-    "message": "Первый стабильный выпуск"
+    "message": "15.06.2026 - Первый стабильный выпуск"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "Удалить папку"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "По названию (А-Я)"
   },
-  "sportsFavorites": {
-    "message": "Favorite Teams (comma-separated)"
+  "sportsErrorLoadingScores": {
+    "message": "Ошибка загрузки результатов"
+  },
+  "sportsFinal": {
+    "message": "Завершено"
   },
   "sportsLeague": {
     "message": "Лига"
   },
-  "sportsMode": {
-    "message": "Режим отображения"
+  "sportsLeagueArgentinePrimera": {
+    "message": "Чемпионат Аргентины"
   },
-  "sportsNoFavorites": {
-    "message": "Матчи с участием любимых команд отсутствуют."
+  "sportsLeagueBrazilianSerieA": {
+    "message": "Чемпионат Бразилии (Серия A)"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "Кубок Либертадорес"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "Кубок Америки"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "Английская Премьер-лига"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "Чемпионат мира по футболу FIFA"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "Французская Лига 1"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "Немецкая Бундеслига"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "Итальянская Серия А"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "Мексиканская Лига MX"
+  },
+  "sportsLeagueNba": {
+    "message": "НБА"
+  },
+  "sportsLeagueNfl": {
+    "message": "НФЛ"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "Португальская Примейра-лига"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "Испанская Ла Лига"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "Лига чемпионов УЕФА"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "Чемпионат Европы УЕФА"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "Американская MLS"
+  },
+  "sportsLive": {
+    "message": "В эфире"
   },
   "sportsNoLive": {
     "message": "Нет матчей в эфире"
   },
   "sportsNoMatches": {
     "message": "Матчи не найдены"
+  },
+  "sportsNoRecentResults": {
+    "message": "Нет недавних результатов"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "Нет запланированных матчей"
+  },
+  "sportsScheduled": {
+    "message": "Запланировано"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "Искать $MATCH$ в Google",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "В эфире"
@@ -1083,14 +1187,8 @@
   "sportsTabUpcoming": {
     "message": "Предстоящие"
   },
-  "sportsTeam": {
-    "message": "Команда"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "Подтвержденные команды:"
-  },
   "sportsWidget": {
-    "message": "Sports Score"
+    "message": "Спорт"
   },
   "statisticsSection": {
     "message": "Статистика"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "Проверить"
   },
-  "verifyTeamBtn": {
-    "message": "Добавить"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ посещений",
     "placeholders": {
@@ -1252,32 +1347,126 @@
   "wallpaperTypeNone": {
     "message": "Без фона"
   },
+  "weatherClearSky": {
+    "message": "Ясно"
+  },
+  "weatherCloudy": {
+    "message": "Облачно"
+  },
+  "weatherConfigureQuery": {
+    "message": "Настройте местоположение"
+  },
+  "weatherDrizzle": {
+    "message": "Морось"
+  },
+  "weatherErrorShort": {
+    "message": "Err"
+  },
+  "weatherFoggy": {
+    "message": "Туман"
+  },
+  "weatherLoadFailed": {
+    "message": "Не удалось загрузить погоду"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Loc err"
+  },
   "weatherLocationLabel": {
-    "message": "Location Label (e.g. London)"
+    "message": "Название места (напр. Москва)"
+  },
+  "weatherLocationNotFound": {
+    "message": "Местоположение не найдено"
   },
   "weatherLocationQuery": {
-    "message": "Search Query (City Name)"
+    "message": "Поиск места (напр. Москва, Россия)"
+  },
+  "weatherNetworkError": {
+    "message": "Ошибка сети"
+  },
+  "weatherNoLocationShort": {
+    "message": "No loc"
+  },
+  "weatherNoResultsFound": {
+    "message": "Ничего не найдено"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "Переменная облачность"
+  },
+  "weatherRain": {
+    "message": "Дождь"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "Проверьте местоположение погоды перед сохранением."
+  },
+  "weatherShowers": {
+    "message": "Ливни"
+  },
+  "weatherSnow": {
+    "message": "Снег"
+  },
+  "weatherStatusChecking": {
+    "message": "Проверка местоположения..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "Ошибка соединения"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "Введите местоположение"
+  },
+  "weatherStatusNotFound": {
+    "message": "Ошибка - местоположение не найдено"
+  },
+  "weatherStatusPending": {
+    "message": "Ожидает проверки"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - Местоположение выбрано: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - Местоположение проверено: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "Гроза"
   },
   "weatherUnits": {
-    "message": "Units"
+    "message": "Единица температуры"
+  },
+  "weatherUnitsImperial": {
+    "message": "Фаренгейт (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "Цельсий (C)"
   },
   "weatherWidget": {
-    "message": "Weather"
+    "message": "Погода"
   },
   "widgetsActiveCount": {
     "message": "активных виджетов"
   },
   "widgetsDescription": {
-    "message": "Add clock, weather, notes, checklist, and sports score metrics to your new tab."
+    "message": "Настройте виджеты, чтобы показывать часы, заметки, списки задач, погоду или спортивные результаты на новой вкладке."
   },
   "widgetsEnabled": {
-    "message": "Enable widgets on your dashboard."
+    "message": "Включить виджеты на панели"
   },
   "widgetsHeaderTitle": {
     "message": "Виджеты"
   },
   "widgetsHeading": {
-    "message": "Widgets"
+    "message": "Виджеты"
   },
   "widgetsLimitReached": {
     "message": "Вы можете включить не более 4 виджетов одновременно."
@@ -1286,13 +1475,13 @@
     "message": "Лимит достигнут"
   },
   "widgetsLimitWarning": {
-    "message": "Вы можете активировать не более 4 виджетов одновременно. Отключите один, чтобы добавить другой."
+    "message": "Вы можете активировать до 4 виджетов одновременно. Отключите один, чтобы добавить другой."
   },
   "widgetsResizeTooltip": {
-    "message": "Переключить размер виджета"
+    "message": "Переключить размер виджетов"
   },
   "widgetsSection": {
-    "message": "Widgets"
+    "message": "Виджеты"
   },
   "widgetsSettingsTooltip": {
     "message": "Настроить виджеты"

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert";
-import { generateExportData, parseAndRemapImport } from "../src/shared/sync.js";
+import { generateExportData, parseAndRemapImport, mergeImportedSettings } from "../src/shared/sync.js";
 
 test("generateExportData creates correct refs map", () => {
   const settings = {
@@ -188,4 +188,107 @@ test("same-profile import maps IDs directly when paths match", () => {
   assert.deepStrictEqual(result.manualTags, { "10": ["important"] });
   assert.deepStrictEqual(result.pinnedBookmarks, ["10"]);
   assert.strictEqual(result.stats.unmappedItems, 0);
+});
+
+test("parseAndRemapImport preserves the complete current settings schema", () => {
+  const settings = {
+    language: "es",
+    selectedFolderIds: ["old-f"],
+    automaticTagsEnabled: false,
+    localStatsEnabled: true,
+    showTopSitesFolder: true,
+    topSitesLimit: 12,
+    topSitesBlacklist: ["example.com"],
+    cleanFolderNames: false,
+    enablePinnedShortcuts: false,
+    pinnedShortcutModifier: ["Control", "Shift"],
+    tabs: [{ id: "tab-1", name: "Trabajo" }],
+    folderTabs: { "old-f": "tab-1" },
+    activeTabId: "tab-1",
+    customWallpaperEnabled: true,
+    customWallpaperSlots: [1, 2],
+    customWallpaperActiveSlot: 2,
+    customWallpaperRotate: true,
+    customWallpaperBrightness: 0.7,
+    customWallpaperFolderOpacity: 0.4,
+    customWallpaperHeaderOpacity: 0.6,
+    customWallpaperThemes: { 1: "dark", 2: "light" },
+    customWallpaperType: "gradient",
+    customWallpaperGradientConfig: { type: "linear", colorA: "#111111", colorB: "#eeeeee", angle: 90, presetId: "x", animated: true },
+    widgets: {
+      enabled: true,
+      collapsed: false,
+      style: "compact",
+      layout: ["clock", "notes"],
+      clock: { enabled: true, format: "24" },
+      notes: { enabled: true },
+      checklist: { enabled: false },
+      weather: { enabled: true, locationLabel: "Buenos Aires", locationQuery: "Buenos Aires", units: "metric" },
+      sports: { enabled: false, mode: "teams", league: "soccer-esp-1", favorites: [] }
+    }
+  };
+  const exported = generateExportData(settings, {}, [], [{ id: "old-b", url: "https://example.com" }], [{ id: "old-f", path: "Root / Work" }]);
+  const result = parseAndRemapImport(exported, [], [{ id: "new-f", path: "Root / Work" }]);
+
+  assert.strictEqual(result.settings.language, "es");
+  assert.strictEqual(result.settings.localStatsEnabled, true);
+  assert.deepStrictEqual(result.settings.tabs, settings.tabs);
+  assert.deepStrictEqual(result.settings.folderTabs, { "new-f": "tab-1" });
+  assert.deepStrictEqual(result.settings.widgets, settings.widgets);
+  assert.strictEqual(result.settings.customWallpaperType, "gradient");
+  assert.deepStrictEqual(result.settings.customWallpaperGradientConfig, settings.customWallpaperGradientConfig);
+  assert.strictEqual(result.settings.customWallpaperThemes[2], "light");
+  assert.strictEqual(result.settings.hack, undefined);
+});
+
+test("mergeImportedSettings preserves omitted newer settings and merges nested config", () => {
+  const current = {
+    language: "en",
+    localStatsEnabled: true,
+    widgets: { enabled: true, clock: { enabled: true, format: "24" }, notes: { enabled: true } }
+  };
+  const merged = mergeImportedSettings(current, { language: "es", widgets: { clock: { format: "12" } } });
+  assert.strictEqual(merged.language, "es");
+  assert.strictEqual(merged.localStatsEnabled, true);
+  assert.deepStrictEqual(merged.widgets, {
+    enabled: true,
+    clock: { enabled: true, format: "12" },
+    notes: { enabled: true }
+  });
+});
+
+test("mergeImportedSettings clears explicitly imported dictionaries", () => {
+  const merged = mergeImportedSettings({ folderModes: { "f1": "icons" }, localStatsEnabled: true }, { folderModes: {} });
+  assert.deepStrictEqual(merged.folderModes, {});
+  assert.strictEqual(merged.localStatsEnabled, true);
+});
+
+test("parseAndRemapImport rejects unsafe map values and manual tag entries", () => {
+  const result = parseAndRemapImport({
+    version: 1,
+    settings: {
+      folderModes: { oldF: "icons", bad: { exploit: true } },
+      folderSorts: { oldF: "title-asc" },
+      folderNameOverrides: { oldF: { exploit: true } }
+    },
+    manualTags: { oldB: ["ok", { exploit: true }] },
+    refs: { folders: { oldF: "Folder" }, bookmarks: { oldB: "https://example.com" } }
+  }, [{ id: "newB", url: "https://example.com" }], [{ id: "newF", path: "Folder" }]);
+  assert.deepStrictEqual(result.settings.folderModes, { newF: "icons" });
+  assert.deepStrictEqual(result.settings.folderSorts, { newF: "title-asc" });
+  assert.deepStrictEqual(result.settings.folderNameOverrides, {});
+  assert.deepStrictEqual(result.manualTags, {});
+});
+
+test("parseAndRemapImport keeps quicklinks mode and legacy sports favorite strings", () => {
+  const result = parseAndRemapImport({
+    version: 1,
+    settings: {
+      folderModes: { oldF: "quicklinks" },
+      widgets: { sports: { enabled: true, favorites: ["legacy-team", { teamId: "new-team", teamName: "Team" }] } }
+    },
+    refs: { folders: { oldF: "Folder" }, bookmarks: {} }
+  }, [], [{ id: "newF", path: "Folder" }]);
+  assert.deepStrictEqual(result.settings.folderModes, { newF: "quicklinks" });
+  assert.deepStrictEqual(result.settings.widgets.sports.favorites, ["legacy-team", { teamId: "new-team", teamName: "Team" }]);
 });

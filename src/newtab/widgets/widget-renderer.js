@@ -1,10 +1,27 @@
 import { WIDGET_REGISTRY } from './widget-registry.js';
 import { el } from '../../shared/render.js';
 import { t } from '../../shared/i18n-helper.js';
+import {
+  addChecklistItem,
+  deleteChecklistItem,
+  loadChecklist,
+  saveNotesImmediately,
+  updateChecklistItem
+} from '../../shared/widget-persistence.js';
 
 let clockInterval = null;
+let widgetStorageCleanup = [];
+let widgetGeneration = 0;
 const WEATHER_CACHE_TTL_MS = 30 * 60 * 1000;
 const SPORTS_CACHE_TTL_MS = 10 * 60 * 1000;
+
+function getWidgetLocale(settings = {}) {
+  const language = settings.language;
+  if (!language || language === 'system') {
+    return undefined;
+  }
+  return language.replace('_', '-');
+}
 
 async function getWidgetCache(api, key) {
   try {
@@ -33,6 +50,8 @@ async function setWidgetCache(api, key, value, ttlMs) {
 }
 
 export async function initializeWidgets(api, settings, widgetsContainer, widgetsGrid) {
+  const generation = ++widgetGeneration;
+  widgetStorageCleanup.splice(0).forEach((cleanup) => cleanup());
   // Clear any existing active states
   if (clockInterval) {
     clearInterval(clockInterval);
@@ -91,7 +110,7 @@ export async function initializeWidgets(api, settings, widgetsContainer, widgets
       hasActiveWidgets = true;
 
       // Call individual renderer
-      renderWidgetContent(id, widgetWrapper, config, api, settings, style);
+      renderWidgetContent(id, widgetWrapper, config, api, settings, style, generation);
     }
   }
 
@@ -100,7 +119,7 @@ export async function initializeWidgets(api, settings, widgetsContainer, widgets
   }
 }
 
-function renderWidgetContent(id, container, config, api, settings, style) {
+function renderWidgetContent(id, container, config, api, settings, style, generation) {
   switch (id) {
     case 'clock':
       renderClockWidget(container, config, api, settings, style);
@@ -112,10 +131,10 @@ function renderWidgetContent(id, container, config, api, settings, style) {
       renderSportsWidgetV2(container, config, api, settings, style);
       break;
     case 'notes':
-      renderNotesWidget(container, config, api, settings, style);
+      renderNotesWidget(container, config, api, settings, style, generation);
       break;
     case 'checklist':
-      renderChecklistWidget(container, config, api, settings, style);
+      renderChecklistWidget(container, config, api, settings, style, generation);
       break;
   }
 }
@@ -143,7 +162,7 @@ function renderClockWidget(container, config, api, settings, style) {
   function getLocalDateString(lang) {
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     try {
-      const dateStr = new Date().toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', options);
+      const dateStr = new Date().toLocaleDateString(getWidgetLocale(settings), options);
       return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
     } catch (e) {
       const dateStr = new Date().toLocaleDateString([], options);
@@ -193,7 +212,7 @@ async function renderWeatherWidget(container, config, api, settings, style) {
   ]);
 
   const label = config.locationLabel || 'Weather';
-  const iconEl = el('span', { class: 'widget-weather-large-icon', text: '🌤️' });
+  const iconEl = el('span', { class: 'widget-weather-large-icon', text: '\uD83C\uDF24\uFE0F' });
   const tempEl = el('span', { class: 'widget-weather-large-temp', text: '...' });
   const locationEl = el('span', { class: 'widget-weather-location', text: label });
   const descEl = el('span', { class: 'widget-weather-desc', text: '...' });
@@ -215,8 +234,8 @@ async function renderWeatherWidget(container, config, api, settings, style) {
   const units = config.units || 'metric';
 
   if (!query) {
-    tempEl.textContent = 'No Loc';
-    descEl.textContent = 'Configure query';
+    tempEl.textContent = t(api, 'weatherNoLocationShort', 'No loc');
+    descEl.textContent = t(api, 'weatherConfigureQuery', 'Configure location');
     return;
   }
 
@@ -225,7 +244,9 @@ async function renderWeatherWidget(container, config, api, settings, style) {
   function applyWeatherPayload(payload) {
     tempEl.textContent = payload.tempText;
     iconEl.textContent = payload.iconText;
-    descEl.textContent = payload.description;
+    descEl.textContent = payload.descriptionKey
+      ? t(api, payload.descriptionKey, payload.description || '')
+      : payload.description;
   }
 
   try {
@@ -240,8 +261,8 @@ async function renderWeatherWidget(container, config, api, settings, style) {
     const geoData = await geoRes.json();
 
     if (!geoData.results || geoData.results.length === 0) {
-      tempEl.textContent = 'Loc err';
-      descEl.textContent = 'Location not found';
+      tempEl.textContent = t(api, 'weatherLocationErrorShort', 'Loc err');
+      descEl.textContent = t(api, 'weatherLocationNotFound', 'Location not found');
       return;
     }
 
@@ -252,8 +273,8 @@ async function renderWeatherWidget(container, config, api, settings, style) {
     const weatherData = await weatherRes.json();
 
     if (!weatherData.current_weather) {
-      tempEl.textContent = 'Err';
-      descEl.textContent = 'Failed to load weather';
+      tempEl.textContent = t(api, 'weatherErrorShort', 'Err');
+      descEl.textContent = t(api, 'weatherLoadFailed', 'Failed to load weather');
       return;
     }
 
@@ -263,60 +284,57 @@ async function renderWeatherWidget(container, config, api, settings, style) {
       tempVal = (tempVal * 9) / 5 + 32;
     }
 
-    tempEl.textContent = `${Math.round(tempVal)}°${units === 'metric' ? 'C' : 'F'}`;
+    tempEl.textContent = `${Math.round(tempVal)}\u00B0${units === 'metric' ? 'C' : 'F'}`;
     iconEl.textContent = getWeatherEmoji(weather.weathercode);
-    descEl.textContent = getWeatherDescription(weather.weathercode);
+    const descriptionKey = getWeatherDescriptionKey(weather.weathercode);
+    descEl.textContent = t(api, descriptionKey, 'Cloudy');
     await setWidgetCache(api, cacheKey, {
       tempText: tempEl.textContent,
       iconText: iconEl.textContent,
-      description: descEl.textContent
+      description: descEl.textContent,
+      descriptionKey
     }, WEATHER_CACHE_TTL_MS);
   } catch (e) {
     console.error('Weather widget error:', e);
-    tempEl.textContent = 'Offline';
-    descEl.textContent = 'Network error';
+    tempEl.textContent = t(api, 'weatherOfflineShort', 'Offline');
+    descEl.textContent = t(api, 'weatherNetworkError', 'Network error');
   }
 }
 
 function getWeatherEmoji(code) {
-  if (code === 0) return '☀️';
-  if ([1, 2, 3].includes(code)) return '🌤️';
-  if ([45, 48].includes(code)) return '🌫️';
-  if ([51, 53, 55, 56, 57].includes(code)) return '🌧️';
-  if ([61, 63, 65, 66, 67].includes(code)) return '🌧️';
-  if ([71, 73, 75, 77].includes(code)) return '❄️';
-  if ([80, 81, 82].includes(code)) return '🌦️';
-  if ([85, 86].includes(code)) return '🌨️';
-  if (code >= 95) return '⛈️';
-  return '🌤️';
+  if (code === 0) return '\u2600\uFE0F';
+  if ([1, 2, 3].includes(code)) return '\uD83C\uDF24\uFE0F';
+  if ([45, 48].includes(code)) return '\uD83C\uDF2B\uFE0F';
+  if ([51, 53, 55, 56, 57].includes(code)) return '\uD83C\uDF27\uFE0F';
+  if ([61, 63, 65, 66, 67].includes(code)) return '\uD83C\uDF27\uFE0F';
+  if ([71, 73, 75, 77].includes(code)) return '\u2744\uFE0F';
+  if ([80, 81, 82].includes(code)) return '\uD83C\uDF26\uFE0F';
+  if ([85, 86].includes(code)) return '\uD83C\uDF28\uFE0F';
+  if (code >= 95) return '\u26C8\uFE0F';
+  return '\uD83C\uDF24\uFE0F';
 }
 
-function getWeatherDescription(code) {
-  if (code === 0) return 'Clear sky';
-  if ([1, 2, 3].includes(code)) return 'Partly cloudy';
-  if ([45, 48].includes(code)) return 'Foggy';
-  if ([51, 53, 55].includes(code)) return 'Drizzle';
-  if ([61, 63, 65].includes(code)) return 'Rain';
-  if ([71, 73, 75].includes(code)) return 'Snow';
-  if ([80, 81, 82].includes(code)) return 'Showers';
-  if (code >= 95) return 'Thunderstorm';
-  return 'Cloudy';
+function getWeatherDescriptionKey(code) {
+  if (code === 0) return 'weatherClearSky';
+  if ([1, 2, 3].includes(code)) return 'weatherPartlyCloudy';
+  if ([45, 48].includes(code)) return 'weatherFoggy';
+  if ([51, 53, 55].includes(code)) return 'weatherDrizzle';
+  if ([61, 63, 65].includes(code)) return 'weatherRain';
+  if ([71, 73, 75].includes(code)) return 'weatherSnow';
+  if ([80, 81, 82].includes(code)) return 'weatherShowers';
+  if (code >= 95) return 'weatherThunderstorm';
+  return 'weatherCloudy';
+}
+
+function svgFromMarkup(markup) {
+  const doc = new DOMParser().parseFromString(markup, 'image/svg+xml');
+  return doc.documentElement;
 }
 
 // 3. Sports Widget (live scores from ESPN keyless endpoint with tabs and pager)
 
 async function renderSportsWidgetV2(container, config, api, settings, style) {
   container.classList.add('widget-sports-card');
-
-  const header = el('div', { class: 'widget-header' }, [
-    el('div', { class: 'widget-title-container' }, [
-      el('h4', { class: 'widget-title', text: t(api, 'sportsWidget') || 'Sports' })
-    ])
-  ]);
-  const contentContainer = el('div', { class: 'widget-sports-match' });
-  const footerContainer = el('div', { class: 'widget-sports-footer' });
-
-  container.append(header);
 
   const league = config.league || 'soccer-esp-1';
 
@@ -404,11 +422,11 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
 
   function getMatchStatus(match) {
     const state = match?.status?.type?.state;
-    if (state === 'post') return match?.status?.type?.shortDetail || match?.status?.type?.detail || 'Final';
-    if (state === 'in') return match?.status?.type?.shortDetail || match?.status?.type?.detail || 'Live';
+    if (state === 'post') return match?.status?.type?.shortDetail || match?.status?.type?.detail || t(api, 'sportsFinal', 'Final');
+    if (state === 'in') return match?.status?.type?.shortDetail || match?.status?.type?.detail || t(api, 'sportsLive', 'Live');
     const time = formatMatchTime(match);
     const date = formatMatchDate(match);
-    return time && date ? `${time} · ${date}` : (match?.status?.type?.detail || 'Scheduled');
+    return time && date ? `${time} · ${date}` : (match?.status?.type?.detail || t(api, 'sportsScheduled', 'Scheduled'));
   }
 
   function favoriteMatchesEvent(event) {
@@ -430,6 +448,44 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
     });
   }
 
+  const refreshBtn = el('button', {
+    type: 'button',
+    class: 'sports-refresh-btn',
+    title: t(api, 'refresh') || 'Refresh'
+  });
+  const refreshSvg = svgFromMarkup(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+    <path d="M23 4v6h-6"></path>
+    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+  </svg>`);
+  refreshBtn.appendChild(refreshSvg);
+
+  refreshBtn.addEventListener('click', async () => {
+    refreshBtn.classList.add('spinning');
+    try {
+      const key1 = `widgetCache:sports:${league}:${getDateRange(-2, 0)}`;
+      const key2 = `widgetCache:sports:${league}:${getDateRange(0, 2)}`;
+      await api.storage.local.remove([key1, key2]);
+      container.innerHTML = '';
+      await renderSportsWidgetV2(container, config, api, settings, style);
+    } catch (e) {
+      console.error('Failed to refresh sports widget:', e);
+    } finally {
+      refreshBtn.classList.remove('spinning');
+    }
+  });
+
+  const header = el('div', { class: 'widget-header' }, [
+    el('div', { class: 'widget-title-container' }, [
+      el('h4', { class: 'widget-title', text: t(api, 'sportsWidget') || 'Sports' })
+    ]),
+    refreshBtn
+  ]);
+
+  const contentContainer = el('div', { class: 'widget-sports-match' });
+  const footerContainer = el('div', { class: 'widget-sports-footer' });
+
+  container.append(header);
+
   try {
     const [recentRawEvents, upcomingRawEvents] = await Promise.all([
       fetchScoreboardEvents(getDateRange(-2, 0)),
@@ -439,15 +495,16 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
 
     const results = uniqueEvents(recentRawEvents)
       .filter(favoriteMatchesEvent)
-      .filter(event => ['post', 'in'].includes(event.status?.type?.state));
+      .filter(event => ['post', 'in'].includes(event.status?.type?.state))
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
     const upcoming = uniqueEvents(upcomingRawEvents)
       .filter(favoriteMatchesEvent)
       .filter(event => event.status?.type?.state === 'pre');
 
     if (events.length === 0) {
       const emptyMsg = config.mode === 'teams'
-        ? (t(api, 'sportsNoFavorites') || 'No games involving favorite teams.')
-        : (t(api, 'sportsNoMatches') || 'No matches found');
+        ? t(api, 'sportsNoFavorites', 'No games involving favorite teams.')
+        : t(api, 'sportsNoMatches', 'No matches found');
       contentContainer.appendChild(el('div', { class: 'widget-sports-empty', text: emptyMsg }));
       container.append(contentContainer);
       return;
@@ -468,18 +525,18 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
     const resultTab = el('button', {
       type: 'button',
       class: `widget-sports-tab ${activeTab === 'results' ? 'active' : ''}`,
-      text: t(api, 'sportsTabResults') || 'Results'
+      text: t(api, 'sportsTabResults', 'Results')
     });
     const upcomingTab = el('button', {
       type: 'button',
       class: `widget-sports-tab ${activeTab === 'upcoming' ? 'active' : ''}`,
-      text: t(api, 'sportsTabUpcoming') || 'Upcoming'
+      text: t(api, 'sportsTabUpcoming', 'Upcoming')
     });
     const tabsWrapper = el('div', { class: 'widget-sports-tabs' }, [resultTab, upcomingTab]);
 
-    const prevBtn = el('button', { type: 'button', class: 'sports-pager-btn', text: '‹' });
+    const prevBtn = el('button', { type: 'button', class: 'sports-pager-btn', text: '\u2039' });
     const pageIndicator = el('span', { class: 'widget-sports-page-indicator', text: '1/1' });
-    const nextBtn = el('button', { type: 'button', class: 'sports-pager-btn', text: '›' });
+    const nextBtn = el('button', { type: 'button', class: 'sports-pager-btn', text: '\u203A' });
     const statusText = el('span', { class: 'widget-sports-status', text: '' });
     const pagerWrapper = el('div', { class: 'widget-sports-pager' }, [prevBtn, pageIndicator, nextBtn]);
     footerContainer.append(statusText, pagerWrapper);
@@ -504,8 +561,8 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
 
       if (list.length === 0) {
         const emptyMsg = activeTab === 'results'
-          ? (t(api, 'sportsNoMatches') || 'No recent results')
-          : (t(api, 'sportsNoMatches') || 'No scheduled matches');
+          ? t(api, 'sportsNoRecentResults', 'No recent results')
+          : t(api, 'sportsNoScheduledMatches', 'No scheduled matches');
         contentContainer.appendChild(el('div', { class: 'widget-sports-empty', text: emptyMsg }));
         pageIndicator.textContent = '0/0';
         prevBtn.disabled = true;
@@ -521,6 +578,11 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
       const dateText = isUpcoming ? formatMatchDate(match) : '';
       const scoreClass = isUpcoming ? 'widget-sports-kickoff' : 'widget-sports-score';
 
+      const qA = teamA?.team?.displayName || teamA?.team?.shortDisplayName || teamA?.team?.abbreviation || '';
+      const qB = teamB?.team?.displayName || teamB?.team?.shortDisplayName || teamB?.team?.abbreviation || '';
+      const searchQuery = encodeURIComponent(`${qA} vs ${qB}`);
+      const googleUrl = `https://www.google.com/search?q=${searchQuery}`;
+
       contentContainer.appendChild(el('div', { class: 'widget-sports-featured-match' }, [
         el('div', { class: 'widget-sports-featured-team' }, [
           getTeamLogo(teamA),
@@ -529,7 +591,13 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
             text: teamA.team.abbreviation || teamA.team.shortDisplayName || teamA.team.displayName
           })
         ]),
-        el('div', { class: 'widget-sports-featured-center' }, [
+        el('a', {
+          class: 'widget-sports-featured-center',
+          href: googleUrl,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          title: t(api, 'sportsSearchMatchTitle', [`${qA} vs ${qB}`], 'Search $1 on Google')
+        }, [
           el('span', { class: scoreClass, text: scoreText || 'VS' }),
           dateText ? el('span', { class: 'widget-sports-date', text: dateText }) : null
         ]),
@@ -559,7 +627,7 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
     });
 
     nextBtn.addEventListener('click', () => {
-          if (activeTab === 'results' && resultsIndex < results.length - 1) {
+      if (activeTab === 'results' && resultsIndex < results.length - 1) {
         resultsIndex++;
         renderMatch();
       } else if (activeTab === 'upcoming' && upcomingIndex < upcoming.length - 1) {
@@ -572,16 +640,15 @@ async function renderSportsWidgetV2(container, config, api, settings, style) {
     renderMatch();
   } catch (e) {
     console.error('Sports widget error:', e);
-    contentContainer.appendChild(el('div', { class: 'widget-sports-empty', text: 'Error loading scores' }));
+    contentContainer.appendChild(el('div', { class: 'widget-sports-empty', text: t(api, 'sportsErrorLoadingScores', 'Error loading scores') }));
     container.append(contentContainer);
   }
 }
 
-async function renderNotesWidget(container, config, api, settings, style) {
-  const isEs = settings.language === 'es';
-  const savedStr = isEs ? 'Guardado' : 'Saved';
-  const savingStr = isEs ? 'Guardando...' : 'Saving...';
-  const placeholderStr = isEs ? 'Escribe tus notas aquí...' : 'Type your notes here...';
+async function renderNotesWidget(container, config, api, settings, style, generation) {
+  const savedStr = t(api, 'notesSaved', 'Saved');
+  const savingStr = t(api, 'notesSaving', 'Saving...');
+  const placeholderStr = t(api, 'notesPlaceholder', 'Type your notes here...');
 
   const saveStatusEl = el('span', { class: 'widget-save-status', text: savedStr });
   
@@ -594,6 +661,7 @@ async function renderNotesWidget(container, config, api, settings, style) {
 
   const storageKey = 'widgetNotes';
   const data = await api.storage.local.get(storageKey);
+  if (generation !== widgetGeneration) return;
   const initialText = data[storageKey] || '';
 
   const textarea = el('textarea', {
@@ -601,27 +669,53 @@ async function renderNotesWidget(container, config, api, settings, style) {
     placeholder: placeholderStr,
     text: initialText
   });
+  textarea.value = initialText;
 
-  let debounceTimer;
-  textarea.addEventListener('input', () => {
+  let localRevision = 0;
+  let savedRevision = 0;
+  textarea.addEventListener('input', async () => {
+    const revision = ++localRevision;
     saveStatusEl.textContent = savingStr;
     saveStatusEl.classList.add('saving');
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(async () => {
-      await api.storage.local.set({ [storageKey]: textarea.value });
-      saveStatusEl.textContent = savedStr;
+    try {
+      await saveNotesImmediately(api, textarea.value);
+      if (revision === localRevision) {
+        savedRevision = revision;
+        saveStatusEl.textContent = savedStr;
+        saveStatusEl.classList.remove('saving');
+      }
+    } catch (error) {
+      console.warn('Widget notes write failed:', error);
+      saveStatusEl.textContent = 'Save failed';
       saveStatusEl.classList.remove('saving');
-    }, 800);
+    }
   });
+
+  const onNotesStorageChanged = (changes, areaName) => {
+    if (areaName !== 'local' || !changes[storageKey] || document.activeElement === textarea || localRevision !== savedRevision) return;
+    textarea.value = changes[storageKey].newValue || '';
+  };
+  if (generation !== widgetGeneration) return;
+  if (api.storage.onChanged?.addListener) {
+    api.storage.onChanged.addListener(onNotesStorageChanged);
+    widgetStorageCleanup.push(() => api.storage.onChanged.removeListener?.(onNotesStorageChanged));
+  }
+  const refreshNotes = async () => {
+    const revision = localRevision;
+    const latest = await api.storage.local.get(storageKey);
+    if (revision !== localRevision || localRevision !== savedRevision) return;
+    textarea.value = latest[storageKey] || '';
+  };
+  textarea.addEventListener('focus', refreshNotes);
+  textarea.addEventListener('blur', refreshNotes);
 
   container.append(header, textarea);
 }
 
 // 5. Checklist Widget
-async function renderChecklistWidget(container, config, api, settings, style) {
-  const isEs = settings.language === 'es';
-  const placeholderStr = isEs ? 'Añadir nueva tarea...' : 'Add new task...';
-  const emptyStr = isEs ? '¡No hay tareas pendientes!' : 'No pending tasks!';
+async function renderChecklistWidget(container, config, api, settings, style, generation) {
+  const placeholderStr = t(api, 'checklistPlaceholder', 'Add new task...');
+  const emptyStr = t(api, 'checklistEmpty', 'No pending tasks!');
 
   const titleStr = t(api, 'checklistWidget') || 'Checklist';
   const header = el('div', { class: 'widget-header widget-checklist-header' });
@@ -646,14 +740,10 @@ async function renderChecklistWidget(container, config, api, settings, style) {
   header.append(titleContainer, addBtn);
 
   const storageKey = 'widgetChecklist';
-  const data = await api.storage.local.get(storageKey);
-  let items = data[storageKey] || [];
+  let items = await loadChecklist(api);
+  if (generation !== widgetGeneration) return;
 
   const listContainer = el('div', { class: 'widget-checklist-list' });
-
-  async function saveItems() {
-    await api.storage.local.set({ [storageKey]: items });
-  }
 
   function openAddTask() {
     titleEl.hidden = true;
@@ -676,15 +766,23 @@ async function renderChecklistWidget(container, config, api, settings, style) {
       return;
     }
 
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       const itemRow = el('div', { class: `widget-checklist-item ${item.checked ? 'checked' : ''}` });
       const label = el('label', { class: 'widget-checklist-label' });
       const checkbox = el('input', { type: 'checkbox', checked: item.checked });
       
       checkbox.addEventListener('change', async () => {
-        items[index].checked = checkbox.checked;
+        const previousChecked = item.checked;
+        item.checked = checkbox.checked;
         itemRow.classList.toggle('checked', checkbox.checked);
-        await saveItems();
+        try {
+          await updateChecklistItem(api, item.id, { checked: checkbox.checked });
+        } catch (error) {
+          item.checked = previousChecked;
+          checkbox.checked = previousChecked;
+          itemRow.classList.toggle('checked', previousChecked);
+          console.warn('Checklist update failed:', error);
+        }
       });
 
       label.append(checkbox, el('span', { text: item.text }));
@@ -692,14 +790,16 @@ async function renderChecklistWidget(container, config, api, settings, style) {
       const delBtn = el('button', {
         type: 'button',
         class: 'widget-checklist-delete',
-        text: '×',
-        title: 'Delete'
+        text: '\u00D7',
+        title: t(api, 'deleteTask', 'Delete task')
       });
 
       delBtn.addEventListener('click', async () => {
-        items.splice(index, 1);
-        await saveItems();
-        renderList();
+        try {
+          await deleteChecklistItem(api, item.id);
+          items = items.filter((candidate) => candidate.id !== item.id);
+          renderList();
+        } catch (error) { console.warn('Checklist delete failed:', error); }
       });
 
       itemRow.append(label, delBtn);
@@ -715,13 +815,31 @@ async function renderChecklistWidget(container, config, api, settings, style) {
       return;
     }
 
-    items.push({ text: val, checked: false });
-    await saveItems();
-    renderList();
-    closeAddTask();
+    try {
+      const item = await addChecklistItem(api, val);
+      items = await loadChecklist(api);
+      if (!items.some((candidate) => candidate.id === item.id)) items.push(item);
+      renderList();
+      closeAddTask();
+    } catch (error) {
+      console.warn('Checklist write failed:', error);
+    }
   });
 
   addBtn.addEventListener('click', openAddTask);
+
+  const onChecklistStorageChanged = async (changes, areaName) => {
+    if (generation !== widgetGeneration) return;
+    if (areaName !== 'local' || !changes.widgetChecklist) return;
+    try {
+      items = await loadChecklist(api);
+      renderList();
+    } catch (error) { console.warn('Checklist sync failed:', error); }
+  };
+  if (api.storage.onChanged?.addListener) {
+    api.storage.onChanged.addListener(onChecklistStorageChanged);
+    widgetStorageCleanup.push(() => api.storage.onChanged.removeListener?.(onChecklistStorageChanged));
+  }
 
   inputEl.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {

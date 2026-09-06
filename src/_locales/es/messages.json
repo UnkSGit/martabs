@@ -111,6 +111,12 @@
   "changeView": {
     "message": "Cambiar vista"
   },
+  "checklistEmpty": {
+    "message": "No hay tareas pendientes."
+  },
+  "checklistPlaceholder": {
+    "message": "Añadir nueva tarea..."
+  },
   "checklistWidget": {
     "message": "Lista de tareas"
   },
@@ -139,6 +145,15 @@
   },
   "clearPreviewsSuccess": {
     "message": "Vistas previas en caché eliminadas."
+  },
+  "clockFormat12": {
+    "message": "12 horas (AM/PM)"
+  },
+  "clockFormat24": {
+    "message": "24 horas"
+  },
+  "clockFormatLocale": {
+    "message": "Sistema (12h/24h)"
   },
   "clockWidget": {
     "message": "Reloj"
@@ -258,6 +273,9 @@
         "content": "$1"
       }
     }
+  },
+  "deleteTask": {
+    "message": "Eliminar tarea"
   },
   "domainNone": {
     "message": "Sin dominio"
@@ -709,6 +727,15 @@
   "none": {
     "message": "Ninguno"
   },
+  "notesPlaceholder": {
+    "message": "Escribe tus notas aquí..."
+  },
+  "notesSaved": {
+    "message": "Guardado"
+  },
+  "notesSaving": {
+    "message": "Guardando..."
+  },
   "notesWidget": {
     "message": "Notas rápidas"
   },
@@ -766,14 +793,23 @@
   "productivityFeaturesHeading": {
     "message": "Herramientas y capturas"
   },
+  "rateExtensionBtn": {
+    "message": "Dejar una reseña"
+  },
+  "rateExtensionDesc": {
+    "message": "Si martabs te ayuda en tu día a día, ¡califícanos en la Web Store!"
+  },
+  "rateExtensionTitle": {
+    "message": "Apoya el proyecto"
+  },
   "releaseCelebrationAriaLabel": {
-    "message": "Celebración de martabs v1.0"
+    "message": "Celebración de martabs v1.0.0"
   },
   "releaseCelebrationSubtitle": {
-    "message": "Primer lanzamiento estable"
+    "message": "15/06/2026 - Primer lanzamiento estable"
   },
   "releaseCelebrationTitle": {
-    "message": "martabs v1.0"
+    "message": "martabs v1.0.0"
   },
   "removeFolder": {
     "message": "Quitar carpeta"
@@ -1056,23 +1092,91 @@
   "sortTitleAsc": {
     "message": "Título A-Z"
   },
-  "sportsFavorites": {
-    "message": "Equipos favoritos (separados por comas)"
+  "sportsErrorLoadingScores": {
+    "message": "Error al cargar resultados"
+  },
+  "sportsFinal": {
+    "message": "Final"
   },
   "sportsLeague": {
     "message": "Liga"
   },
-  "sportsMode": {
-    "message": "Modo de visualización"
+  "sportsLeagueArgentinePrimera": {
+    "message": "Primera División argentina"
   },
-  "sportsNoFavorites": {
-    "message": "No hay partidos para tus equipos favoritos."
+  "sportsLeagueBrazilianSerieA": {
+    "message": "Série A brasileña"
+  },
+  "sportsLeagueConmebolLibertadores": {
+    "message": "Copa Libertadores"
+  },
+  "sportsLeagueCopaAmerica": {
+    "message": "Copa América"
+  },
+  "sportsLeagueEnglishPremier": {
+    "message": "Premier League inglesa"
+  },
+  "sportsLeagueFifaWorldCup": {
+    "message": "Copa Mundial FIFA"
+  },
+  "sportsLeagueFrenchLigue1": {
+    "message": "Ligue 1 francesa"
+  },
+  "sportsLeagueGermanBundesliga": {
+    "message": "Bundesliga alemana"
+  },
+  "sportsLeagueItalianSerieA": {
+    "message": "Serie A italiana"
+  },
+  "sportsLeagueMexicanLigaMX": {
+    "message": "Liga MX mexicana"
+  },
+  "sportsLeagueNba": {
+    "message": "NBA"
+  },
+  "sportsLeagueNfl": {
+    "message": "NFL"
+  },
+  "sportsLeaguePortuguesePrimeira": {
+    "message": "Primeira Liga portuguesa"
+  },
+  "sportsLeagueSpanishLaLiga": {
+    "message": "LaLiga española"
+  },
+  "sportsLeagueUefaChampions": {
+    "message": "UEFA Champions League"
+  },
+  "sportsLeagueUefaEuro": {
+    "message": "UEFA Euro"
+  },
+  "sportsLeagueUsaMls": {
+    "message": "MLS de EE. UU."
+  },
+  "sportsLive": {
+    "message": "En vivo"
   },
   "sportsNoLive": {
     "message": "No hay partidos en vivo"
   },
   "sportsNoMatches": {
     "message": "No hay partidos"
+  },
+  "sportsNoRecentResults": {
+    "message": "No hay resultados recientes"
+  },
+  "sportsNoScheduledMatches": {
+    "message": "No hay partidos programados"
+  },
+  "sportsScheduled": {
+    "message": "Programado"
+  },
+  "sportsSearchMatchTitle": {
+    "message": "Buscar $MATCH$ en Google",
+    "placeholders": {
+      "match": {
+        "content": "$1"
+      }
+    }
   },
   "sportsTabLive": {
     "message": "Ahora"
@@ -1082,12 +1186,6 @@
   },
   "sportsTabUpcoming": {
     "message": "Próximos"
-  },
-  "sportsTeam": {
-    "message": "Equipo"
-  },
-  "sportsVerifiedFavorites": {
-    "message": "Equipos verificados:"
   },
   "sportsWidget": {
     "message": "Deportes"
@@ -1173,9 +1271,6 @@
   "verifyLocationBtn": {
     "message": "Verificar"
   },
-  "verifyTeamBtn": {
-    "message": "Agregar"
-  },
   "visitsCountPlural": {
     "message": "$COUNT$ visitas",
     "placeholders": {
@@ -1252,14 +1347,108 @@
   "wallpaperTypeNone": {
     "message": "Sin fondo"
   },
+  "weatherClearSky": {
+    "message": "Cielo despejado"
+  },
+  "weatherCloudy": {
+    "message": "Nublado"
+  },
+  "weatherConfigureQuery": {
+    "message": "Configura la ubicación"
+  },
+  "weatherDrizzle": {
+    "message": "Llovizna"
+  },
+  "weatherErrorShort": {
+    "message": "Error"
+  },
+  "weatherFoggy": {
+    "message": "Niebla"
+  },
+  "weatherLoadFailed": {
+    "message": "No se pudo cargar el clima"
+  },
+  "weatherLocationErrorShort": {
+    "message": "Ubic."
+  },
   "weatherLocationLabel": {
     "message": "Etiqueta de ubicación (ej: Madrid)"
+  },
+  "weatherLocationNotFound": {
+    "message": "Ubicación no encontrada"
   },
   "weatherLocationQuery": {
     "message": "Búsqueda de ubicación (ej: Madrid, España)"
   },
+  "weatherNetworkError": {
+    "message": "Error de red"
+  },
+  "weatherNoLocationShort": {
+    "message": "Sin ubic."
+  },
+  "weatherNoResultsFound": {
+    "message": "No se encontraron resultados"
+  },
+  "weatherOfflineShort": {
+    "message": "Offline"
+  },
+  "weatherPartlyCloudy": {
+    "message": "Parcialmente nublado"
+  },
+  "weatherRain": {
+    "message": "Lluvia"
+  },
+  "weatherSaveNeedsVerification": {
+    "message": "Verifica la ubicación del clima antes de guardar."
+  },
+  "weatherShowers": {
+    "message": "Chaparrones"
+  },
+  "weatherSnow": {
+    "message": "Nieve"
+  },
+  "weatherStatusChecking": {
+    "message": "Verificando ubicación..."
+  },
+  "weatherStatusConnectionError": {
+    "message": "Error de conexión"
+  },
+  "weatherStatusEnterLocation": {
+    "message": "Escribe una ubicación"
+  },
+  "weatherStatusNotFound": {
+    "message": "Error - Ubicación no encontrada"
+  },
+  "weatherStatusPending": {
+    "message": "Pendiente de verificación"
+  },
+  "weatherStatusSelected": {
+    "message": "OK - Ubicación seleccionada: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherStatusVerified": {
+    "message": "OK - Ubicación verificada: $LOCATION$",
+    "placeholders": {
+      "location": {
+        "content": "$1"
+      }
+    }
+  },
+  "weatherThunderstorm": {
+    "message": "Tormenta"
+  },
   "weatherUnits": {
     "message": "Unidad de temperatura"
+  },
+  "weatherUnitsImperial": {
+    "message": "Fahrenheit (F)"
+  },
+  "weatherUnitsMetric": {
+    "message": "Celsius (C)"
   },
   "weatherWidget": {
     "message": "Clima"

@@ -25,12 +25,12 @@
   </head>
   <body>
     <h1>martabs Privacy Policy</h1>
-    <p><strong>Effective date:</strong> May 31, 2026</p>
+    <p><strong>Effective date:</strong> September 6, 2026</p>
 
     <p>martabs is a browser extension that replaces the new tab page with a local bookmark dashboard. This policy explains what data the extension uses and how it is handled.</p>
 
     <h2>Summary</h2>
-    <p>martabs is local-first. It does not use telemetry, analytics, tracking pixels, remote databases, external preview services, external favicon services, or third-party metadata services.</p>
+    <p>martabs is local-first. It does not use telemetry, analytics, tracking pixels, remote databases, or external preview services. Optional Weather and Sports widgets contact their public data providers only when you enable them.</p>
 
     <h2>Data handled by the extension</h2>
     <p>martabs may access and store the following data locally in your browser:</p>
@@ -44,7 +44,7 @@
     </ul>
 
     <h2>Storage</h2>
-    <p>All extension data is stored locally using the browser extension storage APIs. martabs does not send this data to the developer or to any external server.</p>
+    <p>Extension data is stored locally using the browser extension storage APIs and IndexedDB, including uploaded wallpaper blobs. martabs does not send bookmark content, tags or bookmark organization data to the developer. Optional widgets and other user-started network features can send the specific data described below to their destination services.</p>
 
     <h2>Permissions</h2>
     <ul>
@@ -52,14 +52,15 @@
       <li><strong>storage:</strong> required to save local settings, tags, ordering, pinned bookmarks, cached previews and link review state.</li>
       <li><strong>favicon:</strong> used only on Chrome to display browser-provided favicons.</li>
       <li><strong>Optional topSites permission:</strong> requested dynamically only if the user enables the "Frequent Sites" folder, used to fetch and display the user's most frequently visited pages.</li>
-      <li><strong>Optional host permissions:</strong> requested only when the user enables link review or local preview capture. These permissions are used to check links or capture previews, and martabs attempts to remove them when both optional features are disabled.</li>
+      <li><strong>Optional host permissions:</strong> requested for link review, local preview capture, or the optional Weather and Sports widgets. Widget requests use Open-Meteo and ESPN hosts. Link review and preview capture share broad URL permissions, which martabs attempts to remove when both features are disabled.</li>
     </ul>
 
     <h2>Network activity</h2>
-    <p>martabs does not call external APIs. If link review is enabled and started by the user, martabs may make direct requests to the bookmarked URLs to determine whether they are reachable. If local preview capture is enabled, martabs may capture a page opened from martabs after it loads in the browser.</p>
+    <p>Feature-specific network activity is limited to features you enable or start, with the favicon requests described below occurring while bookmarks are displayed. The Weather widget sends the configured city query to Open-Meteo's geocoding service and then requests weather for the latitude and longitude returned by that service. The Sports widget requests the selected league's scores from ESPN. Team logo images shown by the Sports widget are loaded from URLs supplied in ESPN responses. When local statistics are displayed, domain icon images may be loaded from <code>s2.googleusercontent.com</code> using domains from local visit statistics. These providers may receive normal network metadata such as your IP address, user agent and request time. martabs does not send bookmarks, tags or bookmark organization data to widget providers.</p>
+    <p>In Firefox, the default favicon fallback requests <code>/favicon.ico</code> from the origin of each bookmark URL while bookmarks are displayed. Custom favicon URLs are loaded only when configured by the user. If link review is enabled and started by the user, martabs may make direct requests to the bookmarked URLs to determine whether they are reachable. If local preview capture is enabled, martabs may capture a page opened from martabs after it loads in the browser.</p>
 
     <h2>Data sharing</h2>
-    <p>martabs does not sell, rent, transfer or share user data.</p>
+    <p>martabs does not sell or rent user data. External requests, including favicon requests while displaying bookmarks, are described in the Network activity section.</p>
 
     <h2>Data deletion</h2>
     <p>You can remove local extension data by uninstalling the extension or clearing extension data from the browser. martabs also includes settings actions to clear cached previews and reset local organization data.</p>
